@@ -35,7 +35,7 @@ public class HasilTesModel implements Serializable {
     private JawabanModel chosenAnswer;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "hasilTes_id", referencedColumnName= "idCalon", nullable = false)
+    @JoinColumn(name = "calonPengajar", referencedColumnName= "idCalon", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CalonPengajarModel calonPengajar;
 }

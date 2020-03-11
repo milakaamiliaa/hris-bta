@@ -32,7 +32,7 @@ public class CabangModel implements Serializable {
     private Long jumlahSiswa;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cabang_id", referencedColumnName = "idPegawai", nullable = false)
-    private PegawaiModel stafCabang;
-    /*Apakah menurut kalian refer ke pegawai atau ke user?*/
+    @JoinColumn(name = "stafCabang", referencedColumnName = "idUser", nullable = false)
+    private UserModel stafCabang;
+
 }

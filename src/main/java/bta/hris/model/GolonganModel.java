@@ -24,7 +24,7 @@ public class GolonganModel implements Serializable {
     @Column(name = "pajak",nullable = false)
     private Float pajak;
 
-    @OneToMany(mappedBy = "golongan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PegawaiModel> listPegawai;
+    @OneToMany(mappedBy = "golongan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<UserModel> listPegawai;
 
 }

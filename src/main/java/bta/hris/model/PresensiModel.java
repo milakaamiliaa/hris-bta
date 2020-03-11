@@ -34,13 +34,13 @@ public class PresensiModel implements Serializable {
     private Long uangKonsum;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "presensiCabang", referencedColumnName= "idCabang", nullable = false)
+    @JoinColumn(name = "cabang", referencedColumnName= "idCabang", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CabangModel cabang;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "presensiPegawai", referencedColumnName= "idPegawai", nullable = false)
+    @JoinColumn(name = "pengaju", referencedColumnName= "idUser", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private PegawaiModel pegawai;
+    private UserModel pegawai;
 
 }
