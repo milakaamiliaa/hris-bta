@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3> Pengajuan Pengadaan Fasilitas </h3><br>
+<div>
+    <form th:action="@{/fasilitas/pengadaan/tambah}" th:object="${cabang}" method="POST">
+        Nama Cabang: <br>
+        <input type="text" name="nama"/>
+        <br>
+        Nomor Telepon: <br>
+        <input type="text" name="noTelp"/>
+        <br>
+        Alamat: <br>
+        <input type="text" name="alamat"/>
+        <br>
+        Email: <br>
+        <input type="text" name="email"/>
+        <br>
+        Jumlah Siswa: <br>
+        <input type="text" name="jumlahSiswa"/>
+        <br>
+        <button type="submit" class="buttonLogin">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -24,4 +24,9 @@ public class CabangServiceImpl implements CabangService{
     public Optional<CabangModel> getCabangByIdCabang(Long idCabang){
         return cabangDb.findByIdCabang(idCabang);
     }
+
+    @Override
+    public void createCabang(CabangModel cabang){
+        cabangDb.save(cabang);
+    }
 }

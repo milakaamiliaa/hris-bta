@@ -5,10 +5,7 @@ import bta.hris.service.CabangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +22,6 @@ public class CabangController {
         return "daftar-cabang";
     }
 
-
     @RequestMapping(value = "/cabang/detail/{idCabang}", method = RequestMethod.GET)
     public String detailCabang(
             @PathVariable Long idCabang, Model model
@@ -34,5 +30,19 @@ public class CabangController {
         model.addAttribute("cabang", cabang);
 
         return "detail-cabang";
+    }
+
+    @RequestMapping(value = "/cabang/tambah", method = RequestMethod.GET)
+    public String createCabangForm(Model model){
+        CabangModel newCabang = new CabangModel();
+        model.addAttribute("restoran", newCabang);
+        return "form-create-cabang";
+    }
+
+    @RequestMapping(value = "/fasilitas/pengadaan/tambah", method = RequestMethod.POST)
+    public String createCabangSubmit(@ModelAttribute CabangModel cabang, Model model){
+        cabangService.createCabang(cabang);
+        model.addAttribute("namaCabang", cabang.getNama());
+        return "create-cabang";
     }
 }
