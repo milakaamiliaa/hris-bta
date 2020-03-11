@@ -1,5 +1,7 @@
 package bta.hris.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -28,12 +30,16 @@ public class GajiModel implements Serializable {
     private Long total;
 
     @NotNull
-    @Column(name = "golongan", nullable = false)
-    private GolonganModel golongan;
-    /*Apakah kita simpan objeknya atau rate & pajaknya saja?*/
+    @Column(name = "rateGaji", nullable = false)
+    private Long rateGaji;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gaji_id", referencedColumnName = "idPegawai", nullable = false)
-    private PegawaiModel pegawai;
+    @NotNull
+    @Column(name = "pajakGaji", nullable = false)
+    private Float pajakGaji;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "pegawai", referencedColumnName= "idUser", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private UserModel pegawai;
 
 }

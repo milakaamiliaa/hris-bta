@@ -27,7 +27,7 @@ public class SoalModel implements Serializable {
     private boolean isActive;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "soal_id", referencedColumnName= "idPaket", nullable = false)
+    @JoinColumn(name = "paketSoal", referencedColumnName= "idPaket", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PaketSoalModel paketSoal;
 

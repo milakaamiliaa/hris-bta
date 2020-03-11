@@ -19,7 +19,7 @@ public class JawabanModel implements Serializable {
     private String jawaban;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "jawaban_id", referencedColumnName= "idSoal", nullable = false)
+    @JoinColumn(name = "soal", referencedColumnName= "idSoal", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SoalModel soal;
 
