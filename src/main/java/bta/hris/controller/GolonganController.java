@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -76,6 +77,16 @@ public class GolonganController {
         model.addAttribute("golongan", newGolonganData);
 
         return "edit-golongan";
+    }
+
+    // URL mapping untuk melihat semua golongan.
+    @RequestMapping(value="/golongan", method = RequestMethod.GET)
+    public String viewAllGolongan(Model model) {
+        List<GolonganModel> allGolongan = golonganService.getAllGolongan();
+
+        model.addAttribute("allGolongan", allGolongan);
+
+        return "view-all-golongan";
     }
 
 }
