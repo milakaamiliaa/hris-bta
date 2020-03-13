@@ -12,13 +12,17 @@
     <h3 th:text="'Email: ' + ${cabang.email}"></h3>
     <h3 th:text="'Alamat: ' + ${cabang.alamat}"></h3>
     <h3 th:text="'Jumlah Siswa: ' + ${cabang.jumlahSiswa}"></h3>
-
+<!--    <h3 th:text="'Staf Cabang: ' + ${stafCabang}"></h3>-->
+    <h3 th:text="'Staf Cabang: '"></h3>
+    <h3 th:if="${cabang.stafCabang == null}">-</h3>
+    <h3 th:unless="${cabang.stafCabang == null}" th:text="${cabang.getStafCabang().getNama()}"></h3>
     <br>
-<!--    <form th:action="@{/restoran/change/}+${resto.idRestoran}">-->
-<!--        <button class="btn btn-sm btn-primary">-->
-<!--            Change Data Restoran-->
-<!--        </button>-->
-<!--    </form>-->
+
+    <form th:action="@{/cabang/ubah/}+${cabang.idCabang}">
+        <button class="btn btn-sm btn-primary">
+            Ubah
+        </button>
+    </form>
 </div>
 </body>
 </html>

@@ -40,7 +40,7 @@ public class CabangServiceImpl implements CabangService{
             newCabang.setEmail(cabang.getEmail());
             newCabang.setNoTelp(cabang.getNoTelp());
             newCabang.setJumlahSiswa(cabang.getJumlahSiswa());
-            newCabang.setStafCabang(cabang.getStafCabang());
+//            newCabang.setStafCabang(cabang.getStafCabang());
             cabangDb.save(newCabang);
 
             return newCabang;

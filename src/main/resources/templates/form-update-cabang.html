@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeLeaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<h2> Update Cabang </h2>
+<form th:action="@{/cabang/ubah/}+${cabang.idCabang}" th:object="${cabang}" method="POST">
+<!--    <input type="hidden" th:field="${cabang.idCabang}"/>-->
+
+    Nama Cabang: <br>
+    <input type="text" name="nama" th:field="${cabang.nama}"/>
+    <br>
+    Nomor Telepon: <br>
+    <input type="text" name="noTelp" th:value="${cabang.noTelp}" pattern="[0-9]{1,}" title="Masukkan Angka"/>
+    <br>
+    Alamat: <br>
+    <input type="text" name="alamat" th:value="${cabang.alamat}"/>
+    <br>
+    Email: <br>
+    <input type="text" name="email" th:value="${cabang.email}"/>
+    <br>
+    Jumlah Siswa: <br>
+    <input type="text" name="jumlahSiswa" th:value="${cabang.jumlahSiswa}" pattern="[0-9]{1,}" title="Masukkan Angka"/>
+    <br>
+    Staf Cabang: <br>
+
+    <br><br>
+    <button type="submit"> Simpan </button>
+</form>
 </body>
 </html>

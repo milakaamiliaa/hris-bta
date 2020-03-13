@@ -35,7 +35,7 @@ public class CabangController {
     ) {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
         model.addAttribute("cabang", cabang);
-        model.addAttribute("stafCabang", cabang.getStafCabang().getNama());
+//        model.addAttribute("stafCabang", cabang.getStafCabang().getNama());
         return "detail-cabang";
     }
 
@@ -63,7 +63,7 @@ public class CabangController {
 //        UserModel user = userService.findByNama(authentication.getName());
 //        cabang.setStafCabang(user);
         cabangService.createCabang(cabang);
-        return "create-cabang";
+        return "redirect:/cabang/daftar";
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
@@ -78,6 +78,8 @@ public class CabangController {
     public String updateCabangFormSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
-        return "update-cabang";
+        return "redirect:/cabang/daftar";
     }
+
+    
 }

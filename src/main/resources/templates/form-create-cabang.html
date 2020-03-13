@@ -10,19 +10,19 @@
     <form th:action="@{/cabang/tambah}" method="POST">
 <!--        <input type="hidden" th:field="${user.idUser}"/>-->
         Nama Cabang: <br>
-        <input type="text" name="nama"/>
+        <input type="text" name="nama" required = "true" placeholder="Nama Cabang"/>
         <br>
         Nomor Telepon: <br>
-        <input type="text" name="noTelp"/>
+        <input type="text" name="noTelp" required = "true" placeholder="No. Telp" pattern="[0-9]{1,}" title="Masukkan Angka"/>
         <br>
         Alamat: <br>
-        <input type="text" name="alamat"/>
+        <input type="text" name="alamat" required = "true" placeholder="Alamat"/>
         <br>
         Email: <br>
-        <input type="text" name="email"/>
+        <input type="text" name="email" required = "true" placeholder="Email"/>
         <br>
         Jumlah Siswa: <br>
-        <input type="text" name="jumlahSiswa"/>
+        <input type="text" name="jumlahSiswa" required = "true" placeholder="Jumlah Siswa" pattern="[0-9]{1,}" title="Masukkan Angka"/>
         <br>
 <!--        Staf Cabang: <br>-->
 <!--        <tr th:each="cabang, iterationStatus : *{listCabang}">-->
