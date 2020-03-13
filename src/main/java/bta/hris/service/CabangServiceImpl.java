@@ -29,4 +29,24 @@ public class CabangServiceImpl implements CabangService{
     public void createCabang(CabangModel cabang){
         cabangDb.save(cabang);
     }
+
+    @Override
+    public CabangModel updateCabang(CabangModel cabang){
+        CabangModel newCabang = cabangDb.findByIdCabang(cabang.getIdCabang()).get();
+
+        try{
+            newCabang.setNama(cabang.getNama());
+            newCabang.setAlamat(cabang.getAlamat());
+            newCabang.setEmail(cabang.getEmail());
+            newCabang.setNoTelp(cabang.getNoTelp());
+            newCabang.setJumlahSiswa(cabang.getJumlahSiswa());
+            newCabang.setStafCabang(cabang.getStafCabang());
+            cabangDb.save(newCabang);
+
+            return newCabang;
+        }
+        catch (NullPointerException nullException){
+            return null;
+        }
+    }
 }

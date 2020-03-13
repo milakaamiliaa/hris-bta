@@ -7,7 +7,8 @@
 <body>
 <h3> Pengajuan Pengadaan Fasilitas </h3><br>
 <div>
-    <form th:action="@{/fasilitas/pengadaan/tambah}" th:object="${cabang}" method="POST">
+    <form th:action="@{/cabang/tambah}" method="POST">
+<!--        <input type="hidden" th:field="${user.idUser}"/>-->
         Nama Cabang: <br>
         <input type="text" name="nama"/>
         <br>
@@ -23,6 +24,12 @@
         Jumlah Siswa: <br>
         <input type="text" name="jumlahSiswa"/>
         <br>
+<!--        Staf Cabang: <br>-->
+<!--        <tr th:each="cabang, iterationStatus : *{listCabang}">-->
+<!--        <select th:each="stafCabang, iterationStatus : *{}" th:field="*{gender}">-->
+<!--            <option th:value="'M'" th:text="Male"></option>-->
+<!--            <option th:value="'F'" th:text="Female"></option>-->
+<!--        </select>-->
         <button type="submit" class="buttonLogin">Submit</button>
     </form>
 </div>
