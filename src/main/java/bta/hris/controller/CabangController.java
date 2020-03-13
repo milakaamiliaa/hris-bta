@@ -21,7 +21,7 @@ public class CabangController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/cabang/daftar")
+    @RequestMapping(value = "/cabang")
     public String daftarCabang(Model model){
         List<CabangModel> listCabang = cabangService.getCabangList();
         model.addAttribute("listCabang", listCabang);
@@ -63,7 +63,7 @@ public class CabangController {
 //        UserModel user = userService.findByNama(authentication.getName());
 //        cabang.setStafCabang(user);
         cabangService.createCabang(cabang);
-        return "redirect:/cabang/daftar";
+        return "redirect:/cabang";
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
@@ -78,8 +78,14 @@ public class CabangController {
     public String updateCabangFormSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
-        return "redirect:/cabang/daftar";
+        return "redirect:/cabang";
     }
 
-    
+    @RequestMapping(value="/cabang/hapus/{idCabang}", method = RequestMethod.POST)
+    public String deleteCabang(@PathVariable Long idCabang, Model model){
+        CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
+        model.addAttribute("cabang", cabang);
+        cabangService.deleteCabang(cabang);
+        return "redirect:/cabang";
+    }
 }

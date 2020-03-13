@@ -10,4 +10,5 @@ public interface CabangService {
     Optional<CabangModel> getCabangByIdCabang(Long idCabang);
     void createCabang(CabangModel cabang);
     CabangModel updateCabang(CabangModel cabang);
+    void deleteCabang(CabangModel cabang);
 }

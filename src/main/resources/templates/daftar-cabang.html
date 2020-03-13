@@ -33,12 +33,6 @@
                 <td style="text-align: center;" th:text="${cabang.nama}"></td>
                 <td style="text-align: center;" th:text="${cabang.noTelp}"></td>
                 <td style="text-align: center;" th:text="${cabang.alamat}"></td>
-<!--                <td>-->
-<!--                    <form th:action="@{/fasilitas/pengadaan/hapus(id=${fasilitas.id})}" th:object="${pengadaanFasilitas}" method="POST">-->
-<!--                        <input type="hidden" th:value="${fasilitas.id}"/>-->
-<!--                        <button type="submit" class="detail">Hapus</button>-->
-<!--                    </form>-->
-<!--                </td>-->
                 <td><a th:href="@{/cabang/detail/}+${cabang.idCabang}"><button class="btn btn-primary">Detail</button></a></td>
             </tr>
             </tbody>

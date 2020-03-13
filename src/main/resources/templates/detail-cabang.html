@@ -23,6 +23,14 @@
             Ubah
         </button>
     </form>
+
+    <form th:action="@{/cabang/hapus/}+${cabang.idCabang}" th:object="${cabang}" method="POST">
+<!--        <input type="hidden" th:value="${cabang.idcabang}"/>-->
+        <button class="btn btn-sm btn-primary">
+            Hapus
+        </button>
+    </form>
+
 </div>
 </body>
 </html>

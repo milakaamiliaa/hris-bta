@@ -49,4 +49,9 @@ public class CabangServiceImpl implements CabangService{
             return null;
         }
     }
+
+    @Override
+    public void deleteCabang(CabangModel cabang){
+        cabangDb.delete(cabang);
+    }
 }
