@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -17,6 +19,11 @@ public class UserServiceImpl implements UserService {
         String pass = encrypt(user.getPassword());
         user.setPassword(pass);
         return userDb.save(user);
+    }
+
+    @Override
+    public List<UserModel> getAllUser() {
+        return userDb.findAll();
     }
 
     @Override

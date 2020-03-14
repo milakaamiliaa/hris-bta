@@ -13,7 +13,7 @@ public class PageController {
 
     @RequestMapping("/")
     public String home (Model model) {
-        model.addAttribute("listRole", roleService.findAll());
+        model.addAttribute("listRole", roleService.getAllRole());
         return "home";
     }
 
