@@ -26,8 +26,28 @@
     <br>
     Staf Cabang: <br>
 
+    <select name="stafCabang">
+        <option selected value="" th:text="${cabang.stafCabang == null} ? 'Masukkan Staf Cabang' : ${namaStaf}"></option>
+        <option th:each="staf : ${listStafCabang}"
+                th:value="${staf.idUser}"
+                th:text="${staf.nama}"/>
+    </select>
     <br><br>
     <button type="submit"> Simpan </button>
 </form>
 </body>
 </html>
+<!--    fixx-->
+<!--    <select th:field="${cabang.stafCabang.nama}">-->
+<!--        <option selected value="" th:text="${cabang.stafCabang.nama}"></option>-->
+<!--        <option th:each="staf : ${listStafCabang}"-->
+<!--                th:value="${staf.idUser}"-->
+<!--                th:utext="${staf.nama}"/>-->
+<!--    </select>-->
+
+
+<!--        <tr th:each="cabang, iterationStatus : *{listCabang}">-->
+<!--        <select th:each="stafCabang, iterationStatus : *{listStafCabang}" th:field="*{gender}">-->
+<!--            <option th:value="'M'" th:text="Male"></option>-->
+<!--            <option th:value="'F'" th:text="Female"></option>-->
+<!--        </select>-->

@@ -1,7 +1,7 @@
 package bta.hris.service;
 
 import bta.hris.model.CabangModel;
-import bta.hris.repository.CabangDb;
+import bta.hris.repository.CabangDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
 @Transactional
 public class CabangServiceImpl implements CabangService{
     @Autowired
-    private CabangDb cabangDb;
+    private CabangDB cabangDb;
 
     @Override
     public List<CabangModel> getCabangList(){
@@ -40,7 +40,7 @@ public class CabangServiceImpl implements CabangService{
             newCabang.setEmail(cabang.getEmail());
             newCabang.setNoTelp(cabang.getNoTelp());
             newCabang.setJumlahSiswa(cabang.getJumlahSiswa());
-//            newCabang.setStafCabang(cabang.getStafCabang());
+            newCabang.setStafCabang(cabang.getStafCabang());
             cabangDb.save(newCabang);
 
             return newCabang;

@@ -25,7 +25,6 @@ public class CabangController {
     public String daftarCabang(Model model){
         List<CabangModel> listCabang = cabangService.getCabangList();
         model.addAttribute("listCabang", listCabang);
-
         return "daftar-cabang";
     }
 
@@ -35,25 +34,12 @@ public class CabangController {
     ) {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
         model.addAttribute("cabang", cabang);
-//        model.addAttribute("stafCabang", cabang.getStafCabang().getNama());
         return "detail-cabang";
     }
 
     @RequestMapping(value = "/cabang/tambah", method = RequestMethod.GET)
     public String createCabangForm(Model model){
-//        UserModel user = userService.findByNama(authentication.getName());
         CabangModel newCabang = new CabangModel();
-//        List<UserModel> listStafCabang = new ArrayList<>();
-//
-//        List<UserModel> listStaf = userService.getStafList();
-//        for (UserModel staf : listStaf) {
-//            if (staf.getRole().equals id nya staf cabang){
-//
-//            }
-//        }
-//        model.addAttribute("listStaf", listStaf;
-//
-//        model.addAttribute("user", user);
         model.addAttribute("cabang", newCabang);
         return "form-create-cabang";
     }
@@ -68,9 +54,27 @@ public class CabangController {
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
     public String updateCabangForm(@PathVariable Long idCabang, Model model) {
-        //mengambil existing data restoran
         CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
+
+        ArrayList<UserModel> listStafCabang = new ArrayList<>();
+        List<UserModel> listUser = userService.getStafList();
+        for (UserModel user : listUser) {
+            if (user.getRole().getNama().equalsIgnoreCase("Staf Cabang")){
+                listStafCabang.add(user);
+            }
+        }
+
+        try {
+            model.addAttribute("namaStaf", existingCabang.getStafCabang().getNama());
+        }
+
+        catch (NullPointerException e) {
+            model.addAttribute("namaStaf", "-");
+        }
+
         model.addAttribute("cabang", existingCabang);
+        model.addAttribute("listStafCabang", listStafCabang);
+
         return "form-update-cabang";
     }
 
@@ -78,6 +82,7 @@ public class CabangController {
     public String updateCabangFormSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
+        System.out.println(cabang.getStafCabang().getNama());
         return "redirect:/cabang";
     }
 
@@ -89,3 +94,5 @@ public class CabangController {
         return "redirect:/cabang";
     }
 }
+
+
