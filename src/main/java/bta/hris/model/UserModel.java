@@ -1,5 +1,7 @@
 package bta.hris.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,9 +17,14 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class UserModel implements Serializable{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long idUser;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUser;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String idUser;
 
     @NotNull
     @Size(max = 255)
@@ -50,7 +57,7 @@ public class UserModel implements Serializable{
     private Date tglLahir;
 
     @NotNull
-    @Size(max = 255)
+    @Lob
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -75,6 +82,7 @@ public class UserModel implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role",referencedColumnName = "idRole", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private RoleModel role;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -84,4 +92,12 @@ public class UserModel implements Serializable{
 
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<GajiModel> listGaji;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
