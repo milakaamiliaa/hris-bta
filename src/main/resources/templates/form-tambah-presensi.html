@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Tambah Presensi</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-xl-5 mx-auto">
+            <div class="card card-signin flex-row my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Tambah Presensi</h5>
+                    <h2 th:text="'Tambah Presensi '+ ${localDate}"></h2>
+
+                    <form class="form-group" th:action="@{/presensi/tambah}" th:object="${presensi}" method="POST">
+                        <input type = "hidden" th:field="${presensi.pegawai}" th:value="${userTest}"/>
+                        Tanggal: <br>
+                        <h5 th:text="'Tambah Presensi '+ ${localDate}"></h5>
+                        <br>
+                        Cabang: <br>
+<!--                        <input class="form-control" type="string" th:field="*{cabang}"/>-->
+                        <select class="form-control" th:field="*{cabang}">
+                            <option th:each="cabang : ${cabangList}"
+                                    th:value="${cabang.idCabang}"
+                                    th:text="${cabang.cabang}">
+                            </option>
+                        </select>
+<!--                        <select name="cabang" class="form-control" th:field="">-->
+<!--                            <option selected value=""> &#45;&#45; Pilih Cabang &#45;&#45;</option>-->
+<!--                            <option th:each="cabangAvailable : ${cabangList}"-->
+<!--                                    th:value="${cabangAvailable.idCabang}"-->
+<!--                                    th:text="${cabangAvailable.cabang}"></option>-->
+<!--                        </select>-->
+                        <br>
+                        Jumlah Sesi Mengajar: <br>
+                        <input class="form-control" type="number" th:field="*{sesiMengajar}"/>
+                        <br>
+                        Jumlah Sesi Tambahan: <br>
+                        <input class="form-control" type="number" th:field="*{sesiTambahan}"/>
+                        <br>
+                        <br>
+                        <div style="float:right;">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
