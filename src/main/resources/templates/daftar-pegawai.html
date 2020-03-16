@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<body>
+    
+    <div class="container" style="margin-top: 100px;">
+    <h2>Daftar Pegawai</h2>
+    <table class="table">
+        <thead style="background: rgb(180,58,77);
+        background: linear-gradient(90deg, rgba(180,58,77,1) 0%, rgba(253,29,29,0.6222864145658263) 50%, rgba(252,176,69,1) 100%); color: white;">
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>NIP</th>
+            <th>Role</th>
+            <th>Aksi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pegawai : ${listPegawai}">
+            <td><a th:text="${pegawai.idUser}"></a></td>
+            <td><a th:text="${pegawai.nama}"></a></td>
+            <td><a th:text="${pegawai.nip}"></a></td>
+            <td><a th:text="${pegawai.role.nama}"></a></td>
+            <!-- <td>
+                <a th:if="${anggota.is_pengurus}" th:text="Pengurus"></a>
+                <a th:unless="${anggota.is_pengurus}" th:text="Anggota"></a>
+            </td> -->
+            <td>
+                <button class="btn btn-sm btn-info">
+                    <a th:href="@{/pegawai/daftar-pegawai/detail-?id={id}(id=${pegawai.idUser})}" style="color: black;">Detail</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</section>
+</body>
+</html>

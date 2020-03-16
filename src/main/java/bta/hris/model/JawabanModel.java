@@ -23,4 +23,27 @@ public class JawabanModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SoalModel soal;
 
+    public Long getIdJawaban() {
+        return idJawaban;
+    }
+
+    public void setIdJawaban(Long idJawaban) {
+        this.idJawaban = idJawaban;
+    }
+
+    public String getJawaban() {
+        return jawaban;
+    }
+
+    public void setJawaban(String jawaban) {
+        this.jawaban = jawaban;
+    }
+
+    public SoalModel getSoal() {
+        return soal;
+    }
+
+    public void setSoal(SoalModel soal) {
+        this.soal = soal;
+    }
 }

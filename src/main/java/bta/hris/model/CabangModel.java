@@ -35,4 +35,59 @@ public class CabangModel implements Serializable {
     @JoinColumn(name = "stafCabang", referencedColumnName = "idUser", nullable = false)
     private UserModel stafCabang;
 
+    public Long getIdCabang() {
+        return idCabang;
+    }
+
+    public void setIdCabang(Long idCabang) {
+        this.idCabang = idCabang;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getJumlahSiswa() {
+        return jumlahSiswa;
+    }
+
+    public void setJumlahSiswa(Long jumlahSiswa) {
+        this.jumlahSiswa = jumlahSiswa;
+    }
+
+    public UserModel getStafCabang() {
+        return stafCabang;
+    }
+
+    public void setStafCabang(UserModel stafCabang) {
+        this.stafCabang = stafCabang;
+    }
 }
