@@ -28,7 +28,7 @@
             </td> -->
             <td>
                 <button class="btn btn-sm btn-info">
-                    <a th:href="@{/pegawai/daftar-pegawai/detail-?id={id}(id=${pegawai.idUser})}" style="color: black;">Detail</a>
+                    <a th:href="@{/pegawai/detail/{id}(id=${pegawai.idUser})}" style="color: black;">Detail</a>
                 </button>
             </td>
         </tr>

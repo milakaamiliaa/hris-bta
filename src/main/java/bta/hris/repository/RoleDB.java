@@ -12,3 +12,4 @@ public interface RoleDB extends JpaRepository<RoleModel, Long> {
     Optional<RoleModel> findById(Long id);
     List<RoleModel> findAll();
 }
+

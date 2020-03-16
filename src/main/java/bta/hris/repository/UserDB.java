@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface UserDB extends JpaRepository<UserModel, String> {
     Optional<UserModel> findByIdUser(String id);
     List<UserModel> findAll();
+    UserModel findByNip(String nip);
+
 }

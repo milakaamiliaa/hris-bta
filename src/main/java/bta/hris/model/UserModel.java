@@ -1,8 +1,9 @@
 package bta.hris.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -16,9 +17,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class UserModel implements Serializable{
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // private Long idUser;
+
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long idUser;
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -56,7 +58,7 @@ public class UserModel implements Serializable{
     private LocalDate tglLahir;
 
     @NotNull
-    @Size(max = 255)
+    @Lob
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -81,6 +83,7 @@ public class UserModel implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role",referencedColumnName = "idRole", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private RoleModel role;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

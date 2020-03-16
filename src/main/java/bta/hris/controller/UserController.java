@@ -32,7 +32,7 @@ public class UserController {
 
     @RequestMapping(value = "/pegawai/daftar-pegawai", method = RequestMethod.GET)
     public String viewAllPegawai(Model model){
-        List<UserModel> listPegawai = userService.getUserList();
+        List<UserModel> listPegawai = userService.getAllUser();
         model.addAttribute("listPegawai", listPegawai);
         return "daftar-pegawai";
     }
@@ -44,57 +44,76 @@ public class UserController {
         return "daftar-pegawai";
     }
 
-    @RequestMapping(value = "/pegawai/daftar-pegawai/detail/{idUser}", method = RequestMethod.GET)
-    public String viewPegawai(@PathVariable Long idUser, Model model){
-        UserModel pegawai = userService.getUserById(String.valueOf(idUser));
+    @RequestMapping(value = "/pegawai/detail/{idUser}", method = RequestMethod.GET)
+    public String viewPegawai(@PathVariable String idUser, Model model){
+        UserModel pegawai = userService.getUserById(idUser);
         model.addAttribute("pegawai", pegawai);
         return "detail-pegawai";
     }
 
+
+//    @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
+//    private String addUserSubmit(@ModelAttribute UserModel user) {
+//        userService.addUser(user);
+//        return "home";
+//    }
+
     @RequestMapping(value="/pegawai/tambah", method = RequestMethod.GET)
     public String addPegawaiForm(Model model) {
         UserModel newUser = new UserModel();
-        List<GolonganModel> listGolongan = golonganService.getGolonganList();
-        List<RoleModel> listRole = roleService.getRoleList();
-    	model.addAttribute("newPegawai", newUser);
+        List<GolonganModel> listGolongan = golonganService.getAllGolongan();
+        List<RoleModel> listRole = roleService.getAllRole();
+        List<String> mataPelajaran = new ArrayList<String>();
+        mataPelajaran.add("Biologi");
+        mataPelajaran.add("Ekonomi");
+        mataPelajaran.add("Matematika");
+        mataPelajaran.add("Kimia");
+        mataPelajaran.add("Fisika");
+        mataPelajaran.add("Sosiologi");
+        mataPelajaran.add("Geografi");
+        mataPelajaran.add("TPA");
+        mataPelajaran.add("Bahasa Inggris");
+        mataPelajaran.add("Bahasa Indonesia");
+
+        model.addAttribute("newPegawai", newUser);
         model.addAttribute("listGolongan", listGolongan);
         model.addAttribute("listRole", listRole);
-    	return "form-tambah-pegawai";
+        model.addAttribute("mataPelajaran", mataPelajaran);
+        return "form-tambah-pegawai";
     }
-    
+
     @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
     public String submitAddPegawai(@ModelAttribute UserModel pegawai, Model model) {
 
         pegawai.setCreatedAt(LocalDate.now());
 
         String newNIP = "";
-        if (pegawai.getMataPelajaran() == "Biologi"){
+        if (pegawai.getMataPelajaran().equals("Biologi")){
             newNIP += "BIO";
-        }else if(pegawai.getMataPelajaran() == "Ekonomi"){
+        }else if(pegawai.getMataPelajaran().equals("Ekonomi")){
             newNIP += "EKO";
-        }else if(pegawai.getMataPelajaran() == "Matematika"){
+        }else if(pegawai.getMataPelajaran().equals("Matematika")){
             newNIP += "MTK";
-        }else if(pegawai.getMataPelajaran() == "Kimia"){
+        }else if(pegawai.getMataPelajaran().equals("Kimia")){
             newNIP += "KIM";
-        }else if(pegawai.getMataPelajaran() == "Fisika"){
+        }else if(pegawai.getMataPelajaran().equals("Fisika")){
             newNIP += "FIS";
-        }else if(pegawai.getMataPelajaran() == "Sosiologi"){
+        }else if(pegawai.getMataPelajaran().equals("Sosiologi")){
             newNIP += "SOS";
-        }else if(pegawai.getMataPelajaran() == "Geografi"){
+        }else if(pegawai.getMataPelajaran().equals("Geografi")){
             newNIP += "GEO";
-        }else if(pegawai.getMataPelajaran() == "TPA"){
+        }else if(pegawai.getMataPelajaran().equals("TPA")){
             newNIP += "TPA";
-        }else if(pegawai.getMataPelajaran() == "Bahasa Inggris"){
+        }else if(pegawai.getMataPelajaran().equals("Bahasa Inggris")){
             newNIP += "ING";
-        }else if(pegawai.getMataPelajaran() == "Bahasa Indonesia"){
+        }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
             newNIP += "IND";
         }
 
         newNIP += String.valueOf(LocalDate.now().getYear());
         newNIP += String.valueOf(pegawai.getTglLahir().getMonthValue());
         newNIP += String.valueOf(pegawai.getTglLahir().getYear());
-
-        List<UserModel> allUser = userService.getUserList();
+        List<UserModel> allUser = userService.getAllUser();
         List<UserModel> userInAYear = new ArrayList<UserModel>();
         for (UserModel u : allUser){
             if (u.getCreatedAt().getYear() == LocalDate.now().getYear()){
@@ -111,7 +130,49 @@ public class UserController {
         pegawai.setNip(newNIP);
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
-        return "daftar-pegawai";
+        return viewAllPegawai(model);
+    }
+    @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
+    public String changeUserFormPage(@PathVariable String idUser, Model model) {
+        UserModel existingUser = userService.getUserById(idUser);
+        List<GolonganModel> listGolongan = golonganService.getAllGolongan();
+        List<RoleModel> listRole = roleService.getAllRole();
+        List<String> mataPelajaran = new ArrayList<String>();
+        mataPelajaran.add("Biologi");
+        mataPelajaran.add("Ekonomi");
+        mataPelajaran.add("Matematika");
+        mataPelajaran.add("Kimia");
+        mataPelajaran.add("Fisika");
+        mataPelajaran.add("Sosiologi");
+        mataPelajaran.add("Geografi");
+        mataPelajaran.add("TPA");
+        mataPelajaran.add("Bahasa Inggris");
+        mataPelajaran.add("Bahasa Indonesia");
+
+        model.addAttribute("listGolongan", listGolongan);
+        model.addAttribute("listRole", listRole);
+        model.addAttribute("mataPelajaran", mataPelajaran);
+        model.addAttribute("pegawai", existingUser);
+        return "form-ubah-pegawai";
+    }
+
+    @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.POST)
+    public String changeUserSubmit(@PathVariable String idUser, @ModelAttribute UserModel pegawai, Model model) {
+            UserModel newPegawai = userService.changeUser(pegawai);
+            model.addAttribute("newPegawai", newPegawai);
+            return viewPegawai(idUser, model);
+    }
+
+    @RequestMapping(value = "/pegawai/hapus/{idUser}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable String idUser, Model model) {
+        UserModel targetUser = userService.getUserById(idUser);
+        if (targetUser == null) {
+            return "pegawai-tidak-ditemukan";
+        }
+        model.addAttribute("pegawai", targetUser);
+        if (userService.deleteUser(targetUser)) {
+            return viewAllPegawai(model);
+        }return "hapus-pegawai";
     }
 
 }
