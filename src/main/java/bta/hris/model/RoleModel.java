@@ -19,4 +19,27 @@ public class RoleModel implements Serializable {
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserModel> listUser;
 
+    public Long getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(Long idRole) {
+        this.idRole = idRole;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public List<UserModel> getListUser() {
+        return listUser;
+    }
+
+    public void setListUser(List<UserModel> listUser) {
+        this.listUser = listUser;
+    }
 }

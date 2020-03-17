@@ -66,4 +66,6 @@ public class GolonganModel implements Serializable {
     public void setListPegawai(List<UserModel> listPegawai) {
         this.listPegawai = listPegawai;
     }
+
 }
+
