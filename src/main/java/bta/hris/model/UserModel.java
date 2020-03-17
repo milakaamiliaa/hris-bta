@@ -84,4 +84,132 @@ public class UserModel implements Serializable{
 
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<GajiModel> listGaji;
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
+    }
+
+    public Date getTglLahir() {
+        return tglLahir;
+    }
+
+    public void setTglLahir(Date tglLahir) {
+        this.tglLahir = tglLahir;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getMataPelajaran() {
+        return mataPelajaran;
+    }
+
+    public void setMataPelajaran(String mataPelajaran) {
+        this.mataPelajaran = mataPelajaran;
+    }
+
+    public Long getNoRekening() {
+        return noRekening;
+    }
+
+    public void setNoRekening(Long noRekening) {
+        this.noRekening = noRekening;
+    }
+
+    public String getNamaBank() {
+        return namaBank;
+    }
+
+    public void setNamaBank(String namaBank) {
+        this.namaBank = namaBank;
+    }
+
+    public RoleModel getRole() {
+        return role;
+    }
+
+    public void setRole(RoleModel role) {
+        this.role = role;
+    }
+
+    public GolonganModel getGolongan() {
+        return golongan;
+    }
+
+    public void setGolongan(GolonganModel golongan) {
+        this.golongan = golongan;
+    }
+
+    public List<GajiModel> getListGaji() {
+        return listGaji;
+    }
+
+    public void setListGaji(List<GajiModel> listGaji) {
+        this.listGaji = listGaji;
+    }
 }

@@ -46,8 +46,6 @@ public class CabangController {
 
     @RequestMapping(value = "/cabang/tambah", method = RequestMethod.POST)
     public String createCabangSubmit(@ModelAttribute CabangModel cabang, Model model){
-//        UserModel user = userService.findByNama(authentication.getName());
-//        cabang.setStafCabang(user);
         cabangService.createCabang(cabang);
         return "redirect:/cabang";
     }
