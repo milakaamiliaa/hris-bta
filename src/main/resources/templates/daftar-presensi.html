@@ -12,7 +12,7 @@
         <a th:href="@{presensi/tambah}" style="color: black"> Tambah Presensi</a>
     </button>
     <div th:if="${daftarPresensi.size() == 0}" th:align="center">
-        <h3 th:text="'Tidak ada pengajuan pengadaan buku.'"></h3>
+        <h3 th:text="'Tidak ada Presensi'"></h3>
     </div>
     <div th:unless="${allPresensi.size() == 0}">
     <table class="table">
@@ -20,6 +20,7 @@
         <tr>
             <th scope="col">No</th>
             <th scope="col">Tanggal</th>
+            <th scope="col">Cabang</th>
             <th scope="col">Jumlah Sesi</th>
             <th scope="col">Sesi Tambahan</th>
             <th scope="col">Status</th>
@@ -29,6 +30,7 @@
         <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${presensi.tanggalPresensi}"></td>
+            <td th:text="${presensi.cabang.getNama()}"></td>
             <td th:text="${presensi.sesiMengajar}"></td>
             <td th:text="${presensi.sesiTambahan}"></td>
             <td>
