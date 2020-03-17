@@ -35,7 +35,7 @@ public class CabangModel implements Serializable {
     private Long jumlahSiswa;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "stafCabang", referencedColumnName = "idUser", nullable = false)
+    @JoinColumn(name = "stafCabang", referencedColumnName = "idUser", nullable = true)
     private UserModel stafCabang;
 
     @JsonIgnore
@@ -50,7 +50,54 @@ public class CabangModel implements Serializable {
         this.idCabang = idCabang;
     }
 
-    public List<PresensiModel> getListPresensi() {
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getJumlahSiswa() {
+        return jumlahSiswa;
+    }
+
+    public void setJumlahSiswa(Long jumlahSiswa) {
+        this.jumlahSiswa = jumlahSiswa;
+    }
+
+    public UserModel getStafCabang() {
+        return stafCabang;
+    }
+
+    public void setStafCabang(UserModel stafCabang) {
+        this.stafCabang = stafCabang;
+
+      public List<PresensiModel> getListPresensi() {
         return listPresensi;
     }
 

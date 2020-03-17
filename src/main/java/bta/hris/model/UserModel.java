@@ -8,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,7 +17,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class UserModel implements Serializable{
-
 
     @Id
     @GeneratedValue(generator = "system-uuid")

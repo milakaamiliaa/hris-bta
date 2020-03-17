@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Cabang</title>
+</head>
+<body>
+<a th:href="@{/cabang/tambah}">
+    <button class="detail">
+        Tambah
+    </button>
+</a><br>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8" th:align="center">
+        <br>
+        <table class="table table-hover container-fluid shadow p-3 mb-5 bg-white rounded">
+            <thead style="background-color:goldenrod">
+            <tr>
+                <th style="text-align: center; color: white;">No</th>
+                <th style="text-align: center; color: white;">Nama Cabang</th>
+                <th style="text-align: center; color: white;">No. Telp</th>
+                <th style="text-align: center; color: white;">Alamat</th>
+                <th style="text-align: center; color: white;">Aksi</th>
+                <th style="text-align: center; color: white;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cabang, iterationStatus : *{listCabang}">
+                <td style="text-align: center;" th:text="${iterationStatus.count}"></td>
+                <td style="text-align: center;" th:text="${cabang.nama}"></td>
+                <td style="text-align: center;" th:text="${cabang.noTelp}"></td>
+                <td style="text-align: center;" th:text="${cabang.alamat}"></td>
+                <td><a th:href="@{/cabang/detail/}+${cabang.idCabang}"><button class="btn btn-primary">Detail</button></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<br>
+</div>
+</body>
+</html>

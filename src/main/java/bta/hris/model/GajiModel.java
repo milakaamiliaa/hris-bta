@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "gaji")
@@ -19,7 +19,7 @@ public class GajiModel implements Serializable {
     @NotNull
     @Column(name = "periode", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date periode;
+    private LocalDate periode;
 
     @NotNull
     @Column(name = "status", nullable = false)
@@ -42,4 +42,59 @@ public class GajiModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserModel pegawai;
 
+    public Long getIdGaji() {
+        return idGaji;
+    }
+
+    public void setIdGaji(Long idGaji) {
+        this.idGaji = idGaji;
+    }
+
+    public LocalDate getPeriode() {
+        return periode;
+    }
+
+    public void setPeriode(LocalDate periode) {
+        this.periode = periode;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public Long getRateGaji() {
+        return rateGaji;
+    }
+
+    public void setRateGaji(Long rateGaji) {
+        this.rateGaji = rateGaji;
+    }
+
+    public Float getPajakGaji() {
+        return pajakGaji;
+    }
+
+    public void setPajakGaji(Float pajakGaji) {
+        this.pajakGaji = pajakGaji;
+    }
+
+    public UserModel getPegawai() {
+        return pegawai;
+    }
+
+    public void setPegawai(UserModel pegawai) {
+        this.pegawai = pegawai;
+    }
 }

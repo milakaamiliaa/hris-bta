@@ -5,8 +5,12 @@ import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+import java.util.Optional;
 
-public interface UserDB extends JpaRepository<UserModel, Long> {
+@Repository
+public interface UserDB extends JpaRepository<UserModel, String> {
+    Optional<UserModel> findByIdUser(String id);
+    List<UserModel> findAll();
     UserModel findByNip(String nip);
 }

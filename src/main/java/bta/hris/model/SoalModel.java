@@ -31,4 +31,43 @@ public class SoalModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PaketSoalModel paketSoal;
 
+    public Long getIdSoal() {
+        return idSoal;
+    }
+
+    public void setIdSoal(Long idSoal) {
+        this.idSoal = idSoal;
+    }
+
+    public String getPertanyaan() {
+        return pertanyaan;
+    }
+
+    public void setPertanyaan(String pertanyaan) {
+        this.pertanyaan = pertanyaan;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public PaketSoalModel getPaketSoal() {
+        return paketSoal;
+    }
+
+    public void setPaketSoal(PaketSoalModel paketSoal) {
+        this.paketSoal = paketSoal;
+    }
 }

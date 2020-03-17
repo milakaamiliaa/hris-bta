@@ -48,4 +48,3 @@ public class GolonganServiceImpl implements GolonganService {
         return golonganDb.findById(idGolongan);
     }
 }
-

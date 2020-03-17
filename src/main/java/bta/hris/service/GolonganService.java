@@ -12,6 +12,3 @@ public interface GolonganService {
     List<GolonganModel> getAllGolongan();
     Optional<GolonganModel> getGolonganByIdGolongan(Long idGolongan);
 }
-
-
-

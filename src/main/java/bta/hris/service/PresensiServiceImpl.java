@@ -20,6 +20,11 @@ public class PresensiServiceImpl implements PresensiService {
     private PresensiDB presensiDB;
 
     @Override
+    public PresensiModel getPresensiById(Long id){
+        return presensiDB.findById(id).get();
+    }
+
+    @Override
     public PresensiModel addPresensi(PresensiModel presensi, String nip) {
         UserModel user = userService.getByNip(nip);
         presensi.setPegawai(user);
@@ -33,14 +38,13 @@ public class PresensiServiceImpl implements PresensiService {
     }
 
     @Override
-    public List<PresensiModel> getAllPresensiByNip(String nip) {
-        UserModel user =  userService.getByNip(nip);
-        return presensiDB.findAllByPegawai(user);
+    public void addPresensi(PresensiModel presensi){
+        presensiDB.save(presensi);
     }
 
-    @Override
-    public PresensiModel getPresensiById(Long idPresensi) {
-        return presensiDB.findById(idPresensi).get();
+      public List<PresensiModel> getAllPresensiByNip(String nip) {
+        UserModel user =  userService.getByNip(nip);
+        return presensiDB.findAllByPegawai(user);
     }
 
     @Override
