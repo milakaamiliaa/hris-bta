@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
   
     @Override
     public UserModel getByNip(String nip) {
-        return userDb.findByNip(nip);
+        return userDB.findByNip(nip);
     }
 
     @Override

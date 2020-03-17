@@ -5,7 +5,7 @@
 <h2>Ubah Golongan</h2>
 
 <div>
-    <form th:action="@{/golongan/edit/{idGolongan}(idGolongan=${golongan.idGolongan})}" th:object="${golongan}" method="POST">
+    <form th:action="@{/golongan/ubah/{idGolongan}(idGolongan=${golongan.idGolongan})}" th:object="${golongan}" method="POST">
         <input type="hidden" th:field="${golongan.idGolongan}" />
         Nama: <br>
         <input type="text" name="nama" class="form-control" readonly th:value="${golongan.nama}" />

@@ -166,7 +166,6 @@ public class UserModel implements Serializable{
         this.password = password;
     }
 
-
     public LocalDate getCreatedAt() {
         return createdAt;
     }

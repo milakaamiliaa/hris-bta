@@ -44,43 +44,37 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.GET)
-    public String tambahPresensiForm(Model model){
+    public String createPresensiForm(Model model){
         model.addAttribute("presensi", new PresensiModel());
-        model.addAttribute("cabangList", cabangService.getAllCabang());
+        model.addAttribute("cabangList", cabangService.getCabangList());
         model.addAttribute("localDate", LocalDate.now());
-
-        // PLEASE REMOVE LATER ---
-        UserModel userTest = userService.getByNip("12345");
-        model.addAttribute("userTest", userTest);
-        // END OF REMOVE ---
-
 
         return "form-tambah-presensi";
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.POST)
-    public String tambahPresensi(@ModelAttribute PresensiModel presensi, Model model){
+    public String createPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model){
 
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String nip = ((UserDetails) principal).getUsername();
 
-        presensi.setTanggalPresensi(java.sql.Date.valueOf(LocalDate.now()));
+        presensi.setTanggalPresensi(LocalDate.now());
         PresensiModel addedPresensi = presensiService.addPresensi(presensi,nip);
 
 
-        model.addAttribute("addedPresensi", presensi);
+        model.addAttribute("addedPresensi", addedPresensi);
         model.addAttribute("presensi", new PresensiModel());
-        model.addAttribute("cabangList", cabangService.getAllCabang());
+        model.addAttribute("cabangList", cabangService.getCabangList());
         model.addAttribute("localDate", LocalDate.now());
         return "form-tambah-presensi";
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.GET)
-    public String ubahPresensiForm(@PathVariable Long idPresensi, Model model) {
+    public String updatePresensiForm(@PathVariable Long idPresensi, Model model) {
         PresensiModel existingPresensi = presensiService.getPresensiById(idPresensi);
 
-        List<CabangModel> listCabang = cabangService.getAllCabang();
+        List<CabangModel> listCabang = cabangService.getCabangList();
 
         model.addAttribute("presensi", existingPresensi);
         model.addAttribute("listCabang", listCabang);
@@ -89,7 +83,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.POST)
-    public String ubahPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String updatePresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
         PresensiModel newPresensi = presensiService.updatePresensi(presensi);
         model.addAttribute("presensi", newPresensi);
         return "redirect:/presensi";

@@ -22,8 +22,8 @@ public class GolonganController {
     private GolonganService golonganService;
 
     // URL mapping yang digunakan untuk mengakses halaman add golongan.
-    @RequestMapping(value="/golongan/add", method = RequestMethod.GET)
-    public String addGolonganPage(Model model) {
+    @RequestMapping(value="/golongan/tambah", method = RequestMethod.GET)
+    public String createGolonganForm(Model model) {
         // Get nomor golongan terakhir, ditambah satu.
         Integer currentGolonganNumber = golonganService.getAllGolongan().size() + 1;
 
@@ -32,12 +32,12 @@ public class GolonganController {
 
         model.addAttribute("golongan", newGolongan);
 
-        return "form-add-golongan";
+        return "form-tambah-golongan";
     }
 
     // URL mapping yang digunakan untuk submit form dan menangkap POST -- add golongan.
-    @RequestMapping(value="/golongan/add", method = RequestMethod.POST)
-    public String addGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model) {
+    @RequestMapping(value="/golongan/tambah", method = RequestMethod.POST)
+    public String createGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model) {
         System.out.println(golongan.getNama());
         System.out.println(golongan.getRate());
         System.out.println(golongan.getPajak());
@@ -45,12 +45,12 @@ public class GolonganController {
 
         model.addAttribute("namaGolongan", golongan.getNama());
 
-        return "add-golongan";
+        return "tambah-golongan";
     }
 
     // URL mapping untuk menuju halaman form edit golongan.
-    @RequestMapping(value="golongan/edit/{idGolongan}", method = RequestMethod.GET)
-    public String editGolonganPage(@PathVariable Long idGolongan, Model model) {
+    @RequestMapping(value="golongan/ubah/{idGolongan}", method = RequestMethod.GET)
+    public String updateGolonganForm(@PathVariable Long idGolongan, Model model) {
         // Mengambil existing data golongan.
         Optional<GolonganModel> existingGolongan = golonganService.getGolonganByIdGolongan(idGolongan);
 
@@ -62,12 +62,12 @@ public class GolonganController {
 
         model.addAttribute("golongan", golongan);
 
-        return "form-edit-golongan";
+        return "form-ubah-golongan";
     }
 
     // URL mapping untuk POST form edit golongan.
-    @RequestMapping(value="/golongan/edit/{idGolongan}", method = RequestMethod.POST)
-    public String editGolonganSubmit(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model) {
+    @RequestMapping(value="/golongan/ubah/{idGolongan}", method = RequestMethod.POST)
+    public String updateGolonganSubmit(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model) {
         GolonganModel newGolonganData = golonganService.editGolongan(golongan);
 
         System.out.println(newGolonganData.getNama());
@@ -76,17 +76,17 @@ public class GolonganController {
 
         model.addAttribute("golongan", newGolonganData);
 
-        return "edit-golongan";
+        return "ubah-golongan";
     }
 
     // URL mapping untuk melihat semua golongan.
     @RequestMapping(value="/golongan", method = RequestMethod.GET)
-    public String viewAllGolongan(Model model) {
+    public String daftarGolongan(Model model) {
         List<GolonganModel> allGolongan = golonganService.getAllGolongan();
 
         model.addAttribute("allGolongan", allGolongan);
 
-        return "view-all-golongan";
+        return "daftar-golongan";
     }
 
 }
