@@ -1,6 +1,7 @@
 package bta.hris.repository;
 
 import bta.hris.model.PresensiModel;
+import bta.hris.model.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +12,6 @@ import java.util.Optional;
 public interface PresensiDB extends JpaRepository<PresensiModel, Long> {
     Optional<PresensiModel> findById(Long id);
     List<PresensiModel> findAll();
+    List<PresensiModel> findAllByPegawai(UserModel idUser);
+
 }

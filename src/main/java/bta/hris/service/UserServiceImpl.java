@@ -19,9 +19,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDB userDB;
 
+
     @Override
     public UserModel getUserById(String id){
         return userDB.findById(id).get();
+    }
+  
+    @Override
+    public UserModel getByNip(String nip) {
+        return userDb.findByNip(nip);
     }
 
     @Override
@@ -128,3 +134,4 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 }
+

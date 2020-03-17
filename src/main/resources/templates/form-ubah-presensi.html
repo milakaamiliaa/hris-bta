@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-lg-10 col-xl-5 mx-auto">
+    <div class="card card-signin flex-row my-5">
+        <div class="card-body">
+            <h5 class="card-title text-center">Ubah Presensi</h5>
+            <form class ="form-group" th:action = "@{/presensi/ubah/} + ${presensi.idPresensi}" th:object="${presensi}" method="POST">
+
+                <input type = "hidden" th:field="${presensi.idPresensi}"/>
+                Cabang:
+                <select class="form-control" th:field="*{cabang}">
+                    <option th:each="cabang : ${listCabang}"
+                            th:value="${cabang.idCabang}"
+                            th:text="${cabang.cabang}">
+                    </option>
+                </select>
+                Sesi Mengajar:
+                <input class="form-control"type="number" th:field="${presensi.sesiMengajar}"/>
+                Sesi Tambahan:
+                <input class="form-control"type="text" th:field="${presensi.sesiTambahan}"/>
+
+                <br>
+                <button class="btn btn-sm btn-secondary float-center" type="submit"> Submit </button><br><br>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

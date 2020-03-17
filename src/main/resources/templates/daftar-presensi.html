@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Daftar Presensi</title>
+</head>
+<body>
+    <button class="btn btn-primary">
+        <a th:href="@{presensi/tambah}" style="color: black"> Tambah Presensi</a>
+    </button>
+    <div th:if="${daftarPresensi.size() == 0}" th:align="center">
+        <h3 th:text="'Tidak ada pengajuan pengadaan buku.'"></h3>
+    </div>
+    <div th:unless="${allPresensi.size() == 0}">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Jumlah Sesi</th>
+            <th scope="col">Sesi Tambahan</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${presensi.tanggalPresensi}"></td>
+            <td th:text="${presensi.sesiMengajar}"></td>
+            <td th:text="${presensi.sesiTambahan}"></td>
+            <td>
+                <div
+                    th:if="${presensi.status == 'ditolak'}">
+                    <form th:action = "@{/presensi/ubah/} + ${presensi.idPresensi}" th:object="${presensi}" method="GET">
+                            <div class="col text-center">
+                                <button type="submit"  th:value="${presensi.idPresensi}" class="btn btn-sm btn-primary">Ubah</button>
+                            </div>
+
+                    </form>
+                </div>
+                <div th:if="${presensi.status != 'ditolak'}"
+                     th:text="${presensi.status}">
+                </div>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

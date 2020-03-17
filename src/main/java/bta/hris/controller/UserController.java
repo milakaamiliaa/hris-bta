@@ -131,6 +131,7 @@ public class UserController {
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
         return viewAllPegawai(model);
+
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
     public String changeUserFormPage(@PathVariable String idUser, Model model) {

@@ -18,10 +18,6 @@ import javax.validation.constraints.Size;
 @Table(name = "users")
 public class UserModel implements Serializable{
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long idUser;
-
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -46,6 +42,14 @@ public class UserModel implements Serializable{
     @Size(max = 255)
     @Column(name = "alamat", nullable = false)
     private String alamat;
+
+//    public Long getIdUser() {
+//        return idUser;
+//    }
+//
+//    public void setIdUser(Long idUser) {
+//        this.idUser = idUser;
+//    }
 
     @NotNull
     @Size(max = 255)
@@ -93,6 +97,9 @@ public class UserModel implements Serializable{
 
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<GajiModel> listGaji;
+
+    @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PresensiModel> listPresensi;
 
     public String getIdUser() {
         return idUser;
@@ -142,6 +149,7 @@ public class UserModel implements Serializable{
         this.noTelp = noTelp;
     }
 
+
     public LocalDate getTglLahir() {
         return tglLahir;
     }
@@ -157,6 +165,7 @@ public class UserModel implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public LocalDate getCreatedAt() {
         return createdAt;
@@ -220,5 +229,13 @@ public class UserModel implements Serializable{
 
     public void setListGaji(List<GajiModel> listGaji) {
         this.listGaji = listGaji;
+    }
+
+    public List<PresensiModel> getListPresensi() {
+        return listPresensi;
+    }
+
+    public void setListPresensi(List<PresensiModel> listPresensi) {
+        this.listPresensi = listPresensi;
     }
 }

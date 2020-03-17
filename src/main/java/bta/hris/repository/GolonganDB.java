@@ -12,4 +12,3 @@ public interface GolonganDB extends JpaRepository<GolonganModel, Long> {
     Optional<GolonganModel> findById(Long id);
     List<GolonganModel> findAll();
 }
-
