@@ -4,7 +4,7 @@
 <body>
 <h3>Tambah Golongan</h3>
 <div>
-    <form th:action="@{/golongan/add}" th:object="${golongan}" method="POST">
+    <form th:action="@{/golongan/tambah}" th:object="${golongan}" method="POST">
 
         Nama: <br>
         <input type="text" name="nama" class="form-control" readonly th:value="${golongan.nama}" />

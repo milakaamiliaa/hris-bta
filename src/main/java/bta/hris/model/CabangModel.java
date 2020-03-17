@@ -51,11 +51,11 @@ public class CabangModel implements Serializable {
     }
 
     public String getNama() {
-        return nama;
+        return cabang;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setNama(String cabang) {
+        this.cabang = cabang;
     }
 
     public String getAlamat() {
@@ -96,6 +96,7 @@ public class CabangModel implements Serializable {
 
     public void setStafCabang(UserModel stafCabang) {
         this.stafCabang = stafCabang;
+    }
 
       public List<PresensiModel> getListPresensi() {
         return listPresensi;

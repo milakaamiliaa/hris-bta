@@ -41,7 +41,7 @@ public class CabangController {
     public String createCabangForm(Model model){
         CabangModel newCabang = new CabangModel();
         model.addAttribute("cabang", newCabang);
-        return "form-create-cabang";
+        return "form-tambah-cabang";
     }
 
     @RequestMapping(value = "/cabang/tambah", method = RequestMethod.POST)
@@ -55,7 +55,7 @@ public class CabangController {
         CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
 
         ArrayList<UserModel> listStafCabang = new ArrayList<>();
-        List<UserModel> listUser = userService.getStafList();
+        List<UserModel> listUser = userService.getAllUser();
         for (UserModel user : listUser) {
             if (user.getRole().getNama().equalsIgnoreCase("Staf Cabang")){
                 listStafCabang.add(user);
@@ -73,11 +73,11 @@ public class CabangController {
         model.addAttribute("cabang", existingCabang);
         model.addAttribute("listStafCabang", listStafCabang);
 
-        return "form-update-cabang";
+        return "form-ubah-cabang";
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.POST)
-    public String updateCabangFormSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
+    public String updateCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
         System.out.println(cabang.getStafCabang().getNama());

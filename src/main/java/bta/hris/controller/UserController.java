@@ -31,7 +31,7 @@ public class UserController {
     private RoleService roleService;
 
     @RequestMapping(value = "/pegawai/daftar-pegawai", method = RequestMethod.GET)
-    public String viewAllPegawai(Model model){
+    public String daftarPegawai(Model model){
         List<UserModel> listPegawai = userService.getAllUser();
         model.addAttribute("listPegawai", listPegawai);
         return "daftar-pegawai";
@@ -59,7 +59,7 @@ public class UserController {
 //    }
 
     @RequestMapping(value="/pegawai/tambah", method = RequestMethod.GET)
-    public String addPegawaiForm(Model model) {
+    public String createPegawaiForm(Model model) {
         UserModel newUser = new UserModel();
         List<GolonganModel> listGolongan = golonganService.getAllGolongan();
         List<RoleModel> listRole = roleService.getAllRole();
@@ -83,7 +83,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
-    public String submitAddPegawai(@ModelAttribute UserModel pegawai, Model model) {
+    public String createPegawaiSubmit(@ModelAttribute UserModel pegawai, Model model) {
 
         pegawai.setCreatedAt(LocalDate.now());
 
@@ -130,11 +130,11 @@ public class UserController {
         pegawai.setNip(newNIP);
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
-        return viewAllPegawai(model);
+        return daftarPegawai(model);
 
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
-    public String changeUserFormPage(@PathVariable String idUser, Model model) {
+    public String updatePegawaiForm(@PathVariable String idUser, Model model) {
         UserModel existingUser = userService.getUserById(idUser);
         List<GolonganModel> listGolongan = golonganService.getAllGolongan();
         List<RoleModel> listRole = roleService.getAllRole();
@@ -158,7 +158,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.POST)
-    public String changeUserSubmit(@PathVariable String idUser, @ModelAttribute UserModel pegawai, Model model) {
+    public String updatePegawaiSubmit(@PathVariable String idUser, @ModelAttribute UserModel pegawai, Model model) {
             UserModel newPegawai = userService.changeUser(pegawai);
             model.addAttribute("newPegawai", newPegawai);
             return viewPegawai(idUser, model);
@@ -172,7 +172,7 @@ public class UserController {
         }
         model.addAttribute("pegawai", targetUser);
         if (userService.deleteUser(targetUser)) {
-            return viewAllPegawai(model);
+            return daftarPegawai(model);
         }return "hapus-pegawai";
     }
 

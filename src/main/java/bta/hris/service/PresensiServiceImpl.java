@@ -37,11 +37,6 @@ public class PresensiServiceImpl implements PresensiService {
         return presensiDB.findAll();
     }
 
-    @Override
-    public void addPresensi(PresensiModel presensi){
-        presensiDB.save(presensi);
-    }
-
       public List<PresensiModel> getAllPresensiByNip(String nip) {
         UserModel user =  userService.getByNip(nip);
         return presensiDB.findAllByPegawai(user);
