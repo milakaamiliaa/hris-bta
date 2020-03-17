@@ -20,7 +20,9 @@ public class PresensiServiceImpl implements PresensiService {
     private PresensiDB presensiDB;
 
     @Override
-    public PresensiModel addPresensi(PresensiModel presensi) {
+    public PresensiModel addPresensi(PresensiModel presensi, String nip) {
+        UserModel user = userService.getByNip(nip);
+        presensi.setPegawai(user);
         presensi.setStatus("pending");
         return presensiDB.save(presensi);
     }

@@ -39,7 +39,7 @@ public class PresensiController {
     public String daftarPresensi(Model model){
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("allPresensi", presensiService.getAllPresensi());
-//        model.addAttribute("daftarPresensi", presensiService.getAllPresensiByNip(user.getNip()));
+        model.addAttribute("daftarPresensi", presensiService.getAllPresensiByNip(user.getNip()));
         return "daftar-presensi";
     }
 
@@ -61,16 +61,18 @@ public class PresensiController {
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.POST)
     public String tambahPresensi(@ModelAttribute PresensiModel presensi, Model model){
 
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        String nip = ((UserDetails) principal).getUsername();
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String nip = ((UserDetails) principal).getUsername();
+
         presensi.setTanggalPresensi(java.sql.Date.valueOf(LocalDate.now()));
-        PresensiModel addedPresensi = presensiService.addPresensi(presensi);
+        PresensiModel addedPresensi = presensiService.addPresensi(presensi,nip);
+
+
         model.addAttribute("addedPresensi", presensi);
         model.addAttribute("presensi", new PresensiModel());
         model.addAttribute("cabangList", cabangService.getAllCabang());
         model.addAttribute("localDate", LocalDate.now());
-        System.out.println("test");
-        System.out.println(LocalDate.now());
         return "form-tambah-presensi";
     }
 

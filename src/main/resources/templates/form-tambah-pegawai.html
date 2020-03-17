@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h3>Tambah Pegawai</h3>
+<div>
+
+    <form th:action="@{/pegawai/tambah}" th:object="${newPegawai}" method="POST">
+        Nama: <br>
+        <input type="text" name="nama" class="form-control"/>
+        <br>
+        Email: <br>
+        <input type="text" name="email" class="form-control"/>
+        <br>
+        Alamat: <br>
+        <input type="text" name="alamat" class="form-control"/>
+        <br>
+        Nomor Telepon: <br>
+        <input type="text" name="noTelp" class="form-control"/>
+        <br>
+        Tanggal Lahir: <br>
+        <input type="date" name="tglLahir" class="form-control"/>
+        <br>
+        Password: <br>
+        <input type="password" name="password" class="form-control"/>
+        <br>
+        Mata Pelajaran: <br>
+        <select name="mataPelajaran" class="form-control">
+            <option selected value="">-- Pilih Mata Pelajaran --</option>
+            <option th:each="mapel : ${mataPelajaran}" th:value="${mapel}" th:text="${mapel}"></option>
+        </select>
+        <br>
+        Nomor Rekening: <br>
+        <input type="number" name="noRekening" class="form-control"/>
+        <br>
+        Nama Bank: <br>
+        <input type="text" name="namaBank" class="form-control"/>
+        <br>
+        Role: <br>
+        <select name="role" class="form-control">
+            <option selected value="">-- Pilih Role --</option>
+            <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
+        </select>
+        <br>
+        Golongan: <br>
+        <select name="golongan" class="form-control">
+            <option selected value="">-- Pilih Golongan --</option>
+            <option th:each="golongan : ${listGolongan}" th:value="${golongan.idGolongan}" th:text="${golongan.nama}"></option>
+        </select>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
+</div>
+</body>
+</html>

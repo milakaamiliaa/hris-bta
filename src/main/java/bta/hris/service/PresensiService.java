@@ -5,7 +5,7 @@ import bta.hris.model.PresensiModel;
 import java.util.List;
 
 public interface PresensiService {
-    PresensiModel addPresensi(PresensiModel presensi);
+    PresensiModel addPresensi(PresensiModel presensi, String nip);
 //
     List<PresensiModel> getAllPresensi();
 

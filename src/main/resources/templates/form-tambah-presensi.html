@@ -14,7 +14,7 @@
                     <h2 th:text="'Tambah Presensi '+ ${localDate}"></h2>
 
                     <form class="form-group" th:action="@{/presensi/tambah}" th:object="${presensi}" method="POST">
-                        <input type = "hidden" th:field="${presensi.pegawai}" th:value="${userTest}"/>
+<!--                        <input type = "hidden" th:field="${presensi.pegawai}" th:value="${userTest}"/>-->
                         Tanggal: <br>
                         <h5 th:text="'Tambah Presensi '+ ${localDate}"></h5>
                         <br>

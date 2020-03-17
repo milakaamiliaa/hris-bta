@@ -11,7 +11,7 @@
     <button class="btn btn-primary">
         <a th:href="@{presensi/tambah}" style="color: black"> Tambah Presensi</a>
     </button>
-    <div th:if="${allPresensi.size() == 0}" th:align="center">
+    <div th:if="${daftarPresensi.size() == 0}" th:align="center">
         <h3 th:text="'Tidak ada pengajuan pengadaan buku.'"></h3>
     </div>
     <div th:unless="${allPresensi.size() == 0}">
@@ -26,7 +26,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="presensi, iterationStatus: ${allPresensi}">
+        <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${presensi.tanggalPresensi}"></td>
             <td th:text="${presensi.sesiMengajar}"></td>

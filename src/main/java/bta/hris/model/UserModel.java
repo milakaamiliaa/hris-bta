@@ -1,10 +1,13 @@
 package bta.hris.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +18,12 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class UserModel implements Serializable{
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUser;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String idUser;
 
     @NotNull
     @Size(max = 255)
@@ -39,13 +45,13 @@ public class UserModel implements Serializable{
     @Column(name = "alamat", nullable = false)
     private String alamat;
 
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
+//    public Long getIdUser() {
+//        return idUser;
+//    }
+//
+//    public void setIdUser(Long idUser) {
+//        this.idUser = idUser;
+//    }
 
     @NotNull
     @Size(max = 255)
@@ -55,16 +61,16 @@ public class UserModel implements Serializable{
     @NotNull
     @Column(name = "tglLahir",nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date tglLahir;
+    private LocalDate tglLahir;
 
     @NotNull
-    @Size(max = 255)
+    @Lob
     @Column(name = "password", nullable = false)
     private String password;
 
     @NotNull
     @Column(name = "createdAt", nullable = false)
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @NotNull
     @Column(name = "isActive", nullable = false)
@@ -83,6 +89,7 @@ public class UserModel implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role",referencedColumnName = "idRole", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private RoleModel role;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -95,6 +102,22 @@ public class UserModel implements Serializable{
 
     @OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PresensiModel> listPresensi;
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
 
     public String getNama() {
         return nama;
@@ -128,11 +151,12 @@ public class UserModel implements Serializable{
         this.noTelp = noTelp;
     }
 
-    public Date getTglLahir() {
+
+    public LocalDate getTglLahir() {
         return tglLahir;
     }
 
-    public void setTglLahir(Date tglLahir) {
+    public void setTglLahir(LocalDate tglLahir) {
         this.tglLahir = tglLahir;
     }
 
@@ -144,11 +168,12 @@ public class UserModel implements Serializable{
         this.password = password;
     }
 
-    public Date getCreatedAt() {
+
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -214,13 +239,5 @@ public class UserModel implements Serializable{
 
     public void setListPresensi(List<PresensiModel> listPresensi) {
         this.listPresensi = listPresensi;
-    }
-
-    public String getNip() {
-        return nip;
-    }
-
-    public void setNip(String nip) {
-        this.nip = nip;
     }
 }
