@@ -33,8 +33,6 @@ public class PresensiController {
     private CabangService cabangService;
 
 
-
-
     @RequestMapping(value="/presensi", method = RequestMethod.GET)
     public String daftarPresensi(Model model){
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -67,7 +65,7 @@ public class PresensiController {
         model.addAttribute("presensi", new PresensiModel());
         model.addAttribute("cabangList", cabangService.getCabangList());
         model.addAttribute("localDate", LocalDate.now());
-        return "form-tambah-presensi";
+        return "redirect:/presensi";
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.GET)

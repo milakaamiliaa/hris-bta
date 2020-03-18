@@ -28,9 +28,9 @@ public class PresensiModel implements Serializable {
     @Column(name = "sesiTambahan", nullable = true)
     private Long sesiTambahan;
 
-    @NotNull
-    @Column(name = "jumlahSesi", nullable = false)
-    private Long jumlahSesi;
+//
+//    @Column(name = "jumlahSesi", nullable = false)
+//    private Long jumlahSesi;
 
     @NotNull
     @Column(name = "status", nullable = false)
@@ -81,13 +81,13 @@ public class PresensiModel implements Serializable {
         this.tanggalPresensi = tanggalPresensi;
     }
 
-    public Long getJumlahSesi() {
-        return jumlahSesi;
-    }
-
-    public void setJumlahSesi(Long jumlahSesi) {
-        this.jumlahSesi = jumlahSesi;
-    }
+//    public Long getJumlahSesi() {
+//        return sesiMengajar + sesiTambahan;
+//    }
+//
+//    public void setJumlahSesi(Long jumlahSesi) {
+//        this.jumlahSesi = jumlahSesi;
+//    }
 
     public String getStatus() {
         return status;
