@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<body>
+    <h2>Daftar Golongan Pegawai</h2>
+    <div th:each="golongan : ${allGolongan}">
+        <h3 th:text="'Nama: ' + ${golongan.nama}"></h3>
+        <h3 th:text="'Rate: ' + ${golongan.rate}"></h3>
+        <h3 th:text="'Pajak: ' + ${golongan.pajak}"></h3>
+    </div>
+</body>
+</html>

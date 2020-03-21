@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h3>Ubah Pegawai</h3>
+<div>
+
+    <form th:action="@{/pegawai/ubah/{idUser}(idUser=${pegawai.idUser})}" th:object="${newPegawai}" method="POST">
+        Nama: <br>
+        <input type="text" name="nama" class="form-control" th:value="${pegawai.nama}"/>
+        <br>
+        Email: <br>
+        <input type="text" name="email" class="form-control" th:value="${pegawai.email}"/>
+        <br>
+        Alamat: <br>
+        <input type="text" name="alamat" class="form-control" th:value="${pegawai.alamat}"/>
+        <br>
+        Nomor Telepon: <br>
+        <input type="text" name="noTelp" class="form-control" th:value="${pegawai.noTelp}"/>
+        <br>
+        Tanggal Lahir: <br>
+        <input type="date" name="tglLahir" class="form-control" th:value="${pegawai.tglLahir}"/>
+        <br>
+        Password: <br>
+        <input type="password" name="password" class="form-control" th:value="${pegawai.password}"/>
+        <br>
+        Mata Pelajaran: <br>
+        <select name="mataPelajaran" class="form-control">
+            <!-- <option selected value="${pegawai.mataPelajaran}""></option> -->
+            <option th:each="mapel : ${mataPelajaran}" th:value="${mapel}" th:text="${mapel}"></option>
+        </select>
+        <br>
+        Nomor Rekening: <br>
+        <input type="number" name="noRekening" class="form-control" th:value="${pegawai.noRekening}"/>
+        <br>
+        Nama Bank: <br>
+        <input type="text" name="namaBank" class="form-control" th:value="${pegawai.namaBank}"/>
+        <br>
+        Role: <br>
+        <select name="role" class="form-control">
+            <!-- <option selected value="${pegawai.role.nama}></option> -->
+            <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
+        </select>
+        <br>
+        Golongan: <br>
+        <select name="golongan" class="form-control">
+            <!-- <option selected value=${pegawai.golongan.nama}></option> -->
+            <option th:each="golongan : ${listGolongan}" th:value="${golongan.idGolongan}" th:text="${golongan.nama}"></option>
+        </select>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
+</div>
+</body>
+</html>

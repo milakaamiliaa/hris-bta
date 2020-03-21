@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h3>Tambah Golongan</h3>
+<div>
+    <form th:action="@{/golongan/tambah}" th:object="${golongan}" method="POST">
+
+        Nama: <br>
+        <input type="text" name="nama" class="form-control" readonly th:value="${golongan.nama}" />
+        <br>
+        Rate: <br>
+        <input type="number" name="rate" class="form-control"/>
+        <br>
+        Pajak: <br>
+        <input type="number" step="0.01" name="pajak" class="form-control"/>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
+</div>
+</body>
+</html>

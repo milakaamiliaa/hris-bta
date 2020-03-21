@@ -27,4 +27,44 @@ public class GolonganModel implements Serializable {
     @OneToMany(mappedBy = "golongan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserModel> listPegawai;
 
+    public Long getIdGolongan() {
+        return idGolongan;
+    }
+
+    public void setIdGolongan(Long idGolongan) {
+        this.idGolongan = idGolongan;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public Long getRate() {
+        return rate;
+    }
+
+    public void setRate(Long rate) {
+        this.rate = rate;
+    }
+
+    public Float getPajak() {
+        return pajak;
+    }
+
+    public void setPajak(Float pajak) {
+        this.pajak = pajak;
+    }
+
+    public List<UserModel> getListPegawai() {
+        return listPegawai;
+    }
+
+    public void setListPegawai(List<UserModel> listPegawai) {
+        this.listPegawai = listPegawai;
+    }
+
 }

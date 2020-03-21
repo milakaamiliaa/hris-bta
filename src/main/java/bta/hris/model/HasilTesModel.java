@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "hasilTes")
@@ -23,12 +23,12 @@ public class HasilTesModel implements Serializable {
     @NotNull
     @Column(name = "startedAt", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date startedAt;
+    private LocalDate startedAt;
 
     @NotNull
     @Column(name = "finishedAt", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date finishedAt;
+    private LocalDate finishedAt;
 
     @NotNull
     @Column(name = "chosenAnswer", nullable = false)
@@ -38,4 +38,52 @@ public class HasilTesModel implements Serializable {
     @JoinColumn(name = "calonPengajar", referencedColumnName= "idCalon", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CalonPengajarModel calonPengajar;
+
+    public Long getIdHasil() {
+        return idHasil;
+    }
+
+    public void setIdHasil(Long idHasil) {
+        this.idHasil = idHasil;
+    }
+
+    public boolean isAnswerResult() {
+        return answerResult;
+    }
+
+    public void setAnswerResult(boolean answerResult) {
+        this.answerResult = answerResult;
+    }
+
+    public LocalDate getStartedAt() {
+        return startedAt;
+    }
+
+    public void setStartedAt(LocalDate startedAt) {
+        this.startedAt = startedAt;
+    }
+
+    public LocalDate getFinishedAt() {
+        return finishedAt;
+    }
+
+    public void setFinishedAt(LocalDate finishedAt) {
+        this.finishedAt = finishedAt;
+    }
+
+    public JawabanModel getChosenAnswer() {
+        return chosenAnswer;
+    }
+
+    public void setChosenAnswer(JawabanModel chosenAnswer) {
+        this.chosenAnswer = chosenAnswer;
+    }
+
+    public CalonPengajarModel getCalonPengajar() {
+        return calonPengajar;
+    }
+
+    public void setCalonPengajar(CalonPengajarModel calonPengajar) {
+        this.calonPengajar = calonPengajar;
+    }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<body>
+<div class="col-sm-3"></div>
+<div class="container-fluid col-sm-6 main-cont">
+    <h2 style="background: rgb(180,58,77); background: linear-gradient(90deg, rgba(180,58,77,1) 0%, rgba(253,29,29,0.6222864145658263) 50%, rgba(252,176,69,1) 100%); margin-top: 10px; margin-bottom: 10px; padding: 10px; color: white;">Detail Anggota</h2>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <div class="well profile">
+                <div class="col-sm-12">
+                    <div>
+                        <p><strong th:text="'Nama : ' + ${pegawai.nama}"></strong></p>
+                        <p><strong th:text="'Tanggal Lahir : ' + ${pegawai.tglLahir}"></strong></p>
+                        <p><strong th:text="'Email : ' + ${pegawai.email}"></strong></p>
+                        <p><strong th:text="'Role : ' + ${pegawai.role.nama}"></strong></p>
+                        <p><strong th:text="'Mata Pelajaran : ' + ${pegawai.mataPelajaran}"></strong></p>
+                        <p><strong th:text="'Golongan : ' + ${pegawai.golongan.nama}"></strong></p>
+                        <!-- buat if kalau golongannya null -->
+                        <!-- <p th:if="${pegawai.golongan.nama}" th:text="'Golongan : ' + ${pegawai.golongan.nama}"></p>
+                <p th:unless="${pegawai.golongan.nama == null}" th:text="'Golongan : -''"></p> -->
+                        <p><strong th:text="'Nama Bank : ' + ${pegawai.namaBank}"></strong></p>
+                        <p><strong th:text="'No Rekening : ' + ${pegawai.noRekening}"></strong></p>
+                        <a th:href="@{/pegawai/ubah/{id}(id=${pegawai.idUser})}" style="color: black;">Ubah</a>
+                        <a th:href="@{/pegawai/hapus/{id}(id=${pegawai.idUser})}" style="color: black;">Hapus</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
