@@ -54,4 +54,9 @@ public class CabangServiceImpl implements CabangService{
     public void deleteCabang(CabangModel cabang){
         cabangDb.delete(cabang);
     }
+
+    @Override
+    public Optional<CabangModel> getCabangByStafCabang(String idStafCabang) {
+        return cabangDb.findByStafCabang(idStafCabang);
+    }
 }

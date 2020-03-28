@@ -86,4 +86,16 @@ public class PresensiController {
         model.addAttribute("presensi", newPresensi);
         return "redirect:/presensi";
     }
+
+    @RequestMapping(value = "presensi/kelola", method = RequestMethod.GET)
+    public String daftarPengajuanPresensi(Model model) {
+        UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
+        CabangModel cabang = cabangService.getCabangByStafCabang(user.getIdUser()).get();
+
+        List<PresensiModel> daftarPresensi = presensiService.getAllPresensiByCabang(cabang);
+
+        model.addAttribute("daftarPresensi", daftarPresensi);
+
+        return "daftar-presensi-kelola";
+    }
 }

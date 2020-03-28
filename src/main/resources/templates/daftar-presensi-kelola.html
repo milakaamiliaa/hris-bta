@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Daftar Presensi</title>
+</head>
+<body>
+<div th:if="${daftarPresensi.size() == 0}" th:align="center">
+    <h3 th:text="'Tidak ada Presensi'"></h3>
+</div>
+<div th:unless="${daftarPresensi.size() == 0}">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Nama Pengajar</th>
+            <th scope="col">Sesi</th>
+            <th scope="col">Tambahan</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${presensi.tanggalPresensi}"></td>
+            <td th:text="${presensi.pegawai.getNama()}"></td>
+            <td th:text="${presensi.sesiMengajar}"></td>
+            <td th:text="${presensi.sesiTambahan}"></td>
+
+            <td>
+                <div th:if="${presensi.status != 'diajukan'}">
+                    th:text="${presensi.status}">
+                </div>
+
+                <div th:if="${presensi.status == 'diajukan'}">
+                    <form th:action = "@{} + ${}" th:object="${}" method="GET">
+                        <div class="col text-center">
+                            <button type="submit"  th:value="${}" class="btn btn-sm btn-primary">Setujui</button>
+                        </div>
+                    </form>
+                    <form th:action = "@{} + ${}" th:object="${}" method="GET">
+                        <div class="col text-center">
+                            <button type="submit"  th:value="${}" class="btn btn-sm btn-danger">Tolak</button>
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

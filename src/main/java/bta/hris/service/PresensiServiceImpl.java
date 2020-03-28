@@ -1,5 +1,6 @@
 package bta.hris.service;
 
+import bta.hris.model.CabangModel;
 import bta.hris.model.PresensiModel;
 import bta.hris.model.UserModel;
 import bta.hris.repository.PresensiDB;
@@ -50,5 +51,10 @@ public class PresensiServiceImpl implements PresensiService {
             newPresensi.setSesiTambahan(presensi.getSesiTambahan());
             presensiDB.save(newPresensi);
             return newPresensi;
+    }
+
+    @Override
+    public List<PresensiModel> getAllPresensiByCabang(CabangModel cabang) {
+        return presensiDB.findAllByCabang(cabang);
     }
 }
