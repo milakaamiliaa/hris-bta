@@ -24,6 +24,10 @@ public class GolonganModel implements Serializable {
     @Column(name = "pajak",nullable = false)
     private Float pajak;
 
+    @NotNull
+    @Column(name = "is_active", nullable = false, columnDefinition = "default 'true'")
+    private boolean isActive;
+
     @OneToMany(mappedBy = "golongan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserModel> listPegawai;
 
@@ -67,4 +71,11 @@ public class GolonganModel implements Serializable {
         this.listPegawai = listPegawai;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }
