@@ -32,19 +32,19 @@
             <td th:text="${presensi.sesiTambahan}"></td>
 
             <td>
-                <div th:if="${presensi.status != 'diajukan'}">
+                <div th:if="${presensi.status != 'pending'}">
                     th:text="${presensi.status}">
                 </div>
 
-                <div th:if="${presensi.status == 'diajukan'}">
-                    <form th:action = "@{} + ${}" th:object="${}" method="GET">
+                <div th:if="${presensi.status == 'pending'}">
+                    <form>
                         <div class="col text-center">
-                            <button type="submit"  th:value="${}" class="btn btn-sm btn-primary">Setujui</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Setujui</button>
                         </div>
                     </form>
-                    <form th:action = "@{} + ${}" th:object="${}" method="GET">
+                    <form>
                         <div class="col text-center">
-                            <button type="submit"  th:value="${}" class="btn btn-sm btn-danger">Tolak</button>
+                            <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
                         </div>
                     </form>
                 </div>

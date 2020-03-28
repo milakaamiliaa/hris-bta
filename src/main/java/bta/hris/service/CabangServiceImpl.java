@@ -1,6 +1,7 @@
 package bta.hris.service;
 
 import bta.hris.model.CabangModel;
+import bta.hris.model.UserModel;
 import bta.hris.repository.CabangDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
-    public Optional<CabangModel> getCabangByStafCabang(String idStafCabang) {
-        return cabangDb.findByStafCabang(idStafCabang);
+    public Optional<CabangModel> getCabangByStafCabang(UserModel stafCabang) {
+        return cabangDb.findByStafCabang(stafCabang);
     }
 }

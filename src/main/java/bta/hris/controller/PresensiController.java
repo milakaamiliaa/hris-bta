@@ -90,7 +90,7 @@ public class PresensiController {
     @RequestMapping(value = "presensi/kelola", method = RequestMethod.GET)
     public String daftarPengajuanPresensi(Model model) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
-        CabangModel cabang = cabangService.getCabangByStafCabang(user.getIdUser()).get();
+        CabangModel cabang = cabangService.getCabangByStafCabang(user).get();
 
         List<PresensiModel> daftarPresensi = presensiService.getAllPresensiByCabang(cabang);
 
