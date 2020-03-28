@@ -25,7 +25,7 @@ public class GolonganModel implements Serializable {
     private Float pajak;
 
     @NotNull
-    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default 'true'")
+    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
     private boolean isActive;
 
     @OneToMany(mappedBy = "golongan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
