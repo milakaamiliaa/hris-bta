@@ -35,7 +35,7 @@ public class CabangServiceImpl implements CabangService{
         CabangModel newCabang = cabangDb.findByIdCabang(cabang.getIdCabang()).get();
 
         try{
-            newCabang.setNama(cabang.getNama());
+            newCabang.setCabang(cabang.getCabang());
             newCabang.setAlamat(cabang.getAlamat());
             newCabang.setEmail(cabang.getEmail());
             newCabang.setNoTelp(cabang.getNoTelp());

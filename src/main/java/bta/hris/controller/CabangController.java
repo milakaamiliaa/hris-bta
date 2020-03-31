@@ -80,7 +80,7 @@ public class CabangController {
     public String updateCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
-        System.out.println(cabang.getStafCabang().getNama());
+//        System.out.println(cabang.getStafCabang().getNama());
         return "redirect:/cabang";
     }
 

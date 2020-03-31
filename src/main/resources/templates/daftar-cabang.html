@@ -30,7 +30,7 @@
             <tbody>
             <tr th:each="cabang, iterationStatus : *{listCabang}">
                 <td style="text-align: center;" th:text="${iterationStatus.count}"></td>
-                <td style="text-align: center;" th:text="${cabang.nama}"></td>
+                <td style="text-align: center;" th:text="${cabang.cabang}"></td>
                 <td style="text-align: center;" th:text="${cabang.noTelp}"></td>
                 <td style="text-align: center;" th:text="${cabang.alamat}"></td>
                 <td><a th:href="@{/cabang/detail/}+${cabang.idCabang}"><button class="btn btn-primary">Detail</button></a></td>
