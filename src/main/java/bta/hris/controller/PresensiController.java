@@ -59,6 +59,11 @@ public class PresensiController {
 
         presensi.setTanggalPresensi(LocalDate.now());
         PresensiModel addedPresensi = presensiService.addPresensi(presensi,nip);
+        List<PresensiModel> allPresensi = presensiService.getAllPresensiByNip(nip);
+        for(PresensiModel presensiItr : allPresensi){
+            presensiItr.getTanggalPresensi().getMonth();
+            if(presensiItr.getTanggalPresensi().getMonth())
+        }
 
 
         model.addAttribute("addedPresensi", addedPresensi);

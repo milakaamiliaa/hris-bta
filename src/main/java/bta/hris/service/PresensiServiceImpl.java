@@ -51,4 +51,9 @@ public class PresensiServiceImpl implements PresensiService {
             presensiDB.save(newPresensi);
             return newPresensi;
     }
+
+    @Override
+    public PresensiModel getGajiByPeriode(PresensiModel presensi) {
+        return null;
+    }
 }

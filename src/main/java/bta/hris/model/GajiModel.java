@@ -26,8 +26,27 @@ public class GajiModel implements Serializable {
     private String status;
 
     @NotNull
-    @Column(name = "total", nullable = false)
-    private Long total;
+    @Column(name = "totalSesi", nullable = false)
+    private Long totalSesi;
+
+    @Column(name = "totalGaji", nullable = false)
+    private Float totalGaji;
+
+    public Long getTotalSesi() {
+        return totalSesi;
+    }
+
+    public void setTotalSesi(Long totalSesi) {
+        this.totalSesi = totalSesi;
+    }
+
+    public Float getTotalGaji() {
+        return totalGaji;
+    }
+
+    public void setTotalGaji(Float totalGaji) {
+        this.totalGaji = rateGaji*pajakGaji*totalSesi;
+    }
 
     @NotNull
     @Column(name = "rateGaji", nullable = false)
@@ -66,13 +85,6 @@ public class GajiModel implements Serializable {
         this.status = status;
     }
 
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
 
     public Long getRateGaji() {
         return rateGaji;
