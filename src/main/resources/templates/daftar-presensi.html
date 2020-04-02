@@ -1,58 +1,131 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Daftar Presensi</title>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Tabel</title>
 </head>
-<body>
-    <button class="btn btn-primary">
-        <a th:href="@{presensi/tambah}" style="color: black"> Tambah Presensi</a>
-    </button>
-    <div th:if="${daftarPresensi.size() == 0}" th:align="center">
-        <h3 th:text="'Tidak ada Presensi'"></h3>
-    </div>
-    <div th:unless="${allPresensi.size() == 0}">
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">No</th>
-            <th scope="col">Tanggal</th>
-            <th scope="col">Cabang</th>
-            <th scope="col">Jumlah Sesi</th>
-            <th scope="col">Sesi Tambahan</th>
-            <th scope="col">Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
-            <td th:text="${iterationStatus.count}"></td>
-            <td th:text="${presensi.tanggalPresensi}"></td>
-            <td th:text="${presensi.cabang.getNama()}"></td>
-            <td th:text="${presensi.sesiMengajar}"></td>
-            <td th:text="${presensi.sesiTambahan}"></td>
-            <td>
-                <div
-                    th:if="${presensi.status == 'ditolak'}">
-                    <form th:action = "@{/presensi/ubah/} + ${presensi.idPresensi}" th:object="${presensi}" method="GET">
-                            <div class="col text-center">
-                                <button type="submit"  th:value="${presensi.idPresensi}" class="btn btn-sm btn-primary">Ubah</button>
+
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="fragments/fragment :: sidebar">
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments/fragment :: topbar"></nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Daftar Presensi</h1>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4 border-bottom-danger">
+                    <div class="card-body">
+                        <select selected=# class="input-field col col-lg-2" id="mylist"
+                                name="Bulan" onchange="dropdownChange()">
+                            <option value="" selected disabled hidden>Bulan</option>
+                            <option value="" >No filter...</option>
+                            <option value="New York">New York</option>
+                            <option value="London">London</option>
+                        </select>
+                        <br>
+                        <div class="row">
+                            <div class="col-md"></div>
+                            <div class="col-md-2">
+                                <br><a th:href="@{/presensi/tambah}">
+                                <button class="detail" style="background-color: #FF5252; color: #ffffff; padding: 10px 10px; right: 15px;">
+                                    + Tambah Presensi
+                                </button>
+                            </a><br>
                             </div>
+                        </div>
+<!--                        <button class="btn btn-primary">-->
+<!--                            <a th:href="@{presensi/tambah}" style="color: black"> Tambah Presensi</a>-->
+<!--                        </button>-->
+                        <div class="table-responsive">
+                            <table class="table " id="dataTable" width="100%" cellspacing="0">
+                                <thead style="background-color: #FF5252 !important; color: white">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Cabang</th>
+                                    <th>Jumlah Sesi</th>
+                                    <th>Sesi Tambahan</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
+                                    <td th:text="${iterationStatus.count}"></td>
+<!--                                    <td th:text="${presensi.tanggalPresensi}"></td>-->
+<!--                                    <td th:text="${#dates.format(presensi.tanggalPresensi, 'dd-MMM-yyyy')}"></td>-->
+                                    <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd-MM-yyyy')}"></td>
+                                    <td th:text="${presensi.cabang.getNama()}"></td>
+                                    <td th:text="${presensi.sesiMengajar}"></td>
+                                    <td th:text="${presensi.sesiTambahan}"></td>
+                                    <td>
+                                        <div
+                                                th:if="${presensi.status == 'ditolak'}">
+                                            <form th:action = "@{/presensi/ubah/} + ${presensi.idPresensi}" th:object="${presensi}" method="GET">
+                                                <div class="col text-center">
+                                                    <button type="submit"  th:value="${presensi.idPresensi}" class="btn btn-sm btn-primary">Ubah</button>
+                                                </div>
 
-                    </form>
-                </div>
-                <div th:if="${presensi.status != 'ditolak'}"
-                     th:text="${presensi.status}">
+                                            </form>
+                                        </div>
+                                        <div th:if="${presensi.status != 'ditolak'}"
+                                             th:text="${presensi.status}">
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
 </div>
 
-
 </body>
+
 </html>

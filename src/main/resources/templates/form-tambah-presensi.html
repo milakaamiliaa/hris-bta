@@ -1,54 +1,152 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
 
-    <title>Tambah Presensi</title>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-10 col-xl-5 mx-auto">
-            <div class="card card-signin flex-row my-5">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Tambah Presensi</h5>
-                    <h2 th:text="'Tambah Presensi '+ ${localDate}"></h2>
+<!--    <title>Tambah Presensi</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-10 col-xl-5 mx-auto">-->
+<!--            <div class="card card-signin flex-row my-5">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title text-center">Tambah Presensi</h5>-->
+<!--                    <h2 th:text="'Tambah Presensi '+ ${localDate}"></h2>-->
 
-                    <form class="form-group" th:action="@{/presensi/tambah}" th:object="${presensi}" method="POST">
-<!--                        <input type = "hidden" th:field="${presensi.pegawai}" th:value="${userTest}"/>-->
-                        Tanggal: <br>
-                        <h5 th:text="'Tambah Presensi '+ ${localDate}"></h5>
-                        <br>
-                        Cabang: <br>
-<!--                        <input class="form-control" type="string" th:field="*{cabang}"/>-->
-                        <select class="form-control" th:field="*{cabang}">
-                            <option th:each="cabang : ${cabangList}"
-                                    th:value="${cabang.idCabang}"
-                                    th:text="${cabang.cabang}">
-                            </option>
-                        </select>
-<!--                        <select name="cabang" class="form-control" th:field="">-->
-<!--                            <option selected value=""> &#45;&#45; Pilih Cabang &#45;&#45;</option>-->
-<!--                            <option th:each="cabangAvailable : ${cabangList}"-->
-<!--                                    th:value="${cabangAvailable.idCabang}"-->
-<!--                                    th:text="${cabangAvailable.cabang}"></option>-->
+<!--                    <form class="form-group" th:action="@{/presensi/tambah}" th:object="${presensi}" method="POST">-->
+<!--&lt;!&ndash;                        <input type = "hidden" th:field="${presensi.pegawai}" th:value="${userTest}"/>&ndash;&gt;-->
+<!--                        Tanggal: <br>-->
+<!--                        <h5 th:text="'Tambah Presensi '+ ${localDate}"></h5>-->
+<!--                        <br>-->
+<!--                        Cabang: <br>-->
+<!--&lt;!&ndash;                        <input class="form-control" type="string" th:field="*{cabang}"/>&ndash;&gt;-->
+<!--                        <select class="form-control" th:field="*{cabang}">-->
+<!--                            <option th:each="cabang : ${cabangList}"-->
+<!--                                    th:value="${cabang.idCabang}"-->
+<!--                                    th:text="${cabang.cabang}">-->
+<!--                            </option>-->
 <!--                        </select>-->
-                        <br>
-                        Jumlah Sesi Mengajar: <br>
-                        <input class="form-control" type="number" th:field="*{sesiMengajar}"/>
-                        <br>
-                        Jumlah Sesi Tambahan: <br>
-                        <input class="form-control" type="number" th:field="*{sesiTambahan}"/>
-                        <br>
-                        <br>
-                        <div style="float:right;">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+<!--&lt;!&ndash;                        <select name="cabang" class="form-control" th:field="">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <option selected value=""> &#45;&#45; Pilih Cabang &#45;&#45;</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <option th:each="cabangAvailable : ${cabangList}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    th:value="${cabangAvailable.idCabang}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    th:text="${cabangAvailable.cabang}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </select>&ndash;&gt;-->
+<!--                        <br>-->
+<!--                        Jumlah Sesi Mengajar: <br>-->
+<!--                        <input class="form-control" type="number" th:field="*{sesiMengajar}"/>-->
+<!--                        <br>-->
+<!--                        Jumlah Sesi Tambahan: <br>-->
+<!--                        <input class="form-control" type="number" th:field="*{sesiTambahan}"/>-->
+<!--                        <br>-->
+<!--                        <br>-->
+<!--                        <div style="float:right;">-->
+<!--                            <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--                        </div>-->
 
-                    </form>
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
+
+<head>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Form</title>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="fragments/fragment :: sidebar">
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments/fragment :: topbar"></nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Tambah Presensi</h1>
+
+                <!-- Card -->
+                <div class="card shadow mb-4 border-bottom-danger">
+                    <div class="card-body">
+                        <div class="form-header">
+                            <p class="form-header-text ">FORM HEADER</p>
+                        </div>
+                        <form class="user" th:action="@{/presensi/tambah}" th:object="${presensi}" method="POST">
+                            <div class="form-group">
+                                <p class = "form-title">Tanggal</p>
+                                <p class="mb-4" th:text="${localDate}"></a>.</p>
+                            </div>
+                            <div class="form-group">
+                                <p class = "form-title">Cabang</p>
+                                    <select class="form-control" th:field="*{cabang}">
+                                        <option th:each="cabang : ${cabangList}"
+                                            th:value="${cabang.idCabang}"
+                                            th:text="${cabang.cabang}">
+                                        </option>
+                                    </select>
+                            </div>
+                            <div class="form-group">
+                                <p class = "form-title">Jumlah Sesi Mengajar</p>
+                                <input type="text" name="sesiMengajar" required = "true" pattern="[1-9]{1,}" title="Masukkan Angka" class="form-control form-control-user" placeholder="Masukkan Jumlah Sesi Mengajar...">
+                            </div>
+                            <div class="form-group">
+                                <p class = "form-title">Jumlah Sesi Tambahan</p>
+                                <input type="text" name="sesiTambahan" required = "false" pattern="[0-9]{1,}" title="Masukkan Angka" class="form-control form-control-user" placeholder="Masukkan Jumlah Sesi Tambahan...">
+                            </div>
+                            <button class="btn form-button">Submit</button>
+                        </form>
+                    </div>
+
                 </div>
+
             </div>
+            <!-- /.container-fluid -->
+
         </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer">
+        </footer>
+        <!-- End of Footer -->
+
     </div>
+    <!-- End of Content Wrapper -->
+
 </div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
+</div>
+
 </body>
+
 </html>
