@@ -40,6 +40,7 @@ public class GolonganController {
     // URL mapping yang digunakan untuk submit form dan menangkap POST -- add golongan.
     @RequestMapping(value="/golongan/tambah", method = RequestMethod.POST)
     public String createGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model) {
+        golongan.setActive(true);
         golonganService.addGolongan(golongan);
 
         model.addAttribute("namaGolongan", golongan.getNama());
