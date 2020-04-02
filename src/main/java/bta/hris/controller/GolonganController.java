@@ -45,7 +45,7 @@ public class GolonganController {
 
         model.addAttribute("namaGolongan", golongan.getNama());
 
-        return "tambah-golongan";
+        return "redirect:/golongan";
     }
 
     // URL mapping untuk menuju halaman form edit golongan.
@@ -72,7 +72,7 @@ public class GolonganController {
 
         model.addAttribute("golongan", newGolonganData);
 
-        return "ubah-golongan";
+        return "redirect:/golongan";
     }
 
     // URL mapping untuk melihat semua golongan.
