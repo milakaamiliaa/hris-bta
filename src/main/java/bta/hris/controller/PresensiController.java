@@ -98,4 +98,35 @@ public class PresensiController {
 
         return "daftar-presensi-kelola";
     }
+
+    @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.GET)
+    public String formSetujuiPresensi(@PathVariable Long idPresensi, Model model) {
+        PresensiModel presensi = presensiService.getPresensiById(idPresensi);
+
+        model.addAttribute("presensi", presensi);
+
+        return "form-setujui-presensi";
+    }
+
+    @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.POST)
+    public String setujuiPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+        String month = "";
+        if (String.valueOf(presensi.getTanggalPresensi().getMonthValue()).length() == 1) {
+            month = "0" + presensi.getTanggalPresensi().getMonthValue();
+        }
+
+        else {
+            month = String.valueOf(presensi.getTanggalPresensi().getMonthValue());
+        }
+        String year = String.valueOf(presensi.getTanggalPresensi().getYear()).substring(2,4);
+        presensi.setKodeGaji(month + year);
+        presensi.setStatus("disetujui");
+        PresensiModel newPresensi = presensiService.approvePresensi(presensi);
+
+        model.addAttribute("presensi", newPresensi);
+
+        return "redirect:/presensi/kelola";
+    }
+
+
 }

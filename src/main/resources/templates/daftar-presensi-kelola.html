@@ -31,24 +31,16 @@
             <td th:text="${presensi.sesiMengajar}"></td>
             <td th:text="${presensi.sesiTambahan}"></td>
 
-            <td>
-                <div th:if="${presensi.status != 'pending'}">
-                    th:text="${presensi.status}">
-                </div>
+            <div th:if="${presensi.status != 'pending'}">
+                <td th:text="${presensi.status}"></td>
+            </div>
 
-                <div th:if="${presensi.status == 'pending'}">
-                    <form>
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-sm btn-primary">Setujui</button>
-                        </div>
-                    </form>
-                    <form>
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
-                        </div>
-                    </form>
-                </div>
-            </td>
+            <div th:if="${presensi.status == 'pending'}">
+                <td>
+                    <a th:href="'/presensi/setujui/' + ${presensi.idPresensi}" class="btn btn-outline-success">Setujui</a>
+                    <a th:href="'/presensi/tolak/' + ${presensi.idPresensi}" class="btn btn-outline-danger">Tolak</a>
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>

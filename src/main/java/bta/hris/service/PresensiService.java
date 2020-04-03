@@ -11,5 +11,6 @@ public interface PresensiService {
     List<PresensiModel> getAllPresensi();
     List<PresensiModel> getAllPresensiByNip(String nip);
     PresensiModel updatePresensi(PresensiModel presensi);
+    PresensiModel approvePresensi(PresensiModel presensi);
     List<PresensiModel> getAllPresensiByCabang(CabangModel cabang);
 }
