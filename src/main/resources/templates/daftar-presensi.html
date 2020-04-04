@@ -37,11 +37,21 @@
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
                         <select selected=# class="input-field col col-lg-2" id="mylist"
-                                name="Bulan" onchange="dropdownChange()">
+                                name="Bulan" onchange="dropdownChangePresensi()">
                             <option value="" selected disabled hidden>Bulan</option>
-                            <option value="" >No filter...</option>
-                            <option value="New York">New York</option>
-                            <option value="London">London</option>
+                            <option value="" >No filter</option>
+                            <option value="01">Januari</option>
+                            <option value="02">Februari</option>
+                            <option value="03">Maret</option>
+                            <option value="04">April</option>
+                            <option value="05">Mei</option>
+                            <option value="06">Juni</option>
+                            <option value="07">Juli</option>
+                            <option value="08">Agustus</option>
+                            <option value="09">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
                         </select>
                         <br>
                         <div class="row">
@@ -72,8 +82,6 @@
                                 <tbody>
                                 <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
                                     <td th:text="${iterationStatus.count}"></td>
-<!--                                    <td th:text="${presensi.tanggalPresensi}"></td>-->
-<!--                                    <td th:text="${#dates.format(presensi.tanggalPresensi, 'dd-MMM-yyyy')}"></td>-->
                                     <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd-MM-yyyy')}"></td>
                                     <td th:text="${presensi.cabang.getNama()}"></td>
                                     <td th:text="${presensi.sesiMengajar}"></td>
