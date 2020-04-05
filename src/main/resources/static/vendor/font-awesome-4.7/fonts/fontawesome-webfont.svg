@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg>
@@ -2671,6 +2673,7 @@ q14 3 26.5 -5t15.5 -23zM1691 1033q15 -22 10.5 -49t-26.5 -43q-22 -15 -49 -10t-42 
   </font>
 </defs></svg>
 =======
+>>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg>
@@ -5342,4 +5345,7 @@ q14 3 26.5 -5t15.5 -23zM1691 1033q15 -22 10.5 -49t-26.5 -43q-22 -15 -49 -10t-42 
  />
   </font>
 </defs></svg>
+<<<<<<< HEAD
+=======
 >>>>>>> 788124345a71aa647e24211023ca8ac4c655ebea
+>>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f

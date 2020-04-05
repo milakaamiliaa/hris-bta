@@ -4689,6 +4689,15 @@ input[type="button"].btn-block {
   background-color: #fff;
   border: 1px solid #dddfeb;
 }
+<<<<<<< HEAD
+#page-top .btn-primary {
+  background-color: #FF5252;
+  border: none;
+  border-radius: 0;
+  color: #ffffff;
+}
+=======
+>>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f
 
 .page-link:hover {
   z-index: 2;
@@ -11090,9 +11099,15 @@ body.sidebar-toggled footer.sticky-footer {
 #mylist {
   margin-bottom: 1.5rem !important;
   border-radius: 10%;
+}
+
+#dropdown-form {
+  margin-bottom: 1.5rem !important;
+  border-radius: 10%;
   margin-left: 1rem !important;
   color: #666;
 }
+
 
 .details-title{
   font-weight: bold !important;
