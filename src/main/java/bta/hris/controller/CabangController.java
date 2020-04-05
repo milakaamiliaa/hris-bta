@@ -53,12 +53,22 @@ public class CabangController {
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
     public String updateCabangForm(@PathVariable Long idCabang, Model model) {
         CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
-
-        ArrayList<UserModel> listStafCabang = new ArrayList<>();
+        ArrayList<UserModel> listCalonStaf = new ArrayList<>();
         List<UserModel> listUser = userService.getAllUser();
-        for (UserModel user : listUser) {
-            if (user.getRole().getNama().equalsIgnoreCase("Staf Cabang")){
-                listStafCabang.add(user);
+        ArrayList<UserModel> listStafCabang = new ArrayList<>();
+        List<CabangModel> listCabang = cabangService.getCabangList();
+
+        for (CabangModel cabang : listCabang){
+            if (cabang.getStafCabang() != null){
+                listStafCabang.add(cabang.getStafCabang());
+            }
+        }
+
+        for (UserModel calonStaf : listUser) {
+            if (calonStaf.getRole().getNama().equalsIgnoreCase("Staf Cabang")){
+                if (listStafCabang.contains(calonStaf) == false){
+                    listCalonStaf.add(calonStaf);
+                }
             }
         }
 
@@ -71,16 +81,40 @@ public class CabangController {
         }
 
         model.addAttribute("cabang", existingCabang);
-        model.addAttribute("listStafCabang", listStafCabang);
+        model.addAttribute("listCalonStaf", listCalonStaf);
 
         return "form-ubah-cabang";
     }
+
+//    public String updateCabangForm(@PathVariable Long idCabang, Model model) {
+//        CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
+//
+//        ArrayList<UserModel> listStafCabang = new ArrayList<>();
+//        List<UserModel> listUser = userService.getAllUser();
+//        for (UserModel user : listUser) {
+//            if (user.getRole().getNama().equalsIgnoreCase("Staf Cabang")){
+//                listStafCabang.add(user);
+//            }
+//        }
+//
+//        try {
+//            model.addAttribute("namaStaf", existingCabang.getStafCabang().getNama());
+//        }
+//
+//        catch (NullPointerException e) {
+//            model.addAttribute("namaStaf", "-");
+//        }
+//
+//        model.addAttribute("cabang", existingCabang);
+//        model.addAttribute("listStafCabang", listStafCabang);
+//
+//        return "form-ubah-cabang";
+//    }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.POST)
     public String updateCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
-//        System.out.println(cabang.getStafCabang().getNama());
         return "redirect:/cabang";
     }
 
