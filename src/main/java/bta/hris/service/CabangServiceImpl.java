@@ -61,4 +61,9 @@ public class CabangServiceImpl implements CabangService{
         }
         return false;
     }
+
+    @Override
+    public Optional<CabangModel> getCabangByStafCabang(UserModel stafCabang) {
+        return cabangDb.findByStafCabang(stafCabang);
+    }
 }
