@@ -24,7 +24,13 @@ public class CabangController {
     @RequestMapping(value = "/cabang")
     public String daftarCabang(Model model){
         List<CabangModel> listCabang = cabangService.getCabangList();
-        model.addAttribute("listCabang", listCabang);
+        List<CabangModel> listActiveCabang = new ArrayList<CabangModel>();
+        for (CabangModel cabang : listCabang){
+            if (cabang.isActive()){
+                listActiveCabang.add(cabang);
+            }
+        }
+        model.addAttribute("listCabang", listActiveCabang);
         return "daftar-cabang";
     }
 
@@ -86,31 +92,6 @@ public class CabangController {
         return "form-ubah-cabang";
     }
 
-//    public String updateCabangForm(@PathVariable Long idCabang, Model model) {
-//        CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
-//
-//        ArrayList<UserModel> listStafCabang = new ArrayList<>();
-//        List<UserModel> listUser = userService.getAllUser();
-//        for (UserModel user : listUser) {
-//            if (user.getRole().getNama().equalsIgnoreCase("Staf Cabang")){
-//                listStafCabang.add(user);
-//            }
-//        }
-//
-//        try {
-//            model.addAttribute("namaStaf", existingCabang.getStafCabang().getNama());
-//        }
-//
-//        catch (NullPointerException e) {
-//            model.addAttribute("namaStaf", "-");
-//        }
-//
-//        model.addAttribute("cabang", existingCabang);
-//        model.addAttribute("listStafCabang", listStafCabang);
-//
-//        return "form-ubah-cabang";
-//    }
-
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.POST)
     public String updateCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
@@ -121,8 +102,14 @@ public class CabangController {
     @RequestMapping(value="/cabang/hapus/{idCabang}", method = RequestMethod.POST)
     public String deleteCabang(@PathVariable Long idCabang, Model model){
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
+//        if (cabang == null){
+//            return "Maaf, cabang tidak di"
         model.addAttribute("cabang", cabang);
-        cabangService.deleteCabang(cabang);
+
+        if(cabangService.deleteCabang(cabang)){
+            cabangService.deleteCabang(cabang);
+            return "redirect:/cabang";
+        }
         return "redirect:/cabang";
     }
 }

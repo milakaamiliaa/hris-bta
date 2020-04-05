@@ -45,7 +45,7 @@
                             <form class="user" th:action="@{/cabang/ubah/}+${cabang.idCabang}" th:object="${cabang}" method="POST">
                                 <div class="form-group">
                                     <p class = "form-title">Nama Cabang</p>
-                                    <input type="text" name="cabang" th:field="${cabang.cabang}" class="form-control form-control-user">
+                                    <input style="background: none;" type="text" name="cabang" th:field="${cabang.cabang}" class="form-control form-control-user">
                                 </div>
                                 <div class="form-group">
                                     <p class = "form-title">Nomor Telepon</p>
