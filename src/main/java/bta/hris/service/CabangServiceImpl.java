@@ -28,6 +28,7 @@ public class CabangServiceImpl implements CabangService{
 
     @Override
     public void createCabang(CabangModel cabang){
+        cabang.setActive(true);
         cabangDb.save(cabang);
     }
 
@@ -36,7 +37,7 @@ public class CabangServiceImpl implements CabangService{
         CabangModel newCabang = cabangDb.findByIdCabang(cabang.getIdCabang()).get();
 
         try{
-            newCabang.setNama(cabang.getNama());
+            newCabang.setCabang(cabang.getCabang());
             newCabang.setAlamat(cabang.getAlamat());
             newCabang.setEmail(cabang.getEmail());
             newCabang.setNoTelp(cabang.getNoTelp());
@@ -52,8 +53,13 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
-    public void deleteCabang(CabangModel cabang){
-        cabangDb.delete(cabang);
+    public boolean deleteCabang(CabangModel cabang){
+        CabangModel targetCabang = cabangDb.findByIdCabang(cabang.getIdCabang()).get();
+        if (targetCabang.isActive()){
+            targetCabang.setActive(false);
+            return true;
+        }
+        return false;
     }
 
     @Override
