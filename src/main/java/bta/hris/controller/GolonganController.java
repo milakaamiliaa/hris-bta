@@ -2,7 +2,6 @@ package bta.hris.controller;
 
 import bta.hris.model.GolonganModel;
 import bta.hris.service.GolonganService;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
