@@ -75,6 +75,9 @@ public class UserServiceImpl implements UserService {
             targetUser.setMataPelajaran(pegawai.getMataPelajaran());
             targetUser.setNoRekening(pegawai.getNoRekening());
             targetUser.setNamaBank(pegawai.getNamaBank());
+            targetUser.setGolongan(pegawai.getGolongan());
+            targetUser.setRole(pegawai.getRole());
+
             
             String newNIP = "";
         if (pegawai.getMataPelajaran().equals("Biologi")){
