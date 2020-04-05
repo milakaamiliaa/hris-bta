@@ -2353,7 +2353,6 @@ fieldset:disabled a.btn {
   border-radius: 0;
 }
 
-
 .btn-primary:focus, .btn-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
 }
@@ -4689,15 +4688,13 @@ input[type="button"].btn-block {
   background-color: #fff;
   border: 1px solid #dddfeb;
 }
-<<<<<<< HEAD
+
 #page-top .btn-primary {
   background-color: #FF5252;
   border: none;
   border-radius: 0;
   color: #ffffff;
 }
-=======
->>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f
 
 .page-link:hover {
   z-index: 2;
@@ -11107,7 +11104,6 @@ body.sidebar-toggled footer.sticky-footer {
   margin-left: 1rem !important;
   color: #666;
 }
-
 
 .details-title{
   font-weight: bold !important;

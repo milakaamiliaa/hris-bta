@@ -800,9 +800,6 @@ Converter.prototype.getValues = function(space) {
 
 var colorConvert = convert;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 var colorName = {
 	"aliceblue": [240, 248, 255],
 	"antiquewhite": [250, 235, 215],
@@ -952,8 +949,7 @@ var colorName = {
 	"whitesmoke": [245, 245, 245],
 	"yellow": [255, 255, 0],
 	"yellowgreen": [154, 205, 50]
-=======
->>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f
+
 var colorName = {
 	"aliceblue": [240, 248, 255],
 	"antiquewhite": [250, 235, 215],
@@ -1103,10 +1099,6 @@ var colorName = {
 	"whitesmoke": [245, 245, 245],
 	"yellow": [255, 255, 0],
 	"yellowgreen": [154, 205, 50]
-<<<<<<< HEAD
-=======
->>>>>>> 788124345a71aa647e24211023ca8ac4c655ebea
->>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f
 };
 
 /* MIT license */
