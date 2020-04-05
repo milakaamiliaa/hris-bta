@@ -52,13 +52,6 @@ public class UserController {
         return "detail-pegawai";
     }
 
-
-//    @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
-//    private String addUserSubmit(@ModelAttribute UserModel user) {
-//        userService.addUser(user);
-//        return "home";
-//    }
-
     @RequestMapping(value="/pegawai/tambah", method = RequestMethod.GET)
     public String createPegawaiForm(Model model) {
         UserModel newUser = new UserModel();

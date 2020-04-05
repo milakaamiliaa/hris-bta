@@ -53,13 +53,11 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
-    public boolean deleteCabang(CabangModel cabang){
+    public void deleteCabang(CabangModel cabang){
         CabangModel targetCabang = cabangDb.findByIdCabang(cabang.getIdCabang()).get();
         if (targetCabang.isActive()){
             targetCabang.setActive(false);
-            return true;
         }
-        return false;
     }
 
     @Override

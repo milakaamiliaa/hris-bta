@@ -6,7 +6,6 @@ import bta.hris.model.UserModel;
 import bta.hris.service.CabangService;
 import bta.hris.service.PresensiService;
 import bta.hris.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
