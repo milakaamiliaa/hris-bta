@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,7 @@ public class GolonganController {
 
         GolonganModel newGolongan = new GolonganModel();
         newGolongan.setNama(currentGolonganNumber.toString());
+        newGolongan.setActive(true);
 
         model.addAttribute("golongan", newGolongan);
 
@@ -38,9 +40,6 @@ public class GolonganController {
     // URL mapping yang digunakan untuk submit form dan menangkap POST -- add golongan.
     @RequestMapping(value="/golongan/tambah", method = RequestMethod.POST)
     public String createGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model) {
-        System.out.println(golongan.getNama());
-        System.out.println(golongan.getRate());
-        System.out.println(golongan.getPajak());
         golonganService.addGolongan(golongan);
 
         model.addAttribute("namaGolongan", golongan.getNama());
@@ -70,10 +69,6 @@ public class GolonganController {
     public String updateGolonganSubmit(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model) {
         GolonganModel newGolonganData = golonganService.editGolongan(golongan);
 
-        System.out.println(newGolonganData.getNama());
-        System.out.println(newGolonganData.getRate());
-        System.out.println(newGolonganData.getPajak());
-
         model.addAttribute("golongan", newGolonganData);
 
         return "ubah-golongan";
@@ -83,8 +78,14 @@ public class GolonganController {
     @RequestMapping(value="/golongan", method = RequestMethod.GET)
     public String daftarGolongan(Model model) {
         List<GolonganModel> allGolongan = golonganService.getAllGolongan();
+        List<GolonganModel> allActiveGolongan = new ArrayList<GolonganModel>();
+        for (GolonganModel g : allGolongan) {
+            if (g.isActive()) {
+                allActiveGolongan.add(g);
+            }
+        }
 
-        model.addAttribute("allGolongan", allGolongan);
+        model.addAttribute("allGolongan", allActiveGolongan);
 
         return "daftar-golongan";
     }

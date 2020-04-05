@@ -39,6 +39,9 @@ public class PresensiModel implements Serializable {
     @Column(name = "uangKonsum", nullable = true)
     private Long uangKonsum;
 
+    @Column(name = "kodeGaji", nullable = true)
+    private String kodeGaji;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "cabang", referencedColumnName= "idCabang", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -119,5 +122,13 @@ public class PresensiModel implements Serializable {
 
     public void setPegawai(UserModel pegawai) {
         this.pegawai = pegawai;
+    }
+
+    public String getKodeGaji() {
+        return kodeGaji;
+    }
+
+    public void setKodeGaji(String kodeGaji) {
+        this.kodeGaji = kodeGaji;
     }
 }

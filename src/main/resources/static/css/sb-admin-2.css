@@ -2332,6 +2332,28 @@ fieldset:disabled a.btn {
   border-color: #2653d4;
 }
 
+#page-top .btn-primary {
+  background-color: #FF5252;
+  border: none;
+  border-radius: 0;
+  color: #ffffff;
+}
+
+.btn-ubah {
+  background-color: white;
+  color: #4e73df;
+  border: 2px solid #4E73DF;
+  border-radius: 0;
+}
+
+.btn-hapus {
+  background-color: white;
+  color: #FF0000;
+  border: 2px solid #FF0000;
+  border-radius: 0;
+}
+
+
 .btn-primary:focus, .btn-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
 }
@@ -4667,12 +4689,15 @@ input[type="button"].btn-block {
   background-color: #fff;
   border: 1px solid #dddfeb;
 }
+<<<<<<< HEAD
 #page-top .btn-primary {
   background-color: #FF5252;
   border: none;
   border-radius: 0;
   color: #ffffff;
 }
+=======
+>>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f
 
 .page-link:hover {
   z-index: 2;
@@ -11108,6 +11133,10 @@ body.sidebar-toggled footer.sticky-footer {
   color: white;
   font-weight: bold;
   text-align: center;
+}
+
+.label {
+  display: inline-block;
 }
 
 .form-title{

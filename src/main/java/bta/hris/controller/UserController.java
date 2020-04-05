@@ -32,15 +32,16 @@ public class UserController {
 
     @RequestMapping(value = "/pegawai/daftar-pegawai", method = RequestMethod.GET)
     public String daftarPegawai(Model model){
-        List<UserModel> listPegawai = userService.getAllUser();
-        model.addAttribute("listPegawai", listPegawai);
-        return "daftar-pegawai";
-    }
-
-    @RequestMapping(value = "/pegawai/daftar-pegawai/{role}", method = RequestMethod.GET)
-    public String viewPegawaiByRole(@PathVariable Long role, Model model){
-        List<UserModel> listPegawai = userService.getUserByRole(role);
-        model.addAttribute("listPegawai", listPegawai);
+        List<UserModel> listUser = userService.getAllUser();
+        List<RoleModel> listRole = roleService.getAllRole();
+        List<UserModel> activeUsers = new ArrayList<UserModel>();
+        for (UserModel user : listUser){
+            if(user.isActive()){
+                activeUsers.add(user);
+            }
+        }
+        model.addAttribute("listPegawai", activeUsers);
+        model.addAttribute("listRole", listRole);
         return "daftar-pegawai";
     }
 
@@ -128,9 +129,10 @@ public class UserController {
         }
 
         pegawai.setNip(newNIP);
+        pegawai.setActive(true);
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
-        return daftarPegawai(model);
+        return "redirect:/pegawai/daftar-pegawai";
 
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
@@ -139,6 +141,7 @@ public class UserController {
         List<GolonganModel> listGolongan = golonganService.getAllGolongan();
         List<RoleModel> listRole = roleService.getAllRole();
         List<String> mataPelajaran = new ArrayList<String>();
+
         mataPelajaran.add("Biologi");
         mataPelajaran.add("Ekonomi");
         mataPelajaran.add("Matematika");
@@ -172,8 +175,10 @@ public class UserController {
         }
         model.addAttribute("pegawai", targetUser);
         if (userService.deleteUser(targetUser)) {
-            return daftarPegawai(model);
-        }return "hapus-pegawai";
+            userService.deleteUser(targetUser);
+            return "redirect:/pegawai/daftar-pegawai";
+        }return "redirect:/pegawai/daftar-pegawai";
+
     }
 
 }
