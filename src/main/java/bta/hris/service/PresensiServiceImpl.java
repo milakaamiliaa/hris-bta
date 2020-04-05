@@ -49,6 +49,7 @@ public class PresensiServiceImpl implements PresensiService {
             newPresensi.setCabang(presensi.getCabang());
             newPresensi.setSesiMengajar(presensi.getSesiMengajar());
             newPresensi.setSesiTambahan(presensi.getSesiTambahan());
+            newPresensi.setStatus("pending");
             presensiDB.save(newPresensi);
             return newPresensi;
     }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -37,14 +38,19 @@ public class PresensiController {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("allPresensi", presensiService.getAllPresensi());
         model.addAttribute("daftarPresensi", presensiService.getAllPresensiByNip(user.getNip()));
+
         return "daftar-presensi";
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.GET)
     public String createPresensiForm(Model model){
+        LocalDate localDate = LocalDate.now();//For reference
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String formattedString = localDate.format(formatter);
+
         model.addAttribute("presensi", new PresensiModel());
         model.addAttribute("cabangList", cabangService.getCabangList());
-        model.addAttribute("localDate", LocalDate.now());
+        model.addAttribute("localDate", formattedString);
 
         return "form-tambah-presensi";
     }
@@ -59,7 +65,6 @@ public class PresensiController {
         presensi.setTanggalPresensi(LocalDate.now());
         PresensiModel addedPresensi = presensiService.addPresensi(presensi,nip);
 
-
         model.addAttribute("addedPresensi", addedPresensi);
         model.addAttribute("presensi", new PresensiModel());
         model.addAttribute("cabangList", cabangService.getCabangList());
@@ -73,6 +78,11 @@ public class PresensiController {
 
         List<CabangModel> listCabang = cabangService.getCabangList();
 
+        LocalDate localDate = LocalDate.now();//For reference
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String formattedString = localDate.format(formatter);
+
+        model.addAttribute("localDate", formattedString);
         model.addAttribute("presensi", existingPresensi);
         model.addAttribute("listCabang", listCabang);
 
@@ -81,7 +91,9 @@ public class PresensiController {
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.POST)
     public String updatePresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+
         PresensiModel newPresensi = presensiService.updatePresensi(presensi);
+
         model.addAttribute("presensi", newPresensi);
         return "redirect:/presensi";
     }
