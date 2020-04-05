@@ -49,33 +49,33 @@
                         <form class="user" th:action="@{/pegawai/ubah/{idUser}(idUser=${pegawai.idUser})}" th:object="${newPegawai}" method="POST">
                             <div class="form-group">
                                 <p class = "form-title">Nama</p>
-                                <input type="text" class="form-control form-control-user" id="exampleInputEmail" th:value="${pegawai.nama}">
+                                <input name="nama" type="text" class="form-control form-control-user" id="exampleInputEmail" th:value="${pegawai.nama}">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Email</p>
-                                <input type="email" class="form-control form-control-user" th:value="${pegawai.email}">
+                                <input name="email" type="email" class="form-control form-control-user" th:value="${pegawai.email}">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Alamat</p>
-                                <input type="text" class="form-control form-control-user" th:value="${pegawai.alamat}">
+                                <input name="alamat" type="text" class="form-control form-control-user" th:value="${pegawai.alamat}">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Nomor Telepon</p>
-                                <input type="text" class="form-control form-control-user" th:value="${pegawai.noTelp}">
+                                <input name="noTelp" type="text" class="form-control form-control-user" th:value="${pegawai.noTelp}">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Tanggal Lahir</p>
-                                <input type="date" class="form-control form-control-user" th:value="${pegawai.tglLahir}">
+                                <input name="tglLahir" type="date" class="form-control form-control-user" th:value="${pegawai.tglLahir}">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Password</p>
-                                <input type="password" class="form-control form-control-user" th:value="${pegawai.password}" id="userPassword">
+                                <input name="password" type="password" class="form-control form-control-user" th:value="${pegawai.password}" id="userPassword">
                                 <input type="checkbox" onclick="myFunction()" style="margin-top: 15px;"> Tunjukkan Sandi
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Role</p>
                                 <select name="role" class="form-control">
-                                    <option th:each="role : ${listRole}" th:value="${role}" th:text="${role.nama}"></option>
+                                    <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -87,16 +87,16 @@
                             <div class="form-group">
                                 <p class = "form-title">Golongan</p>
                                 <select name="golongan" class="form-control">
-                                    <option th:each="golongan : ${listGolongan}" th:value="${golongan}" th:text="${golongan.nama}"></option>
+                                    <option th:each="golongan : ${listGolongan}" th:value="${golongan.idGolongan}" th:text="${golongan.nama}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Nomor Rekening</p>
-                                <input type="number" class="form-control form-control-user" th:value="${pegawai.noRekening}">
+                                <input name="noRekening" type="number" class="form-control form-control-user" th:value="${pegawai.noRekening}">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Nama Bank</p>
-                                <input type="text" class="form-control form-control-user" th:value="${pegawai.namaBank}">
+                                <input name="namaBank" type="text" class="form-control form-control-user" th:value="${pegawai.namaBank}">
                             </div>
                             <button class="btn btn-primary" type="submit">Submit</button>
 

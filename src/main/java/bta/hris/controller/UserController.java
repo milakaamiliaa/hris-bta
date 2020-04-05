@@ -129,9 +129,10 @@ public class UserController {
         }
 
         pegawai.setNip(newNIP);
+        pegawai.setActive(true);
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
-        return daftarPegawai(model);
+        return "redirect:/pegawai/daftar-pegawai";
 
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
@@ -140,7 +141,7 @@ public class UserController {
         List<GolonganModel> listGolongan = golonganService.getAllGolongan();
         List<RoleModel> listRole = roleService.getAllRole();
         List<String> mataPelajaran = new ArrayList<String>();
-        
+
         mataPelajaran.add("Biologi");
         mataPelajaran.add("Ekonomi");
         mataPelajaran.add("Matematika");
@@ -175,8 +176,9 @@ public class UserController {
         model.addAttribute("pegawai", targetUser);
         if (userService.deleteUser(targetUser)) {
             userService.deleteUser(targetUser);
-            return daftarPegawai(model);
-        }return "daftar-pegawai";
+            return "redirect:/pegawai/daftar-pegawai";
+        }return "redirect:/pegawai/daftar-pegawai";
+
     }
 
 }

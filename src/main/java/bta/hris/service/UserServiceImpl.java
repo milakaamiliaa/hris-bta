@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
             targetUser.setNoTelp(pegawai.getNoTelp());
             targetUser.setTglLahir(pegawai.getTglLahir());
             targetUser.setPassword(pegawai.getPassword());
-            targetUser.setActive(pegawai.isActive());
+            targetUser.setActive(true);
             targetUser.setMataPelajaran(pegawai.getMataPelajaran());
             targetUser.setNoRekening(pegawai.getNoRekening());
             targetUser.setNamaBank(pegawai.getNamaBank());
