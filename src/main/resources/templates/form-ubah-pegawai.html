@@ -4,7 +4,7 @@
 <head>
     <object th:include = "fragments/fragment :: head"></object>
     <title>Ubah Pegawai</title>
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt
@@ -39,12 +39,13 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800" align="center">UBAH DATA PEGAWAI</h1>
+<!--                <h1 class="h3 mb-2 text-gray-800" align="center">UBAH DATA PEGAWAI</h1>-->
 
                 <!-- Card -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
                         <div class="form-header">
+                            <p class="form-header-text ">UBAH DATA PEGAWAI</p>
                         </div>
                         <form class="user" th:action="@{/pegawai/ubah/{idUser}(idUser=${pegawai.idUser})}" th:object="${newPegawai}" method="POST">
                             <div class="form-group">
@@ -70,23 +71,26 @@
                             <div class="form-group">
                                 <p class = "form-title">Password</p>
                                 <input name="password" type="password" class="form-control form-control-user" th:value="${pegawai.password}" id="userPassword">
-                                <input type="checkbox" onclick="myFunction()" style="margin-top: 15px;"> Tunjukkan Sandi
+                                <div class="col col-lg-1">
+                                    <input type="checkbox" onclick="myFunction()" style="margin-top: 15px;">
+                                </div>
+                                    <p class="col col-lg-auto">Tunjukkan Sandi</p>
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Role</p>
-                                <select name="role" class="form-control">
+                                <select name="role" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px;">
                                     <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Mata Pelajaran</p>
-                                <select name="mataPelajaran" class="form-control">
+                                <select name="mataPelajaran" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px;">
                                     <option th:each="mapel : ${mataPelajaran}" th:value="${mapel}" th:text="${mapel}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Golongan</p>
-                                <select name="golongan" class="form-control">
+                                <select name="golongan" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px;">
                                     <option th:each="golongan : ${listGolongan}" th:value="${golongan.idGolongan}" th:text="${golongan.nama}"></option>
                                 </select>
                             </div>
@@ -98,7 +102,7 @@
                                 <p class = "form-title">Nama Bank</p>
                                 <input name="namaBank" type="text" class="form-control form-control-user" th:value="${pegawai.namaBank}">
                             </div>
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-primary" type="submit">Simpan</button>
 
                         </form>
 
