@@ -90,4 +90,12 @@ public class GolonganController {
         return "daftar-golongan";
     }
 
+    @RequestMapping(value = "/golongan/hapus/{idGolongan}", method = RequestMethod.POST)
+    public String hapusGolongan(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model) {
+        GolonganModel target = golonganService.getGolonganByIdGolongan(idGolongan).get();
+        golonganService.deleteGolongan(target);
+
+        return "redirect:/golongan";
+    }
+
 }

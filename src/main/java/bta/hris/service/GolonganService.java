@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface GolonganService {
     GolonganModel addGolongan(GolonganModel golongan);
     GolonganModel editGolongan(GolonganModel existingGolongan);
+    GolonganModel deleteGolongan(GolonganModel golongan);
     // void deleteGolongan(GolonganModel existingGolongan);
     List<GolonganModel> getAllGolongan();
     Optional<GolonganModel> getGolonganByIdGolongan(Long idGolongan);
