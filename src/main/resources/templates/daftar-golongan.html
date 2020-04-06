@@ -1,12 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<body>
-    <h2>Daftar Golongan Pegawai</h2>
-    <div th:each="golongan : ${allGolongan}">
-        <h3 th:text="'Nama: ' + ${golongan.nama}"></h3>
-        <h3 th:text="'Rate: ' + ${golongan.rate}"></h3>
-        <h3 th:text="'Pajak: ' + ${golongan.pajak}"></h3>
+<head>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Daftar Golongan</title>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul th:replace="fragments/fragment :: sidebar"></ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav th:replace="fragments/fragment :: topbar"></nav>
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Daftar Golongan Pegawai</h1>
+
+                    <!-- DataTables -->
+                    <div class="card shadow mb-4 border-bottom-danger">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto ml-auto">
+                                    <a class="btn btn-primary" href="/golongan/tambah">+ Tambah Golongan</a>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table " id="dataTable" width="100%" cellspacing="0">
+                                    <thead style="background-color: #FF5252 !important; color: white">
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Golongan</th>
+                                        <th class="text-center">Rate Gaji</th>
+                                        <th class="text-center">Pajak</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="golongan, iterationStatus : *{allGolongan}">
+                                        <td class="text-center" th:text="${iterationStatus.count}"></td>
+                                        <td class="text-center" th:text="${golongan.nama}"></td>
+                                        <td class="text-center" th:text="'Rp' + ${golongan.rate} + ',00'"></td>
+                                        <td class="text-center" th:text="${golongan.pajak} + '%'"></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-outline-primary" style="border-radius: 0;" th:href="'/golongan/ubah/' + ${golongan.idGolongan}">Ubah</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer th:replace="fragments/fragment :: footer">
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+        </div>
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div th:replace="fragments/fragment :: logout">
+        </div>
     </div>
 </body>
 </html>

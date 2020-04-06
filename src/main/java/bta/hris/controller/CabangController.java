@@ -106,11 +106,9 @@ public class CabangController {
 //            return "Maaf, cabang tidak di"
         model.addAttribute("cabang", cabang);
 
-        if(cabangService.deleteCabang(cabang)){
             cabangService.deleteCabang(cabang);
             return "redirect:/cabang";
-        }
-        return "redirect:/cabang";
+        
     }
 }
 

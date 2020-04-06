@@ -221,12 +221,6 @@ h6 {
   font-weight: 700;
 }
 
-#page-top .btn-primary {
-  background-color: #FF5252;
-  border: none;
-  border-radius: 0;
-}
-
 .btn--radius {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -503,5 +497,10 @@ input {
     display: block;
     padding: 60px 50px;
   }
+
+#page-top .btn-primary {
+  background-color: #FF5252;
+  border: none;
+  border-radius: 0;
 
 }
