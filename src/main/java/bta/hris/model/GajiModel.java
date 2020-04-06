@@ -45,7 +45,7 @@ public class GajiModel implements Serializable {
     }
 
     public void setTotalGaji(Float totalGaji) {
-        this.totalGaji = rateGaji*pajakGaji*totalSesi;
+        this.totalGaji = totalGaji;
     }
 
     @NotNull

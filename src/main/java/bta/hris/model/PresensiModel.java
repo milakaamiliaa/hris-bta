@@ -29,14 +29,11 @@ public class PresensiModel implements Serializable {
     @Column(name = "sesiTambahan", nullable = true)
     private Long sesiTambahan;
 
-    @NotNull
-    @Size(max = 255)
-    @Column(name = "kodeGaji", nullable = true)
-    private String kodeGaji;
+//    @NotNull
+//    @Size(max = 255)
+//    @Column(name = "kodeGaji", nullable = true)
+//    private String kodeGaji;
 
-//
-//    @Column(name = "jumlahSesi", nullable = false)
-//    private Long jumlahSesi;
 
     @NotNull
     @Column(name = "status", nullable = false)
@@ -44,6 +41,9 @@ public class PresensiModel implements Serializable {
 
     @Column(name = "uangKonsum", nullable = true)
     private Long uangKonsum;
+
+    @Column(name = "kodeGaji", nullable = true)
+    private String kodeGaji;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "cabang", referencedColumnName= "idCabang", nullable = false)
@@ -125,5 +125,13 @@ public class PresensiModel implements Serializable {
 
     public void setPegawai(UserModel pegawai) {
         this.pegawai = pegawai;
+    }
+
+    public String getKodeGaji() {
+        return kodeGaji;
+    }
+
+    public void setKodeGaji(String kodeGaji) {
+        this.kodeGaji = kodeGaji;
     }
 }
