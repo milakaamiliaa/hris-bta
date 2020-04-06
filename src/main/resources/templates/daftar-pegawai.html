@@ -1,40 +1,123 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
 
-<body>
-    
-    <div class="container" style="margin-top: 100px;">
-    <h2>Daftar Pegawai</h2>
-    <table class="table">
-        <thead style="background: rgb(180,58,77);
-        background: linear-gradient(90deg, rgba(180,58,77,1) 0%, rgba(253,29,29,0.6222864145658263) 50%, rgba(252,176,69,1) 100%); color: white;">
-        <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>NIP</th>
-            <th>Role</th>
-            <th>Aksi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="pegawai : ${listPegawai}">
-            <td><a th:text="${pegawai.idUser}"></a></td>
-            <td><a th:text="${pegawai.nama}"></a></td>
-            <td><a th:text="${pegawai.nip}"></a></td>
-            <td><a th:text="${pegawai.role.nama}"></a></td>
-            <!-- <td>
-                <a th:if="${anggota.is_pengurus}" th:text="Pengurus"></a>
-                <a th:unless="${anggota.is_pengurus}" th:text="Anggota"></a>
-            </td> -->
-            <td>
-                <button class="btn btn-sm btn-info">
-                    <a th:href="@{/pegawai/detail/{id}(id=${pegawai.idUser})}" style="color: black;">Detail</a>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<head>
+  <object th:include = "fragments/fragment :: head"></object>
+  <title>Daftar Pegawai</title>
+  <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
+  <script th:src="@{/js/sb-admin-2.min.js}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt
+TE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4s
+F86dIHNDz0W1" crossorigin="anonymous"></script>
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="fragments/fragment :: sidebar">
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav th:replace="fragments/fragment :: topbar"></nav>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800" >Daftar Pegawai</h1>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4 border-bottom-danger">
+            <div class="card-body">
+              <div class="row" style="margin-bottom: 15px;">
+
+                <div class="form-group col-auto" style="display: none;">
+                  <select selected=# name="role" class="input-field col col-lg-12 btn-secondary dropdown-toggle" style="margin-top: 5px; background-color: white; color: grey;" id="mylist" onchange="dropdownChange()">
+                      <option value="" selected disabled hidden th:text="${role == null} ? 'Pilih Role' : ${role.nama}"></option>
+                          <option th:each="role : ${listRole}"
+                                  th:value="${role.idRole}"
+                                  th:text="${role.nama}"/>
+                      </select>
+                </div>
+
+                <div class="col-auto ml-auto">
+                    <a class="btn form-button" href="/pegawai/tambah">+ Tambah Pegawai</a>
+                </div>
+                
+            </div>
+
+              
+
+
+              <div class="table-responsive">
+                <table class="table " id="dataTable" width="100%" cellspacing="0">
+                  <thead style="background-color: #FF5252 !important; color: white">
+                    <tr>
+                      <th>No</th>
+                      <th>Nama</th>
+                      <th>NIP</th>
+                      <th>Role</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="pegawai, iterationStatus : *{listPegawai}">
+                      <td><a th:text="${iterationStatus.count}"></a> </td>
+                      <td><a th:text="${pegawai.nama}"></a> </td>
+                      <td><a th:text="${pegawai.nip}"></a> </td>
+                      <td><a th:text="${pegawai.role.nama}"></a> </td>
+                      <td>
+                        <button class="btn ">
+                            <a th:href="@{/pegawai/detail/{id}(id=${pegawai.idUser})}">Detail</a>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer th:replace="fragments/fragment :: footer">
+      </footer>
+      <!-- End of Footer -->
+
     </div>
-</section>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div th:replace="fragments/fragment :: logout">
+  </div>
+
 </body>
+
 </html>

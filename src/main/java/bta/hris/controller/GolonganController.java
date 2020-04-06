@@ -2,7 +2,6 @@ package bta.hris.controller;
 
 import bta.hris.model.GolonganModel;
 import bta.hris.service.GolonganService;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -40,11 +39,12 @@ public class GolonganController {
     // URL mapping yang digunakan untuk submit form dan menangkap POST -- add golongan.
     @RequestMapping(value="/golongan/tambah", method = RequestMethod.POST)
     public String createGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model) {
+        golongan.setActive(true);
         golonganService.addGolongan(golongan);
 
         model.addAttribute("namaGolongan", golongan.getNama());
 
-        return "tambah-golongan";
+        return "redirect:/golongan";
     }
 
     // URL mapping untuk menuju halaman form edit golongan.
@@ -71,7 +71,7 @@ public class GolonganController {
 
         model.addAttribute("golongan", newGolonganData);
 
-        return "ubah-golongan";
+        return "redirect:/golongan";
     }
 
     // URL mapping untuk melihat semua golongan.
