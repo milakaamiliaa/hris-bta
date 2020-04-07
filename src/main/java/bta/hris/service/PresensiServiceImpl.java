@@ -86,7 +86,8 @@ public class PresensiServiceImpl implements PresensiService {
     }
 
     @Override
-    public List<PresensiModel> getAllPresensiByKodeGaji(String kodeGaji) {
-        return presensiDB.findByKodeGaji(kodeGaji);
+    public List<PresensiModel> getAllPresensiByKodeGaji(String kodeGaji, String nip) {
+        UserModel user =  userService.getByNip(nip);
+        return presensiDB.findByKodeGajiAndPegawai(kodeGaji, user);
     }
 }

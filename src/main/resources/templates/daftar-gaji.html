@@ -53,7 +53,7 @@
                     <td th:text="${gaji.pegawai.nama}"></td>
                     <td th:text="${gaji.totalGaji}"></td>
                     <td>
-                        <button class="btn btn-sm btn-info">Detail</button>
+                        <a th:href="@{/gaji/detail/}+${gaji.idGaji}"><button class="btn btn-primary">Detail</button></a>
                     </td>
                         <div th:if="${gaji.status == 'pending'}">
                             <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
@@ -61,14 +61,21 @@
                                     <button type="submit" class="btn btn-primary">Setujui</button>
                                 </td>
                             </form>
+                            <form th:action="@{/gaji/tolak/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
+                                <td>
+                                    <button type="submit" class="btn btn-primary">Tolak</button>
+                                </td>
+                            </form>
                         </div>
 
                     <div th:if="${gaji.status == 'disetujui'}">
-                        <td>
-                            <button class="btn btn-sm btn-info">Bayar</button>
-                        </td>
+                        <form th:action="@{/gaji/paid/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
+                            <td>
+                                <button type="submit" class="btn btn-primary">Bayar</button>
+                            </td>
+                        </form>
                     </div>
-                    <div th:if="${gaji.status == 'Sudah Dibayar'}">
+                    <div th:if="${gaji.status == 'sudah dibayar'}">
                         <td th:text="${gaji.status}"></td>
                     </div>
                 </tr>

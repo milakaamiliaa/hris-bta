@@ -64,7 +64,9 @@ public class GajiController{
         String year = String.valueOf(gaji.getPeriode().getYear()).substring(2,4);
        String kodeGaji = month+year;
 
-        List<PresensiModel> presensi = presensiService.getAllPresensiByKodeGaji(kodeGaji);
+        List<PresensiModel> presensi = presensiService.getAllPresensiByKodeGaji(kodeGaji, gaji.getPegawai().getNip());
+        model.addAttribute("isPengajar", user.getRole().getNama().equals("Pengajar"));
+        model.addAttribute("isDirektur", user.getRole().getNama().equals("Direktur"));
 
         model.addAttribute("presensiByKodeGaji", presensi);
         model.addAttribute("gaji", gaji);
@@ -94,6 +96,27 @@ public class GajiController{
         return "redirect:/gaji";
     }
 
+    @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.GET)
+    public String getbayarGaji(@PathVariable Long idGaji, Model model) {
+        GajiModel gaji = gajiService.getGajiByIdGaji(idGaji).get();
+
+        model.addAttribute("gaji", gaji);
+
+        return "redirect:/gaji";
+    }
+
+    @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.POST)
+    public String postbayarGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+        UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        gaji = gajiService.getGajiByIdGaji(idGaji).get();
+        gaji.setStatus("sudah dibayar");
+        GajiModel newGaji = gajiService.approveGaji(gaji);
+
+        model.addAttribute("gaji", newGaji);
+
+        return "redirect:/gaji";
+    }
 
 
 }

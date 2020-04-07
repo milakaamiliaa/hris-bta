@@ -14,6 +14,8 @@
     <h3 th:text="'Total Sesi: ' + ${gaji.totalSesi}"></h3>
     <br>
     <br>
+
+    <div th:if="${isPengajar}" style="float:none; margin-bottom:20px">
     <table class="table">
         <thead class="thead-light">
         <tr>
@@ -35,6 +37,38 @@
         </tbody>
     </table>
     <h3 th:text="${gaji.totalGaji}"></h3>
+    </div>
+
+    <div th:if="${isDirektur}" style="float:none; margin-bottom:20px">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Total Sesi</th>
+                <th scope="col">Uang Konsum</th>
+                <th scope="col">Nominal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="presensi, iterationStatus: ${presensiByKodeGaji}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
+                <div th:if="${presensi.sesiTambahan == null}">
+                    <td th:text="${presensi.sesiMengajar} + 0"></td>
+                </div>
+                <div th:unless="${presensi.sesiTambahan == null}">
+                    <td th:text="${presensi.sesiMengajar} + ${presensi.sesiTambahan} "></td>
+                </div>
+
+                <td th:text="${presensi.uangKonsum}"></td>
+                <td th:text="${presensi.nominal}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <h3 th:text="${gaji.totalGaji}"></h3>
+    </div>
+
 </div>
 
 <!--    <h3 th:text="'Jumlah Siswa: ' + ${cabang.jumlahSiswa}"></h3>-->
