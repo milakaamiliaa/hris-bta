@@ -29,18 +29,23 @@ public class PresensiModel implements Serializable {
     @Column(name = "sesiTambahan", nullable = true)
     private Long sesiTambahan;
 
-//    @NotNull
-//    @Size(max = 255)
-//    @Column(name = "kodeGaji", nullable = true)
-//    private String kodeGaji;
-
-
     @NotNull
     @Column(name = "status", nullable = false)
     private String status;
 
     @Column(name = "uangKonsum", nullable = true)
     private Long uangKonsum;
+
+    public Float getNominal() {
+        return nominal;
+    }
+
+    public void setNominal(Float nominal) {
+        this.nominal = nominal;
+    }
+
+    @Column(name = "nominal", nullable = true)
+    private Float nominal;
 
     @Column(name = "kodeGaji", nullable = true)
     private String kodeGaji;

@@ -11,8 +11,6 @@ public interface PresensiService {
     List<PresensiModel> getAllPresensi();
     List<PresensiModel> getAllPresensiByNip(String nip);
     PresensiModel updatePresensi(PresensiModel presensi);
-    PresensiModel getGajiByPeriode (PresensiModel presensi);
-    // cek gaji udh dibuat atau blm
     PresensiModel approvePresensi(PresensiModel presensi);
     List<PresensiModel> getAllPresensiByCabang(CabangModel cabang);
     List<PresensiModel> getAllPresensiByKodeGaji(String kodeGaji);

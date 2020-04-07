@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface GajiDB extends JpaRepository<GajiModel, Long> {
-    Optional<GajiModel> findById(Long id);
+    Optional<GajiModel> findById(Long id);;
     List<GajiModel> findAll();
     List<GajiModel> findAllByPegawai(UserModel idUser);
 }

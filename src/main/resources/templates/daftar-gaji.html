@@ -27,9 +27,7 @@
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${#temporals.format(gaji.periode, 'LLLL yyyy')}"></td>
             <td th:text="${gaji.totalGaji}"></td>
-            <td>
-                <button class="btn btn-sm btn-info">Detail</button>
-            </td>
+            <td><a th:href="@{/gaji/detail/}+${gaji.idGaji}"><button class="btn btn-primary">Detail</button></a></td>
             <td th:text="${gaji.status}"></td>
         </tr>
         </tbody>
@@ -57,12 +55,25 @@
                     <td>
                         <button class="btn btn-sm btn-info">Detail</button>
                     </td>
-                    <div th:if="${gaji.status == 'pending'}">
-                        <td>
-                            <button class="btn btn-sm btn-info">Setujui</button>
-                            <button class="btn btn-sm btn-info">Tolak</button>
-                        </td>
-                    </div>
+                        <div th:if="${gaji.status == 'pending'}">
+                            <td th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
+                                <button class="btn btn-sm btn-info">Setujui</button>
+                            </td>
+<!--                            <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">-->
+<!--                                <input type="hidden" th:field="${gaji.idGaji}" />-->
+<!--                                <input type="hidden" th:field="${gaji.pajakGaji}" />-->
+<!--                                <input type="hidden" th:field="${gaji.rateGaji}" />-->
+<!--                                <input type="hidden" th:field="${gaji.status}" th:value="disetujui" />-->
+<!--                                <input type="hidden" th:field="${gaji.periode}" />-->
+<!--                                <input type="hidden" th:field="${gaji.totalGaji}" />-->
+<!--                                <input type="hidden" th:field="${gaji.totalSesi}" />-->
+<!--                                <td>-->
+<!--                                    <button type="submit" class="btn btn-primary">Simpan</button>-->
+<!--                                </td>-->
+
+<!--                            </form>-->
+                        </div>
+
                     <div th:if="${gaji.status == 'disetujui'}">
                         <td>
                             <button class="btn btn-sm btn-info">Bayar</button>

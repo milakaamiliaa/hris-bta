@@ -130,13 +130,20 @@ public class PresensiController {
         presensi.setStatus("disetujui");
 
         PresensiModel newPresensi = presensiService.approvePresensi(presensi);
-        Long totalSesi = newPresensi.getSesiMengajar() + newPresensi.getSesiTambahan();
-        List<GajiModel> listGaji = gajiService.getAllGajiByNip(presensi.getPegawai().getNip());
+        Long sesiTambahan;
+        if(newPresensi.getSesiTambahan() == null){
+            sesiTambahan = (long)0;
+        }
+        else{
+            sesiTambahan = newPresensi.getSesiTambahan();
 
-       float hitungGaji = newPresensi.getPegawai().getGolongan().getRate() * newPresensi.getPegawai().getGolongan().getPajak() * totalSesi;
+        }
+        Long totalSesi = newPresensi.getSesiMengajar() + sesiTambahan;
+        List<GajiModel> listGaji = gajiService.getAllGajiByNip(presensi.getPegawai().getNip());
+        float pajak = newPresensi.getPegawai().getGolongan().getPajak() / 100;
+
+       float hitungGaji = newPresensi.getPegawai().getGolongan().getRate() * pajak * totalSesi;
        float totalGaji = hitungGaji + newPresensi.getUangKonsum();
-       System.out.println(newPresensi.getUangKonsum());
-       System.out.println(totalGaji);
 
         if(listGaji.size() == 0) {
             GajiModel newGaji = new GajiModel();

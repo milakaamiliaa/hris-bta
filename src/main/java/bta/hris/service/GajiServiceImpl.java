@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GajiServiceImpl implements GajiService{
@@ -27,6 +28,11 @@ public class GajiServiceImpl implements GajiService{
     }
 
     @Override
+    public Optional<GajiModel> getGajiByIdGaji(Long idGaji) {
+        return gajiDB.findById(idGaji);
+    }
+
+    @Override
     public List<GajiModel> getAllGajiByNip(String nip) {
         UserModel user =  userService.getByNip(nip);
         return gajiDB.findAllByPegawai(user);
@@ -40,6 +46,21 @@ public class GajiServiceImpl implements GajiService{
     @Override
     public List<GajiModel> getAllGaji() {
         return gajiDB.findAll();
+    }
+
+    @Override
+    public GajiModel approveGaji(GajiModel gaji) {
+        GajiModel newGaji = gajiDB.findById(gaji.getIdGaji()).get();
+
+        newGaji.setTotalGaji(gaji.getTotalGaji());
+        newGaji.setTotalSesi(gaji.getTotalSesi());
+        newGaji.setRateGaji(gaji.getRateGaji());
+        newGaji.setPajakGaji(gaji.getPajakGaji());
+        newGaji.setStatus(gaji.getStatus());
+
+        gajiDB.save(newGaji);
+
+        return newGaji;
     }
 
 }
