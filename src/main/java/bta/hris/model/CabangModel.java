@@ -42,6 +42,10 @@ public class CabangModel implements Serializable {
     @OneToMany(mappedBy = "cabang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PresensiModel> listPresensi;
 
+    @NotNull
+    @Column(name = "isActive", nullable = false)
+    private boolean isActive;
+
     public Long getIdCabang() {
         return idCabang;
     }
@@ -112,5 +116,13 @@ public class CabangModel implements Serializable {
 
     public void setCabang(String cabang) {
         this.cabang = cabang;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
