@@ -56,22 +56,11 @@
                         <button class="btn btn-sm btn-info">Detail</button>
                     </td>
                         <div th:if="${gaji.status == 'pending'}">
-                            <td th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
-                                <button class="btn btn-sm btn-info">Setujui</button>
-                            </td>
-<!--                            <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">-->
-<!--                                <input type="hidden" th:field="${gaji.idGaji}" />-->
-<!--                                <input type="hidden" th:field="${gaji.pajakGaji}" />-->
-<!--                                <input type="hidden" th:field="${gaji.rateGaji}" />-->
-<!--                                <input type="hidden" th:field="${gaji.status}" th:value="disetujui" />-->
-<!--                                <input type="hidden" th:field="${gaji.periode}" />-->
-<!--                                <input type="hidden" th:field="${gaji.totalGaji}" />-->
-<!--                                <input type="hidden" th:field="${gaji.totalSesi}" />-->
-<!--                                <td>-->
-<!--                                    <button type="submit" class="btn btn-primary">Simpan</button>-->
-<!--                                </td>-->
-
-<!--                            </form>-->
+                            <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
+                                <td>
+                                    <button type="submit" class="btn btn-primary">Setujui</button>
+                                </td>
+                            </form>
                         </div>
 
                     <div th:if="${gaji.status == 'disetujui'}">

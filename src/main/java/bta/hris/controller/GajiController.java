@@ -83,6 +83,7 @@ public class GajiController{
     @RequestMapping(value = "/gaji/setujui/{idGaji}", method = RequestMethod.POST)
     public String postsetujuiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
+        gaji = gajiService.getGajiByIdGaji(idGaji).get();
         gaji.setStatus("disetujui");
         GajiModel newGaji = gajiService.approveGaji(gaji);
 
