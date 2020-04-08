@@ -57,12 +57,25 @@ public class PresensiServiceImpl implements PresensiService {
     @Override
     public PresensiModel approvePresensi(PresensiModel presensi) {
         PresensiModel newPresensi = presensiDB.findById(presensi.getIdPresensi()).get();
+        float pajak = presensi.getPegawai().getGolongan().getPajak() /100;
+        float golongan = pajak * presensi.getPegawai().getGolongan().getRate();
+        Long sesiTambahan;
+        if(presensi.getSesiTambahan() == null){
+            sesiTambahan = (long)0;
+        }
+        else{
+            sesiTambahan = presensi.getSesiTambahan();
+
+        }
+        long jumlahSesi = presensi.getSesiMengajar() + sesiTambahan;
+        float gaji = golongan * jumlahSesi;
             newPresensi.setCabang(presensi.getCabang());
             newPresensi.setSesiMengajar(presensi.getSesiMengajar());
             newPresensi.setSesiTambahan(presensi.getSesiTambahan());
             newPresensi.setStatus(presensi.getStatus());
             newPresensi.setKodeGaji(presensi.getKodeGaji());
             newPresensi.setUangKonsum(presensi.getUangKonsum());
+            newPresensi.setNominal(gaji + presensi.getUangKonsum());
             presensiDB.save(newPresensi);
             return newPresensi;
     }
@@ -70,5 +83,11 @@ public class PresensiServiceImpl implements PresensiService {
     @Override
     public List<PresensiModel> getAllPresensiByCabang(CabangModel cabang) {
         return presensiDB.findAllByCabang(cabang);
+    }
+
+    @Override
+    public List<PresensiModel> getAllPresensiByKodeGaji(String kodeGaji, String nip) {
+        UserModel user =  userService.getByNip(nip);
+        return presensiDB.findByKodeGajiAndPegawai(kodeGaji, user);
     }
 }

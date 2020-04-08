@@ -1,6 +1,7 @@
 package bta.hris.service;
 
 import bta.hris.model.GolonganModel;
+import bta.hris.model.UserModel;
 import bta.hris.repository.GolonganDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,9 @@ import java.util.Optional;
 public class GolonganServiceImpl implements GolonganService {
     @Autowired
     private GolonganDB golonganDb;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public GolonganModel addGolongan(GolonganModel golongan) {
@@ -39,6 +43,15 @@ public class GolonganServiceImpl implements GolonganService {
     }
 
     @Override
+    public GolonganModel deleteGolongan(GolonganModel golongan) {
+        GolonganModel target = golonganDb.findById(golongan.getIdGolongan()).get();
+        target.setActive(false);
+        golonganDb.save(target);
+
+        return target;
+    }
+
+    @Override
     public List<GolonganModel> getAllGolongan() {
         return golonganDb.findAll();
     }
@@ -47,4 +60,5 @@ public class GolonganServiceImpl implements GolonganService {
     public Optional<GolonganModel> getGolonganByIdGolongan(Long idGolongan) {
         return golonganDb.findById(idGolongan);
     }
+
 }

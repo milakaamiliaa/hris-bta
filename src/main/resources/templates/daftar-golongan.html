@@ -4,6 +4,8 @@
 <head>
     <object th:include = "fragments/fragment :: head"></object>
     <title>Daftar Golongan</title>
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
 </head>
 
 <body id="page-top">
@@ -43,7 +45,18 @@
                                         <td class="text-center" th:text="'Rp' + ${golongan.rate} + ',00'"></td>
                                         <td class="text-center" th:text="${golongan.pajak} + '%'"></td>
                                         <td class="text-center">
-                                            <a class="btn btn-outline-primary" style="border-radius: 0;" th:href="'/golongan/ubah/' + ${golongan.idGolongan}">Ubah</a>
+                                            <div class="contaier" style="width: 50%; margin: auto;">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <a class="btn btn-ubah" th:href="'/golongan/ubah/' + ${golongan.idGolongan}">Ubah</a>
+                                                    </div>
+                                                    <div class="col-6>">
+                                                        <form th:action="@{/golongan/hapus/}+${golongan.idGolongan}" th:object="${golongan}" method="POST">
+                                                            <button class="btn btn-hapus" style="display: none;">Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
