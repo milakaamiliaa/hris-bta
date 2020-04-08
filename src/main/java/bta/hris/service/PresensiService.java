@@ -12,6 +12,7 @@ public interface PresensiService {
     List<PresensiModel> getAllPresensiByNip(String nip);
     PresensiModel updatePresensi(PresensiModel presensi);
     PresensiModel approvePresensi(PresensiModel presensi);
+    PresensiModel rejectPresensi(PresensiModel presensi);
     List<PresensiModel> getAllPresensiByCabang(CabangModel cabang);
     List<PresensiModel> getAllPresensiByKodeGaji(String kodeGaji, String nip);
 

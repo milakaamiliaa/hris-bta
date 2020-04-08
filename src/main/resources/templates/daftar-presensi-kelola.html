@@ -38,7 +38,11 @@
             <div th:if="${presensi.status == 'pending'}">
                 <td>
                     <a th:href="'/presensi/setujui/' + ${presensi.idPresensi}" class="btn btn-outline-success">Setujui</a>
-                    <a th:href="'/presensi/tolak/' + ${presensi.idPresensi}" class="btn btn-outline-danger">Tolak</a>
+                    <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">
+                        <td>
+                            <button type="submit" class="btn btn-primary">Tolak</button>
+                        </td>
+                    </form>
                 </td>
             </div>
         </tr>

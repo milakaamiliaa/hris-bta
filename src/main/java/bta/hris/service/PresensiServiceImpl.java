@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.Null;
 import java.util.List;
 
 @Service
@@ -78,6 +79,19 @@ public class PresensiServiceImpl implements PresensiService {
             newPresensi.setNominal(gaji + presensi.getUangKonsum());
             presensiDB.save(newPresensi);
             return newPresensi;
+    }
+
+    @Override
+    public PresensiModel rejectPresensi(PresensiModel presensi) {
+        PresensiModel targetPresensi = presensiDB.findById(presensi.getIdPresensi()).get();
+
+        try {
+            targetPresensi.setStatus("ditolak");
+            presensiDB.save(targetPresensi);
+            return targetPresensi;
+        } catch (NullPointerException nullException) {
+            return null;
+        }
     }
 
     @Override

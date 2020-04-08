@@ -194,5 +194,13 @@ public class PresensiController {
         return "redirect:/presensi/kelola";
     }
 
+    @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.POST)
+    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+        PresensiModel target = presensiService.getPresensiById(idPresensi);
 
+        target.setStatus("ditolak");
+        PresensiModel rejectedPresensi = presensiService.rejectPresensi(target);
+
+        return "redirect:/presensi/kelola";
+    }
 }
