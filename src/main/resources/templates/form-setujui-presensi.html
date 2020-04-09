@@ -12,7 +12,7 @@
         <input type="hidden" th:field="${presensi.kodeGaji}" th:value="0000" />
 
         Nama Pengajar: <br>
-        <input type="text" name="pegawai" class="form-control" readonly th:value="${presensi.pegawai.idUser}" th:placeholder="${presensi.pegawai.nama}" />
+        <input type="text" name="pegawai" class="form-control" readonly th:value="${presensi.pegawai.idUser}" th:text="${presensi.pegawai.nama}" />
         <br>
         Tanggal: <br>
         <input type="date" name="tanggalPresensi" readonly th:value="${presensi.tanggalPresensi}" class="form-control"/>

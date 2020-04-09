@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid">
+    <h2>Detail Cabang</h2>
+    <h3 th:text="'Nama Pengajar: ' + ${gaji.pegawai.nama}"></h3>
+    <h3 th:text="'Mata Pelajaran: ' + ${gaji.pegawai.mataPelajaran}"></h3>
+    <h3 th:text="'Golongan: ' + ${gaji.pegawai.golongan.nama}"></h3>
+    <h3 th:text="'Pajak Gaji: ' + ${gaji.pajakGaji}"></h3>
+    <h3 th:text="'Total Sesi: ' + ${gaji.totalSesi}"></h3>
+    <br>
+    <br>
+
+    <div th:if="${isPengajar}" style="float:none; margin-bottom:20px">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Sesi Mengajar</th>
+            <th scope="col">Sesi Tambahan</th>
+            <th scope="col">Nominal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="presensi, iterationStatus: ${presensiByKodeGaji}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
+            <td th:text="${presensi.sesiMengajar}"></td>
+            <td th:text="${presensi.sesiTambahan}"></td>
+            <td th:text="${presensi.nominal}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3 th:text="${gaji.totalGaji}"></h3>
+    </div>
+
+    <div th:if="${isDirektur}" style="float:none; margin-bottom:20px">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Total Sesi</th>
+                <th scope="col">Uang Konsum</th>
+                <th scope="col">Nominal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="presensi, iterationStatus: ${presensiByKodeGaji}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
+                <div th:if="${presensi.sesiTambahan == null}">
+                    <td th:text="${presensi.sesiMengajar} + 0"></td>
+                </div>
+                <div th:unless="${presensi.sesiTambahan == null}">
+                    <td th:text="${presensi.sesiMengajar} + ${presensi.sesiTambahan} "></td>
+                </div>
+
+                <td th:text="${presensi.uangKonsum}"></td>
+                <td th:text="${presensi.nominal}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <h3 th:text="${gaji.totalGaji}"></h3>
+    </div>
+
+</div>
+
+<!--    <h3 th:text="'Jumlah Siswa: ' + ${cabang.jumlahSiswa}"></h3>-->
+<!--    &lt;!&ndash;    <h3 th:text="'Staf Cabang: ' + ${stafCabang}"></h3>&ndash;&gt;-->
+<!--    <h3 th:text="'Staf Cabang: '"></h3>-->
+<!--    <h3 th:if="${cabang.stafCabang == null}">-</h3>-->
+<!--    <h3 th:unless="${cabang.stafCabang == null}" th:text="${cabang.getStafCabang().getNama()}"></h3>-->
+
+
+</div>
+</body>
+</html>
