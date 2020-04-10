@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface CabangService {
     List<CabangModel> getCabangList();
-    Optional<CabangModel> getCabangByIdCabang(Long idCabang);
+    Optional<CabangModel> getCabangByIdCabang(String idCabang);
     void createCabang(CabangModel cabang);
     CabangModel updateCabang(CabangModel cabang);
     void deleteCabang(CabangModel cabang);

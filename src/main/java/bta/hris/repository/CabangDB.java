@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface CabangDB extends JpaRepository<CabangModel, Long> {
-    Optional<CabangModel> findByIdCabang(Long idCabang);
+    Optional<CabangModel> findByIdCabang(String idCabang);
     Optional<CabangModel> findByStafCabang(UserModel stafCabang);
 }

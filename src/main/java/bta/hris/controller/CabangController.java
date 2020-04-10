@@ -5,7 +5,6 @@ import bta.hris.model.UserModel;
 import bta.hris.service.CabangService;
 import bta.hris.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +35,7 @@ public class CabangController {
 
     @RequestMapping(value = "/cabang/detail/{idCabang}", method = RequestMethod.GET)
     public String detailCabang(
-            @PathVariable Long idCabang, Model model
+            @PathVariable String idCabang, Model model
     ) {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
         model.addAttribute("cabang", cabang);
@@ -57,7 +56,7 @@ public class CabangController {
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
-    public String updateCabangForm(@PathVariable Long idCabang, Model model) {
+    public String updateCabangForm(@PathVariable String idCabang, Model model) {
         CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
         ArrayList<UserModel> listCalonStaf = new ArrayList<>();
         List<UserModel> listUser = userService.getAllUser();
@@ -100,7 +99,7 @@ public class CabangController {
     }
 
     @RequestMapping(value="/cabang/hapus/{idCabang}", method = RequestMethod.POST)
-    public String deleteCabang(@PathVariable Long idCabang, Model model){
+    public String deleteCabang(@PathVariable String idCabang, Model model){
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
 //        if (cabang == null){
 //            return "Maaf, cabang tidak di"

@@ -12,7 +12,7 @@ import java.util.List;
 public class CabangModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCabang;
+    private String idCabang;
 
     @NotNull
     @Column(name = "cabang", nullable = false)
@@ -46,11 +46,11 @@ public class CabangModel implements Serializable {
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
 
-    public Long getIdCabang() {
+    public String getIdCabang() {
         return idCabang;
     }
 
-    public void setIdCabang(Long idCabang) {
+    public void setIdCabang(String idCabang) {
         this.idCabang = idCabang;
     }
 
