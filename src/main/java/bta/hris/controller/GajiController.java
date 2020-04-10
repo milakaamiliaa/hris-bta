@@ -73,47 +73,35 @@ public class GajiController{
         return "detail-gaji-pengajar";
     }
 
-    @RequestMapping(value = "/gaji/setujui/{idGaji}", method = RequestMethod.GET)
-    public String getsetujuiGaji(@PathVariable Long idGaji, Model model) {
-        GajiModel gaji = gajiService.getGajiByIdGaji(idGaji).get();
-        System.out.println(gaji.getStatus());
-        model.addAttribute("gaji", gaji);
-
-        return "redirect:/gaji";
-    }
 
     @RequestMapping(value = "/gaji/setujui/{idGaji}", method = RequestMethod.POST)
     public String postsetujuiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
-        UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
         gaji = gajiService.getGajiByIdGaji(idGaji).get();
         gaji.setStatus("disetujui");
         GajiModel newGaji = gajiService.approveGaji(gaji);
 
-        System.out.println("mASOOOOOOOk");
-
         model.addAttribute("gaji", newGaji);
 
         return "redirect:/gaji";
     }
 
-    @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.GET)
-    public String getbayarGaji(@PathVariable Long idGaji, Model model) {
-        GajiModel gaji = gajiService.getGajiByIdGaji(idGaji).get();
-
-        model.addAttribute("gaji", gaji);
-
-        return "redirect:/gaji";
-    }
 
     @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.POST)
-    public String postbayarGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
-        UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
-
+    public String bayarGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         gaji = gajiService.getGajiByIdGaji(idGaji).get();
         gaji.setStatus("sudah dibayar");
-        GajiModel newGaji = gajiService.approveGaji(gaji);
 
-        model.addAttribute("gaji", newGaji);
+        GajiModel paidGaji = gajiService.paidGaji(gaji);
+
+        return "redirect:/gaji";
+    }
+
+    @RequestMapping(value = "/gaji/tolak/{idGaji}", method = RequestMethod.POST)
+    public String tolakGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+        gaji = gajiService.getGajiByIdGaji(idGaji).get();
+        gaji.setStatus("ditolak");
+
+        GajiModel rejectedGaji = gajiService.rejectGaji(gaji);
 
         return "redirect:/gaji";
     }

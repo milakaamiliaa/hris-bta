@@ -67,6 +67,14 @@
                                 </td>
                             </form>
                         </div>
+                    <div th:if="${gaji.status == 'ditolak'}">
+                        <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
+                            <td>
+                                <h5 th:text="${gaji.status}"></h5>
+                                <button type="submit" class="btn btn-primary">Setujui</button>
+                            </td>
+                        </form>
+                    </div>
 
                     <div th:if="${gaji.status == 'disetujui'}">
                         <form th:action="@{/gaji/paid/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
