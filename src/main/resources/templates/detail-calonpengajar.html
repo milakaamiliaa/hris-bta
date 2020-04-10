@@ -43,7 +43,7 @@
                     <div class="card shadow mb-4 border-bottom-danger">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Nama Lengkap</p>
                                 </div>
                                 <div class="col">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">No. Telp</p>
                                 </div>
                                 <div class="col">
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Email</p>
                                 </div>
                                 <div class="col">
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">CV</p>
                                 </div>
                                 <div class="col">
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Alamat</p>
                                 </div>
                                 <div class="col">
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Tanggal Lahir</p>
                                 </div>
                                 <div class="col">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Nilai Psikotes</p>
                                 </div>
                                 <div class="col">
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Nilai Mata Pelajaran Pilihan</p>
                                 </div>
                                 <div class="col">
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Benar</p>
                                 </div>
                                 <div class="col">
@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Salah</p>
                                 </div>
                                 <div class="col">
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-lg-2">
+                                <div class="col col-lg-3">
                                     <p class="details-title">Status</p>
                                 </div>
                                 <div class="col">
@@ -132,28 +132,29 @@
                             </div>
 
                                 <div class="button-detail">
-                                    <div class="row">
-                                        <div class="col-md-1">
+                                    <div class="row col-md-6">
+                                        <div class="col-md-2" style="margin: 5px;">
                                             <form th:action="@{/calonpengajar/undang/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                                <button class="btn btn-ubah">Undang</button>
+                                                <button class="btn btn-ubah" style="margin: 5px;">Undang</button>
                                             </form>
                                         </div>
-                                        <div class="col-md-1">
+                                        <div class="col-md-2" style="margin: 5px;">
                                             <form th:action="@{/calonpengajar/rekrut/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                                <button class="btn btn-ubah">Rekrut</button>
+                                                <button class="btn btn-ubah" style="margin: 5px;">Rekrut</button>
                                             </form>
                                         </div>
-                                        <div class="col-md-1">
+                                        <div class="col-md-2" style="margin: 5px;">
                                             <form th:action="@{/calonpengajar/tolak/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                                <button class="btn btn-hapus">Tolak</button>
+                                                <button class="btn btn-hapus" style="margin: 5px;">Tolak</button>
                                             </form>
                                         </div>
-                                        <div class="col-md-1">
+                                        <div class="col-md-2" style="margin: 5px;">
                                             <form th:action="@{/calonpengajar/hapus/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                                <button class="btn btn-hapus">Hapus</button>
+                                                <button class="btn btn-hapus" style="margin: 5px;">Hapus</button>
                                             </form>
                                         </div>
                                 </div>
+                                <div class="col-md-6"></div>
                             </div>
 
                             <div class="row back-detail">
