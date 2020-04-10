@@ -72,7 +72,7 @@
                                         <option value="" selected disabled hidden th:text="${cabang.stafCabang == null} ? 'Masukkan Staf Cabang' : ${namaStaf}"></option>
                                         <option th:each="staf : ${listCalonStaf}"
                                                 th:value="${staf.idUser}"
-                                                th:text="${staf.nama}"/>
+                                                th:text="${staf.nama}"></option>
                                     </select>
                                 </div>
                                 <button class="btn btn-primary">Simpan</button>
