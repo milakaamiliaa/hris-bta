@@ -40,6 +40,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Nama Pengajar</th>
+                    <th scope="col">Periode</th>
                     <th scope="col">Nominal</th>
                     <th scope="col"></th>
                     <th scope="col">Aksi</th>
@@ -51,6 +52,7 @@
                 <tr th:each="gaji, iterationStatus: ${allGaji}">
                     <td th:text="${iterationStatus.count}"></td>
                     <td th:text="${gaji.pegawai.nama}"></td>
+                    <td th:text="${#temporals.format(gaji.periode, 'LLLL yyyy')}"></td>
                     <td th:text="${gaji.totalGaji}"></td>
                     <td>
                         <a th:href="@{/gaji/detail/}+${gaji.idGaji}"><button class="btn btn-primary">Detail</button></a>
