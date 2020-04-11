@@ -65,7 +65,7 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
 
               <div class="table-responsive">
                 <table class="table " id="dataTable" width="100%" cellspacing="0">
-                  <thead style="background-color: #FF5252 !important; color: white">
+                  <thead style="background-color: #FF5252 !important; color: white; text-align: center;">
                     <tr>
                       <th>No</th>
                       <th>Nama</th>
@@ -74,7 +74,7 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
                       <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody style="text-align: center;">
                     <tr th:each="pegawai, iterationStatus : *{listPegawai}">
                       <td><a th:text="${iterationStatus.count}"></a> </td>
                       <td><a th:text="${pegawai.nama}"></a> </td>
