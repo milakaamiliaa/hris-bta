@@ -1,5 +1,6 @@
 package bta.hris.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,7 +14,8 @@ import java.util.List;
 @Table(name = "calonPengajar")
 public class CalonPengajarModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name="system-uuid", strategy="uuid")
     private String idCalon;
 
     @NotNull
