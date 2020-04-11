@@ -1,5 +1,6 @@
 package bta.hris.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,8 +14,9 @@ import java.util.List;
 @Table(name = "calonPengajar")
 public class CalonPengajarModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCalon;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name="system-uuid", strategy="uuid")
+    private String idCalon;
 
     @NotNull
     @Column(name = "nama", nullable = false)
@@ -70,6 +72,10 @@ public class CalonPengajarModel implements Serializable {
     private Long nilaiMataPelajaran;
 
     @NotNull
+    @Column(name = "updatedAt",nullable = true)
+    private LocalDate updatedAt;
+
+    @NotNull
     @Column(name = "tesDeadline", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate tesDeadline;
@@ -77,11 +83,11 @@ public class CalonPengajarModel implements Serializable {
     @OneToMany(mappedBy = "calonPengajar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HasilTesModel> listHasilTes;
 
-    public Long getIdCalon() {
+    public String getIdCalon() {
         return idCalon;
     }
 
-    public void setIdCalon(Long idCalon) {
+    public void setIdCalon(String idCalon) {
         this.idCalon = idCalon;
     }
 
@@ -197,6 +203,14 @@ public class CalonPengajarModel implements Serializable {
         this.listHasilTes = listHasilTes;
     }
 
+    public LocalDate getUpdatedAt(){
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt){
+        this.updatedAt = updatedAt;
+    }
+  
     public String getUsername() {
         return username;
     }

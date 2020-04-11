@@ -30,7 +30,7 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/pegawai/daftar-pegawai", method = RequestMethod.GET)
+    @RequestMapping(value = "/pegawai/daftar", method = RequestMethod.GET)
     public String daftarPegawai(Model model){
         List<UserModel> listUser = userService.getAllUser();
         List<RoleModel> listRole = roleService.getAllRole();

@@ -29,15 +29,60 @@ import java.util.Optional;
 public class CalonPengajarController {
     @Autowired
     CalonPengajarService calonPengajarService;
-
+    
+    @Autowired
+    GolonganService golonganService;
+  
+    @Autowired
+    RoleService roleService;
+  
     @Autowired
     UserService userService;
 
-    @Autowired
-    RoleService roleService;
+ 
+    @RequestMapping(value = "/calonpengajar/daftar", method = RequestMethod.GET)
+    public String daftarCalonPengajar(Model model){
+        List<CalonPengajarModel> listCalon = calonPengajarService.getAllCalon();
+        model.addAttribute("listCalon", listCalon);
+        return "daftar-calonpengajar";
+    }
 
-    @Autowired
-    GolonganService golonganService;
+    @RequestMapping(value = "/calonpengajar/detail/{idCalon}", method = RequestMethod.GET)
+    public String detailCalonPengajar(@PathVariable String idCalon, Model model){
+        CalonPengajarModel calon = calonPengajarService.getCalonById(idCalon);
+        model.addAttribute("calon", calon);
+        return "detail-calonpengajar";
+    }
+
+    @RequestMapping(value = "calonpengajar/rekrut/{idCalon}", method = RequestMethod.POST)
+    public String rekrutCalon(@ModelAttribute CalonPengajarModel calon, Model model){
+        System.out.print(calon);
+        System.out.print("HERE");
+        CalonPengajarModel newPengajar = calonPengajarService.rekrutCalon(calonPengajarService.getCalonById(calon.getIdCalon()));
+        model.addAttribute("newPengajar", newPengajar);
+        return detailCalonPengajar(calon.getIdCalon(), model);
+    }
+
+    @RequestMapping(value = "calonpengajar/tolak/{idCalon}", method = RequestMethod.POST)
+    public String tolakCAlon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+        CalonPengajarModel targetCalon = calonPengajarService.tolakCalon(calon);
+        model.addAttribute("calon", targetCalon);
+        return detailCalonPengajar(idCalon, model);
+    }
+
+    @RequestMapping(value = "calonpengajar/undang/{idCalon}", method = RequestMethod.POST)
+    public String undangCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+        CalonPengajarModel targetCalon = calonPengajarService.undangCalon(calon);
+        model.addAttribute("calon", targetCalon);
+        return detailCalonPengajar(idCalon, model);
+    }
+
+    @RequestMapping(value = "calonpengajar/hapus/{idCalon}", method = RequestMethod.POST)
+    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+        CalonPengajarModel targetCalon = calonPengajarService.getCalonById(calon.getIdCalon());
+        calonPengajarService.hapusCalon(targetCalon);
+        return daftarCalonPengajar(model);
+    }
 
     @RequestMapping(value = "/registrasi", method = RequestMethod.GET)
     public String addCalonPengajarForm (Model model) {

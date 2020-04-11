@@ -90,7 +90,7 @@ public class UserModel implements Serializable{
     @JsonIgnore
     private RoleModel role;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "golonganPegawai", referencedColumnName= "idGolongan", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private GolonganModel golongan;
