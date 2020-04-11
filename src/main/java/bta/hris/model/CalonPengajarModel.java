@@ -14,7 +14,7 @@ import java.util.List;
 public class CalonPengajarModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String idCalon;
+    private Long idCalon;
 
     @NotNull
     @Column(name = "nama", nullable = false)
@@ -78,11 +78,11 @@ public class CalonPengajarModel implements Serializable {
     @OneToMany(mappedBy = "calonPengajar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HasilTesModel> listHasilTes;
 
-    public String getIdCalon() {
+    public Long getIdCalon() {
         return idCalon;
     }
 
-    public void setIdCalon(String idCalon) {
+    public void setIdCalon(Long idCalon) {
         this.idCalon = idCalon;
     }
 

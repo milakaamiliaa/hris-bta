@@ -22,7 +22,7 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
-    public Optional<CabangModel> getCabangByIdCabang(String idCabang){
+    public Optional<CabangModel> getCabangByIdCabang(Long idCabang){
         return cabangDb.findByIdCabang(idCabang);
     }
 

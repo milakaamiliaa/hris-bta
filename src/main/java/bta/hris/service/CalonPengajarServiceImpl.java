@@ -35,7 +35,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     private RoleDB RoleDB;
 
     @Override
-    public CalonPengajarModel getCalonById(String id) {
+    public CalonPengajarModel getCalonById(Long id) {
         return CalonPengajarDB.findByIdCalon(id).get();
     }
 
@@ -120,7 +120,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             newPegawai.setTglLahir(calon.getTglLahir());
             userDB.save(newPegawai);
 
-            CalonPengajarModel targetCalon = CalonPengajarDB.findById(calon.getIdCalon()).get();
+            CalonPengajarModel targetCalon = CalonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
             targetCalon.setStatus("Telah direkrut");
             targetCalon.setUpdatedAt(LocalDate.now());
             CalonPengajarDB.save(targetCalon);

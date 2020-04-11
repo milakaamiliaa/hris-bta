@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface CalonPengajarDB extends JpaRepository<CalonPengajarModel, String>{
-    Optional<CalonPengajarModel> findByIdCalon(String id);
+    Optional<CalonPengajarModel> findByIdCalon(Long id);
     List<CalonPengajarModel> findAll();
 
 }

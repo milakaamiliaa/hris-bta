@@ -27,7 +27,7 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "/calonpengajar/detail/{idCalon}", method = RequestMethod.GET)
-    public String detailCalonPengajar(@PathVariable String idCalon, Model model){
+    public String detailCalonPengajar(@PathVariable Long idCalon, Model model){
         CalonPengajarModel calon = CalonPengajarService.getCalonById(idCalon);
         model.addAttribute("calon", calon);
         return "detail-calonpengajar";
@@ -41,21 +41,21 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "calonpengajar/tolak/{idCalon}", method = RequestMethod.POST)
-    public String tolakCAlon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String tolakCAlon(@PathVariable Long idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
         CalonPengajarModel targetCalon = CalonPengajarService.tolakCalon(calon);
         model.addAttribute("calon", targetCalon);
         return detailCalonPengajar(idCalon, model);
     }
 
     @RequestMapping(value = "calonpengajar/undang/{idCalon}", method = RequestMethod.POST)
-    public String undangCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String undangCalon(@PathVariable Long idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
         CalonPengajarModel targetCalon = CalonPengajarService.undangCalon(calon);
         model.addAttribute("calon", targetCalon);
         return detailCalonPengajar(idCalon, model);
     }
 
     @RequestMapping(value = "calonpengajar/hapus/{idCalon}", method = RequestMethod.POST)
-    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String hapusCalon(@PathVariable Long idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
         CalonPengajarModel targetCalon = CalonPengajarService.getCalonById(calon.getIdCalon());
         CalonPengajarService.hapusCalon(targetCalon);
         return daftarCalonPengajar(model);
