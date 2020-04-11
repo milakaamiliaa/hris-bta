@@ -36,7 +36,13 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- Card -->
+                <!--Alert-->
+                <div class="alert alert-success" role="alert" th:if="${alert}" style="text-align: center">
+                    <span th:text="${alert}"></span>
+                    <a th:href="@{/cabang}" class="alert-link">Lihat Daftar Cabang.</a>
+                </div>
+
+                <!-- Form -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
                         <div class="form-header">
@@ -57,11 +63,11 @@
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Email</p>
-                                <input type="text" name="email" required = "true" class="form-control form-control-user" placeholder="Masukkan Email Cabang">
+                                <input type="email" name="email" required = "true" class="form-control form-control-user" placeholder="Masukkan Email Cabang">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Jumlah Siswa</p>
-                                <input type="text" name="jumlahSiswa" required = "true" pattern="[0-9]{1,}" title="Masukkan Angka" class="form-control form-control-user" placeholder="Masukkan Jumlah Siswa">
+                                <input type="text" name="jumlahSiswa" required = "true" pattern="[0-9]{1,}" title="Masukkan Angka Positif" class="form-control form-control-user" placeholder="Masukkan Jumlah Siswa">
                             </div>
                             <button class="btn btn-primary">Simpan</button>
                         </form>
