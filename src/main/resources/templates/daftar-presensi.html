@@ -30,6 +30,9 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <div th:if="${alertUbah}" th:text="${alertUbah}" class="alert alert-success" role="alert"></div>
+                <div th:if="${alertTambah}" th:text="${alertTambah}" class="alert alert-success" role="alert"></div>
+
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Daftar Presensi</h1>
 

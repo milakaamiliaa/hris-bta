@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -45,7 +46,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.GET)
-    public String createPresensiForm(Model model){
+    public String tambahPresensiForm(Model model){
         LocalDate localDate = LocalDate.now();//For reference
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedString = localDate.format(formatter);
@@ -65,7 +66,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.POST)
-    public String createPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model){
+    public String tambahPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect){
 
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -86,11 +87,12 @@ public class PresensiController {
 
         model.addAttribute("cabangList", listActiveCabang);
         model.addAttribute("localDate", LocalDate.now());
+        redirect.addFlashAttribute("alertTambah", "Presensi Berhasil Ditambahkan");
         return "redirect:/presensi";
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.GET)
-    public String updatePresensiForm(@PathVariable Long idPresensi, Model model) {
+    public String ubahPresensiForm(@PathVariable Long idPresensi, Model model) {
         PresensiModel existingPresensi = presensiService.getPresensiById(idPresensi);
 
         List<CabangModel> listCabang = cabangService.getCabangList();
@@ -107,11 +109,12 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.POST)
-    public String updatePresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String ubahPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
 
         PresensiModel newPresensi = presensiService.updatePresensi(presensi);
 
         model.addAttribute("presensi", newPresensi);
+        redirect.addFlashAttribute("alertUbah", "Presensi Berhasil Diubah");
         return "redirect:/presensi";
     }
 

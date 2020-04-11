@@ -42,7 +42,7 @@ public class PresensiModel implements Serializable {
     @Column(name = "kodeGaji", nullable = true)
     private String kodeGaji;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "cabang", referencedColumnName= "idCabang", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CabangModel cabang;
