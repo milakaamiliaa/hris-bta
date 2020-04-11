@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+
+    <head>
+        <object th:include = "fragments/fragment :: head"></object>
+        <title>Home</title>
+    </head>
+
+</head>
+
+<body>
+<div class="slider_area">
+    <div class="single_slider slider_bg_1 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="home-title">Sistem Informasi</h1>
+                    <h1 class="home-title">Sumber Daya Manusia</h1>
+                    <h1 class="home-title" style="font-weight: bold">BTA GROUP</h1>
+                        <a th:href="@{/registrasi}" class="btn btn-lg btn-outline-light" >Daftar Sebagai Pengajar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider_area_end -->
+
+<!-- Footer -->
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+<!-- End of Footer -->
+
+</body>
+</html>

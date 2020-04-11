@@ -13,5 +13,6 @@ public interface CabangService {
     CabangModel updateCabang(CabangModel cabang);
     void deleteCabang(CabangModel cabang);
     Optional<CabangModel> getCabangByStafCabang(UserModel stafCabang);
+    void detailCabang(CabangModel cabang);
 
 }

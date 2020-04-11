@@ -1,6 +1,5 @@
 package bta.hris.service;
 
-
 import bta.hris.model.CalonPengajarModel;
 import bta.hris.model.RoleModel;
 import bta.hris.model.UserModel;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 @Transactional
 public class CalonPengajarServiceImpl implements CalonPengajarService{
     @Autowired
-    private CalonPengajarDB CalonPengajarDB;
+    private CalonPengajarDB calonPengajarDB;
 
     @Autowired
     private GolonganDB golonganDB;
@@ -37,14 +36,14 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
 
     @Override
     public CalonPengajarModel getCalonById(String id) {
-        return CalonPengajarDB.findByIdCalon(id).get();
+        return calonPengajarDB.findByIdCalon(id).get();
     }
 
     @Override
     public CalonPengajarModel addCalon(CalonPengajarModel calon){
         String pass = encrypt(calon.getPassword());
         calon.setPassword(pass);
-        return CalonPengajarDB.save(calon);
+        return calonPengajarDB.save(calon);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
 
     @Override
     public List<CalonPengajarModel> getAllCalon(){
-        return CalonPengajarDB.findAll();
+        return calonPengajarDB.findAll();
     }
 
     @Override
@@ -120,10 +119,10 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             newPegawai.setTglLahir(calon.getTglLahir());
             userDB.save(newPegawai);
 
-            CalonPengajarModel targetCalon = CalonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
+            CalonPengajarModel targetCalon = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
             targetCalon.setStatus("Telah direkrut");
             targetCalon.setUpdatedAt(LocalDate.now());
-            CalonPengajarDB.save(targetCalon);
+            calonPengajarDB.save(targetCalon);
             return targetCalon;
         }catch(NullPointerException e){
             return null;
@@ -132,9 +131,9 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
 
     @Override
     public boolean hapusCalon(CalonPengajarModel calon){
-        CalonPengajarModel target = CalonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
+        CalonPengajarModel target = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
         if (target != null) {
-            CalonPengajarDB.delete(target);
+            calonPengajarDB.delete(target);
             return true;
         }
         return false;
@@ -142,11 +141,11 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
 
     @Override
     public CalonPengajarModel tolakCalon(CalonPengajarModel calon){
-        CalonPengajarModel targetCalon = CalonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
+        CalonPengajarModel targetCalon = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
         try{
             targetCalon.setStatus("Ditolak");
             targetCalon.setUpdatedAt(LocalDate.now());
-            CalonPengajarDB.save(targetCalon);
+            calonPengajarDB.save(targetCalon);
             return targetCalon;
         }catch(NullPointerException e){
             return null;
@@ -155,18 +154,24 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
 
     @Override
     public CalonPengajarModel undangCalon(CalonPengajarModel calon){
-        CalonPengajarModel targetCalon = CalonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
+        CalonPengajarModel targetCalon = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
         try{
             targetCalon.setStatus("Diundang");
             targetCalon.setUpdatedAt(LocalDate.now());
-            CalonPengajarDB.save(targetCalon);
+            calonPengajarDB.save(targetCalon);
             return targetCalon;
         }catch(NullPointerException e){
             return null;
         }
     }
+  
+    @Override
+    public CalonPengajarModel createCalonPengajar(CalonPengajarModel calonPengajar){
+        return calonPengajarDB.save(calonPengajar);
+    }
 
-    
-
-
+    @Override
+    public List<CalonPengajarModel>findAllCalonPengajar() {
+        return calonPengajarDB.findAll();
+    }
 }

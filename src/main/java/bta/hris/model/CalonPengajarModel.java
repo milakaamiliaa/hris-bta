@@ -41,6 +41,11 @@ public class CalonPengajarModel implements Serializable {
 
     @NotNull
     @Size(max = 255)
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @NotNull
+    @Size(max = 255)
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -60,11 +65,9 @@ public class CalonPengajarModel implements Serializable {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @NotNull
     @Column(name = "nilaiPsikotes",nullable = true)
     private Long nilaiPsikotes;
 
-    @NotNull
     @Column(name = "nilaiMataPelajaran",nullable = true)
     private Long nilaiMataPelajaran;
 
@@ -206,5 +209,13 @@ public class CalonPengajarModel implements Serializable {
 
     public void setUpdatedAt(LocalDate updatedAt){
         this.updatedAt = updatedAt;
+    }
+  
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
