@@ -1,5 +1,5 @@
 package bta.hris.controller;
-
+//this will be the new master
 import bta.hris.model.GolonganModel;
 import bta.hris.model.UserModel;
 import bta.hris.model.RoleModel;
