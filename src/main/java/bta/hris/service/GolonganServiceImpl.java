@@ -39,6 +39,15 @@ public class GolonganServiceImpl implements GolonganService {
     }
 
     @Override
+    public GolonganModel deleteGolongan(GolonganModel golongan) {
+        GolonganModel target = golonganDb.findById(golongan.getIdGolongan()).get();
+        target.setActive(false);
+        golonganDb.save(target);
+
+        return target;
+    }
+
+    @Override
     public List<GolonganModel> getAllGolongan() {
         return golonganDb.findAll();
     }

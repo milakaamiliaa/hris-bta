@@ -1,31 +1,209 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeLeaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Tambah Cabang</title>
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 </head>
-<body>
-<h3> Pengajuan Pengadaan Fasilitas </h3><br>
-<div>
-    <form th:action="@{/cabang/tambah}" method="POST">
-<!--        <input type="hidden" th:field="${user.idUser}"/>-->
-        Nama Cabang: <br>
-        <input type="text" name="nama" required = "true" placeholder="Nama Cabang"/>
-        <br>
-        Nomor Telepon: <br>
-        <input type="text" name="noTelp" required = "true" placeholder="No. Telp" pattern="[0-9]{1,}" title="Masukkan Angka"/>
-        <br>
-        Alamat: <br>
-        <input type="text" name="alamat" required = "true" placeholder="Alamat"/>
-        <br>
-        Email: <br>
-        <input type="text" name="email" required = "true" placeholder="Email"/>
-        <br>
-        Jumlah Siswa: <br>
-        <input type="text" name="jumlahSiswa" required = "true" placeholder="Jumlah Siswa" pattern="[0-9]{1,}" title="Masukkan Angka"/>
-        <br>
-        <button type="submit" class="buttonLogin">Submit</button>
-    </form>
+
+<body id="page-top">
+
+<<<<<<< HEAD
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="fragments/fragment :: sidebar">
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments/fragment :: topbar"></nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Card -->
+                <div class="card shadow mb-4 border-bottom-danger">
+                    <div class="card-body">
+                        <div class="form-header">
+                            <p class="form-header-text ">TAMBAH CABANG</p>
+                        </div>
+                        <form class="user" th:action="@{/cabang/tambah}" method="POST">
+                            <div class="form-group">
+                                <p class = "form-title">Nama Cabang</p>
+                                <input type="text" name="cabang" required = "true" class="form-control form-control-user" placeholder="Masukkan Nama Cabang">
+                            </div>
+                            <div class="form-group">
+                                <p class = "form-title">Nomor Telepon</p>
+                                <input type="text" name="noTelp" required = "true" pattern="[0-9]{1,}" title="Masukkan Angka" class="form-control form-control-user" placeholder="Masukkan Nomor Telepon Cabang">
+                            </div>
+                            <div class="form-group">
+                                <p class = "form-title">Alamat</p>
+                                <input type="text" name="alamat" required = "true" class="form-control form-control-user" placeholder="Masukkan Alamat Cabang">
+                            </div>
+                            <div class="form-group">
+                                <p class = "form-title">Email</p>
+                                <input type="text" name="email" required = "true" class="form-control form-control-user" placeholder="Masukkan Email Cabang">
+                            </div>
+                            <div class="form-group">
+                                <p class = "form-title">Jumlah Siswa</p>
+                                <input type="text" name="jumlahSiswa" required = "true" pattern="[0-9]{1,}" title="Masukkan Angka" class="form-control form-control-user" placeholder="Masukkan Jumlah Siswa">
+                            </div>
+                            <button class="btn btn-primary">Simpan</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
 </div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
+</div>
+
+=======
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul th:replace="fragments/fragment :: sidebar">
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav th:replace="fragments/fragment :: topbar"></nav>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Card -->
+                    <div class="card shadow mb-4 border-bottom-danger">
+                        <div class="card-body">
+                            <div class="form-header">
+                                <p class="form-header-text ">TAMBAH CABANG</p>
+                            </div>
+                            <form class="user" th:action="@{/cabang/tambah}" method="POST">
+                                <div class="form-group">
+                                    <p class = "form-title">Nama Cabang</p>
+                                    <input type="text" name="cabang" required = "true" class="form-control form-control-user" placeholder="Masukkan Nama Cabang">
+                                </div>
+                                <div class="form-group">
+                                    <p class = "form-title">Nomor Telepon</p>
+                                    <input type="tel" name="noTelp" required = "true" pattern="[0-9]{7,12}"
+                                           title="Nomor telepon yang valid 7-12 angka" class="form-control form-control-user" placeholder="Masukkan Nomor Telepon Cabang">
+                                </div>
+                                <div class="form-group">
+                                    <p class = "form-title">Alamat</p>
+                                    <input type="text" name="alamat" required = "true" class="form-control form-control-user" placeholder="Masukkan Alamat Cabang">
+                                </div>
+                                <div class="form-group">
+                                    <p class = "form-title">Email</p>
+                                    <input type="text" name="email" required = "true" class="form-control form-control-user" placeholder="Masukkan Email Cabang">
+                                </div>
+                                <div class="form-group">
+                                    <p class = "form-title">Jumlah Siswa</p>
+                                    <input type="number" name="jumlahSiswa" required = "true" min="0" title="Masukkan angka lebih dari 0"
+                                           class="form-control form-control-user" placeholder="Masukkan Jumlah Siswa">
+                                </div>
+                                <button class="btn btn-primary">Simpan</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="fragments/fragment :: footer">
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div th:replace="fragments/fragment :: logout"></div>
+>>>>>>> 7cd3a51b80ebd3504b92925ad6f887ef3e7d0d1f
 </body>
+
 </html>
+
+<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--<body>-->
+<!--<div>-->
+<!--    <form th:action="@{/cabang/tambah}" method="POST">-->
+<!--&lt;!&ndash;        <input type="hidden" th:field="${user.idUser}"/>&ndash;&gt;-->
+<!--        Nama Cabang: <br>-->
+<!--        <input type="text" name="cabang" required = "true" placeholder="Nama Cabang"/>-->
+<!--        <br>-->
+<!--        Nomor Telepon: <br>-->
+<!--        <input type="text" name="noTelp" required = "true" placeholder="No. Telp" pattern="[0-9]{1,}" title="Masukkan Angka"/>-->
+<!--        <br>-->
+<!--        Alamat: <br>-->
+<!--        <input type="text" name="alamat" required = "true" placeholder="Alamat"/>-->
+<!--        <br>-->
+<!--        Email: <br>-->
+<!--        <input type="text" name="email" required = "true" placeholder="Email"/>-->
+<!--        <br>-->
+<!--        Jumlah Siswa: <br>-->
+<!--        <input type="text" name="jumlahSiswa" required = "true" placeholder="Jumlah Siswa" pattern="[0-9]{1,}" title="Masukkan Angka"/>-->
+<!--        <br>-->
+<!--        <button type="submit" class="buttonLogin">Submit</button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

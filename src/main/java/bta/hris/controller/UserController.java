@@ -32,15 +32,16 @@ public class UserController {
 
     @RequestMapping(value = "/pegawai/daftar-pegawai", method = RequestMethod.GET)
     public String daftarPegawai(Model model){
-        List<UserModel> listPegawai = userService.getAllUser();
-        model.addAttribute("listPegawai", listPegawai);
-        return "daftar-pegawai";
-    }
-
-    @RequestMapping(value = "/pegawai/daftar-pegawai/{role}", method = RequestMethod.GET)
-    public String viewPegawaiByRole(@PathVariable Long role, Model model){
-        List<UserModel> listPegawai = userService.getUserByRole(role);
-        model.addAttribute("listPegawai", listPegawai);
+        List<UserModel> listUser = userService.getAllUser();
+        List<RoleModel> listRole = roleService.getAllRole();
+        List<UserModel> activeUsers = new ArrayList<UserModel>();
+        for (UserModel user : listUser){
+            if(user.isActive()){
+                activeUsers.add(user);
+            }
+        }
+        model.addAttribute("listPegawai", activeUsers);
+        model.addAttribute("listRole", listRole);
         return "daftar-pegawai";
     }
 
@@ -50,13 +51,6 @@ public class UserController {
         model.addAttribute("pegawai", pegawai);
         return "detail-pegawai";
     }
-
-
-//    @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
-//    private String addUserSubmit(@ModelAttribute UserModel user) {
-//        userService.addUser(user);
-//        return "home";
-//    }
 
     @RequestMapping(value="/pegawai/tambah", method = RequestMethod.GET)
     public String createPegawaiForm(Model model) {
@@ -88,28 +82,31 @@ public class UserController {
         pegawai.setCreatedAt(LocalDate.now());
 
         String newNIP = "";
-        if (pegawai.getMataPelajaran().equals("Biologi")){
-            newNIP += "BIO";
-        }else if(pegawai.getMataPelajaran().equals("Ekonomi")){
-            newNIP += "EKO";
-        }else if(pegawai.getMataPelajaran().equals("Matematika")){
-            newNIP += "MTK";
-        }else if(pegawai.getMataPelajaran().equals("Kimia")){
-            newNIP += "KIM";
-        }else if(pegawai.getMataPelajaran().equals("Fisika")){
-            newNIP += "FIS";
-        }else if(pegawai.getMataPelajaran().equals("Sosiologi")){
-            newNIP += "SOS";
-        }else if(pegawai.getMataPelajaran().equals("Geografi")){
-            newNIP += "GEO";
-        }else if(pegawai.getMataPelajaran().equals("TPA")){
-            newNIP += "TPA";
-        }else if(pegawai.getMataPelajaran().equals("Bahasa Inggris")){
-            newNIP += "ING";
-        }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
-            newNIP += "IND";
-        }
 
+        if (pegawai.getMataPelajaran() != null) {
+            if (pegawai.getMataPelajaran().equals("Biologi")){
+                newNIP += "BIO";
+            }else if(pegawai.getMataPelajaran().equals("Ekonomi")){
+                newNIP += "EKO";
+            }else if(pegawai.getMataPelajaran().equals("Matematika")){
+                newNIP += "MTK";
+            }else if(pegawai.getMataPelajaran().equals("Kimia")){
+                newNIP += "KIM";
+            }else if(pegawai.getMataPelajaran().equals("Fisika")){
+                newNIP += "FIS";
+            }else if(pegawai.getMataPelajaran().equals("Sosiologi")){
+                newNIP += "SOS";
+            }else if(pegawai.getMataPelajaran().equals("Geografi")){
+                newNIP += "GEO";
+            }else if(pegawai.getMataPelajaran().equals("TPA")){
+                newNIP += "TPA";
+            }else if(pegawai.getMataPelajaran().equals("Bahasa Inggris")){
+                newNIP += "ING";
+            }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
+                newNIP += "IND";
+            }
+        }
+        
         newNIP += String.valueOf(LocalDate.now().getYear());
         newNIP += String.valueOf(pegawai.getTglLahir().getMonthValue());
         newNIP += String.valueOf(pegawai.getTglLahir().getYear());
@@ -128,9 +125,10 @@ public class UserController {
         }
 
         pegawai.setNip(newNIP);
+        pegawai.setActive(true);
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
-        return daftarPegawai(model);
+        return "redirect:/pegawai/daftar-pegawai";
 
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
@@ -139,6 +137,7 @@ public class UserController {
         List<GolonganModel> listGolongan = golonganService.getAllGolongan();
         List<RoleModel> listRole = roleService.getAllRole();
         List<String> mataPelajaran = new ArrayList<String>();
+
         mataPelajaran.add("Biologi");
         mataPelajaran.add("Ekonomi");
         mataPelajaran.add("Matematika");
@@ -172,8 +171,10 @@ public class UserController {
         }
         model.addAttribute("pegawai", targetUser);
         if (userService.deleteUser(targetUser)) {
-            return daftarPegawai(model);
-        }return "hapus-pegawai";
+            userService.deleteUser(targetUser);
+            return "redirect:/pegawai/daftar-pegawai";
+        }return "redirect:/pegawai/daftar-pegawai";
+
     }
 
 }
