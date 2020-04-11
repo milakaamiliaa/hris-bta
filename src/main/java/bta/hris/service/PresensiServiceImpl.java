@@ -96,7 +96,7 @@ public class PresensiServiceImpl implements PresensiService {
 
     @Override
     public List<PresensiModel> getAllPresensiByCabang(CabangModel cabang) {
-        return presensiDB.findAllByCabang(cabang);
+        return presensiDB.findAllByCabangOrderByIdPresensiDesc(cabang);
     }
 
     @Override

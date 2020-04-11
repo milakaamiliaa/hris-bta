@@ -15,7 +15,7 @@ public interface PresensiDB extends JpaRepository<PresensiModel, Long> {
     Optional<PresensiModel> findById(Long id);
     List<PresensiModel> findAll();
     List<PresensiModel> findAllByPegawai(UserModel idUser);
-    List<PresensiModel> findAllByCabang(CabangModel cabang);
+    List<PresensiModel> findAllByCabangOrderByIdPresensiDesc(CabangModel cabang);
     List<PresensiModel> findByKodeGajiAndPegawai(String kodeGaji,UserModel idUser);
 
 }
