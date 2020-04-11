@@ -20,11 +20,17 @@ public class PageController {
 //        UserDetails loggedIn = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        System.out.println(loggedIn.getUsername());
 //        // --
-        return "home";
+        return "home fix";
     }
 
     @RequestMapping("/login")
     public String login() {
         return "login";
+    }
+
+
+    @RequestMapping("/tabel")
+    public String table() {
+        return "tables";
     }
 }
