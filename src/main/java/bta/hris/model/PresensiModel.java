@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -28,16 +29,23 @@ public class PresensiModel implements Serializable {
     @Column(name = "sesiTambahan", nullable = true)
     private Long sesiTambahan;
 
-//
-//    @Column(name = "jumlahSesi", nullable = false)
-//    private Long jumlahSesi;
-
     @NotNull
     @Column(name = "status", nullable = false)
     private String status;
 
     @Column(name = "uangKonsum", nullable = true)
     private Long uangKonsum;
+
+    public Float getNominal() {
+        return nominal;
+    }
+
+    public void setNominal(Float nominal) {
+        this.nominal = nominal;
+    }
+
+    @Column(name = "nominal", nullable = true)
+    private Float nominal;
 
     @Column(name = "kodeGaji", nullable = true)
     private String kodeGaji;

@@ -4,7 +4,7 @@
 <head>
     <object th:include = "fragments/fragment :: head"></object>
   <title>Detail Pegawai</title>
-  <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
+  <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
   <script th:src="@{/js/sb-admin-2.min.js}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt
@@ -126,14 +126,20 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
                             </div>
 
                             <div class="button-detail">
-                                    <a type="button" class="btn-sm btn-ubah" th:href="@{/pegawai/ubah/{id}(id=${pegawai.idUser})}" >Ubah</a>
-                                    <a type="button" class="btn-sm btn-hapus" th:href="@{/pegawai/hapus/{id}(id=${pegawai.idUser})}">Hapus</a>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <a type="button" class="btn btn-ubah" th:href="@{/pegawai/ubah/{id}(id=${pegawai.idUser})}" >Ubah</a>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a type="button" class="btn btn-hapus" th:href="@{/pegawai/hapus/{id}(id=${pegawai.idUser})}">Hapus</a>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row back-detail">
                                 <div class="col-auto mr-auto"></div>
                                 <div class="col-auto">
-                                    <a th:href="@{/pegawai/daftar-pegawai}">Kembali</a>
+                                    <a th:href="@{/pegawai/daftar-pegawai}">< Kembali ke Daftar Pegawai</a>
                                 </div>
                             </div>
 

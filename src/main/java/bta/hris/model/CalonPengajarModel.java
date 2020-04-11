@@ -1,5 +1,6 @@
 package bta.hris.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,8 +14,9 @@ import java.util.List;
 @Table(name = "calonPengajar")
 public class CalonPengajarModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCalon;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name="system-uuid", strategy="uuid")
+    private String idCalon;
 
     @NotNull
     @Column(name = "nama", nullable = false)
@@ -39,6 +41,11 @@ public class CalonPengajarModel implements Serializable {
 
     @NotNull
     @Size(max = 255)
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @NotNull
+    @Size(max = 255)
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -58,13 +65,15 @@ public class CalonPengajarModel implements Serializable {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @NotNull
     @Column(name = "nilaiPsikotes",nullable = true)
     private Long nilaiPsikotes;
 
-    @NotNull
     @Column(name = "nilaiMataPelajaran",nullable = true)
     private Long nilaiMataPelajaran;
+
+    @NotNull
+    @Column(name = "updatedAt",nullable = true)
+    private LocalDate updatedAt;
 
     @NotNull
     @Column(name = "tesDeadline", nullable = false)
@@ -74,11 +83,11 @@ public class CalonPengajarModel implements Serializable {
     @OneToMany(mappedBy = "calonPengajar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HasilTesModel> listHasilTes;
 
-    public Long getIdCalon() {
+    public String getIdCalon() {
         return idCalon;
     }
 
-    public void setIdCalon(Long idCalon) {
+    public void setIdCalon(String idCalon) {
         this.idCalon = idCalon;
     }
 
@@ -192,5 +201,21 @@ public class CalonPengajarModel implements Serializable {
 
     public void setListHasilTes(List<HasilTesModel> listHasilTes) {
         this.listHasilTes = listHasilTes;
+    }
+
+    public LocalDate getUpdatedAt(){
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt){
+        this.updatedAt = updatedAt;
+    }
+  
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

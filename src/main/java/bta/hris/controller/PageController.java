@@ -14,11 +14,21 @@ public class PageController {
     @RequestMapping("/")
     public String home (Model model) {
         model.addAttribute("listRole", roleService.getAllRole());
-        return "home";
+//        // Delete later --
+//        UserDetails loggedIn = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(loggedIn.getUsername());
+//        // --
+        return "home fix";
     }
 
     @RequestMapping("/login")
     public String login() {
         return "login";
+    }
+
+
+    @RequestMapping("/tabel")
+    public String table() {
+        return "tables";
     }
 }
