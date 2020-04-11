@@ -1,7 +1,6 @@
 package bta.hris.controller;
 
 import bta.hris.model.CalonPengajarModel;
-import bta.hris.model.UserModel;
 import bta.hris.service.CalonPengajarService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,9 @@ public class CalonPengajarController {
 
     @RequestMapping(value = "calonpengajar/rekrut/{idCalon}", method = RequestMethod.POST)
     public String rekrutCalon(@ModelAttribute CalonPengajarModel calon, Model model){
-        CalonPengajarModel newPengajar = CalonPengajarService.rekrutCalon(calon);
+        System.out.print(calon);
+        System.out.print("HERE");
+        CalonPengajarModel newPengajar = CalonPengajarService.rekrutCalon(CalonPengajarService.getCalonById(calon.getIdCalon()));
         model.addAttribute("newPengajar", newPengajar);
         return detailCalonPengajar(calon.getIdCalon(), model);
     }

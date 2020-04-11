@@ -2,6 +2,7 @@ package bta.hris.service;
 
 
 import bta.hris.model.CalonPengajarModel;
+import bta.hris.model.RoleModel;
 import bta.hris.model.UserModel;
 import bta.hris.repository.CalonPengajarDB;
 import bta.hris.repository.GolonganDB;
@@ -66,7 +67,6 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             newPegawai.setAlamat(calon.getAlamat());
             newPegawai.setCreatedAt(LocalDate.now());
             newPegawai.setEmail(calon.getEmail());
-            newPegawai.setGolongan(golonganDB.findById(Long.valueOf(1)).get());
             
             String newNIP = "";
             if (calon.getMataPelajaran() != null) {
@@ -120,7 +120,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             newPegawai.setTglLahir(calon.getTglLahir());
             userDB.save(newPegawai);
 
-            CalonPengajarModel targetCalon = CalonPengajarDB.findById(calon.getIdCalon()).get();
+            CalonPengajarModel targetCalon = CalonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
             targetCalon.setStatus("Telah direkrut");
             targetCalon.setUpdatedAt(LocalDate.now());
             CalonPengajarDB.save(targetCalon);

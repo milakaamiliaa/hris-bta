@@ -35,7 +35,7 @@ public class CabangController {
 
     @RequestMapping(value = "/cabang/detail/{idCabang}", method = RequestMethod.GET)
     public String detailCabang(
-            @PathVariable String idCabang, Model model
+            @PathVariable Long idCabang, Model model
     ) {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
         model.addAttribute("cabang", cabang);
@@ -56,7 +56,7 @@ public class CabangController {
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
-    public String updateCabangForm(@PathVariable String idCabang, Model model) {
+    public String updateCabangForm(@PathVariable Long idCabang, Model model) {
         CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
         ArrayList<UserModel> listCalonStaf = new ArrayList<>();
         List<UserModel> listUser = userService.getAllUser();
@@ -99,7 +99,7 @@ public class CabangController {
     }
 
     @RequestMapping(value="/cabang/hapus/{idCabang}", method = RequestMethod.POST)
-    public String deleteCabang(@PathVariable String idCabang, Model model){
+    public String deleteCabang(@PathVariable Long idCabang, Model model){
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
 //        if (cabang == null){
 //            return "Maaf, cabang tidak di"
