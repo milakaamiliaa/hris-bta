@@ -27,6 +27,15 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
+    public void detailCabang(CabangModel cabang){
+        if (cabang.getStafCabang() != null) {
+            if (cabang.getStafCabang().isActive() == false) {
+                cabang.setStafCabang(null);
+            }
+        }
+    }
+
+    @Override
     public void createCabang(CabangModel cabang){
         cabang.setActive(true);
         cabangDb.save(cabang);
@@ -57,6 +66,7 @@ public class CabangServiceImpl implements CabangService{
         CabangModel targetCabang = cabangDb.findByIdCabang(cabang.getIdCabang()).get();
         if (targetCabang.isActive()){
             targetCabang.setActive(false);
+            targetCabang.setStafCabang(null);
         }
     }
 
