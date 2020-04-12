@@ -44,6 +44,7 @@ public class GajiController{
 
         model.addAttribute("daftarGaji", gajiService.getAllGajiByNip(user.getNip()));
         model.addAttribute("allGaji", gajiService.getAllGaji());
+
         model.addAttribute("isPengajar", user.getRole().getNama().equalsIgnoreCase("Pengajar"));
         model.addAttribute("isDirektur", user.getRole().getNama().equalsIgnoreCase("Direktur"));
         return "daftar-gaji";
