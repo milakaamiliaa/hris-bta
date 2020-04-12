@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class GajiController{
@@ -45,8 +47,8 @@ public class GajiController{
 
         model.addAttribute("daftarGaji", gajiService.getAllGajiByNip(user.getNip()));
         model.addAttribute("allGaji", gajiService.getAllGaji());
-        model.addAttribute("isPengajar", user.getRole().getNama().equals("Pengajar"));
-        model.addAttribute("isDirektur", user.getRole().getNama().equals("Direktur"));
+        model.addAttribute("isPengajar", user.getRole().getNama().equalsIgnoreCase("Pengajar"));
+        model.addAttribute("isDirektur", user.getRole().getNama().equalsIgnoreCase("Direktur"));
         return "daftar-gaji";
     }
 
@@ -64,10 +66,13 @@ public class GajiController{
         String year = String.valueOf(gaji.getPeriode().getYear()).substring(2,4);
        String kodeGaji = month+year;
 
-        List<PresensiModel> presensi = presensiService.getAllPresensiByKodeGaji(kodeGaji, gaji.getPegawai().getNip());
-        model.addAttribute("isPengajar", user.getRole().getNama().equals("Pengajar"));
-        model.addAttribute("isDirektur", user.getRole().getNama().equals("Direktur"));
+       String periode = (String.valueOf(gaji.getPeriode().getMonth().getDisplayName(TextStyle.SHORT, Locale.US))) + " "
+               + (String.valueOf(gaji.getPeriode().getYear()));
 
+        List<PresensiModel> presensi = presensiService.getAllPresensiByKodeGaji(kodeGaji, gaji.getPegawai().getNip());
+        model.addAttribute("isPengajar", user.getRole().getNama().equalsIgnoreCase("Pengajar"));
+        model.addAttribute("isDirektur", user.getRole().getNama().equalsIgnoreCase("Direktur"));
+        model.addAttribute("periode", periode);
         model.addAttribute("presensiByKodeGaji", presensi);
         model.addAttribute("gaji", gaji);
         return "detail-gaji-pengajar";
