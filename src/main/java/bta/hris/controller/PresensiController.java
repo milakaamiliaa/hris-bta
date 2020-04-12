@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -42,6 +43,7 @@ public class PresensiController {
     @RequestMapping(value="/presensi", method = RequestMethod.GET)
     public String daftarPresensi(Model model){
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
+
         model.addAttribute("allPresensi", presensiService.getAllPresensi());
         model.addAttribute("daftarPresensi", presensiService.getAllPresensiByNip(user.getNip()));
 
@@ -53,9 +55,16 @@ public class PresensiController {
         LocalDate localDate = LocalDate.now();//For reference
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedString = localDate.format(formatter);
+        List<CabangModel> listCabang = cabangService.getCabangList();
+        List<CabangModel> listActiveCabang = new ArrayList <CabangModel>();
+        for (CabangModel cabang : listCabang){
+            if (cabang.isActive()){
+                listActiveCabang.add(cabang);
+            }
+        }
 
         model.addAttribute("presensi", new PresensiModel());
-        model.addAttribute("cabangList", cabangService.getCabangList());
+        model.addAttribute("cabangList", listActiveCabang);
         model.addAttribute("localDate", formattedString);
 
         return "form-tambah-presensi";
@@ -70,11 +79,18 @@ public class PresensiController {
 
         presensi.setTanggalPresensi(LocalDate.now());
         PresensiModel addedPresensi = presensiService.addPresensi(presensi,nip);
-        List<PresensiModel> allPresensi = presensiService.getAllPresensiByNip(nip);
+        List<CabangModel> listActiveCabang = new ArrayList <CabangModel>();
+        List<CabangModel> listCabang = cabangService.getCabangList();
+        for (CabangModel cabang : listCabang){
+            if (cabang.isActive()){
+                listActiveCabang.add(cabang);
+            }
+        }
 
         model.addAttribute("addedPresensi", addedPresensi);
         model.addAttribute("presensi", new PresensiModel());
-        model.addAttribute("cabangList", cabangService.getCabangList());
+
+        model.addAttribute("cabangList", listActiveCabang);
         model.addAttribute("localDate", LocalDate.now());
         return "redirect:/presensi";
     }
