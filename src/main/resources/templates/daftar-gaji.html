@@ -3,7 +3,7 @@
 
 <head>
     <object th:include = "fragments/fragment :: head"></object>
-    <title>Tabel</title>
+    <title>Daftar Gaji</title>
     <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
 </head>
 
@@ -68,8 +68,9 @@
                                         <tr th:each="gaji, iterationStatus: ${daftarGaji}">
                                             <td class="text-center" th:text="${iterationStatus.count}"></td>
                                             <td class="text-center" th:text="${#temporals.format(gaji.periode, 'LLLL yyyy')}"></td>
-                                            <td class="text-center" th:text="${gaji.totalGaji}"></td>
+                                            <td class="text-center" th:text="'Rp ' + ${gaji.totalGaji}"></td>
                                             <td class="text-center"><a th:href="@{/gaji/detail/}+${gaji.idGaji}"><b>Detail</b></a></td>
+
                                             <div th:if="${gaji.status == 'pending'}">
                                                 <td class="text-center" th:text="${gaji.status}"></td>
                                             </div>
@@ -124,7 +125,7 @@
                                         <td class="text-center" th:text="${iterationStatus.count}"></td>
                                         <td class="text-center" th:text="${gaji.pegawai.nama}"></td>
                                         <td class="text-center" th:text="${#temporals.format(gaji.periode, 'LLLL yyyy')}"></td>
-                                        <td class="text-center" th:text="${gaji.totalGaji}"></td>
+                                        <td class="text-center" th:text="'Rp ' + ${gaji.totalGaji}"></td>
                                         <td class="text-center">
                                             <a th:href="@{/gaji/detail/}+${gaji.idGaji}"><b>Detail</b></a>
                                         </td>

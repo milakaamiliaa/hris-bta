@@ -68,7 +68,7 @@
                                     <p class="details-title">Pajak Gaji</p>
                                 </div>
                                 <div class="col">
-                                    <p th:text="': ' + ${gaji.pajakGaji}"></p>
+                                    <p th:text="': ' + ${gaji.pajakGaji} + '%'"></p>
                                 </div>
                             </div>
 
@@ -91,67 +91,71 @@
                                 <table class="table " id="dataTable" width="100%" cellspacing="0">
                                     <thead style="background-color: #FF5252 !important; color: white">
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Sesi Mengajar</th>
-                                        <th scope="col">Sesi Tambahan</th>
-                                        <th scope="col">Nominal</th>
+                                        <th class="text-center" scope="col">No</th>
+                                        <th class="text-center" scope="col">Tanggal</th>
+                                        <th class="text-center" scope="col">Sesi Mengajar</th>
+                                        <th class="text-center" scope="col">Sesi Tambahan</th>
+                                        <th class="text-center" scope="col">Nominal</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="presensi, iterationStatus: ${presensiByKodeGaji}">
-                                        <td th:text="${iterationStatus.count}"></td>
-                                        <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
-                                        <td th:text="${presensi.sesiMengajar}"></td>
-                                        <td th:text="${presensi.sesiTambahan}"></td>
-                                        <td th:text="${presensi.nominal}" style="color: #1cc88a"></td>
+                                        <td class="text-center" th:text="${iterationStatus.count}"></td>
+                                        <td class="text-center" th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
+                                        <td class="text-center" th:text="${presensi.sesiMengajar}"></td>
+                                        <td class="text-center" th:text="${presensi.sesiTambahan}"></td>
+                                        <td class="text-center"th:text="'Rp ' + ${presensi.nominal}" style="color: #1cc88a"></td>
                                     </tr>
+                                    </tbody>
+                                    <tfoot>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td th:text="${gaji.totalGaji}" style="color: #1cc88a"></td>
+                                        <td class="text-center" th:text="'Rp ' + ${gaji.totalGaji}" style="color: #1cc88a"></td>
                                     </tr>
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                             </div>
 
                             <!-- Direktur -->
                             <div th:if="${isDirektur}" class="table-responsive">
-                                <table class="table " id="dataTable" width="100%" cellspacing="0">
+                                <table class="table " id="dataTable2" width="100%" cellspacing="0">
                                     <thead style="background-color: #FF5252 !important; color: white">
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Total Sesi</th>
-                                        <th scope="col">Uang Konsum</th>
-                                        <th scope="col">Nominal</th>
+                                        <th class="text-center" scope="col">No</th>
+                                        <th class="text-center" scope="col">Tanggal</th>
+                                        <th class="text-center" scope="col">Total Sesi</th>
+                                        <th class="text-center" scope="col">Uang Konsum</th>
+                                        <th class="text-center" scope="col">Nominal</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="presensi, iterationStatus: ${presensiByKodeGaji}">
-                                        <td th:text="${iterationStatus.count}"></td>
-                                        <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
+                                        <td class="text-center" th:text="${iterationStatus.count}"></td>
+                                        <td class="text-center" th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
                                         <div th:if="${presensi.sesiTambahan == null}">
-                                            <td th:text="${presensi.sesiMengajar} + 0"></td>
+                                            <td class="text-center" th:text="${presensi.sesiMengajar} + 0"></td>
                                         </div>
                                         <div th:unless="${presensi.sesiTambahan == null}">
-                                            <td th:text="${presensi.sesiMengajar} + ${presensi.sesiTambahan} "></td>
+                                            <td class="text-center" th:text="${presensi.sesiMengajar} + ${presensi.sesiTambahan} "></td>
                                         </div>
 
-                                        <td th:text="${presensi.uangKonsum}"></td>
-                                        <td th:text="${presensi.nominal}" style="color: #1cc88a"></td>
+                                        <td class="text-center" th:text="'Rp ' + ${presensi.uangKonsum}"></td>
+                                        <td class="text-center" th:text="'Rp ' + ${presensi.nominal}" style="color: #1cc88a"></td>
                                     </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td th:text="${gaji.totalGaji}" style="color: #1cc88a"></td>
 
-                                    </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center" th:text="'Rp ' + ${gaji.totalGaji}" style="color: #1cc88a"></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
 
