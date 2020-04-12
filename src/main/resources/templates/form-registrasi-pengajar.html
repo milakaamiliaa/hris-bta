@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
 
-<head>
 
   <head>
     <object th:include = "fragments/fragment :: head"></object>
     <title>Registrasi Pengajar</title>
+
+    <script>
+      function checkform(){
+        var form1 = document.getElementById('idForm');
+        var button = document.getElementById("buttonSubmit");
+        button.disabled = true;
+
+        if(form1.password.value != form1.konfirmasi.value) {
+          button.disabled = true;
+        }
+        else {
+          button.disabled = false;
+        }
+
+      }
+
+      function viewPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+
+    </script>
+
   </head>
 
-</head>
 
-<body class="bg-gradient-danger">
+<body class="bg-gradient-danger" onmouseover="checkform();">
 
   <div class="container">
 
@@ -36,35 +61,42 @@
                   </div>
 
                   <!-- Form -->
-                  <form class="user" th:action="@{/registrasi}" th:object="${newCalonPengajar}" method="POST">
-                    <div class="form-group">
+                  <form class="user" th:action="@{/registrasi}" th:object="${newCalonPengajar}" method="POST" id="idForm" name="formName">
+                    <div class="form-group" >
                       <p class = "form-title"> Nama Lengkap </p>
-                      <input class="form-control form-control-user" type="text" name="nama"  title="Masukkan nama lengkap" placeholder="Masukkan nama..." required>
+                      <input class="form-control form-control-user" type="text" name="nama"  title="Masukkan nama lengkap"
+                             placeholder="Masukkan nama..." oninvalid="this.setCustomValidity('Masukkan nama lengkap Anda')" required>
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title"> Email </p>
-                      <input class="form-control form-control-user" type="email" name="email" title="Masukkan email" placeholder="Masukkan email..." required>
+                      <input class="form-control form-control-user" type="email" name="email" title="Masukkan email"
+                             placeholder="Masukkan email..." oninvalid="this.setCustomValidity('Masukkan email Anda')" required>
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title"> Alamat </p>
-                      <input class="form-control form-control-user" type="text" name="alamat"  title="Masukkan alamat" placeholder="Masukkan alamat..." required>
+                      <input class="form-control form-control-user" type="text" name="alamat"  title="Masukkan alamat"
+                             placeholder="Masukkan alamat..." oninvalid="this.setCustomValidity('Masukkan alamat Anda')" required>
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title"> Nomor Telepon </p>
-                      <input type="text" required pattern="[0-9]{7,12}" name="noTelp" title="Masukkan nomor telepon" class="form-control form-control-user" placeholder="Masukkan Nomor Telepon...">
+                      <input type="text" required pattern="[0-9]{7,12}" name="noTelp" title="Masukkan nomor telepon"
+                             class="form-control form-control-user" placeholder="Masukkan Nomor Telepon..."
+                             oninvalid="this.setCustomValidity('Masukkan nomor telepon Anda')">
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title"> Tanggal Lahir </p>
-                      <input class="form-control form-control-user" type="date" name="tglLahir" title="Masukkan tanggal lahir" required>
+                      <input class="form-control form-control-user" type="date" name="tglLahir"
+                             title="Masukkan tanggal lahir" oninvalid="this.setCustomValidity('Masukkan tanggal lahir Anda')" required>
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title"> Mata Pelajaran </p>
-                      <select class="form-control form-dropdown" name="mataPelajaran" required>
+                      <select class="form-control form-dropdown" name="mataPelajaran"
+                              oninvalid="this.setCustomValidity('Masukkan mata pelajaran')" required>
                         <option selected value="">-- Pilih Mata Pelajaran --</option>
                         <option value="TPA">TPA</option>
                         <option value="Bahasa Indonesia">Bahasa Indonesia</option>
@@ -82,29 +114,37 @@
 
                     <div class="form-group">
                       <p class = "form-title"> Link CV (Google Drive, etc.) </p>
-                      <input class="form-control form-control-user" type="text" name="cv"  title="Masukkan Link CV" placeholder="Masukkan link CV..." required>
+                      <input class="form-control form-control-user" type="text" name="cv"  title="Masukkan Link CV"
+                             placeholder="Masukkan link CV..." oninvalid="this.setCustomValidity('Masukkan link CV Anda')" required>
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title"> Username </p>
-                      <input class="form-control form-control-user" type="text" name="username"  title="Masukkan username" placeholder="Masukkan username..." required>
+                      <input class="form-control form-control-user" type="text" name="username"  title="Masukkan username"
+                             placeholder="Masukkan username..." oninvalid="this.setCustomValidity('Masukkan username Anda')" required>
                     </div>
 
                     <div class="form-group">
-                      <p class = "form-title">Password</p>
-                      <input class="form-control form-control-user" type="password" name="password" placeholder="Masukkan Password..." required>
+                      <p class = "form-title" >Password</p>
+                      <input class="form-control form-control-user" id="password" type="password" name="password"
+                             placeholder="Masukkan Password..." oninvalid="this.setCustomValidity('Masukkan password Anda')" required>
+                      <div class="form-group">
+                        <label style="font-size: small;" class="col-5"> <input type="checkbox" class="align-items-end col-1" onclick="viewPassword()" for="passCheckbox">Tunjukkan Sandi</label>
+                      </div>
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title">Konfirmasi Password</p>
-                      <input type="password" class="form-control form-control-user" title="Konfirmasi password" placeholder="Konfirmasi Password..." required>
+                      <input type="password" id="konfirmasi" class="form-control form-control-user" title="Konfirmasi password"
+                             placeholder="Konfirmasi Password..." name="konfirmasi"
+                             oninvalid="this.setCustomValidity('Masukkan Password')" required >
                     </div>
 
                     <div class="form-group">
                       <input id="tesDeadline" type="hidden" class="form-control form-control-user" name="tesDeadline">
                     </div>
 
-                    <button type="submit" class="btn form-button">Submit</button>
+                    <button id="buttonSubmit" type="submit" class="btn form-button" >Submit</button>
 
                   </form>
                   <hr>
@@ -125,6 +165,22 @@
   </footer>
   <!-- End of Footer -->
 
+  <script type="text/javascript">
+    function checkform(){
+      var form1 = document.getElementById('idForm');
+      var button = document.getElementById("buttonSubmit");
+      button.disabled = true;
+
+      if(form1.password.value != form1.konfirmasi.value) {
+        button.disabled = true;
+      }
+      else {
+        button.disabled = false;
+      }
+
+    }
+
+  </script>
 
 </body>
 

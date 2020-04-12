@@ -159,8 +159,4 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
         return calonPengajarDB.save(calonPengajar);
     }
 
-    @Override
-    public List<CalonPengajarModel>findAllCalonPengajar() {
-        return calonPengajarDB.findAll();
-    }
 }

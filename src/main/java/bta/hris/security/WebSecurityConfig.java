@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cabang/**").hasAnyAuthority(("ADMIN"))
                 .antMatchers("/golongan/**").hasAnyAuthority(("ADMIN"))
                 .antMatchers("/presensi/kelola").hasAnyAuthority(("STAF CABANG"))
+
                 .antMatchers("/presensi/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))
                 .antMatchers("/pegawai/**").hasAnyAuthority(("ADMIN"))
                 .antMatchers("/gaji/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))

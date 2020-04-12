@@ -30,12 +30,35 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <div th:if="${alertUbah}" th:text="${alertUbah}" class="alert alert-success" role="alert"></div>
+                <div th:if="${alertTambah}" th:text="${alertTambah}" class="alert alert-success" role="alert"></div>
+
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Daftar Presensi</h1>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
+<<<<<<< HEAD
+                        <select selected=# class="input-field col col-lg-2" id="mylist"
+                                name="Tanggal" onchange="dropdownChangePresensi();">
+                            <option value="" >Semua</option>
+                            <option value="Januari">Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                        </select>
+                        <br>
+=======
+>>>>>>> 57c243cb294f93baa19cea9944f1b14eec02f24d
                         <div class="row">
                             <div class="col-md">
                                 <select selected=# class="input-field col col-lg-2" id="mylist"
@@ -63,6 +86,7 @@
                                 </button>
                             </a><br>
                             </div>
+                            <br>
                         <div class="table-responsive">
                             <div class="table-responsive">
                             <table class="table " id="dataTable" width="100%" cellspacing="0">
@@ -79,7 +103,7 @@
                                 <tbody>
                                 <tr th:each="presensi, iterationStatus: ${daftarPresensi}">
                                     <td class="text-center" th:text="${iterationStatus.count}"></td>
-                                    <td class="text-center" th:text="${#temporals.format(presensi.tanggalPresensi, 'dd-MM-yyyy')}"></td>
+                                    <td class="text-center" th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
                                     <td class="text-center" th:text="${presensi.cabang.getNama()}"></td>
                                     <td class="text-center" th:text="${presensi.sesiMengajar}"></td>
                                     <td class="text-center" th:text="${presensi.sesiTambahan}"></td>

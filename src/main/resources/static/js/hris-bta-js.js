@@ -1,4 +1,22 @@
 function dropdownChangePresensi() {
+<<<<<<< HEAD
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("mylist");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) >-1){
+                    tr[i].style.display = "";
+                }
+                else if (filter == ""){
+                    tr[i].style.display = "";
+                }else {
+                    tr[i].style.display = "none";
+                }
+=======
     var input, filter, table, tr, td, i;
     input = document.getElementById("mylist");
     filter = input.value.toUpperCase();
@@ -56,7 +74,7 @@ function dropdownChangeGaji2() {
                 tr[i].style.display = "";
             }else {
                 tr[i].style.display = "none";
+>>>>>>> 57c243cb294f93baa19cea9944f1b14eec02f24d
             }
         }
-    }
 }

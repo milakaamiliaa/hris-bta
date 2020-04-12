@@ -1,7 +1,6 @@
 package bta.hris.controller;
 
 import bta.hris.model.CalonPengajarModel;
-import bta.hris.model.GolonganModel;
 import bta.hris.model.RoleModel;
 import bta.hris.model.UserModel;
 import bta.hris.service.CalonPengajarService;
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CalonPengajarController {
@@ -52,14 +50,14 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "calonpengajar/rekrut/{idCalon}", method = RequestMethod.POST)
-    public String rekrutCalon(@ModelAttribute CalonPengajarModel calon, Model model){
+    public String terimaPelamar(@ModelAttribute CalonPengajarModel calon, Model model){
         CalonPengajarModel newPengajar = calonPengajarService.rekrutCalon(calonPengajarService.getCalonById(calon.getIdCalon()));
         model.addAttribute("newPengajar", newPengajar);
         return detailCalonPengajar(calon.getIdCalon(), model);
     }
 
     @RequestMapping(value = "calonpengajar/tolak/{idCalon}", method = RequestMethod.POST)
-    public String tolakCAlon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String tolakPelamar(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
         CalonPengajarModel targetCalon = calonPengajarService.tolakCalon(calon);
         model.addAttribute("calon", targetCalon);
         return detailCalonPengajar(idCalon, model);
@@ -89,11 +87,9 @@ public class CalonPengajarController {
     @RequestMapping(value = "/registrasi", method = RequestMethod.POST)
     public String tambahCalonPengajarSubmit (CalonPengajarModel calonPengajar, Model model, RedirectAttributes redirect) {
 
-        if (usernameTidakValid(calonPengajar)){
+        if (usernameisValid(calonPengajar)){
             if (calonPengajar.getTglLahir().compareTo(LocalDate.now())<=0){
                 RoleModel role = roleService.getRoleById(Long.valueOf(5));
-                // Optional<GolonganModel> golonganOpt = golonganService.getGolonganByIdGolongan(Long.valueOf(99));
-                // GolonganModel golongan = golonganOpt.get();
 
                 calonPengajar.setStatus("Belum Mengerjakan Tes");
                 calonPengajar.setCreatedAt(LocalDate.now());
@@ -115,7 +111,6 @@ public class CalonPengajarController {
                 user.setRole(role);
                 user.setActive(true);
                 
-                // user.setGolongan(golongan);
                 userService.addUser(user);
 
                 return "redirect:/beranda/" + calonPengajar.getIdCalon();
@@ -134,8 +129,8 @@ public class CalonPengajarController {
     }
 
 
-    public boolean usernameTidakValid(CalonPengajarModel calonPengajarCheck){
-        List<CalonPengajarModel> calonPengajarList = calonPengajarService.findAllCalonPengajar();
+    public boolean usernameisValid(CalonPengajarModel calonPengajarCheck){
+        List<CalonPengajarModel> calonPengajarList = calonPengajarService.getAllCalon();
         boolean status = true;
         for (CalonPengajarModel calonPengajar : calonPengajarList) {
             if ((calonPengajar.getUsername()).equalsIgnoreCase(calonPengajarCheck.getUsername())){
@@ -148,7 +143,7 @@ public class CalonPengajarController {
 
 
     @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-    public String BerandaCalonPengajar (@PathVariable String idCalon, Model model) {
+    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
         CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
         LocalDate deadline = calonPengajar.getTesDeadline();
         Month bulanDeadline = deadline.getMonth();
