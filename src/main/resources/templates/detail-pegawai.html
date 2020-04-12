@@ -97,7 +97,7 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
                                     <p class="details-title">Mata Pelajaran</p>
                                 </div>
                                 <div class="col">
-                                    <p th:text="${pegawai.mataPelajaran}"></p>
+                                    <p th:text="${pegawai.mataPelajaran == null} ? 'Tidak ada' : ${pegawai.mataPelajaran}"></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -105,7 +105,7 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
                                     <p class="details-title">Golongan</p>
                                 </div>
                                 <div class="col">
-                                    <p th:text="${pegawai.golongan.nama}"></p>
+                                    <p th:text="${pegawai.golongan == null} ? 'Belum ada' : ${pegawai.golongan.nama}"></p>
                                 </div>
                             </div>
                             <div class="row">
