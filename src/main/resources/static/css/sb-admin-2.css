@@ -11172,6 +11172,11 @@ body.sidebar-toggled footer.sticky-footer {
   color: white !important;
 }
 
+.detail-gaji {
+  margin-top: -0.5rem !important;
+  margin-bottom: -0.5rem !important;
+}
+
 .registrasi-title{
   font-weight: bold !important;
 }
