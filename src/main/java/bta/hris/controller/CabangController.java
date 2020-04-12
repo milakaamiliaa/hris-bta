@@ -5,7 +5,6 @@ import bta.hris.model.UserModel;
 import bta.hris.service.CabangService;
 import bta.hris.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +38,8 @@ public class CabangController {
             @PathVariable Long idCabang, Model model
     ) {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
+        cabangService.detailCabang(cabang);
+
         model.addAttribute("cabang", cabang);
         return "detail-cabang";
     }
@@ -73,7 +74,9 @@ public class CabangController {
         for (UserModel calonStaf : listUser) {
             if (calonStaf.getRole().getNama().equalsIgnoreCase("Staf Cabang")){
                 if (listStafCabang.contains(calonStaf) == false){
-                    listCalonStaf.add(calonStaf);
+                    if (calonStaf.isActive()){
+                        listCalonStaf.add(calonStaf);
+                    }
                 }
             }
         }
@@ -104,11 +107,10 @@ public class CabangController {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
 //        if (cabang == null){
 //            return "Maaf, cabang tidak di"
-        model.addAttribute("cabang", cabang);
 
-            cabangService.deleteCabang(cabang);
-            return "redirect:/cabang";
-        
+        model.addAttribute("cabang", cabang);
+        cabangService.deleteCabang(cabang);
+        return "redirect:/cabang";
     }
 }
 

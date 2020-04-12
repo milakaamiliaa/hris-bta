@@ -12,9 +12,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Service
+@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserDB userDb;
@@ -30,6 +31,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getNama()));
 
-        return new User(user.getNip(), user.getPassword(), grantedAuthorities);
+//        return new User(user.getNip(), user.getPassword(), grantedAuthorities);
+        return buildUserForAuthentication(user, grantedAuthorities);
+    }
+
+    private User buildUserForAuthentication(UserModel user,  Set<GrantedAuthority> authorities) {
+        String username = user.getNip();
+        String password = user.getPassword();
+        boolean enabled = true;
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+
+        CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+
+        currentUser.setNama(user.getNama());
+
+        return currentUser;
     }
 }

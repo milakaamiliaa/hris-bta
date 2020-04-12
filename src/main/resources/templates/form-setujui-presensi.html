@@ -1,34 +1,154 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
 
-<body>
-<h2>Setujui Presensi</h2>
+<head>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Form Setujui Presensi</title>
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+</head>
 
-<div>
-    <form th:action="@{/presensi/setujui/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">
-        <input type="hidden" th:field="${presensi.idPresensi}" />
-        <input type="hidden" th:field="${presensi.cabang}" />
-        <input type="hidden" th:field="${presensi.status}" th:value="disetujui" />
-        <input type="hidden" th:field="${presensi.kodeGaji}" th:value="0000" />
+<body id="page-top">
 
-        Nama Pengajar: <br>
-        <input type="text" name="pegawai" class="form-control" readonly th:value="${presensi.pegawai.idUser}" th:text="${presensi.pegawai.nama}" />
-        <br>
-        Tanggal: <br>
-        <input type="date" name="tanggalPresensi" readonly th:value="${presensi.tanggalPresensi}" class="form-control"/>
-        <br>
-        Jumlah Sesi: <br>
-        <input type="number"  name="sesiMengajar" readonly th:value="${presensi.sesiMengajar}" class="form-control"/>
-        Jumlah Tambahan: <br>
-        <input type="number" name="sesiTambahan" readonly th:value="${presensi.sesiTambahan}" class="form-control"/>
-        Uang Makan: <br>
-        <input type="number" name="uangKonsum">
-        <br>
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-        <br><br>
-        <button type="submit" class="btn btn-primary">Simpan</button>
-    </form>
+    <!-- Sidebar -->
+    <ul th:replace="fragments/fragment :: sidebar">
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments/fragment :: topbar"></nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Card -->
+                <div class="card shadow mb-4 border-bottom-danger">
+                    <div class="card-body">
+                        <div class="form-header">
+                            <p class="form-header-text ">PERSETUJUAN PRESENSI</p>
+                        </div>
+                        <form th:action="@{/presensi/setujui/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">
+                            <input type="hidden" th:field="${presensi.idPresensi}" />
+                            <input type="hidden" th:field="${presensi.cabang}" />
+                            <input type="hidden" th:field="${presensi.status}" th:value="disetujui" />
+                            <input type="hidden" th:field="${presensi.kodeGaji}" th:value="0000" />
+
+                            <div class="row">
+                                <div class="col col-lg-4"></div>
+                                <div class="col col-lg-4">
+                                    <div class="form-group">
+                                        <p class = "form-title">Nama Pengajar</p>
+                                        <p class = "form-isi" th:text="${presensi.pegawai.nama}"></p>
+                                        <input type="hidden" name="pegawai" class="form-control form-control-user" readonly th:value="${presensi.pegawai.idUser}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class = "form-title">Tanggal</p>
+                                        <p class = "form-isi" th:text="${presensi.tanggalPresensi}"></p>
+                                        <input type="hidden" name="tanggalPresensi" readonly th:value="${presensi.tanggalPresensi}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class = "form-title">Jumlah Sesi</p>
+                                        <p class = "form-isi" th:text="${presensi.sesiMengajar}"></p>
+                                        <input type="hidden"  name="sesiMengajar" readonly th:value="${presensi.sesiMengajar}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class = "form-title">Jumlah Tambahan</p>
+                                        <p class = "form-isi" th:text="${presensi.sesiTambahan}"></p>
+                                        <input type="hidden" name="sesiTambahan" readonly th:value="${presensi.sesiTambahan}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row" style="padding: 0.375rem 0.75rem;">
+                                            <div class="col col-lg-2">
+                                                <img src="/img/icon cutlery.png" style="width: 3rem; height: 3rem;">
+                                            </div>
+                                            <div class="col" style="margin-top: 0.5rem;">
+                                                <input type="number" class="uang-makan" name="uangKonsum" placeholder="Uang Makan">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+<!--                                        <div class="row" style="background-color: #FF5252; text-align: center">-->
+                                        <button type="submit" class="btn btn-simpan">Simpan</button>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-4"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
 </div>
+<!-- End of Page Wrapper -->
 
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
+</div>
 </body>
 </html>
+
+<!--                                <div class="form-group">-->
+<!--                                    <div class="col col-lg-4" style="background-color: #FF5252">-->
+<!--                                        <i class="fa fa-dollar icon"></i>-->
+<!--                                    </div>-->
+<!--                                    <div class="col col-lg-8">-->
+<!--                                    <input type="number" required class="input-field" name="uangKonsum" placeholder="Uang Makan">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--=========-->
+<!--<body>-->
+<!--<h2>Setujui Presensi</h2>-->
+
+<!--<div>-->
+<!--    <form th:action="@{/presensi/setujui/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">-->
+<!--        <input type="hidden" th:field="${presensi.idPresensi}" />-->
+<!--        <input type="hidden" th:field="${presensi.cabang}" />-->
+<!--        <input type="hidden" th:field="${presensi.status}" th:value="disetujui" />-->
+<!--        <input type="hidden" th:field="${presensi.kodeGaji}" th:value="0000" />-->
+
+<!--        Nama Pengajar: <br>-->
+<!--        <input type="text" name="pegawai" class="form-control" readonly th:value="${presensi.pegawai.idUser}" th:text="${presensi.pegawai.nama}" />-->
+<!--        <br>-->
+<!--        Tanggal: <br>-->
+<!--        <input type="date" name="tanggalPresensi" readonly th:value="${presensi.tanggalPresensi}" class="form-control"/>-->
+<!--        <br>-->
+<!--        Jumlah Sesi: <br>-->
+<!--        <input type="number"  name="sesiMengajar" readonly th:value="${presensi.sesiMengajar}" class="form-control"/>-->
+<!--        Jumlah Tambahan: <br>-->
+<!--        <input type="number" name="sesiTambahan" readonly th:value="${presensi.sesiTambahan}" class="form-control"/>-->
+<!--        Uang Makan: <br>-->
+<!--        <input type="number" name="uangKonsum">-->
+<!--        <br>-->
+
+<!--        <br><br>-->
+<!--        <button type="submit" class="btn btn-primary">Simpan</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--</body>-->

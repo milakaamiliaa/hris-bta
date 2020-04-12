@@ -3,7 +3,7 @@
 
 <head>
   <object th:include = "fragments/fragment :: head"></object>
-  <title>Daftar Pegawai</title>
+  <title>Daftar Calon Pengajar</title>
   <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
   <script th:src="@{/js/sb-admin-2.min.js}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -38,7 +38,7 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800" >Daftar Pegawai</h1>
+          <h1 class="h3 mb-2 text-gray-800" >Daftar Calon Pengajar</h1>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4 border-bottom-danger">
@@ -53,11 +53,6 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
                                   th:text="${role.nama}"/>
                       </select>
                 </div>
-
-                <div class="col-auto ml-auto">
-                    <a class="btn form-button" href="/pegawai/tambah">+ Tambah Pegawai</a>
-                </div>
-                
             </div>
 
               
@@ -65,24 +60,28 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
 
               <div class="table-responsive">
                 <table class="table " id="dataTable" width="100%" cellspacing="0">
-                  <thead style="background-color: #FF5252 !important; color: white; text-align: center;">
+                  <thead style="background-color: #FF5252 !important; color: white">
                     <tr>
-                      <th>No</th>
+                      <th>Tgl Daftar</th>
                       <th>Nama</th>
-                      <th>NIP</th>
-                      <th>Role</th>
-                      <th>Aksi</th>
+                      <th>Pelajaran</th>
+                      <th>Psikotes</th>
+                      <th>Pilihan</th>
+                      <th>Status</th>
+                      <th></th>
                     </tr>
                   </thead>
-                  <tbody style="text-align: center;">
-                    <tr th:each="pegawai, iterationStatus : *{listPegawai}">
-                      <td><a th:text="${iterationStatus.count}"></a> </td>
-                      <td><a th:text="${pegawai.nama}"></a> </td>
-                      <td><a th:text="${pegawai.nip}"></a> </td>
-                      <td><a th:text="${pegawai.role.nama}"></a> </td>
+                  <tbody>
+                    <tr th:each="calon, iterationStatus : *{listCalon}">
+                      <td><a th:text="${calon.createdAt}"></a> </td>
+                      <td><a th:text="${calon.nama}"></a> </td>
+                      <td><a th:text="${calon.mataPelajaran}"></a> </td>
+                      <td><a th:text="${calon.nilaiPsikotes}"></a> </td>
+                      <td><a th:text="${calon.nilaiMataPelajaran}"></a> </td>
+                      <td><a th:text="${calon.status}"></a> </td>
                       <td>
                         <button class="btn ">
-                            <a th:href="@{/pegawai/detail/{id}(id=${pegawai.idUser})}">Detail</a>
+                            <a th:href="@{/calonpengajar/detail/{id}(id=${calon.idCalon})}">Detail</a>
                         </button>
                       </td>
                     </tr>

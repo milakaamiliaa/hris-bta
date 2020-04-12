@@ -64,22 +64,4 @@
     }
   }
 
-  function dropdownChangePresensi() {
-    var input, filter, table, tr, td, i;
-    input = document.getElementById("mylist");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("dataTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[2];
-      if (td) {
-        if (td.innerHTML.toUpperCase().indexOf(filter) > 2){
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-  }
-
 })(jQuery); // End of use strict
