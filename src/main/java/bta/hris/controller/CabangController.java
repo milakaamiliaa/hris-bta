@@ -112,7 +112,7 @@ public class CabangController {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
         model.addAttribute("cabang", cabang);
         cabangService.deleteCabang(cabang);
-        return "redirect:/cabang";
+         return "redirect:/cabang";
     }
 }
 

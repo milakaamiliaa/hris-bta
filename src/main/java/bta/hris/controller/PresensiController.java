@@ -71,7 +71,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.POST)
-    public String tambahPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model){
+    public String tambahPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect){
 
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -92,6 +92,7 @@ public class PresensiController {
 
         model.addAttribute("cabangList", listActiveCabang);
         model.addAttribute("localDate", LocalDate.now());
+        redirect.addFlashAttribute("alertTambah", "Presensi Berhasil Ditambahkan");
         return "redirect:/presensi";
     }
 
@@ -113,11 +114,11 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.POST)
-    public String ubahPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
-
+    public String ubahPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
         PresensiModel newPresensi = presensiService.updatePresensi(presensi);
 
         model.addAttribute("presensi", newPresensi);
+        redirect.addFlashAttribute("alertUbah", "Presensi Berhasil Diubah");
         return "redirect:/presensi";
     }
 

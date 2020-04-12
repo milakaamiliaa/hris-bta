@@ -43,6 +43,8 @@
                             <p class="form-header-text ">TAMBAH PRESENSI</p>
                         </div>
                         <form class="user" th:action="@{/presensi/tambah}" th:object="${presensi}" method="POST">
+                            <div class="alert alert-success" th:if="${addedPresensi != null}"
+                                 th:text="Berhasil" role="alert"></div>
                             <div class="form-group">
                                 <p class = "form-title">Tanggal</p>
                                 <br>
