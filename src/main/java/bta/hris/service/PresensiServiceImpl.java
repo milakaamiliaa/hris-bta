@@ -41,7 +41,7 @@ public class PresensiServiceImpl implements PresensiService {
 
       public List<PresensiModel> getAllPresensiByNip(String nip) {
         UserModel user =  userService.getByNip(nip);
-        return presensiDB.findAllByPegawaiOrderByiOrderByIdPresensiDesc(user);
+        return presensiDB.findAllByPegawaiOrderByIdPresensiDesc(user);
     }
 
     @Override
