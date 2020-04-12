@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/presensi/kelola").hasAnyAuthority(("STAF CABANG"))
                 .antMatchers("/presensi/**").permitAll()
                 // .antMatchers("/pegawai/**").hasAnyAuthority(("Admin"))
+                .antMatchers("/").permitAll()
                 .antMatchers("/pegawai/**").permitAll()
                 .antMatchers("/gaji/**").permitAll()
                 .anyRequest().authenticated()
