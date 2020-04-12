@@ -25,11 +25,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/scss/**").permitAll()
                 .antMatchers("/vendor/**").permitAll()
-                .antMatchers("/cabang/**").hasAnyAuthority(("Admin"))
-                .antMatchers("/golongan/**").hasAnyAuthority(("Admin"))
-                .antMatchers("/presensi/kelola").hasAnyAuthority(("Staf Cabang"))
+                .antMatchers("/cabang/**").hasAnyAuthority(("ADMIN"))
+                .antMatchers("/golongan/**").hasAnyAuthority(("ADMIN"))
+                .antMatchers("/presensi/kelola").hasAnyAuthority(("STAF CABANG"))
                 .antMatchers("/presensi/**").permitAll()
-                .antMatchers("/pegawai/**").hasAnyAuthority(("Admin"))
+                .antMatchers("/pegawai/**").hasAnyAuthority(("ADMIN"))
                 .antMatchers("/gaji/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
 //                .passwordEncoder(encoder())
-//                .withUser("admin").password(encoder().encode("adminbta"))
+//                .withUser("admin").password(encoder().encode("admin"))
 //                .roles("USER");
 //    }
 
