@@ -51,7 +51,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.GET)
-    public String createPresensiForm(Model model){
+    public String tambahPresensiForm(Model model){
         LocalDate localDate = LocalDate.now();//For reference
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedString = localDate.format(formatter);
@@ -71,7 +71,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.POST)
-    public String createPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model){
+    public String tambahPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model){
 
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -96,7 +96,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.GET)
-    public String updatePresensiForm(@PathVariable Long idPresensi, Model model) {
+    public String ubahPresensiForm(@PathVariable Long idPresensi, Model model) {
         PresensiModel existingPresensi = presensiService.getPresensiById(idPresensi);
 
         List<CabangModel> listCabang = cabangService.getCabangList();
@@ -113,7 +113,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.POST)
-    public String updatePresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String ubahPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
 
         PresensiModel newPresensi = presensiService.updatePresensi(presensi);
 
@@ -134,7 +134,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.GET)
-    public String formSetujuiPresensi(@PathVariable Long idPresensi, Model model) {
+    public String setujuiPresensiForm(@PathVariable Long idPresensi, Model model) {
         PresensiModel presensi = presensiService.getPresensiById(idPresensi);
 
         model.addAttribute("presensi", presensi);
