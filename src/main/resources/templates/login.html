@@ -25,11 +25,11 @@
                                     <div class="form-header">
                                         <p class="form-header-text ">Log In</p>
                                     </div>
-                                    <div th:if="${param.error}">
-                                        <div style="text-align: center;">
-                                            <span style="color: red">NIP atau password salah!</span>
+                                        <div th:if="${param.error}">
+                                            <div style="text-align: center;">
+                                                <span style="color: red">NIP atau password salah!</span>
+                                            </div>
                                         </div>
-                                    </div>
                                     <form th:action="@{/login}" method="POST">
                                         <div class="row form-group">
                                             <label class="form-title">NIP:</label>
