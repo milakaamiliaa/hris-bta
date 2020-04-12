@@ -1,16 +1,12 @@
 package bta.hris.controller;
 
 import bta.hris.model.GajiModel;
-import bta.hris.model.GolonganModel;
 import bta.hris.model.PresensiModel;
 import bta.hris.model.UserModel;
 import bta.hris.service.GajiService;
-import bta.hris.service.GolonganService;
 import bta.hris.service.PresensiService;
 import bta.hris.service.UserService;
-import org.postgresql.jdbc2.optional.SimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -74,7 +69,7 @@ public class GajiController{
     }
 
     @RequestMapping(value = "/gaji/setujui/{idGaji}", method = RequestMethod.GET)
-    public String getsetujuiGaji(@PathVariable Long idGaji, Model model) {
+    public String setujuiGajiForm(@PathVariable Long idGaji, Model model) {
         GajiModel gaji = gajiService.getGajiByIdGaji(idGaji).get();
         System.out.println(gaji.getStatus());
         model.addAttribute("gaji", gaji);
@@ -83,7 +78,7 @@ public class GajiController{
     }
 
     @RequestMapping(value = "/gaji/setujui/{idGaji}", method = RequestMethod.POST)
-    public String postsetujuiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+    public String setujuiGajiSubmit(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
         gaji = gajiService.getGajiByIdGaji(idGaji).get();
         gaji.setStatus("disetujui");
@@ -97,7 +92,7 @@ public class GajiController{
     }
 
     @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.GET)
-    public String getbayarGaji(@PathVariable Long idGaji, Model model) {
+    public String bayarGajiForm(@PathVariable Long idGaji, Model model) {
         GajiModel gaji = gajiService.getGajiByIdGaji(idGaji).get();
 
         model.addAttribute("gaji", gaji);
@@ -106,7 +101,7 @@ public class GajiController{
     }
 
     @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.POST)
-    public String postbayarGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+    public String bayarGajiSubmit(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
 
         gaji = gajiService.getGajiByIdGaji(idGaji).get();

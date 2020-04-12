@@ -2,9 +2,7 @@ package bta.hris.controller;
 
 import bta.hris.model.*;
 import bta.hris.service.*;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,7 +47,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.GET)
-    public String createPresensiForm(Model model){
+    public String tambahPresensiForm(Model model){
         LocalDate localDate = LocalDate.now();//For reference
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedString = localDate.format(formatter);
@@ -70,7 +67,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.POST)
-    public String createPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model){
+    public String tambahPresensiSubmit(@ModelAttribute PresensiModel presensi, Model model){
 
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -95,7 +92,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.GET)
-    public String updatePresensiForm(@PathVariable Long idPresensi, Model model) {
+    public String ubahPresensiForm(@PathVariable Long idPresensi, Model model) {
         PresensiModel existingPresensi = presensiService.getPresensiById(idPresensi);
 
         List<CabangModel> listCabang = cabangService.getCabangList();
@@ -112,7 +109,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.POST)
-    public String updatePresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String ubahPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
 
         PresensiModel newPresensi = presensiService.updatePresensi(presensi);
 
@@ -133,7 +130,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.GET)
-    public String formSetujuiPresensi(@PathVariable Long idPresensi, Model model) {
+    public String setujuiPresensiForm(@PathVariable Long idPresensi, Model model) {
         PresensiModel presensi = presensiService.getPresensiById(idPresensi);
 
         model.addAttribute("presensi", presensi);
@@ -142,7 +139,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.POST)
-    public String setujuiPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String setujuiPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
 
         String month = "";
