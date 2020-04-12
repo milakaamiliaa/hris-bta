@@ -1,16 +1,12 @@
 package bta.hris.controller;
 
 import bta.hris.model.GajiModel;
-import bta.hris.model.GolonganModel;
 import bta.hris.model.PresensiModel;
 import bta.hris.model.UserModel;
 import bta.hris.service.GajiService;
-import bta.hris.service.GolonganService;
 import bta.hris.service.PresensiService;
 import bta.hris.service.UserService;
-import org.postgresql.jdbc2.optional.SimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;
