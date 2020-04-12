@@ -52,7 +52,7 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "calonpengajar/rekrut/{idCalon}", method = RequestMethod.POST)
-    public String rekrutCalon(@ModelAttribute CalonPengajarModel calon, Model model){
+    public String terimaPelamar(@ModelAttribute CalonPengajarModel calon, Model model){
         System.out.print(calon);
         System.out.print("HERE");
         CalonPengajarModel newPengajar = calonPengajarService.rekrutCalon(calonPengajarService.getCalonById(calon.getIdCalon()));
@@ -61,7 +61,7 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "calonpengajar/tolak/{idCalon}", method = RequestMethod.POST)
-    public String tolakCAlon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String tolakPelamar(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
         CalonPengajarModel targetCalon = calonPengajarService.tolakCalon(calon);
         model.addAttribute("calon", targetCalon);
         return detailCalonPengajar(idCalon, model);
@@ -147,7 +147,7 @@ public class CalonPengajarController {
 
 
     @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-    public String BerandaCalonPengajar (@PathVariable String idCalon, Model model) {
+    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
         CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
         LocalDate deadline = calonPengajar.getTesDeadline();
         Month bulanDeadline = deadline.getMonth();

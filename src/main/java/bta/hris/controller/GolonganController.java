@@ -24,7 +24,7 @@ public class GolonganController {
 
     // URL mapping yang digunakan untuk mengakses halaman add golongan.
     @RequestMapping(value="/golongan/tambah", method = RequestMethod.GET)
-    public String createGolonganForm(Model model) {
+    public String tambahGolonganForm(Model model) {
         // Get nomor golongan terakhir, ditambah satu.
         Integer currentGolonganNumber = golonganService.getAllGolongan().size() + 1;
 
@@ -39,7 +39,7 @@ public class GolonganController {
 
     // URL mapping yang digunakan untuk submit form dan menangkap POST -- add golongan.
     @RequestMapping(value="/golongan/tambah", method = RequestMethod.POST)
-    public String createGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model, RedirectAttributes redirect) {
+    public String tambahGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model, RedirectAttributes redirect) {
         golongan.setActive(true);
         golonganService.addGolongan(golongan);
 
@@ -51,7 +51,7 @@ public class GolonganController {
 
     // URL mapping untuk menuju halaman form edit golongan.
     @RequestMapping(value="golongan/ubah/{idGolongan}", method = RequestMethod.GET)
-    public String updateGolonganForm(@PathVariable Long idGolongan, Model model) {
+    public String ubahGolonganForm(@PathVariable Long idGolongan, Model model) {
         // Mengambil existing data golongan.
         Optional<GolonganModel> existingGolongan = golonganService.getGolonganByIdGolongan(idGolongan);
 
@@ -68,7 +68,7 @@ public class GolonganController {
 
     // URL mapping untuk POST form edit golongan.
     @RequestMapping(value="/golongan/ubah/{idGolongan}", method = RequestMethod.POST)
-    public String updateGolonganSubmit(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model, RedirectAttributes redirect) {
+    public String ubahGolonganSubmit(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model, RedirectAttributes redirect) {
         GolonganModel newGolonganData = golonganService.editGolongan(golongan);
         redirect.addFlashAttribute("alertUbah", "Golongan " + golongan.getNama() + " Berhasil Diubah. ");
         model.addAttribute("golongan", newGolonganData);
