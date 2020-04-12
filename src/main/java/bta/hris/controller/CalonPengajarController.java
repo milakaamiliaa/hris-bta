@@ -147,8 +147,10 @@ public class CalonPengajarController {
 
 
     @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
-        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
+    public String BerandaCalonPengajar (@PathVariable Long idCalon, Model model) {
+//        Optional<CalonPengajarModel> calonPengajarModelnOption = calonPengajarService.findById(idCalon);
+        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(Long.toString(idCalon));
+
         LocalDate deadline = calonPengajar.getTesDeadline();
         Month bulanDeadline = deadline.getMonth();
 
