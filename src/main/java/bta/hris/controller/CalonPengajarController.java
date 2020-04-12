@@ -53,8 +53,6 @@ public class CalonPengajarController {
 
     @RequestMapping(value = "calonpengajar/rekrut/{idCalon}", method = RequestMethod.POST)
     public String rekrutCalon(@ModelAttribute CalonPengajarModel calon, Model model){
-        System.out.print(calon);
-        System.out.print("HERE");
         CalonPengajarModel newPengajar = calonPengajarService.rekrutCalon(calonPengajarService.getCalonById(calon.getIdCalon()));
         model.addAttribute("newPengajar", newPengajar);
         return detailCalonPengajar(calon.getIdCalon(), model);
