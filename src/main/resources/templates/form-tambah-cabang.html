@@ -36,12 +36,6 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!--Alert-->
-                <div class="alert alert-success" role="alert" th:if="${alert}" style="text-align: center">
-                    <span th:text="${alert}"></span>
-                    <a th:href="@{/cabang}" class="alert-link">Lihat Daftar Cabang.</a>
-                </div>
-
                 <!-- Form -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
@@ -103,29 +97,3 @@
 </body>
 
 </html>
-
-<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--<body>-->
-<!--<div>-->
-<!--    <form th:action="@{/cabang/tambah}" method="POST">-->
-<!--&lt;!&ndash;        <input type="hidden" th:field="${user.idUser}"/>&ndash;&gt;-->
-<!--        Nama Cabang: <br>-->
-<!--        <input type="text" name="cabang" required = "true" placeholder="Nama Cabang"/>-->
-<!--        <br>-->
-<!--        Nomor Telepon: <br>-->
-<!--        <input type="text" name="noTelp" required = "true" placeholder="No. Telp" pattern="[0-9]{1,}" title="Masukkan Angka"/>-->
-<!--        <br>-->
-<!--        Alamat: <br>-->
-<!--        <input type="text" name="alamat" required = "true" placeholder="Alamat"/>-->
-<!--        <br>-->
-<!--        Email: <br>-->
-<!--        <input type="text" name="email" required = "true" placeholder="Email"/>-->
-<!--        <br>-->
-<!--        Jumlah Siswa: <br>-->
-<!--        <input type="text" name="jumlahSiswa" required = "true" placeholder="Jumlah Siswa" pattern="[0-9]{1,}" title="Masukkan Angka"/>-->
-<!--        <br>-->
-<!--        <button type="submit" class="buttonLogin">Submit</button>-->
-<!--    </form>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->

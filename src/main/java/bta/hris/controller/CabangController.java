@@ -49,6 +49,7 @@ public class CabangController {
     public String tambahCabangForm(Model model){
         CabangModel newCabang = new CabangModel();
         model.addAttribute("cabang", newCabang);
+
         return "form-tambah-cabang";
     }
 
@@ -57,7 +58,7 @@ public class CabangController {
         cabangService.createCabang(cabang);
         redirect.addFlashAttribute("alert", "Cabang " + cabang.getNama() + " Berhasil Ditambahkan. ");
 
-        return "redirect:/cabang/tambah";
+        return "redirect:/cabang";
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
@@ -102,8 +103,8 @@ public class CabangController {
     public String ubahCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model, RedirectAttributes redirect) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
-        redirect.addFlashAttribute("alert", "Cabang " + cabang.getNama() + " Berhasil Diubah. ");
-        return "redirect:/cabang/ubah/{idCabang}";
+        redirect.addFlashAttribute("alertUbah", "Cabang " + cabang.getNama() + " Berhasil Diubah. ");
+        return "redirect:/cabang";
     }
 
     @RequestMapping(value="/cabang/hapus/{idCabang}", method = RequestMethod.POST)
