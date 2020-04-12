@@ -5028,6 +5028,9 @@ a.badge-dark:focus, a.badge-dark.focus {
   color: #0f6848;
   background-color: #d2f4e8;
   border-color: #bff0de;
+  text-align: center;
+  width: 50%;
+  margin: auto;
 }
 
 .alert-success hr {
@@ -11167,6 +11170,11 @@ body.sidebar-toggled footer.sticky-footer {
 .form-button{
   background-color: #FF5252 !important;
   color: white !important;
+}
+
+.detail-gaji {
+  margin-top: -0.5rem !important;
+  margin-bottom: -0.5rem !important;
 }
 
 .registrasi-title{

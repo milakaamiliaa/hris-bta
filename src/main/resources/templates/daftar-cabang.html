@@ -29,6 +29,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <!-- Alert -->
+                    <div class="alert alert-success " role="alert" th:if="${alert}" th:text="${alert}"></div>
+                    <div class="alert alert-success " role="alert" th:if="${alertUbah}" th:text="${alertUbah}"></div>
+
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Daftar Cabang</h1>
 
@@ -39,15 +43,6 @@
                                 <div class="col-auto ml-auto">
                                     <a class="btn btn-primary" th:href="@{/cabang/tambah}">+ Tambah Cabang</a>
                                 </div>
-
-<!--                                <div class="col-md"></div>-->
-<!--                                <div class="col-md-auto">-->
-<!--                                    <br><a th:href="@{/cabang/tambah}">-->
-<!--                                    <button class="btn btn-primary">-->
-<!--                                        + Tambah Cabang-->
-<!--                                    </button>-->
-<!--                                </a><br>-->
-<!--                                </div>-->
                             </div>
 
                             <div class="table-responsive">
