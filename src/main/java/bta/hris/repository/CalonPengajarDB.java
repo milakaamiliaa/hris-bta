@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface CalonPengajarDB extends JpaRepository<CalonPengajarModel, String>{
     Optional<CalonPengajarModel> findByIdCalon(String id);
     List<CalonPengajarModel> findAll();
+    Optional<CalonPengajarModel> findByUsername(String username);
 
 }
