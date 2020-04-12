@@ -39,6 +39,11 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     }
 
     @Override
+    public CalonPengajarModel getCalonByUsername(String username) {
+        return calonPengajarDB.findByUsername(username).get();
+    }
+
+    @Override
     public CalonPengajarModel addCalon(CalonPengajarModel calon){
         String pass = encrypt(calon.getPassword());
         calon.setPassword(pass);

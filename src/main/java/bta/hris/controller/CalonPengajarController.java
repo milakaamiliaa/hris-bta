@@ -141,16 +141,16 @@ public class CalonPengajarController {
         return status;
     }
 
-
-    @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
-        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
-        LocalDate deadline = calonPengajar.getTesDeadline();
-        Month bulanDeadline = deadline.getMonth();
-
-        model.addAttribute("calonPengajar", calonPengajar);
-        model.addAttribute("bulanDeadline", bulanDeadline);
-        return "beranda-calonPengajar";
-    }
+//
+//    @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
+//    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
+//        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
+//        LocalDate deadline = calonPengajar.getTesDeadline();
+//        Month bulanDeadline = deadline.getMonth();
+//
+//        model.addAttribute("calonPengajar", calonPengajar);
+//        model.addAttribute("bulanDeadline", bulanDeadline);
+//        return "beranda-calonPengajar";
+//    }
 
 }
