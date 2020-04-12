@@ -2,9 +2,7 @@ package bta.hris.controller;
 
 import bta.hris.model.*;
 import bta.hris.service.*;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -115,7 +112,6 @@ public class PresensiController {
 
     @RequestMapping(value = "presensi/ubah/{idPresensi}", method = RequestMethod.POST)
     public String ubahPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
-
         PresensiModel newPresensi = presensiService.updatePresensi(presensi);
 
         model.addAttribute("presensi", newPresensi);
@@ -136,7 +132,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.GET)
-    public String formSetujuiPresensi(@PathVariable Long idPresensi, Model model) {
+    public String setujuiPresensiForm(@PathVariable Long idPresensi, Model model) {
         PresensiModel presensi = presensiService.getPresensiById(idPresensi);
 
         model.addAttribute("presensi", presensi);
@@ -145,7 +141,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.POST)
-    public String setujuiPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String setujuiPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
 
         String month = "";
@@ -209,6 +205,11 @@ public class PresensiController {
             }
         }
         model.addAttribute("presensi", newPresensi);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String tanggalPresensi = presensi.getTanggalPresensi().format(formatter);
+        redirect.addFlashAttribute("alert", "Presensi dari " + presensi.getPegawai().getNama() + " pada tanggal " +
+               tanggalPresensi + " berhasil disetujui.");
 
         return "redirect:/presensi/kelola";
     }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,20 +46,23 @@ public class CabangController {
     }
 
     @RequestMapping(value = "/cabang/tambah", method = RequestMethod.GET)
-    public String createCabangForm(Model model){
+    public String tambahCabangForm(Model model){
         CabangModel newCabang = new CabangModel();
         model.addAttribute("cabang", newCabang);
+
         return "form-tambah-cabang";
     }
 
     @RequestMapping(value = "/cabang/tambah", method = RequestMethod.POST)
-    public String createCabangSubmit(@ModelAttribute CabangModel cabang, Model model){
+    public String tambahCabangSubmit(@ModelAttribute CabangModel cabang, Model model, RedirectAttributes redirect){
         cabangService.createCabang(cabang);
+        redirect.addFlashAttribute("alert", "Cabang " + cabang.getNama() + " Berhasil Ditambahkan. ");
+
         return "redirect:/cabang";
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.GET)
-    public String updateCabangForm(@PathVariable Long idCabang, Model model) {
+    public String ubahCabangForm(@PathVariable Long idCabang, Model model) {
         CabangModel existingCabang = cabangService.getCabangByIdCabang(idCabang).get();
         ArrayList<UserModel> listCalonStaf = new ArrayList<>();
         List<UserModel> listUser = userService.getAllUser();
@@ -96,18 +100,16 @@ public class CabangController {
     }
 
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.POST)
-    public String updateCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model) {
+    public String ubahCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model, RedirectAttributes redirect) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
+        redirect.addFlashAttribute("alertUbah", "Cabang " + cabang.getNama() + " Berhasil Diubah. ");
         return "redirect:/cabang";
     }
 
     @RequestMapping(value="/cabang/hapus/{idCabang}", method = RequestMethod.POST)
-    public String deleteCabang(@PathVariable Long idCabang, Model model){
+    public String hapusCabang(@PathVariable Long idCabang, Model model){
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
-//        if (cabang == null){
-//            return "Maaf, cabang tidak di"
-
         model.addAttribute("cabang", cabang);
         cabangService.deleteCabang(cabang);
          return "redirect:/cabang";

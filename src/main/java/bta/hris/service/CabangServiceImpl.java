@@ -18,7 +18,7 @@ public class CabangServiceImpl implements CabangService{
 
     @Override
     public List<CabangModel> getCabangList(){
-        return cabangDb.findAll();
+        return cabangDb.findAllByOrderByIdCabangDesc();
     }
 
     @Override

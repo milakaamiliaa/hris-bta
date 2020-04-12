@@ -30,7 +30,7 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/pegawai/daftar", method = RequestMethod.GET)
+    @RequestMapping(value = "/pegawai", method = RequestMethod.GET)
     public String daftarPegawai(Model model){
         List<UserModel> listUser = userService.getAllUser();
         List<RoleModel> listRole = roleService.getAllRole();
@@ -128,7 +128,8 @@ public class UserController {
         pegawai.setActive(true);
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
-        return "redirect:/pegawai/daftar-pegawai";
+        return "redirect:/pegawai/";
+
 
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)

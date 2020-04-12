@@ -36,7 +36,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- Card -->
+                <!-- Form -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
                         <div class="form-header">
@@ -45,23 +45,26 @@
                         <form class="user" th:action="@{/cabang/tambah}" method="POST">
                             <div class="form-group">
                                 <p class = "form-title">Nama Cabang</p>
-                                <input type="text" name="cabang" required = "true" class="form-control form-control-user" placeholder="Masukkan Nama Cabang">
+                                <input type="text" name="cabang" required = "true" class="form-control form-control-user" placeholder="Masukkan Nama Cabang"
+                                       pattern="[A-Za-z0-9]+" title="Hanya boleh angka atau huruf">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Nomor Telepon</p>
-                                <input type="text" name="noTelp" required = "true" pattern="[0-9]{1,}" title="Masukkan Angka" class="form-control form-control-user" placeholder="Masukkan Nomor Telepon Cabang">
+                                <input type="text" name="noTelp" required = "true" class="form-control form-control-user" placeholder="Masukkan Nomor Telepon Cabang"
+                                       pattern="[0-9]{7,12}" title="Nomor telepon yang valid 7-12 angka">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Alamat</p>
-                                <input type="text" name="alamat" required = "true" class="form-control form-control-user" placeholder="Masukkan Alamat Cabang">
+                                <input type="text" name="alamat" required = "true" class="form-control form-control-user" placeholder="Masukkan Alamat Cabang"
+                                       pattern="[A-Za-z0-9.]+" title="Hanya boleh angka atau huruf atau .">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Email</p>
-                                <input type="text" name="email" required = "true" class="form-control form-control-user" placeholder="Masukkan Email Cabang">
+                                <input type="email" name="email" required = "true" class="form-control form-control-user" placeholder="Masukkan Email Cabang">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Jumlah Siswa</p>
-                                <input type="text" name="jumlahSiswa" required = "true" pattern="[0-9]{1,}" title="Masukkan Angka" class="form-control form-control-user" placeholder="Masukkan Jumlah Siswa">
+                                <input type="number" name="jumlahSiswa" required = "true" min="0" title="Masukkan angka 0 atau lebih" class="form-control form-control-user" placeholder="Masukkan Jumlah Siswa">
                             </div>
                             <button class="btn btn-primary">Simpan</button>
                         </form>
@@ -97,29 +100,3 @@
 </body>
 
 </html>
-
-<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--<body>-->
-<!--<div>-->
-<!--    <form th:action="@{/cabang/tambah}" method="POST">-->
-<!--&lt;!&ndash;        <input type="hidden" th:field="${user.idUser}"/>&ndash;&gt;-->
-<!--        Nama Cabang: <br>-->
-<!--        <input type="text" name="cabang" required = "true" placeholder="Nama Cabang"/>-->
-<!--        <br>-->
-<!--        Nomor Telepon: <br>-->
-<!--        <input type="text" name="noTelp" required = "true" placeholder="No. Telp" pattern="[0-9]{1,}" title="Masukkan Angka"/>-->
-<!--        <br>-->
-<!--        Alamat: <br>-->
-<!--        <input type="text" name="alamat" required = "true" placeholder="Alamat"/>-->
-<!--        <br>-->
-<!--        Email: <br>-->
-<!--        <input type="text" name="email" required = "true" placeholder="Email"/>-->
-<!--        <br>-->
-<!--        Jumlah Siswa: <br>-->
-<!--        <input type="text" name="jumlahSiswa" required = "true" placeholder="Jumlah Siswa" pattern="[0-9]{1,}" title="Masukkan Angka"/>-->
-<!--        <br>-->
-<!--        <button type="submit" class="buttonLogin">Submit</button>-->
-<!--    </form>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->

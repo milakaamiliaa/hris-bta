@@ -3,7 +3,7 @@
 
 <head>
     <object th:include = "fragments/fragment :: head"></object>
-    <title>Tabel</title>
+    <title>Daftar Presensi</title>
 </head>
 
 
@@ -39,6 +39,7 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
+<<<<<<< HEAD
                         <select selected=# class="input-field col col-lg-2" id="mylist"
                                 name="Tanggal" onchange="dropdownChangePresensi();">
                             <option value="" >Semua</option>
@@ -56,9 +57,34 @@
                             <option value="Desember">Desember</option>
                         </select>
                         <br>
+=======
+>>>>>>> 57c243cb294f93baa19cea9944f1b14eec02f24d
                         <div class="row">
-                            <div class="col-auto ml-auto">
-                                <a class="btn btn-primary" href="/presensi/tambah">+ Tambah Presensi</a>
+                            <div class="col-md">
+                                <select selected=# class="input-field col col-lg-2" id="mylist"
+                                        name="Bulan" onchange="dropdownChangePresensi()">
+                                    <option value="" selected disabled hidden>Bulan</option>
+                                    <option value="" >No filter</option>
+                                    <option value="01">Januari</option>
+                                    <option value="02">Februari</option>
+                                    <option value="03">Maret</option>
+                                    <option value="04">April</option>
+                                    <option value="05">Mei</option>
+                                    <option value="06">Juni</option>
+                                    <option value="07">Juli</option>
+                                    <option value="08">Agustus</option>
+                                    <option value="09">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <br><a th:href="@{/presensi/tambah}">
+                                <button class="detail" style="background-color: #FF5252; color: #ffffff; padding: 10px 10px; right: 15px;">
+                                    + Tambah Presensi
+                                </button>
+                            </a><br>
                             </div>
                             <br>
                         <div class="table-responsive">
