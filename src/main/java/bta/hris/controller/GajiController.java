@@ -75,7 +75,7 @@ public class GajiController{
 
 
     @RequestMapping(value = "/gaji/setujui/{idGaji}", method = RequestMethod.POST)
-    public String postsetujuiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+    public String setujuiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         gaji = gajiService.getGajiByIdGaji(idGaji).get();
         gaji.setStatus("disetujui");
         GajiModel newGaji = gajiService.approveGaji(gaji);
@@ -87,7 +87,7 @@ public class GajiController{
 
 
     @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.POST)
-    public String bayarGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+    public String eksekusiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         gaji = gajiService.getGajiByIdGaji(idGaji).get();
         gaji.setStatus("sudah dibayar");
 
