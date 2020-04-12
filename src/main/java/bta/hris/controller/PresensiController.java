@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -139,7 +140,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.POST)
-    public String setujuiPresensiSubmit(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String setujuiPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
 
         String month = "";
@@ -203,6 +204,11 @@ public class PresensiController {
             }
         }
         model.addAttribute("presensi", newPresensi);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String tanggalPresensi = presensi.getTanggalPresensi().format(formatter);
+        redirect.addFlashAttribute("alert", "Presensi dari " + presensi.getPegawai().getNama() + " pada tanggal " +
+               tanggalPresensi + " berhasil disetujui.");
 
         return "redirect:/presensi/kelola";
     }

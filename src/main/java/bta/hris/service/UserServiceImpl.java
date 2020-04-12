@@ -70,7 +70,6 @@ public class UserServiceImpl implements UserService {
             targetUser.setAlamat(pegawai.getAlamat());
             targetUser.setNoTelp(pegawai.getNoTelp());
             targetUser.setTglLahir(pegawai.getTglLahir());
-            targetUser.setPassword(pegawai.getPassword());
             targetUser.setActive(true);
             targetUser.setMataPelajaran(pegawai.getMataPelajaran());
             targetUser.setNoRekening(pegawai.getNoRekening());
@@ -78,9 +77,12 @@ public class UserServiceImpl implements UserService {
             targetUser.setGolongan(pegawai.getGolongan());
             targetUser.setRole(pegawai.getRole());
 
-            
+            if (pegawai.getPassword() != null && encrypt(pegawai.getPassword()) != targetUser.getPassword()){
+                targetUser.setPassword(encrypt(pegawai.getPassword()));
+            }
+
             String newNIP = "";
-        if (pegawai.getMataPelajaran() != null){
+        if (pegawai.getMataPelajaran() != targetUser.getMataPelajaran()){
             if (pegawai.getMataPelajaran().equals("Biologi")){
                 newNIP += "BIO";
             }else if(pegawai.getMataPelajaran().equals("Ekonomi")){

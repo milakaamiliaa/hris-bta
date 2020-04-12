@@ -14,7 +14,8 @@ public interface GajiService {
    GajiModel updateGaji(GajiModel gaji);
    List<GajiModel> getAllGaji();
    GajiModel approveGaji(GajiModel gaji);
-//   GajiModel paidGaji(GajiModel gaji);
+   GajiModel rejectGaji(GajiModel gaji);
+   GajiModel paidGaji(GajiModel gaji);
 
 
 }

@@ -43,13 +43,6 @@ public class UserModel implements Serializable{
     @Column(name = "alamat", nullable = false)
     private String alamat;
 
-//    public Long getIdUser() {
-//        return idUser;
-//    }
-//
-//    public void setIdUser(Long idUser) {
-//        this.idUser = idUser;
-//    }
 
     @NotNull
     @Size(max = 255)

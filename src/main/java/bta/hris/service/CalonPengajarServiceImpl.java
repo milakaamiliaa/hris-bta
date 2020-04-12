@@ -1,7 +1,6 @@
 package bta.hris.service;
 
 import bta.hris.model.CalonPengajarModel;
-import bta.hris.model.RoleModel;
 import bta.hris.model.UserModel;
 import bta.hris.repository.CalonPengajarDB;
 import bta.hris.repository.GolonganDB;
@@ -61,12 +60,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     @Override
     public CalonPengajarModel rekrutCalon(CalonPengajarModel calon){
         try{
-            UserModel newPegawai = new UserModel();
-            newPegawai.setActive(true);
-            newPegawai.setAlamat(calon.getAlamat());
-            newPegawai.setCreatedAt(LocalDate.now());
-            newPegawai.setEmail(calon.getEmail());
-            
+            UserModel newPegawai = userDB.findByNip(calon.getUsername());            
             String newNIP = "";
             if (calon.getMataPelajaran() != null) {
                 if (calon.getMataPelajaran().equals("Biologi")){
@@ -111,12 +105,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             }
 
             newPegawai.setNip(newNIP);
-            newPegawai.setMataPelajaran(calon.getMataPelajaran());
-            newPegawai.setNama(calon.getNama());
-            newPegawai.setNoTelp(calon.getNoTelp());
-            newPegawai.setPassword(calon.getPassword());
             newPegawai.setRole(RoleDB.findByNama("PENGAJAR").get());
-            newPegawai.setTglLahir(calon.getTglLahir());
             userDB.save(newPegawai);
 
             CalonPengajarModel targetCalon = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();

@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+               .authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/js/**").permitAll()
@@ -28,16 +28,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cabang/**").hasAnyAuthority(("ADMIN"))
                 .antMatchers("/golongan/**").hasAnyAuthority(("ADMIN"))
                 .antMatchers("/presensi/kelola").hasAnyAuthority(("STAF CABANG"))
-                .antMatchers("/presensi/**").permitAll()
+                .antMatchers("/presensi/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))
                 .antMatchers("/pegawai/**").hasAnyAuthority(("ADMIN"))
-                .antMatchers("/gaji/**").permitAll()
+                .antMatchers("/gaji/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))
+                .antMatchers("/registrasi").anonymous()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().defaultSuccessUrl("/", true)
                 .loginPage("/login").permitAll()
                 .usernameParameter("nip")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll();
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").permitAll();
     }
 
     @Bean
@@ -45,13 +47,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
 //    @Autowired
 //    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
 //                .passwordEncoder(encoder())
-//                .withUser("admin").password(encoder().encode("adminbta"))
+//                .withUser("admin").password(encoder().encode("admin"))
 //                .roles("USER");
 //    }
+
 
     @Autowired
     @Qualifier("userDetailsService")

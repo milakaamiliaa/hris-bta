@@ -29,6 +29,9 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <!-- Alert -->
+                <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${alert}" th:text="${alert}"></div>
+
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Daftar Pengajuan Presensi</h1>
 
@@ -40,41 +43,22 @@
                 <div th:unless="${daftarPresensi.size() == 0}">
                     <div class="card shadow mb-4 border-bottom-danger">
                         <div class="card-body">
-<!--                            <select selected=# class="input-field col col-lg-2" id="mylist"-->
-<!--                                    name="Tanggal" onchange="dropdownChangePresensi()" style="color: #797979">-->
-<!--                                <option value="" selected disabled hidden>Tanggal</option>-->
-<!--                                <option value="" >No filter</option>-->
-<!--                                <option th:each=""-->
-<!--                                <option value="01">Januari</option>-->
-<!--                                <option value="02">Februari</option>-->
-<!--                                <option value="03">Maret</option>-->
-<!--                                <option value="04">April</option>-->
-<!--                                <option value="05">Mei</option>-->
-<!--                                <option value="06">Juni</option>-->
-<!--                                <option value="07">Juli</option>-->
-<!--                                <option value="08">Agustus</option>-->
-<!--                                <option value="09">September</option>-->
-<!--                                <option value="10">Oktober</option>-->
-<!--                                <option value="11">November</option>-->
-<!--                                <option value="12">Desember</option>-->
-<!--                            </select>-->
-
                             <select selected=# class="input-field col col-lg-2" id="mylist"
                                     name="Bulan" onchange="dropdownChangePresensi()" style="color: #797979">
                                 <option value="" selected disabled hidden>Bulan</option>
                                 <option value="" >Semua</option>
-                                <option value="01">Januari</option>
-                                <option value="02">Februari</option>
-                                <option value="03">Maret</option>
-                                <option value="04">April</option>
-                                <option value="05">Mei</option>
-                                <option value="06">Juni</option>
-                                <option value="07">Juli</option>
-                                <option value="08">Agustus</option>
-                                <option value="09">September</option>
-                                <option value="10">Oktober</option>
-                                <option value="11">November</option>
-                                <option value="12">Desember</option>
+                                <option value="Januari">Januari</option>
+                                <option value="Februari">Februari</option>
+                                <option value="Maret">Maret</option>
+                                <option value="April">April</option>
+                                <option value="Mei">Mei</option>
+                                <option value="Juni">Juni</option>
+                                <option value="Juli">Juli</option>
+                                <option value="Agustus">Agustus</option>
+                                <option value="September">September</option>
+                                <option value="Oktober">Oktober</option>
+                                <option value="November">November</option>
+                                <option value="Desember">Desember</option>
                             </select>
 
                             <div class="table-responsive">
@@ -92,7 +76,7 @@
                                     <tbody>
                                     <tr th:each="presensi, iterationStatus: ${daftarPresensi}" class="col col-lg-auto" style="text-align: center;">
                                         <td th:text="${iterationStatus.count}"></td>
-                                        <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd-MM-yyyy')}"></td>
+                                        <td th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
                                         <td th:text="${presensi.pegawai.getNama()}"></td>
                                         <td th:text="${presensi.sesiMengajar}"></td>
                                         <td th:text="${presensi.sesiTambahan}"></td>
@@ -115,14 +99,6 @@
                                                     </div>
                                                 </div>
                                                 </td>
-<!--                                            <div class="row">-->
-<!--                                            <td>-->
-<!--                                                <a th:href="'/presensi/setujui/' + ${presensi.idPresensi}" class="btn btn-setujui">Setujui</a>-->
-<!--                                                <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">-->
-<!--                                                    <button type="submit" class="btn btn-hapus">Tolak</button>-->
-<!--                                                </form>-->
-<!--                                            </td>-->
-<!--                                            </div>-->
                                         </div>
                                     </tr>
                                     </tbody>
@@ -156,64 +132,3 @@
 <div th:replace="fragments/fragment :: logout"></div>
 </body>
 </html>
-
-
-
-
-
-<!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-<!--    <meta name="description" content="">-->
-<!--    <meta name="author" content="">-->
-<!--    <title>Daftar Presensi</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div th:if="${daftarPresensi.size() == 0}" th:align="center">-->
-<!--    <h3 th:text="'Tidak ada Presensi'"></h3>-->
-<!--</div>-->
-<!--<div th:unless="${daftarPresensi.size() == 0}">-->
-<!--    <table class="table">-->
-<!--        <thead class="thead-light">-->
-<!--        <tr>-->
-<!--            <th scope="col">No</th>-->
-<!--            <th scope="col">Tanggal</th>-->
-<!--            <th scope="col">Nama Pengajar</th>-->
-<!--            <th scope="col">Sesi</th>-->
-<!--            <th scope="col">Tambahan</th>-->
-<!--            <th scope="col">Status</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="presensi, iterationStatus: ${daftarPresensi}">-->
-<!--            <td th:text="${iterationStatus.count}"></td>-->
-<!--            <td th:text="${presensi.tanggalPresensi}"></td>-->
-<!--            <td th:text="${presensi.pegawai.getNama()}"></td>-->
-<!--            <td th:text="${presensi.sesiMengajar}"></td>-->
-<!--            <td th:text="${presensi.sesiTambahan}"></td>-->
-
-<!--            <div th:if="${presensi.status != 'pending'}">-->
-<!--                <td th:text="${presensi.status}"></td>-->
-<!--            </div>-->
-
-<!--            <div th:if="${presensi.status == 'pending'}">-->
-<!--                <td>-->
-<!--                    <a th:href="'/presensi/setujui/' + ${presensi.idPresensi}" class="btn btn-outline-success">Setujui</a>-->
-<!--                    <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">-->
-<!--                        <td>-->
-<!--                            <button type="submit" class="btn btn-primary">Tolak</button>-->
-<!--                        </td>-->
-<!--                    </form>-->
-<!--                </td>-->
-<!--            </div>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
-
-
-<!--</body>-->
-<!--</html>-->
