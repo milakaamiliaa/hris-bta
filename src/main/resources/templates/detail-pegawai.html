@@ -131,7 +131,9 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
                                         <a type="button" class="btn btn-ubah" th:href="@{/pegawai/ubah/{id}(id=${pegawai.idUser})}" >Ubah</a>
                                     </div>
                                     <div class="col-md-1">
-                                        <a type="button" class="btn btn-hapus" th:href="@{/pegawai/hapus/{id}(id=${pegawai.idUser})}">Hapus</a>
+                                        <button type="button" class="btn btn-hapus" data-toggle="modal" data-target="#exampleModalCenter">
+                                            Hapus
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -168,6 +170,26 @@ F86dIHNDz0W1" crossorigin="anonymous"></script>
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
+
+<!-- Modal Konfirmasi -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PENGHAPUSAN PEGAWAI</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" th:text="'Apakah Anda ingin menghapus ' + ${pegawai.nama} + ' ?'">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <a th:href="@{/pegawai/hapus/{id}(id=${pegawai.idUser})}" class="btn btn-danger">Ya</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Logout Modal-->
 <div th:replace="fragments/fragment :: logout">

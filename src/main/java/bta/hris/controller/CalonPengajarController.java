@@ -96,14 +96,13 @@ public class CalonPengajarController {
 
         if (usernameisValid(calonPengajar)){
             if (calonPengajar.getTglLahir().compareTo(LocalDate.now())<=0){
-                LocalDate now = LocalDate.now();
-                RoleModel role = roleService.getRoleById(Long.valueOf(4));
+                RoleModel role = roleService.getRoleById(Long.valueOf(5));
                 Optional<GolonganModel> golonganOpt = golonganService.getGolonganByIdGolongan(Long.valueOf(99));
                 GolonganModel golongan = golonganOpt.get();
-
                 calonPengajar.setStatus("Belum Mengerjakan Tes");
                 calonPengajar.setCreatedAt(LocalDate.now());
                 calonPengajar.setTesDeadline(LocalDate.now().plusDays(7));
+                calonPengajar.setUpdatedAt(LocalDate.now());
                 calonPengajarService.createCalonPengajar(calonPengajar);
 
                 UserModel user = new UserModel();
@@ -138,7 +137,7 @@ public class CalonPengajarController {
 
 
     public boolean usernameisValid(CalonPengajarModel calonPengajarCheck){
-        List<CalonPengajarModel> calonPengajarList = calonPengajarService.findAllCalonPengajar();
+        List<CalonPengajarModel> calonPengajarList = calonPengajarService.getAllCalon();
         boolean status = true;
         for (CalonPengajarModel calonPengajar : calonPengajarList) {
             if ((calonPengajar.getUsername()).equalsIgnoreCase(calonPengajarCheck.getUsername())){
@@ -151,9 +150,8 @@ public class CalonPengajarController {
 
 
     @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-    public String BerandaCalonPengajar (@PathVariable Long idCalon, Model model) {
-        Optional<CalonPengajarModel> calonPengajarModelnOption = calonPengajarService.findById(idCalon);
-        CalonPengajarModel calonPengajar = calonPengajarModelnOption.get();
+    public String BerandaCalonPengajar (@PathVariable String idCalon, Model model) {
+        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
         LocalDate deadline = calonPengajar.getTesDeadline();
         Month bulanDeadline = deadline.getMonth();
 

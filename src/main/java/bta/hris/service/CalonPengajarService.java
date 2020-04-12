@@ -14,7 +14,6 @@ public interface CalonPengajarService {
     CalonPengajarModel tolakCalon(CalonPengajarModel calon);
     CalonPengajarModel undangCalon(CalonPengajarModel calon);
     CalonPengajarModel createCalonPengajar(CalonPengajarModel calonPengajar);
-    List<CalonPengajarModel>findAllCalonPengajar();
 
 }
 

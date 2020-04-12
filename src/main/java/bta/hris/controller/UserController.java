@@ -128,7 +128,7 @@ public class UserController {
         pegawai.setActive(true);
         userService.addUser(pegawai);
         model.addAttribute("newPegawai", pegawai);
-        return "redirect:/pegawai/daftar-pegawai";
+        return "redirect:/pegawai/daftar";
 
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
@@ -172,8 +172,8 @@ public class UserController {
         model.addAttribute("pegawai", targetUser);
         if (userService.deleteUser(targetUser)) {
             userService.deleteUser(targetUser);
-            return "redirect:/pegawai/daftar-pegawai";
-        }return "redirect:/pegawai/daftar-pegawai";
+            return "redirect:/pegawai/daftar";
+        }return "redirect:/pegawai/daftar";
 
     }
 

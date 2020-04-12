@@ -32,25 +32,28 @@
 
                 <!-- Card -->
                 <div class="card shadow mb-4 border-bottom-danger">
+                    <!-- Button trigger modal -->
                     <h1 class="h3 mb-2 text-danger card-header-text">Pemberitahuan</h1>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <p class="details-title text-justify">1. Tes rekrutmen terdiri dari dua tes,
+                                <p class="text-justify">1. Tes rekrutmen terdiri dari dua tes,
                                     yaitu psikotes dan tes mata pelajaran sesuai yang didaftarkan oleh calon pengajar.</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p class="details-title text-justify" th:text= " '2. Harap mengerjakan seluruh tes sebelum tanggal ' +
+                                <p class="text-justify">
+                                    2. Harap mengerjakan seluruh tes sebelum tanggal <span class="details-title" th:text= "
                                  ${calonPengajar.getTesDeadline().getDayOfMonth()} + ' ' + ${calonPengajar.getTesDeadline().getMonth()} +' '+
-                                 ${calonPengajar.getTesDeadline().getYear()} +'.'"></p>
+                                 ${calonPengajar.getTesDeadline().getYear()} + '.'"></span>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p class="details-title text-justify">3. Apabila calon pengajar TIDAK menyelesaikan tes pada batas waktu yang ditentukan,
-                                    maka calon pengajar dianggap MENGUNDURKAN DIRI pada proses rekrutmen.</p>
+                                <p class="text-justify">3. Apabila calon pengajar <span class="details-title">TIDAK MENYELESAIKAN</span> tes pada batas waktu yang ditentukan,
+                                    maka calon pengajar dianggap <SPAN class="details-title">MENGUNDURKAN DIRI</SPAN> pada proses rekrutmen.</p>
                             </div>
                         </div>
 
