@@ -7,7 +7,7 @@ function dropdownChangePresensi() {
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[1];
         if (td) {
-            if (td.innerHTML.toUpperCase().substring(3,5).localeCompare(filter) === 0){
+            if (td.innerHTML.toUpperCase().indexOf(filter) >-1){
                 tr[i].style.display = "";
             }
             else if (filter == ""){
