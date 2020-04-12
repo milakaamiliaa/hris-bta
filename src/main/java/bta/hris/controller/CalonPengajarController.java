@@ -92,12 +92,13 @@ public class CalonPengajarController {
         if (usernameTidakValid(calonPengajar)){
             if (calonPengajar.getTglLahir().compareTo(LocalDate.now())<=0){
                 RoleModel role = roleService.getRoleById(Long.valueOf(5));
-                Optional<GolonganModel> golonganOpt = golonganService.getGolonganByIdGolongan(Long.valueOf(99));
-                GolonganModel golongan = golonganOpt.get();
+                // Optional<GolonganModel> golonganOpt = golonganService.getGolonganByIdGolongan(Long.valueOf(99));
+                // GolonganModel golongan = golonganOpt.get();
 
                 calonPengajar.setStatus("Belum Mengerjakan Tes");
                 calonPengajar.setCreatedAt(LocalDate.now());
                 calonPengajar.setTesDeadline(LocalDate.now().plusDays(7));
+                calonPengajar.setUpdatedAt(LocalDate.now());
                 calonPengajarService.createCalonPengajar(calonPengajar);
 
                 UserModel user = new UserModel();
@@ -112,7 +113,9 @@ public class CalonPengajarController {
                 user.setEmail(calonPengajar.getEmail());
                 user.setCreatedAt(LocalDate.now());
                 user.setRole(role);
-                user.setGolongan(golongan);
+                user.setActive(true);
+                
+                // user.setGolongan(golongan);
                 userService.addUser(user);
 
                 return "redirect:/beranda/" + calonPengajar.getIdCalon();
