@@ -100,9 +100,9 @@
                                             </form>
                                         </div>
                                         <div class="col-md-1">
-                                            <form th:action="@{/cabang/hapus/}+${cabang.idCabang}" th:object="${cabang}" method="POST">
-                                                <button class="btn btn-hapus">Hapus</button>
-                                            </form>
+                                            <button type="button" class="btn btn-hapus" data-toggle="modal" data-target="#exampleModalCenter">
+                                                Hapus
+                                            </button>
                                         </div>
                                 </div>
                             </div>
@@ -139,6 +139,28 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Modal Konfirmasi -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PENGHAPUSAN CABANG</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" th:text="'Apakah Anda ingin menghapus ' + ${cabang.cabang} + ' ?'">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                    <form th:action="@{/cabang/hapus/}+${cabang.idCabang}" th:object="${cabang}" method="POST">
+                        <button type="submit" class="btn btn-danger">Ya</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Logout Modal-->
     <div th:replace="fragments/fragment :: logout"></div>

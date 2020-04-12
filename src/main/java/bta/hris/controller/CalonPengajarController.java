@@ -96,10 +96,10 @@ public class CalonPengajarController {
                 RoleModel role = roleService.getRoleById(Long.valueOf(5));
                 Optional<GolonganModel> golonganOpt = golonganService.getGolonganByIdGolongan(Long.valueOf(99));
                 GolonganModel golongan = golonganOpt.get();
-
                 calonPengajar.setStatus("Belum Mengerjakan Tes");
                 calonPengajar.setCreatedAt(LocalDate.now());
                 calonPengajar.setTesDeadline(LocalDate.now().plusDays(7));
+                calonPengajar.setUpdatedAt(LocalDate.now());
                 calonPengajarService.createCalonPengajar(calonPengajar);
 
                 UserModel user = new UserModel();
@@ -133,8 +133,8 @@ public class CalonPengajarController {
     }
 
 
-    public boolean usernameTidakValid(CalonPengajarModel calonPengajarCheck){
-        List<CalonPengajarModel> calonPengajarList = calonPengajarService.findAllCalonPengajar();
+    public boolean usernameisValid(CalonPengajarModel calonPengajarCheck){
+        List<CalonPengajarModel> calonPengajarList = calonPengajarService.getAllCalon();
         boolean status = true;
         for (CalonPengajarModel calonPengajar : calonPengajarList) {
             if ((calonPengajar.getUsername()).equalsIgnoreCase(calonPengajarCheck.getUsername())){
