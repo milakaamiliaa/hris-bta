@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -77,59 +78,62 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
-    public String createPegawaiSubmit(@ModelAttribute UserModel pegawai, Model model) {
+    public String createPegawaiSubmit(@ModelAttribute UserModel pegawai, Model model, RedirectAttributes redirect) {
+        if (pegawai.getTglLahir().compareTo(LocalDate.now())<=0){
+            pegawai.setCreatedAt(LocalDate.now());
 
-        pegawai.setCreatedAt(LocalDate.now());
+            String newNIP = "";
 
-        String newNIP = "";
-
-        if (pegawai.getMataPelajaran() != null) {
-            if (pegawai.getMataPelajaran().equals("Biologi")){
-                newNIP += "BIO";
-            }else if(pegawai.getMataPelajaran().equals("Ekonomi")){
-                newNIP += "EKO";
-            }else if(pegawai.getMataPelajaran().equals("Matematika")){
-                newNIP += "MTK";
-            }else if(pegawai.getMataPelajaran().equals("Kimia")){
-                newNIP += "KIM";
-            }else if(pegawai.getMataPelajaran().equals("Fisika")){
-                newNIP += "FIS";
-            }else if(pegawai.getMataPelajaran().equals("Sosiologi")){
-                newNIP += "SOS";
-            }else if(pegawai.getMataPelajaran().equals("Geografi")){
-                newNIP += "GEO";
-            }else if(pegawai.getMataPelajaran().equals("TPA")){
-                newNIP += "TPA";
-            }else if(pegawai.getMataPelajaran().equals("Bahasa Inggris")){
-                newNIP += "ING";
-            }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
-                newNIP += "IND";
+            if (pegawai.getMataPelajaran() != null) {
+                if (pegawai.getMataPelajaran().equals("Biologi")){
+                    newNIP += "BIO";
+                }else if(pegawai.getMataPelajaran().equals("Ekonomi")){
+                    newNIP += "EKO";
+                }else if(pegawai.getMataPelajaran().equals("Matematika")){
+                    newNIP += "MTK";
+                }else if(pegawai.getMataPelajaran().equals("Kimia")){
+                    newNIP += "KIM";
+                }else if(pegawai.getMataPelajaran().equals("Fisika")){
+                    newNIP += "FIS";
+                }else if(pegawai.getMataPelajaran().equals("Sosiologi")){
+                    newNIP += "SOS";
+                }else if(pegawai.getMataPelajaran().equals("Geografi")){
+                    newNIP += "GEO";
+                }else if(pegawai.getMataPelajaran().equals("TPA")){
+                    newNIP += "TPA";
+                }else if(pegawai.getMataPelajaran().equals("Bahasa Inggris")){
+                    newNIP += "ING";
+                }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
+                    newNIP += "IND";
+                }
             }
-        }
-        
-        newNIP += String.valueOf(LocalDate.now().getYear());
-        newNIP += String.valueOf(pegawai.getTglLahir().getMonthValue());
-        newNIP += String.valueOf(pegawai.getTglLahir().getYear());
-        List<UserModel> allUser = userService.getAllUser();
-        List<UserModel> userInAYear = new ArrayList<UserModel>();
-        for (UserModel u : allUser){
-            if (u.getCreatedAt().getYear() == LocalDate.now().getYear()){
-                userInAYear.add(u);
+            
+            newNIP += String.valueOf(LocalDate.now().getYear());
+            newNIP += String.valueOf(pegawai.getTglLahir().getMonthValue());
+            newNIP += String.valueOf(pegawai.getTglLahir().getYear());
+            List<UserModel> allUser = userService.getAllUser();
+            List<UserModel> userInAYear = new ArrayList<UserModel>();
+            for (UserModel u : allUser){
+                if (u.getCreatedAt().getYear() == LocalDate.now().getYear()){
+                    userInAYear.add(u);
+                }
             }
+
+            if (userInAYear.size()<10){
+                newNIP += "0"+String.valueOf(userInAYear.size());
+            }else{
+                newNIP += String.valueOf(userInAYear.size());
+            }
+
+            pegawai.setNip(newNIP);
+            pegawai.setActive(true);
+            userService.addUser(pegawai);
+            model.addAttribute("newPegawai", pegawai);
+            return "redirect:/pegawai/";
+        }else{    
+            redirect.addFlashAttribute("tglLahirTidakValid", "Tanggal lahir tidak valid, silahkan isi sesuai tanggal lahir Anda");
+            return "redirect:/registrasi";
         }
-
-        if (userInAYear.size()<10){
-            newNIP += "0"+String.valueOf(userInAYear.size());
-        }else{
-            newNIP += String.valueOf(userInAYear.size());
-        }
-
-        pegawai.setNip(newNIP);
-        pegawai.setActive(true);
-        userService.addUser(pegawai);
-        model.addAttribute("newPegawai", pegawai);
-        return "redirect:/pegawai/";
-
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
     public String updatePegawaiForm(@PathVariable String idUser, Model model) {
@@ -172,8 +176,8 @@ public class UserController {
         model.addAttribute("pegawai", targetUser);
         if (userService.deleteUser(targetUser)) {
             userService.deleteUser(targetUser);
-            return "redirect:/pegawai/daftar-pegawai";
-        }return "redirect:/pegawai/daftar-pegawai";
+            return "redirect:/pegawai/";
+        }return "redirect:/pegawai/";
 
     }
 
