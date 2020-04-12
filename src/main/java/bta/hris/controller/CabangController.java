@@ -110,7 +110,7 @@ public class CabangController {
 
         model.addAttribute("cabang", cabang);
         cabangService.deleteCabang(cabang);
-        return "redirect:/cabang";
+         return "redirect:/cabang";
     }
 }
 
