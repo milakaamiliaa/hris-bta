@@ -80,28 +80,29 @@ public class UserServiceImpl implements UserService {
 
             
             String newNIP = "";
-        if (pegawai.getMataPelajaran().equals("Biologi")){
-            newNIP += "BIO";
-        }else if(pegawai.getMataPelajaran().equals("Ekonomi")){
-            newNIP += "EKO";
-        }else if(pegawai.getMataPelajaran().equals("Matematika")){
-            newNIP += "MTK";
-        }else if(pegawai.getMataPelajaran().equals("Kimia")){
-            newNIP += "KIM";
-        }else if(pegawai.getMataPelajaran().equals("Fisika")){
-            newNIP += "FIS";
-        }else if(pegawai.getMataPelajaran().equals("Sosiologi")){
-            newNIP += "SOS";
-        }else if(pegawai.getMataPelajaran().equals("Geografi")){
-            newNIP += "GEO";
-        }else if(pegawai.getMataPelajaran().equals("TPA")){
-            newNIP += "TPA";
-        }else if(pegawai.getMataPelajaran().equals("Bahasa Inggris")){
-            newNIP += "ING";
-        }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
-            newNIP += "IND";
+        if (pegawai.getMataPelajaran() != null){
+            if (pegawai.getMataPelajaran().equals("Biologi")){
+                newNIP += "BIO";
+            }else if(pegawai.getMataPelajaran().equals("Ekonomi")){
+                newNIP += "EKO";
+            }else if(pegawai.getMataPelajaran().equals("Matematika")){
+                newNIP += "MTK";
+            }else if(pegawai.getMataPelajaran().equals("Kimia")){
+                newNIP += "KIM";
+            }else if(pegawai.getMataPelajaran().equals("Fisika")){
+                newNIP += "FIS";
+            }else if(pegawai.getMataPelajaran().equals("Sosiologi")){
+                newNIP += "SOS";
+            }else if(pegawai.getMataPelajaran().equals("Geografi")){
+                newNIP += "GEO";
+            }else if(pegawai.getMataPelajaran().equals("TPA")){
+                newNIP += "TPA";
+            }else if(pegawai.getMataPelajaran().equals("Bahasa Inggris")){
+                newNIP += "ING";
+            }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
+                newNIP += "IND";
+            }
         }
-
         newNIP += String.valueOf(LocalDate.now().getYear());
         newNIP += String.valueOf(pegawai.getTglLahir().getMonthValue());
         newNIP += String.valueOf(pegawai.getTglLahir().getYear());
@@ -112,13 +113,11 @@ public class UserServiceImpl implements UserService {
                 userInAYear.add(u);
             }
         }
-
         if (userInAYear.size()<10){
             newNIP += "0"+String.valueOf(userInAYear.size());
         }else{
             newNIP += String.valueOf(userInAYear.size());
         }
-
         targetUser.setNip(newNIP);
         userDB.save(targetUser);
         return targetUser;
