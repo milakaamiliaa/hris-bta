@@ -76,10 +76,7 @@ public class UserServiceImpl implements UserService {
             targetUser.setNamaBank(pegawai.getNamaBank());
             targetUser.setGolongan(pegawai.getGolongan());
             targetUser.setRole(pegawai.getRole());
-
-            if (pegawai.getPassword() != null && encrypt(pegawai.getPassword()) != targetUser.getPassword()){
-                targetUser.setPassword(encrypt(pegawai.getPassword()));
-            }
+            targetUser.setPassword(encrypt(pegawai.getPassword()));
 
             String newNIP = "";
         if (pegawai.getMataPelajaran() != targetUser.getMataPelajaran()){

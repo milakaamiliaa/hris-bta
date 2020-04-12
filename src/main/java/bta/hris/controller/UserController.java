@@ -79,7 +79,6 @@ public class UserController {
 
     @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
     public String createPegawaiSubmit(@ModelAttribute UserModel pegawai, Model model, RedirectAttributes redirect) {
-        if (pegawai.getTglLahir().compareTo(LocalDate.now())<=0){
             pegawai.setCreatedAt(LocalDate.now());
 
             String newNIP = "";
@@ -130,10 +129,7 @@ public class UserController {
             userService.addUser(pegawai);
             model.addAttribute("newPegawai", pegawai);
             return "redirect:/pegawai/";
-        }else{    
-            redirect.addFlashAttribute("tglLahirTidakValid", "Tanggal lahir tidak valid, silahkan isi sesuai tanggal lahir Anda");
-            return "redirect:/registrasi";
-        }
+        
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
     public String updatePegawaiForm(@PathVariable String idUser, Model model) {
