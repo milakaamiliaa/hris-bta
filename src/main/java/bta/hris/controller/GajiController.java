@@ -46,7 +46,7 @@ public class GajiController{
         model.addAttribute("daftarGaji", gajiService.getAllGajiByNip(user.getNip()));
         model.addAttribute("allGaji", gajiService.getAllGaji());
         model.addAttribute("isPengajar", user.getRole().getNama().equals("Pengajar"));
-        model.addAttribute("isDirektur", user.getRole().getNama().equals("Direktur"));
+        model.addAttribute("isDirektur", user.getRole().getNama().equals("DIREKTUR"));
         return "daftar-gaji";
     }
 
@@ -66,7 +66,7 @@ public class GajiController{
 
         List<PresensiModel> presensi = presensiService.getAllPresensiByKodeGaji(kodeGaji, gaji.getPegawai().getNip());
         model.addAttribute("isPengajar", user.getRole().getNama().equals("Pengajar"));
-        model.addAttribute("isDirektur", user.getRole().getNama().equals("Direktur"));
+        model.addAttribute("isDirektur", user.getRole().getNama().equals("DIREKTUR"));
 
         model.addAttribute("presensiByKodeGaji", presensi);
         model.addAttribute("gaji", gaji);
