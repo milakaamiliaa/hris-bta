@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +39,12 @@ public class GolonganController {
 
     // URL mapping yang digunakan untuk submit form dan menangkap POST -- add golongan.
     @RequestMapping(value="/golongan/tambah", method = RequestMethod.POST)
-    public String createGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model) {
+    public String createGolonganSubmit(@ModelAttribute GolonganModel golongan, Model model, RedirectAttributes redirect) {
         golongan.setActive(true);
         golonganService.addGolongan(golongan);
 
         model.addAttribute("namaGolongan", golongan.getNama());
+        redirect.addFlashAttribute("alert", "Golongan " + golongan.getNama() + " Berhasil Ditambahkan. ");
 
         return "redirect:/golongan";
     }
@@ -66,9 +68,9 @@ public class GolonganController {
 
     // URL mapping untuk POST form edit golongan.
     @RequestMapping(value="/golongan/ubah/{idGolongan}", method = RequestMethod.POST)
-    public String updateGolonganSubmit(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model) {
+    public String updateGolonganSubmit(@PathVariable Long idGolongan, @ModelAttribute GolonganModel golongan, Model model, RedirectAttributes redirect) {
         GolonganModel newGolonganData = golonganService.editGolongan(golongan);
-
+        redirect.addFlashAttribute("alertUbah", "Golongan " + golongan.getNama() + " Berhasil Diubah. ");
         model.addAttribute("golongan", newGolonganData);
 
         return "redirect:/golongan";

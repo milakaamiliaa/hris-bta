@@ -130,6 +130,7 @@ public class UserController {
         model.addAttribute("newPegawai", pegawai);
         return "redirect:/pegawai/";
 
+
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
     public String updatePegawaiForm(@PathVariable String idUser, Model model) {
