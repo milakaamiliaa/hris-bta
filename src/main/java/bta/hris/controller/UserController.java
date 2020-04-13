@@ -47,14 +47,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pegawai/detail/{idUser}", method = RequestMethod.GET)
-    public String viewPegawai(@PathVariable String idUser, Model model){
+    public String detailPegawai(@PathVariable String idUser, Model model){
         UserModel pegawai = userService.getUserById(idUser);
         model.addAttribute("pegawai", pegawai);
         return "detail-pegawai";
     }
 
     @RequestMapping(value="/pegawai/tambah", method = RequestMethod.GET)
-    public String createPegawaiForm(Model model) {
+    public String tambahPegawaiForm(Model model) {
         UserModel newUser = new UserModel();
         List<GolonganModel> listGolongan = golonganService.getAllGolongan();
         List<RoleModel> listRole = roleService.getAllRole();
@@ -78,8 +78,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
-    public String createPegawaiSubmit(@ModelAttribute UserModel pegawai, Model model, RedirectAttributes redirect) {
-        if (pegawai.getTglLahir().compareTo(LocalDate.now())<=0){
+    public String tambahPegawaiSubmit(@ModelAttribute UserModel pegawai, Model model, RedirectAttributes redirect) {
             pegawai.setCreatedAt(LocalDate.now());
 
             String newNIP = "";
@@ -130,13 +129,10 @@ public class UserController {
             userService.addUser(pegawai);
             model.addAttribute("newPegawai", pegawai);
             return "redirect:/pegawai/";
-        }else{    
-            redirect.addFlashAttribute("tglLahirTidakValid", "Tanggal lahir tidak valid, silahkan isi sesuai tanggal lahir Anda");
-            return "redirect:/registrasi";
-        }
+        
     }
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.GET)
-    public String updatePegawaiForm(@PathVariable String idUser, Model model) {
+    public String ubahPegawaiForm(@PathVariable String idUser, Model model) {
         UserModel existingUser = userService.getUserById(idUser);
         List<GolonganModel> listGolongan = golonganService.getAllGolongan();
         List<RoleModel> listRole = roleService.getAllRole();
@@ -161,14 +157,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pegawai/ubah/{idUser}", method = RequestMethod.POST)
-    public String updatePegawaiSubmit(@PathVariable String idUser, @ModelAttribute UserModel pegawai, Model model) {
+    public String ubahPegawaiSubmit(@PathVariable String idUser, @ModelAttribute UserModel pegawai, Model model) {
             UserModel newPegawai = userService.changeUser(pegawai);
             model.addAttribute("newPegawai", newPegawai);
-            return viewPegawai(idUser, model);
+            return detailPegawai(idUser, model);
     }
 
     @RequestMapping(value = "/pegawai/hapus/{idUser}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable String idUser, Model model) {
+    public String hapusPegawai(@PathVariable String idUser, Model model) {
         UserModel targetUser = userService.getUserById(idUser);
         if (targetUser == null) {
             return "pegawai-tidak-ditemukan";

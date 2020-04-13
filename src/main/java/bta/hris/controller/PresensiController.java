@@ -93,6 +93,7 @@ public class PresensiController {
         model.addAttribute("cabangList", listActiveCabang);
         model.addAttribute("localDate", LocalDate.now());
         redirect.addFlashAttribute("alertTambah", "Presensi Berhasil Ditambahkan");
+        redirect.addFlashAttribute("cabangNull", "Masukkan Cabang");
         return "redirect:/presensi";
     }
 

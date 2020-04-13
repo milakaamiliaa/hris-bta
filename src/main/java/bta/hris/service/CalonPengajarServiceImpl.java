@@ -108,7 +108,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             }else{
                 newNIP += String.valueOf(userInAYear.size());
             }
-
+            newPegawai.setActive(true);
             newPegawai.setNip(newNIP);
             newPegawai.setRole(RoleDB.findByNama("PENGAJAR").get());
             userDB.save(newPegawai);
