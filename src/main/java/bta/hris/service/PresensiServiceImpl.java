@@ -39,7 +39,7 @@ public class PresensiServiceImpl implements PresensiService {
         return presensiDB.findAll();
     }
 
-      public List<PresensiModel> getAllPresensiByNip(String nip) {
+    public List<PresensiModel> getAllPresensiByNip(String nip) {
         UserModel user =  userService.getByNip(nip);
         return presensiDB.findAllByPegawaiOrderByIdPresensiDesc(user);
     }
@@ -47,19 +47,19 @@ public class PresensiServiceImpl implements PresensiService {
     @Override
     public PresensiModel updatePresensi(PresensiModel presensi) {
         PresensiModel newPresensi = presensiDB.findById(presensi.getIdPresensi()).get();
-            newPresensi.setCabang(presensi.getCabang());
-            newPresensi.setSesiMengajar(presensi.getSesiMengajar());
-            newPresensi.setSesiTambahan(presensi.getSesiTambahan());
-            newPresensi.setStatus("pending");
-            presensiDB.save(newPresensi);
-            return newPresensi;
+        newPresensi.setCabang(presensi.getCabang());
+        newPresensi.setSesiMengajar(presensi.getSesiMengajar());
+        newPresensi.setSesiTambahan(presensi.getSesiTambahan());
+        newPresensi.setStatus("pending");
+        presensiDB.save(newPresensi);
+        return newPresensi;
     }
 
     @Override
     public PresensiModel approvePresensi(PresensiModel presensi) {
         PresensiModel newPresensi = presensiDB.findById(presensi.getIdPresensi()).get();
         float pajak = presensi.getPegawai().getGolongan().getPajak() /100;
-        float golongan = pajak * presensi.getPegawai().getGolongan().getRate();
+        float golongan = presensi.getPegawai().getGolongan().getRate();
         Long sesiTambahan;
         if(presensi.getSesiTambahan() == null){
             sesiTambahan = (long)0;
@@ -69,16 +69,22 @@ public class PresensiServiceImpl implements PresensiService {
 
         }
         long jumlahSesi = presensi.getSesiMengajar() + sesiTambahan;
-        float gaji = golongan * jumlahSesi;
-            newPresensi.setCabang(presensi.getCabang());
-            newPresensi.setSesiMengajar(presensi.getSesiMengajar());
-            newPresensi.setSesiTambahan(presensi.getSesiTambahan());
-            newPresensi.setStatus(presensi.getStatus());
-            newPresensi.setKodeGaji(presensi.getKodeGaji());
-            newPresensi.setUangKonsum(presensi.getUangKonsum());
+        float gaji = (golongan * jumlahSesi) - (golongan * jumlahSesi * pajak);
+        newPresensi.setCabang(presensi.getCabang());
+        newPresensi.setSesiMengajar(presensi.getSesiMengajar());
+        newPresensi.setSesiTambahan(presensi.getSesiTambahan());
+        newPresensi.setStatus(presensi.getStatus());
+        newPresensi.setKodeGaji(presensi.getKodeGaji());
+        newPresensi.setUangKonsum(presensi.getUangKonsum());
+        if (newPresensi.getUangKonsum() != null) {
             newPresensi.setNominal(gaji + presensi.getUangKonsum());
-            presensiDB.save(newPresensi);
-            return newPresensi;
+        }
+        else {
+            newPresensi.setNominal(gaji);
+            System.out.println(gaji);
+        }
+        presensiDB.save(newPresensi);
+        return newPresensi;
     }
 
     @Override
