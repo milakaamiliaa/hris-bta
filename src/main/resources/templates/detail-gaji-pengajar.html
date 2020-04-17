@@ -95,6 +95,7 @@
                                         <th class="text-center" scope="col">Tanggal</th>
                                         <th class="text-center" scope="col">Sesi Mengajar</th>
                                         <th class="text-center" scope="col">Sesi Tambahan</th>
+                                        <th class="text-center" scope="col">Uang Konsum</th>
                                         <th class="text-center" scope="col">Nominal</th>
                                     </tr>
                                     </thead>
@@ -104,11 +105,13 @@
                                         <td class="text-center" th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
                                         <td class="text-center" th:text="${presensi.sesiMengajar}"></td>
                                         <td class="text-center" th:text="${presensi.sesiTambahan}"></td>
+                                        <td class="text-center" th:text="'Rp ' + ${presensi.uangKonsum}"></td>
                                         <td class="text-center"th:text="'Rp ' + ${presensi.nominal}" style="color: #1cc88a"></td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
