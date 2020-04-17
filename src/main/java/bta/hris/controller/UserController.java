@@ -104,6 +104,8 @@ public class UserController {
                     newNIP += "ING";
                 }else if(pegawai.getMataPelajaran().equals("Bahasa Indonesia")){
                     newNIP += "IND";
+                }else if(pegawai.getMataPelajaran().equals("Sejarah")){
+                    newNIP += "SEJ";
                 }
             }
             
