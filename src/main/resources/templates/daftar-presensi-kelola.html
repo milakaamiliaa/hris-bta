@@ -93,9 +93,10 @@
                                                         <a th:href="'/presensi/setujui/' + ${presensi.idPresensi}" class="btn btn-setujui">Setujui</a>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">
-                                                            <button type="submit" class="btn btn-hapus">Tolak</button>
-                                                        </form>
+                                                        <a th:href="'/presensi/tolak/' + ${presensi.idPresensi}" class="btn btn-hapus">Tolak</a>
+<!--                                                        <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">-->
+<!--                                                            <button type="submit" class="btn btn-hapus">Tolak</button>-->
+<!--                                                        </form>-->
                                                     </div>
                                                 </div>
                                                 </td>

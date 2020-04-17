@@ -87,7 +87,6 @@
                                         <td class="text-center">
                                             <a class="btn btn-outline-primary" style="border-radius: 0;" th:href="'/presensi/ubah/' + ${presensi.idPresensi}">Ubah</a>
                                         </td>
-
                                     </div>
                                     <div th:if="${presensi.status != 'ditolak'}">
                                         <div th:if="${presensi.status == 'pending'}">
