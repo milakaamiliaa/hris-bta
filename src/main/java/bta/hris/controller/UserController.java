@@ -166,7 +166,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pegawai/hapus/{idUser}", method = RequestMethod.GET)
-    public String hapusPegawai(@PathVariable String idUser, Model model) {
+    public String hapusPegawai(@PathVariable String idUser, Model model, RedirectAttributes redirect) {
         UserModel targetUser = userService.getUserById(idUser);
         if (targetUser == null) {
             return "pegawai-tidak-ditemukan";
@@ -174,8 +174,11 @@ public class UserController {
         model.addAttribute("pegawai", targetUser);
         if (userService.deleteUser(targetUser)) {
             userService.deleteUser(targetUser);
+            redirect.addFlashAttribute("alertHapus", "Data pegawai " + targetUser.getNama() + " berhasil dihapus.");
             return "redirect:/pegawai/";
-        }return "redirect:/pegawai/";
+        }
+        redirect.addFlashAttribute("alertHapus", "Data pegawai " + targetUser.getNama() + " berhasil dihapus.");
+        return "redirect:/pegawai/";
 
     }
 

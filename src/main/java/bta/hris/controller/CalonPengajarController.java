@@ -71,9 +71,10 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "calonpengajar/hapus/{idCalon}", method = RequestMethod.POST)
-    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model, RedirectAttributes redirect){
         CalonPengajarModel targetCalon = calonPengajarService.getCalonById(calon.getIdCalon());
         calonPengajarService.hapusCalon(targetCalon);
+        redirect.addFlashAttribute("alertHapus", "Calon pengajar bernama " + targetCalon.getNama() + " berhasil dihapus.");
         return daftarCalonPengajar(model);
     }
 
