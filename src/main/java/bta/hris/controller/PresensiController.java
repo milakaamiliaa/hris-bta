@@ -219,11 +219,16 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.POST)
-    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
         PresensiModel target = presensiService.getPresensiById(idPresensi);
 
         target.setStatus("ditolak");
         PresensiModel rejectedPresensi = presensiService.rejectPresensi(target);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String tanggalPresensi = target.getTanggalPresensi().format(formatter);
+        redirect.addFlashAttribute("alertTolak", "Presensi dari " + target.getPegawai().getNama() + " pada tanggal " +
+        tanggalPresensi + " berhasil ditolak.");
 
         return "redirect:/presensi/kelola";
     }

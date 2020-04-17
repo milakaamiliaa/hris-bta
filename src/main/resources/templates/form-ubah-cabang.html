@@ -45,31 +45,31 @@
                             <form class="user" th:action="@{/cabang/ubah/}+${cabang.idCabang}" th:object="${cabang}" method="POST">
                                 <div class="form-group">
                                     <p class = "form-title">Nama Cabang</p>
-                                    <input required = "true" type="text" name="cabang" th:field="${cabang.cabang}" class="form-control form-control-user"
+                                    <input required = "true" type="text" name="cabang" th:field="${cabang.cabang}" class="form-control form-control-user-ubah"
                                            pattern="[A-Za-z0-9 ]+" title="Hanya boleh angka atau huruf">
                                 </div>
                                 <div class="form-group">
                                     <p class = "form-title">Nomor Telepon</p>
                                     <input  required = "true" type="tel" name="noTelp" th:value="${cabang.noTelp}" pattern="[0-9]{7,12}"
-                                           title="Nomor telepon yang valid 7-12 angka" class="form-control form-control-user">
+                                           title="Nomor telepon yang valid 7-12 angka" class="form-control form-control-user-ubah">
                                 </div>
                                 <div class="form-group">
                                     <p class = "form-title">Alamat</p>
-                                    <input required = "true" type="text" name="alamat" th:value="${cabang.alamat}" class="form-control form-control-user"
+                                    <input required = "true" type="text" name="alamat" th:value="${cabang.alamat}" class="form-control form-control-user-ubah"
                                            pattern="[A-Za-z0-9. ]+" title="Hanya boleh angka atau huruf atau .">
                                 </div>
                                 <div class="form-group">
                                     <p class = "form-title">Email</p>
-                                    <input  required = "true" type="email" name="email" th:value="${cabang.email}" class="form-control form-control-user" title="Masukkan email yang mengandung @">
+                                    <input  required = "true" type="email" name="email" th:value="${cabang.email}" class="form-control form-control-user-ubah" title="Masukkan email yang mengandung @">
                                 </div>
                                 <div class="form-group">
                                     <p class = "form-title">Jumlah Siswa</p>
                                     <input required = "true" type="number" name="jumlahSiswa" th:value="${cabang.jumlahSiswa}" min="0"
-                                           title="Masukkan angka 0 atau lebih" class="form-control form-control-user">
+                                           title="Masukkan angka 0 atau lebih" class="form-control form-control-user-ubah">
                                 </div>
                                 <div class="form-group">
                                     <p class = "form-title">Staf Cabang</p><br>
-                                    <select selected=# name="stafCabang" class="input-field col col-lg-3" style="margin-bottom: 10px;"
+                                    <select selected=# name="stafCabang" class="input-field col col-lg-3" style="margin-bottom: 10px; color: black;"
                                             id="dropdown-form" onchange="dropdownChange()">
                                         <option value="" selected disabled hidden th:text="${cabang.stafCabang == null} ? 'Masukkan Staf Cabang' : ${namaStaf}"></option>
                                         <option th:each="staf : ${listCalonStaf}"
