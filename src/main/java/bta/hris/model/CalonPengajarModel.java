@@ -65,6 +65,10 @@ public class CalonPengajarModel implements Serializable {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @NotNull
+    @Column(name = "universitas", nullable = false)
+    private String universitas;
+
     @Column(name = "nilaiPsikotes",nullable = true)
     private Long nilaiPsikotes;
 
@@ -217,5 +221,13 @@ public class CalonPengajarModel implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getUniversitas() {
+        return universitas;
+    }
+
+    public void setUniversitas(String universitas) {
+        this.universitas = universitas;
     }
 }
