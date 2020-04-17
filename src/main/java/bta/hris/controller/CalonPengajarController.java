@@ -88,7 +88,7 @@ public class CalonPengajarController {
     public String tambahCalonPengajarSubmit (CalonPengajarModel calonPengajar, Model model, RedirectAttributes redirect) {
 
         if (usernameisValid(calonPengajar)){
-            if (calonPengajar.getTglLahir().compareTo(LocalDate.now())<=0){
+            if (calonPengajar.getTglLahir().compareTo(LocalDate.now().minusYears(15))<=0){
                 RoleModel role = roleService.getRoleById(Long.valueOf(5));
 
                 calonPengajar.setStatus("Belum Mengerjakan Tes");
