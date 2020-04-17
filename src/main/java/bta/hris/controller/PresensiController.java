@@ -173,8 +173,11 @@ public class PresensiController {
         List<GajiModel> listGaji = gajiService.getAllGajiByNip(presensi.getPegawai().getNip());
         float pajak = newPresensi.getPegawai().getGolongan().getPajak() / 100;
 
-       float hitungGaji = newPresensi.getPegawai().getGolongan().getRate() * pajak * totalSesi;
-       float totalGaji = hitungGaji + newPresensi.getUangKonsum();
+        float hitungGaji = (newPresensi.getPegawai().getGolongan().getRate() * totalSesi) - (newPresensi.getPegawai().getGolongan().getRate() * totalSesi * pajak);
+        float totalGaji = hitungGaji;
+        if (newPresensi.getUangKonsum() != null) {
+            totalGaji = hitungGaji + newPresensi.getUangKonsum();
+        }
 
         if(listGaji.size() == 0) {
             GajiModel newGaji = new GajiModel();
@@ -188,24 +191,27 @@ public class PresensiController {
             gajiService.addGaji(newGaji);
         }
         else {
+            int counter = 0;
             for (GajiModel gaji : listGaji) {
                 if (gaji.getPeriode().getMonthValue() == presensi.getTanggalPresensi().getMonthValue()) {
                     gaji.setTotalSesi(gaji.getTotalSesi() + totalSesi);
                     gaji.setTotalGaji(gaji.getTotalGaji() + totalGaji);
                     gajiService.updateGaji(gaji);
+                    counter++;
                     break;
                 }
-                else{
-                    GajiModel newPeriode = new GajiModel();
-                    newPeriode.setPeriode(LocalDate.now());
-                    newPeriode.setPajakGaji(newPresensi.getPegawai().getGolongan().getPajak());
-                    newPeriode.setRateGaji(newPresensi.getPegawai().getGolongan().getRate());
-                    newPeriode.setTotalSesi(totalSesi);
-                    newPeriode.setTotalGaji(totalGaji);
-                    newPeriode.setStatus("pending");
-                    newPeriode.setPegawai(newPresensi.getPegawai());
-                    gajiService.addGaji(newPeriode);
-                }
+            }
+
+            if (counter == 0) {
+                GajiModel newPeriode = new GajiModel();
+                newPeriode.setPeriode(LocalDate.now());
+                newPeriode.setPajakGaji(newPresensi.getPegawai().getGolongan().getPajak());
+                newPeriode.setRateGaji(newPresensi.getPegawai().getGolongan().getRate());
+                newPeriode.setTotalSesi(totalSesi);
+                newPeriode.setTotalGaji(totalGaji);
+                newPeriode.setStatus("pending");
+                newPeriode.setPegawai(newPresensi.getPegawai());
+                gajiService.addGaji(newPeriode);
             }
         }
         model.addAttribute("presensi", newPresensi);
@@ -213,7 +219,7 @@ public class PresensiController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String tanggalPresensi = presensi.getTanggalPresensi().format(formatter);
         redirect.addFlashAttribute("alert", "Presensi dari " + presensi.getPegawai().getNama() + " pada tanggal " +
-               tanggalPresensi + " berhasil disetujui.");
+                tanggalPresensi + " berhasil disetujui.");
 
         return "redirect:/presensi/kelola";
     }
