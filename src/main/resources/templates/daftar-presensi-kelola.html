@@ -85,7 +85,8 @@
                                             <td th:text="${presensi.status}" style="color: #1CC88A"></td>
                                         </div>
 
-                                        <div th:if="${presensi.status == 'pending'}">
+                                        <div th:if="${presensi.status == 'pending'}"></div>
+                                        <div th:id="">
                                             <div class="button-detail">
                                                 <td>
                                                 <div class="row">
@@ -99,6 +100,7 @@
                                                     </div>
                                                 </div>
                                                 </td>
+                                            </div>
                                         </div>
                                     </tr>
                                     </tbody>
