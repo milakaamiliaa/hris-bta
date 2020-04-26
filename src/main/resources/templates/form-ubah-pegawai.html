@@ -50,56 +50,56 @@
                         <form class="user" th:action="@{/pegawai/ubah/{idUser}(idUser=${pegawai.idUser})}" th:object="${newPegawai}" method="POST">
                             <div class="form-group">
                                 <p class = "form-title">Nama</p>
-                                <input name="nama" type="text" class="form-control form-control-user" id="exampleInputEmail" th:value="${pegawai.nama}"
+                                <input name="nama" type="text" class="form-control form-control-user-ubah" id="exampleInputEmail" th:value="${pegawai.nama}"
                                        pattern="[A-Za-z ]+" title="Hanya boleh huruf" required="true">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Email</p>
-                                <input name="email" type="email" class="form-control form-control-user" th:value="${pegawai.email}" required="true">
+                                <input name="email" type="email" class="form-control form-control-user-ubah" th:value="${pegawai.email}" required="true">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Alamat</p>
-                                <input name="alamat" type="text" class="form-control form-control-user" th:value="${pegawai.alamat}"
+                                <input name="alamat" type="text" class="form-control form-control-user-ubah" th:value="${pegawai.alamat}"
                                        pattern="[A-Za-z0-9. ]+" title="Hanya boleh angka atau huruf atau ." required="true">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Nomor Telepon</p>
-                                <input name="noTelp" type="text" class="form-control form-control-user" th:value="${pegawai.noTelp}" required="true"
+                                <input name="noTelp" type="text" class="form-control form-control-user-ubah" th:value="${pegawai.noTelp}" required="true"
                                        pattern="[0-9]{7,12}" title="Nomor telepon yang valid 7-12 angka">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Tanggal Lahir</p>
-                                <input name="tglLahir" type="date" required = "true" class="form-control form-control-user" th:value="${pegawai.tglLahir}">
+                                <input name="tglLahir" type="date" required = "true" class="form-control form-control-user-ubah" th:value="${pegawai.tglLahir}">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Password</p>
-                                <input name="password" type="password" class="form-control form-control-user" th:value="${pegawai.password}" id="userPassword">
+                                <input name="password" type="password" class="form-control form-control-user-ubah" th:value="${pegawai.password}" id="userPassword">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Role</p>
-                                <select name="role" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px;">
+                                <select name="role" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px; color: black;">
                                     <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Mata Pelajaran</p>
-                                <select name="mataPelajaran" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px;">
+                                <select name="mataPelajaran" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px; color: black;">
                                     <option th:each="mapel : ${mataPelajaran}" th:value="${mapel}" th:text="${mapel}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Golongan</p>
-                                <select name="golongan" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px;">
+                                <select name="golongan" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px; color: black;">
                                     <option th:each="golongan : ${listGolongan}" th:value="${golongan.idGolongan}" th:text="${golongan.nama}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Nomor Rekening</p>
-                                <input name="noRekening" type="number" class="form-control form-control-user" th:value="${pegawai.noRekening}" required="true">
+                                <input name="noRekening" type="number" class="form-control form-control-user-ubah" th:value="${pegawai.noRekening}" required="true">
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Nama Bank</p>
-                                <input name="namaBank" type="text" class="form-control form-control-user" th:value="${pegawai.namaBank}"
+                                <input name="namaBank" type="text" class="form-control form-control-user-ubah" th:value="${pegawai.namaBank}"
                                        pattern="[A-Za-z ]+" title="Hanya boleh huruf" required="true">
                             </div>
                             <button class="btn btn-primary" type="submit">Simpan</button>

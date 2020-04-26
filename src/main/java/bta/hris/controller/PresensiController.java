@@ -259,6 +259,11 @@ public class PresensiController {
 
         PresensiModel rejectedPresensi = presensiService.rejectPresensi(target);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String tanggalPresensi = target.getTanggalPresensi().format(formatter);
+        redirect.addFlashAttribute("alertTolak", "Presensi dari " + target.getPegawai().getNama() + " pada tanggal " +
+        tanggalPresensi + " berhasil ditolak.");
+
         return "redirect:/presensi/kelola";
     }
 //    @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.POST)

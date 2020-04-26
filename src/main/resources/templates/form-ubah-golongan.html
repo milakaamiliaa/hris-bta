@@ -41,7 +41,7 @@
                             <form class="user" th:action="@{/golongan/ubah/{idGolongan}(idGolongan=${golongan.idGolongan})}" th:object="${golongan}" method="POST">
                                 <div class="form-group">
                                     <p class = "form-title">Golongan</p>
-                                    <input type="text" class="form-control form-control-user" style="background: none;" name="nama" readonly th:value="${golongan.nama}">
+                                    <input type="text" class="form-control form-control-user-ubah" style="background: none;" name="nama" readonly th:value="${golongan.nama}">
                                 </div>
                                 <div class="form-group">
                                     <p class = "form-title">Rate Gaji (Rp)</p>

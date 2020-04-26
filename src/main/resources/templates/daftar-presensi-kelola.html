@@ -30,7 +30,8 @@
             <div class="container-fluid">
 
                 <!-- Alert -->
-                <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${alert}" th:text="${alert}"></div>
+                <div class="alert alert-success" role="alert" th:if="${alertTolak}" th:text="${alertTolak}"></div>
+                <div class="alert alert-success" role="alert" th:if="${alert}" th:text="${alert}"></div>
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Daftar Pengajuan Presensi</h1>
@@ -85,7 +86,8 @@
                                             <td th:text="${presensi.status}" style="color: #1CC88A"></td>
                                         </div>
 
-                                        <div th:if="${presensi.status == 'pending'}">
+                                        <div th:if="${presensi.status == 'pending'}"></div>
+                                        <div th:id="">
                                             <div class="button-detail">
                                                 <td>
                                                 <div class="row">
@@ -100,7 +102,29 @@
                                                     </div>
                                                 </div>
                                                 </td>
+                                            </div>
                                         </div>
+<!--                                            &lt;!&ndash; Modal Konfirmasi &ndash;&gt;-->
+<!--                                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:id=" 'exampleModalCenter' + ${iterationStatus.count}">-->
+<!--                                                <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--                                                    <div class="modal-content">-->
+<!--                                                        <div class="modal-header">-->
+<!--                                                            <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PENOLAKAN PENGAJUAN PRESENSI</h5>-->
+<!--                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                                                <span aria-hidden="true">&times;</span>-->
+<!--                                                            </button>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="modal-body" th:text="'Apakah Anda ingin menolak presensi dari ' + ${presensi.pegawai.getNama()} + ' pada tanggal ' + ${presensi.tanggalPresensi} + '?'">-->
+<!--                                                        </div>-->
+<!--                                                        <div class="modal-footer">-->
+<!--                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>-->
+<!--                                                            <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">-->
+<!--                                                                <button type="submit" class="btn btn-danger" th:attr="data-target='#exampleModalCenter'+${iterationStatus.count}" >Ya</button>-->
+<!--                                                            </form>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                     </tr>
                                     </tbody>
                                 </table>
@@ -128,6 +152,8 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
+
+
 
 <!-- Logout Modal-->
 <div th:replace="fragments/fragment :: logout"></div>
