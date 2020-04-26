@@ -252,7 +252,7 @@ public class PresensiController {
     }
 
     @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.POST)
-    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PesanPenolakanModel pesan, Model model) {
+    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PesanPenolakanModel pesan, Model model, RedirectAttributes redirect) {
         PresensiModel target = presensiService.getPresensiById(idPresensi);
         pesan.setPresensi(target);
         pesanPenolakanService.addPesanPenolakan(pesan);
