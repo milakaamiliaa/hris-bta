@@ -45,6 +45,14 @@
                         <form class="user" th:action = "@{/presensi/ubah/} + ${presensi.idPresensi}" th:object="${presensi}" method="POST">
                             <input type = "hidden" th:field="${presensi.idPresensi}"/>
                             <div class="form-group">
+                                <p class = "form-title">Pesan Penolakan</p>
+                                <br>
+                                <ul th:each="pesanPenolakan, iterationStatus : ${allPesanPenolakan}">
+                                    <li th:text="${allPesanPenolakanDate[__${iterationStatus.index}__]} + ': ' + ${pesanPenolakan.pesan}" class="mb-4" style="margin-left: 5rem !important"></a></li>
+<!--                                    <p th:text="${pesanPenolakan.pesan}" class="mb-4" style="margin-left: 1rem !important"></a></p>-->
+                                </ul>
+                            </div>
+                            <div class="form-group">
                                 <p class = "form-title">Tanggal</p>
                                 <br>
                                 <p class="mb-4" th:text="${localDate}" style="margin-left: 1rem !important"></a></p>

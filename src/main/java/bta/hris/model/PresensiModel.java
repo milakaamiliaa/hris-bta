@@ -1,5 +1,6 @@
 package bta.hris.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "presensi")
@@ -59,6 +61,10 @@ public class PresensiModel implements Serializable {
     @JoinColumn(name = "pengaju", referencedColumnName= "idUser", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserModel pegawai;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "presensi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PesanPenolakanModel> listPesanPenolakan;
 
     public Long getSesiMengajar() {
         return sesiMengajar;
@@ -138,5 +144,13 @@ public class PresensiModel implements Serializable {
 
     public void setKodeGaji(String kodeGaji) {
         this.kodeGaji = kodeGaji;
+    }
+
+    public List<PesanPenolakanModel> getListPesanPenolakan() {
+        return listPesanPenolakan;
+    }
+
+    public void setListPesanPenolakan(List<PesanPenolakanModel> listPesanPenolakan) {
+        this.listPesanPenolakan = listPesanPenolakan;
     }
 }

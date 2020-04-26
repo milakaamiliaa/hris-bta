@@ -6,6 +6,7 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,9 @@ public class PresensiController {
 
     @Autowired
     private GajiService gajiService;
+
+    @Autowired
+    private PesanPenolakanService pesanPenolakanService;
 
 
     @RequestMapping(value="/presensi", method = RequestMethod.GET)
@@ -103,6 +109,14 @@ public class PresensiController {
 
         List<CabangModel> listCabang = cabangService.getCabangList();
 
+        List<PesanPenolakanModel> allPesanPenolakan = pesanPenolakanService.getAllPesanPenolakanByPresensi(existingPresensi);
+        DateTimeFormatter pesanDateTimeFormatter = DateTimeFormatter.ofPattern("dd LLLL yyyy, HH:mm");
+        List<String> formattedDateTimeOfPesanPenolakan = new ArrayList<>();
+        for (PesanPenolakanModel pesan : allPesanPenolakan) {
+            LocalDateTime date = pesan.getCreatedAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            formattedDateTimeOfPesanPenolakan.add(date.format(pesanDateTimeFormatter));
+        }
+
         LocalDate localDate = LocalDate.now();//For reference
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedString = localDate.format(formatter);
@@ -110,6 +124,8 @@ public class PresensiController {
         model.addAttribute("localDate", formattedString);
         model.addAttribute("presensi", existingPresensi);
         model.addAttribute("listCabang", listCabang);
+        model.addAttribute("allPesanPenolakan", allPesanPenolakan);
+        model.addAttribute("allPesanPenolakanDate", formattedDateTimeOfPesanPenolakan);
 
         return "form-ubah-presensi";
     }
@@ -224,11 +240,23 @@ public class PresensiController {
         return "redirect:/presensi/kelola";
     }
 
-    @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.POST)
-    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
-        PresensiModel target = presensiService.getPresensiById(idPresensi);
+    @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.GET)
+    public String tolakPresensiForm(@PathVariable Long idPresensi, Model model) {
+        PresensiModel presensi = presensiService.getPresensiById(idPresensi);
+        PesanPenolakanModel pesan = new PesanPenolakanModel();
 
-        target.setStatus("ditolak");
+        model.addAttribute("presensi", presensi);
+        model.addAttribute("pesan", pesan);
+
+        return "form-tolak-presensi";
+    }
+
+    @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.POST)
+    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PesanPenolakanModel pesan, Model model) {
+        PresensiModel target = presensiService.getPresensiById(idPresensi);
+        pesan.setPresensi(target);
+        pesanPenolakanService.addPesanPenolakan(pesan);
+
         PresensiModel rejectedPresensi = presensiService.rejectPresensi(target);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
@@ -238,4 +266,13 @@ public class PresensiController {
 
         return "redirect:/presensi/kelola";
     }
+//    @RequestMapping(value = "/presensi/tolak/{idPresensi}", method = RequestMethod.POST)
+//    public String tolakPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model) {
+//        PresensiModel target = presensiService.getPresensiById(idPresensi);
+//
+//        target.setStatus("ditolak");
+//        PresensiModel rejectedPresensi = presensiService.rejectPresensi(target);
+//
+//        return "redirect:/presensi/kelola";
+//    }
 }
