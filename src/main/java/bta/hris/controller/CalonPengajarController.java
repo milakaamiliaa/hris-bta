@@ -71,9 +71,10 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "calonpengajar/hapus/{idCalon}", method = RequestMethod.POST)
-    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model, RedirectAttributes redirect){
         CalonPengajarModel targetCalon = calonPengajarService.getCalonById(calon.getIdCalon());
         calonPengajarService.hapusCalon(targetCalon);
+        redirect.addFlashAttribute("alertHapus", "Calon pengajar bernama " + targetCalon.getNama() + " berhasil dihapus.");
         return daftarCalonPengajar(model);
     }
 
@@ -88,7 +89,7 @@ public class CalonPengajarController {
     public String tambahCalonPengajarSubmit (CalonPengajarModel calonPengajar, Model model, RedirectAttributes redirect) {
 
         if (usernameisValid(calonPengajar)){
-            if (calonPengajar.getTglLahir().compareTo(LocalDate.now())<=0){
+            if (calonPengajar.getTglLahir().compareTo(LocalDate.now().minusYears(15))<=0){
                 RoleModel role = roleService.getRoleById(Long.valueOf(5));
 
                 calonPengajar.setStatus("Belum Mengerjakan Tes");
@@ -141,16 +142,16 @@ public class CalonPengajarController {
         return status;
     }
 
-
-    @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
-        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
-        LocalDate deadline = calonPengajar.getTesDeadline();
-        Month bulanDeadline = deadline.getMonth();
-
-        model.addAttribute("calonPengajar", calonPengajar);
-        model.addAttribute("bulanDeadline", bulanDeadline);
-        return "beranda-calonPengajar";
-    }
+//
+//    @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
+//    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
+//        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
+//        LocalDate deadline = calonPengajar.getTesDeadline();
+//        Month bulanDeadline = deadline.getMonth();
+//
+//        model.addAttribute("calonPengajar", calonPengajar);
+//        model.addAttribute("bulanDeadline", bulanDeadline);
+//        return "beranda-calonPengajar";
+//    }
 
 }

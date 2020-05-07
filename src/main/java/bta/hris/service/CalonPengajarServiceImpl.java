@@ -39,6 +39,11 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     }
 
     @Override
+    public CalonPengajarModel getCalonByUsername(String username) {
+        return calonPengajarDB.findByUsername(username).get();
+    }
+
+    @Override
     public CalonPengajarModel addCalon(CalonPengajarModel calon){
         String pass = encrypt(calon.getPassword());
         calon.setPassword(pass);
@@ -103,7 +108,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             }else{
                 newNIP += String.valueOf(userInAYear.size());
             }
-
+            newPegawai.setActive(true);
             newPegawai.setNip(newNIP);
             newPegawai.setRole(RoleDB.findByNama("PENGAJAR").get());
             userDB.save(newPegawai);

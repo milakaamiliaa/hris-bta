@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CalonPengajarService {
     CalonPengajarModel getCalonById(String id);
+    CalonPengajarModel getCalonByUsername(String username);
     CalonPengajarModel addCalon(CalonPengajarModel calon);
     List<CalonPengajarModel> getAllCalon();
     public String encrypt(String password);

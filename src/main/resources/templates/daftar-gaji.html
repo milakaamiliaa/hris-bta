@@ -156,12 +156,13 @@
                                         </div>
 
                                         <div th:if="${gaji.status == 'ditolak'}">
-                                            <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
                                                 <td class="text-center">
                                                     <h6 style="color: #858796" th:text="${gaji.status}"></h6>
+                                                    <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
                                                     <button type="submit" class="btn btn-setujui">Setujui</button>
+                                                    </form>
                                                 </td>
-                                            </form>
+
                                         </div>
 
                                         <div th:if="${gaji.status == 'sudah dibayar'}">
