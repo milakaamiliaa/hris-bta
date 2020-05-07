@@ -103,15 +103,16 @@ public class CabangController {
     public String ubahCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model, RedirectAttributes redirect) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
         model.addAttribute("cabang", newCabang);
-        redirect.addFlashAttribute("alertUbah", "Cabang " + cabang.getNama() + " Berhasil Diubah. ");
+        redirect.addFlashAttribute("alertUbah", "Cabang " + cabang.getNama() + " berhasil diubah.");
         return "redirect:/cabang";
     }
 
     @RequestMapping(value="/cabang/hapus/{idCabang}", method = RequestMethod.POST)
-    public String hapusCabang(@PathVariable Long idCabang, Model model){
+    public String hapusCabang(@PathVariable Long idCabang, Model model, RedirectAttributes redirect){
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang).get();
         model.addAttribute("cabang", cabang);
         cabangService.deleteCabang(cabang);
+        redirect.addFlashAttribute("alertHapus", "Cabang " + cabang.getNama() + " berhasil dihapus.");
          return "redirect:/cabang";
     }
 }

@@ -41,14 +41,14 @@
                             <form class="user" th:action="@{/golongan/ubah/{idGolongan}(idGolongan=${golongan.idGolongan})}" th:object="${golongan}" method="POST">
                                 <div class="form-group">
                                     <p class = "form-title">Golongan</p>
-                                    <input type="text" class="form-control form-control-user" style="background: none;" name="nama" readonly th:value="${golongan.nama}">
+                                    <input type="text" class="form-control form-control-user-ubah" style="background: none;" name="nama" readonly th:value="${golongan.nama}">
                                 </div>
                                 <div class="form-group">
-                                    <p class = "form-title">Rate Gaji</p>
+                                    <p class = "form-title">Rate Gaji (Rp)</p>
                                     <input type="number" class="form-control form-control-user" name="rate" placeholder="Masukkan rate gaji..." th:value="${golongan.rate}">
                                 </div>
                                 <div class="form-group">
-                                    <p class = "form-title">Pajak</p>
+                                    <p class = "form-title">Pajak (%)</p>
                                     <input type="number" step="0.01" class="form-control form-control-user" name="pajak" placeholder="Masukkan persentase pajak..." th:value="${golongan.pajak}">
                                 </div>
                                 <button type="submit" class="btn form-button">Simpan</button>
