@@ -26,10 +26,10 @@ public class SoalModel implements Serializable {
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "paketSoal", referencedColumnName= "idPaket", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private PaketSoalModel paketSoal;
+//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+//    @JoinColumn(name = "paketSoal", referencedColumnName= "idPaket", nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private PaketSoalModel paketSoal;
 
     public Long getIdSoal() {
         return idSoal;
@@ -63,11 +63,11 @@ public class SoalModel implements Serializable {
         isActive = active;
     }
 
-    public PaketSoalModel getPaketSoal() {
-        return paketSoal;
-    }
-
-    public void setPaketSoal(PaketSoalModel paketSoal) {
-        this.paketSoal = paketSoal;
-    }
+//    public PaketSoalModel getPaketSoal() {
+//        return paketSoal;
+//    }
+//
+//    public void setPaketSoal(PaketSoalModel paketSoal) {
+//        this.paketSoal = paketSoal;
+//    }
 }

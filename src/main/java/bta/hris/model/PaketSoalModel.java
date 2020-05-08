@@ -28,8 +28,8 @@ public class PaketSoalModel implements Serializable {
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
 
-    @OneToMany(mappedBy = "paketSoal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<SoalModel> listSoal;
+//    @OneToMany(mappedBy = "paketSoal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<SoalModel> listSoal;
 
     public Long getIdPaket() {
         return idPaket;
@@ -63,11 +63,11 @@ public class PaketSoalModel implements Serializable {
         isActive = active;
     }
 
-    public List<SoalModel> getListSoal() {
-        return listSoal;
-    }
-
-    public void setListSoal(List<SoalModel> listSoal) {
-        this.listSoal = listSoal;
-    }
+//    public List<SoalModel> getListSoal() {
+//        return listSoal;
+//    }
+//
+//    public void setListSoal(List<SoalModel> listSoal) {
+//        this.listSoal = listSoal;
+//    }
 }

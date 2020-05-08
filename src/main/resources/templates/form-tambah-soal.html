@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
+
+<head>
+    <script src="https://cdn.tiny.cloud/1/gigwq6dnjsh86928lp7sxifkuf614wr7zoyz46iwfir9vv79/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Form</title>
+</head>
+
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="fragments/fragment :: sidebar">
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments/fragment :: topbar"></nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Form</h1>
+                <p class="mb-4">Ini Halaman Form</a>.</p>
+
+                <!-- Card -->
+                <div class="card shadow mb-4 border-bottom-danger">
+                    <div class="card-body">
+                        <div class="form-header">
+                            <p class="form-header-text ">FORM HEADER</p>
+                        </div>
+                        <form class="user" th:action="@{/soal/tambah}" th:object="${soal}" method="POST">
+                            <input hidden name="correctAnswer" th:value="Chea">
+                            <input hidden name="isActive" th:value="1">
+
+                            <div class="form-group">
+                                <textarea name="pertanyaan" placeholder="Masukkan soal...">
+                                </textarea>
+                            </div>
+
+                            <button type="submit" class="btn form-button">Simpan</button>
+                        </form>
+
+                        <div class="container" style="width: 40%">
+                            <!-- Card -->
+                            <div th:each="soal, iterationStatus : ${allSoal}" class="card shadow mb-4 border-bottom-danger">
+                                <div class="card-body">
+                                    <div class="form-header">
+                                        <p class="form-header-text ">Soal</p>
+                                    </div>
+
+                                    <div th:utext="${soal.pertanyaan}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            tinymce.init({
+                                selector: 'textarea',
+                                plugins: 'image advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+                                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image checklist table',
+                                toolbar_mode: 'floating',
+                                tinycomments_mode: 'embedded',
+                                tinycomments_author: 'Author name',
+                            });
+                        </script>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
+</div>
+
+</body>
+</html>
