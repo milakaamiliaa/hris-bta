@@ -18,9 +18,13 @@ public class SoalModel implements Serializable {
     @Column(name = "pertanyaan", nullable = false)
     private String pertanyaan;
 
-    @NotNull
-    @Column(name = "correctAnswer", nullable = false)
-    private String correctAnswer;
+//    @NotNull
+//    @Column(name = "correctAnswer", nullable = false)
+//    private String correctAnswer;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "idSoal", referencedColumnName = "idJawaban")
+//    private JawabanModel correctAnswer;
 
     @NotNull
     @Column(name = "isActive", nullable = false)
@@ -47,13 +51,21 @@ public class SoalModel implements Serializable {
         this.pertanyaan = pertanyaan;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
+//    public String getCorrectAnswer() {
+//        return correctAnswer;
+//    }
+//
+//    public void setCorrectAnswer(String correctAnswer) {
+//        this.correctAnswer = correctAnswer;
+//    }
 
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
+//    public JawabanModel getCorrectAnswer() {
+//        return correctAnswer;
+//    }
+//
+//    public void setCorrectAnswer(JawabanModel correctAnswer) {
+//        this.correctAnswer = correctAnswer;
+//    }
 
     public boolean isActive() {
         return isActive;

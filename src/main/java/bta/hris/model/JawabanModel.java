@@ -18,6 +18,10 @@ public class JawabanModel implements Serializable {
     @Column(name = "jawaban", nullable = false)
     private String jawaban;
 
+    @NotNull
+    @Column(name = "is_correct", nullable = false, columnDefinition = "tinyint(1) default 1")
+    private boolean isCorrect;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "soal", referencedColumnName= "idSoal", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -37,6 +41,14 @@ public class JawabanModel implements Serializable {
 
     public void setJawaban(String jawaban) {
         this.jawaban = jawaban;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 
     public SoalModel getSoal() {
