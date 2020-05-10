@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SoalService {
     List<SoalModel> getAllSoalByNamaPaketSoal(String nama);
+    List<SoalModel> getAllSoalByIdPaketSoal(Long idPaket);
+    SoalModel getSoalById(Long idSoal);
 }

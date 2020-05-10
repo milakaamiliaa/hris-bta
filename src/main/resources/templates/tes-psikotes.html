@@ -39,24 +39,15 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
-
-                                <!--                                ini buat radio button jawabannyaa tp gue bingung gmn caranya soalnya ga muncul HAHAHA-->
                                 <form th:object="${soal}" method="post">
-                                    <input type="hidden" th:value="${soal.idSoal}"/>
                                     <fieldset>
-<!--                                        <ul>-->
-<!--                                            <li th:each="jawaban : ${listJawaban}">-->
-<!--                                                <input type="radio" th:field="*{jawaban.idJawaban}" th:value="${jawaban}" />-->
-<!--                                                <label th:for="${#ids.prev('jawaban.idJawaban')}" th:text="#{${'seedstarter.type.' + jawaban}}">Wireframe</label>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-
-                                            <!--                                        <ul>-->
-<!--                                            <li th:each="jawaban : ${listJawaban}">-->
-<!--                                                <input type="radio" th:field="*{idJawaban}" th:value="${jawaban.idJawaban}" />-->
-<!--                                                <label th:for="${#ids.prev('jawaban.idJawaban')}" th:text="${jawaban}"></label>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
+                                        <legend>Your addresses</legend>
+                                        <ul>
+                                            <li th:each="jawaban : ${soal.listJawaban}">
+                                                <input type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
+                                                <!-- <label th:for="${destinationAddress.destinationAddressId}" th:text="${jawaban.jawaban}"></label> -->
+                                            </li>
+                                        </ul>
                                     </fieldset>
                                 </form>
                             </div>

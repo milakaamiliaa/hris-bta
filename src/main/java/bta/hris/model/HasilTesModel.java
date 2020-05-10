@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "hasilTes")
@@ -17,8 +19,8 @@ public class HasilTesModel implements Serializable {
     private Long idHasil;
 
     @NotNull
-    @Column(name = "answerResult", nullable = false)
-    private boolean answerResult;
+    @Column(name = "jawabanTerpilih", nullable = false)
+    private Map<Long, Long> jawabanTerpilih = new HashMap<Long, Long>();
 
     @NotNull
     @Column(name = "startedAt", nullable = false)
@@ -31,8 +33,8 @@ public class HasilTesModel implements Serializable {
     private LocalDate finishedAt;
 
     @NotNull
-    @Column(name = "chosenAnswer", nullable = false)
-    private JawabanModel chosenAnswer;
+    @Column(name = "nilai", nullable = false)
+    private Long nilai;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "calonPengajar", referencedColumnName= "idCalon", nullable = false)
@@ -47,12 +49,12 @@ public class HasilTesModel implements Serializable {
         this.idHasil = idHasil;
     }
 
-    public boolean isAnswerResult() {
-        return answerResult;
+    public Map<Long,Long> getJawabanTerpilih() {
+        return jawabanTerpilih;
     }
 
-    public void setAnswerResult(boolean answerResult) {
-        this.answerResult = answerResult;
+    public void setJawabanTerpilih(Map<Long,Long> jawabanTerpilih) {
+        this.jawabanTerpilih = jawabanTerpilih;
     }
 
     public LocalDate getStartedAt() {
@@ -71,12 +73,12 @@ public class HasilTesModel implements Serializable {
         this.finishedAt = finishedAt;
     }
 
-    public JawabanModel getChosenAnswer() {
-        return chosenAnswer;
+    public Long getNilai() {
+        return nilai;
     }
 
-    public void setChosenAnswer(JawabanModel chosenAnswer) {
-        this.chosenAnswer = chosenAnswer;
+    public void setNilai(Long nilai) {
+        this.nilai = nilai;
     }
 
     public CalonPengajarModel getCalonPengajar() {

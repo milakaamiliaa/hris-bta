@@ -18,4 +18,9 @@ public class JawabanServiceImpl implements JawabanService{
     public List<JawabanModel> getAllJawabanByIdSoal(Long idSoal){
         return jawabanDB.findAllBySoalIdSoal(idSoal);
     }
+
+    @Override
+    public JawabanModel getJawabanById(Long idJawaban){
+        return jawabanDB.findByIdJawaban(idJawaban);
+    }
 }

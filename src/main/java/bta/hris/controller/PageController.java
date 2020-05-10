@@ -1,7 +1,6 @@
 package bta.hris.controller;
 
 import bta.hris.model.CalonPengajarModel;
-import bta.hris.model.UserModel;
 import bta.hris.service.CalonPengajarService;
 import bta.hris.service.RoleService;
 import bta.hris.service.UserService;

@@ -141,35 +141,6 @@ public class CalonPengajarController {
         }
         return status;
     }
-
-    @RequestMapping(value = "/calonpengajar/aturan-psikotes", method = RequestMethod.GET)
-    public String aturanPsikotes(Model model) {
-        return "aturan-tes-psikotes";
-    }
-
-    @RequestMapping(value = "/calonpengajar/tes-psikotes", method = RequestMethod.GET)
-    public String tesPsikotes(Model model) {
-        SoalModel soal = new SoalModel();
-        List<SoalModel> listSoal = soalService.getAllSoalByNamaPaketSoal("psikotes");
-        List<JawabanModel> listJawaban = jawabanService.getAllJawabanByIdSoal(soal.getIdSoal());
-        model.addAttribute("listSoal", listSoal);
-        model.addAttribute("listJawaban", listJawaban);
-        model.addAttribute("soal", soal);
-
-        return "tes-psikotes";
-    }
 }
 
-
-//
-//    @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-//    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
-//        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
-//        LocalDate deadline = calonPengajar.getTesDeadline();
-//        Month bulanDeadline = deadline.getMonth();
-//
-//        model.addAttribute("calonPengajar", calonPengajar);
-//        model.addAttribute("bulanDeadline", bulanDeadline);
-//        return "beranda-calonPengajar";
-//    }
 
