@@ -40,15 +40,12 @@
                             <div class="card-body">
                                 <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
                                 <form th:object="${soal}" method="post">
-                                    <fieldset>
-                                        <legend>Your addresses</legend>
-                                        <ul>
-                                            <li th:each="jawaban : ${soal.listJawaban}">
-                                                <input type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
-                                                <!-- <label th:for="${destinationAddress.destinationAddressId}" th:text="${jawaban.jawaban}"></label> -->
-                                            </li>
-                                        </ul>
-                                    </fieldset>
+                                    <ul>
+                                        <li class="no-bullets" th:action="@{#}" th:each="jawaban : ${soal.listJawaban}">
+                                            <input class="radioButton" type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
+                                            <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
+                                        </li>
+                                    </ul>
                                 </form>
                             </div>
                         </div>

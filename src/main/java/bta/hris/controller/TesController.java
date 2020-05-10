@@ -33,6 +33,9 @@ public class TesController {
     public String tesPsikotes(Model model) {
         List<SoalModel> listSoal = PaketSoalService.getPaketById(Long.valueOf(1)).getListSoal();
         model.addAttribute("listSoal", listSoal);
+        model.addAttribute("soal", new SoalModel());
+        model.addAttribute("jawaban", new JawabanModel());
+
         return "tes-psikotes";
     }
 }
