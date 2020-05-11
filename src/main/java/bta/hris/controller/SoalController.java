@@ -1,5 +1,10 @@
 package bta.hris.controller;
 
+import bta.hris.model.JawabanModel;
+import bta.hris.model.PaketSoalModel;
+import bta.hris.model.SoalModel;
+import bta.hris.service.JawabanService;
+import bta.hris.service.PaketSoalService;
 import bta.hris.service.SoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +17,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -19,6 +26,12 @@ public class SoalController {
 
     @Autowired
     private SoalService soalService;
+
+    @Autowired
+    private PaketSoalService paketSoalService;
+
+    @Autowired
+    private JawabanService jawabanService;
 
     @RequestMapping(value = "/soal/tambah/{idPaketSoal}", method = RequestMethod.GET)
     public String tambahSoalInitial(@PathVariable Long idPaketSoal, Model model) {
@@ -39,10 +52,36 @@ public class SoalController {
     @RequestMapping(value = "/soal/tambah", method = RequestMethod.GET)
     public String tambahSoal(HttpServletRequest req, Model model) {
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(req);
-        String jumlahJawaban = (String) inputFlashMap.get("jumlahJawaban");
-        String idPaketSoal = Long.toString((Long) inputFlashMap.get("idPaketSoal"));
+        int jumlahJawaban = Integer.parseInt((String) inputFlashMap.get("jumlahJawaban"));
+        Long idPaketSoal = (Long) inputFlashMap.get("idPaketSoal");
 
-        
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaketSoal).get();
+
+        SoalModel soal = new SoalModel();
+        soal.setPaketSoal(paketSoal);
+
+        List<JawabanModel> listJawaban = new ArrayList<>();
+
+        for (int i = 0; i<jumlahJawaban; i++) {
+            JawabanModel j = new JawabanModel();
+            j.setSoal(soal);
+            listJawaban.add(j);
+        }
+
+        soal.setListJawaban(listJawaban);
+
+        model.addAttribute("soal", soal);
+
+        return "form-tambah-soal";
+    }
+
+    @RequestMapping(value = "/soal/tambah", method = RequestMethod.POST)
+    public String tambahSoal(@ModelAttribute SoalModel soal, Model model) {
+        System.out.println(soal.getPertanyaan());
+        System.out.println(soal.isActive());
+        System.out.println(soal.getPaketSoal());
+        System.out.println(soal.getListJawaban().size());
+
         return "form-tambah-soal";
     }
 

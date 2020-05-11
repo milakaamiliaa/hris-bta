@@ -36,17 +36,30 @@
                         <div class="form-header">
                             <p class="form-header-text ">TAMBAH SOAL</p>
                         </div>
-                        <form class="user" th:object="${soalAndJawaban}" th:action="@{/soal/tambah}" method="POST">
+                        <form class="user" th:object="${soal}" th:action="@{/soal/tambah}" method="POST">
                             <div class="form-group">
                                 <p class = "form-title">Pertanyaan</p>
-<!--                                <input hidden th:field="*{soal.isActive}" th:value="1">-->
-                                <input hidden th:field="*{soal.paketSoal}" th:value="${idPaketSoal}">
-                                <textarea type="text" th:field="*{soal.pertanyaan}" class="form-control form-control-user">
+<!--                                <input hidden th:field="*{isActive}" th:value="1">-->
+                                <input hidden th:field="*{paketSoal}">
+                                <input hidden th:field="*{listJawaban}">
+                                <textarea type="text" th:field="*{pertanyaan}" class="form-control form-control-user">
                                 </textarea>
                             </div>
 
+
                             <button class="btn form-button">Submit</button>
                         </form>
+<!--                        <form class="user" th:object="${soalAndJawaban}" th:action="@{/soal/tambah}" method="POST">-->
+<!--                            <div class="form-group">-->
+<!--                                <p class = "form-title">Pertanyaan</p>-->
+<!--                                <input hidden th:field="*{soal.isActive}" th:value="1">-->
+<!--                                <input hidden th:field="*{soal.paketSoal}" th:value="${idPaketSoal}">-->
+<!--                                <textarea type="text" th:field="*{soal.pertanyaan}" class="form-control form-control-user">-->
+<!--                                </textarea>-->
+<!--                            </div>-->
+
+<!--                            <button class="btn form-button">Submit</button>-->
+<!--                        </form>-->
                     </div>
 
                 </div>

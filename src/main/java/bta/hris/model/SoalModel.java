@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "soal")
@@ -34,6 +35,9 @@ public class SoalModel implements Serializable {
     @JoinColumn(name = "paketSoal", referencedColumnName= "idPaket", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PaketSoalModel paketSoal;
+
+    @OneToMany(mappedBy = "soal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JawabanModel> listJawaban;
 
     public Long getIdSoal() {
         return idSoal;
@@ -81,5 +85,13 @@ public class SoalModel implements Serializable {
 
     public void setPaketSoal(PaketSoalModel paketSoal) {
         this.paketSoal = paketSoal;
+    }
+
+    public List<JawabanModel> getListJawaban() {
+        return listJawaban;
+    }
+
+    public void setListJawaban(List<JawabanModel> listJawaban) {
+        this.listJawaban = listJawaban;
     }
 }
