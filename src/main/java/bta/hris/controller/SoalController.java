@@ -30,6 +30,6 @@ public class SoalController {
     public String tambahSoalSubmit(@ModelAttribute SoalModel soal, Model model) {
         soalService.addSoal(soal);
 
-        return "form-tambah-soal";
+        return "redirect:/soal/tambah";
     }
 }

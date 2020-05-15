@@ -44,6 +44,7 @@
                         <form class="user" th:action="@{/soal/tambah}" th:object="${soal}" method="POST">
                             <input hidden name="correctAnswer" th:value="Chea">
                             <input hidden name="isActive" th:value="1">
+<!--                            <input hidden name="paketSoal" th:value="1">-->
 
                             <div class="form-group">
                                 <textarea name="pertanyaan" placeholder="Masukkan soal...">
