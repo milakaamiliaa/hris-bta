@@ -2,7 +2,9 @@ package bta.hris.controller;
 
 import bta.hris.model.CabangModel;
 import bta.hris.model.PaketSoalModel;
+import bta.hris.model.SoalModel;
 import bta.hris.service.PaketSoalService;
+import bta.hris.service.SoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,9 @@ import java.util.List;
 public class PaketSoalController {
     @Autowired
     private PaketSoalService paketSoalService;
+
+    @Autowired
+    private SoalService soalService;
 
 
     @RequestMapping(value = "/rekrutmen/paketsoal")
@@ -71,6 +76,9 @@ public class PaketSoalController {
     public String detailPaketSoal(@PathVariable Long idPaket, Model model) {
         PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket).get();
         model.addAttribute("paketSoal", paketSoal);
+
+        List<SoalModel> listSoal = soalService.getSoalByPaketSoal(paketSoal);
+        model.addAttribute("soal", listSoal);
 
         return "detail-paket-soal";
     }

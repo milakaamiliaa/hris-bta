@@ -47,6 +47,10 @@ public class JawabanModel implements Serializable {
         return isCorrect;
     }
 
+    public boolean getIsCorrect() {
+        return isCorrect;
+    }
+
     public void setCorrect(boolean correct) {
         isCorrect = correct;
     }

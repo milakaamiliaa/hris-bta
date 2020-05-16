@@ -16,6 +16,12 @@ public class SoalServiceImpl implements SoalService {
 
     @Override
     public List<SoalModel> getSoalByPaketSoal(PaketSoalModel paketSoal) {
-        return soalDB.findAllByPaketSoal(paketSoal);
+        return soalDB.findAllByPaketSoalOrderByIdSoalDesc(paketSoal);
+    }
+
+    @Override
+    public SoalModel addSoal(SoalModel soal) {
+        soalDB.save(soal);
+        return soal;
     }
 }

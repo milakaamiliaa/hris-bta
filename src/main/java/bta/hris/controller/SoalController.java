@@ -64,6 +64,9 @@ public class SoalController {
 
         for (int i = 0; i<jumlahJawaban; i++) {
             JawabanModel j = new JawabanModel();
+            if (i == 0) {
+                j.setCorrect(true);
+            }
             j.setSoal(soal);
             listJawaban.add(j);
         }
@@ -76,13 +79,35 @@ public class SoalController {
     }
 
     @RequestMapping(value = "/soal/tambah", method = RequestMethod.POST)
-    public String tambahSoal(@ModelAttribute SoalModel soal, Model model) {
-        System.out.println(soal.getPertanyaan());
-        System.out.println(soal.isActive());
-        System.out.println(soal.getPaketSoal());
-        System.out.println(soal.getListJawaban().size());
+    public String tambahSoal(@ModelAttribute SoalModel soal, Model model, RedirectAttributes redirect) {
+        SoalModel soalToAdd = new SoalModel();
+        soalToAdd.setPaketSoal(soal.getPaketSoal());
+        soalToAdd.setPertanyaan(soal.getPertanyaan());
+        soalToAdd.setActive(true);
+        soalToAdd.setListJawaban(new ArrayList<>());
 
-        return "form-tambah-soal";
+        soalService.addSoal(soalToAdd);
+
+        for (int i = 0; i < soal.getListJawaban().size(); i++) {
+            if (i == 0) {
+                soal.getListJawaban().get(i).setCorrect(true);
+            }
+            soal.getListJawaban().get(i).setSoal(soalToAdd);
+            jawabanService.addJawaban(soal.getListJawaban().get(i));
+        }
+
+//        System.out.println(soal.getPertanyaan());
+//        System.out.println(soal.isActive());
+//        System.out.println(soal.getPaketSoal());
+//        System.out.println(soal.getListJawaban().size());
+//        for (int i = 0; i < soal.getListJawaban().size(); i++) {
+//            System.out.println("Jawaban ke " + i + ": " + soal.getListJawaban().get(i).getJawaban());
+//            System.out.println("Is correct? " + soal.getListJawaban().get(i).isCorrect());
+//        }
+
+        redirect.addFlashAttribute("alert", "Soal berhasil ditambahkan. ");
+
+        return "redirect:/rekrutmen/paketsoal/detail/" + soal.getPaketSoal().getIdPaket();
     }
 
 //    @RequestMapping(value = "/soal/tambah", method = RequestMethod.GET)

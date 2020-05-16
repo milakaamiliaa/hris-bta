@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface SoalDB extends JpaRepository<SoalModel, Long> {
-    List<SoalModel> findAllByPaketSoal(PaketSoalModel paketSoal);
+    List<SoalModel> findAllByPaketSoalOrderByIdSoalDesc(PaketSoalModel paketSoal);
 }

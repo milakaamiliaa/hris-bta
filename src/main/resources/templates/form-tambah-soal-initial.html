@@ -28,7 +28,7 @@
             <nav th:replace="fragments/fragment :: topbar"></nav>
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-fluid" style="width: 60%">
 
                 <!-- Card -->
                 <div class="card shadow mb-4 border-bottom-danger">
@@ -41,7 +41,9 @@
                                 <p class = "form-title">Jumlah Pilihan Jawaban</p>
                                 <input type="number" name="jumlahJawaban" class="form-control form-control-user" placeholder="Masukkan jumlah pilihan jawaban dari soal yang akan ditambahkan...">
                             </div>
-                            <button type="submit" class="btn form-button">Submit</button>
+                            <div style="text-align: center;">
+                                <button  type="submit" class="btn form-button" style="align-items: center;">Simpan</button>
+                            </div>
                         </form>
                     </div>
 

@@ -36,19 +36,51 @@
                         <div class="form-header">
                             <p class="form-header-text ">TAMBAH SOAL</p>
                         </div>
-                        <form class="user" th:object="${soal}" th:action="@{/soal/tambah}" method="POST">
-                            <div class="form-group">
-                                <p class = "form-title">Pertanyaan</p>
-<!--                                <input hidden th:field="*{isActive}" th:value="1">-->
-                                <input hidden th:field="*{paketSoal}">
-                                <input hidden th:field="*{listJawaban}">
-                                <textarea type="text" th:field="*{pertanyaan}" class="form-control form-control-user">
-                                </textarea>
-                            </div>
+
+                        <!-- Input Area Container -->
+                        <div class="container-fluid" style="width: 60%;">
+                            <form class="user" th:object="${soal}" th:action="@{/soal/tambah}" method="POST">
+                                <div class="form-group">
+                                    <p class = "form-title">Pertanyaan</p>
+                                    <br>
+                                    <!--                                <input hidden th:field="*{isActive}" th:value="1">-->
+                                    <input hidden th:field="*{paketSoal}">
+                                    <!--                                <input hidden th:field="*{listJawaban}">-->
+                                    <textarea type="text" th:field="*{pertanyaan}" class="form-control form-control-user" placeholder="Masukkan pertanyaan...">
+                                    </textarea>
+
+                                    <!--                                iterasi utk tiap jawaban-->
+                                    <!--                                munculin textarea utk tiap jawaban dengan target field *{listJawaban[__X__]}-->
 
 
-                            <button class="btn form-button">Submit</button>
-                        </form>
+                                    <div th:each="jawaban, iterStat : *{listJawaban}">
+                                        <div th:if="${iterStat.index == 0}">
+                                            <br>
+                                            <p class = "form-title">Kunci Jawaban</p>
+                                            <br>
+                                            <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].isCorrect}">
+                                            <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].soal}">
+                                            <textarea type="text" th:field="*{listJawaban[__${iterStat.index}__].jawaban}" placeholder="Masukkan kunci jawaban..."></textarea>
+                                        </div>
+
+                                        <div th:if="${iterStat.index != 0}">
+                                            <div th:if="${iterStat.index == 1}">
+                                                <br>
+                                                <p class = "form-title">Opsi Jawaban Salah</p>
+                                                <br>
+                                            </div>
+                                            <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].isCorrect}">
+                                            <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].soal}">
+                                            <textarea type="text" th:field="*{listJawaban[__${iterStat.index}__].jawaban}" placeholder="Masukkan opsi jawaban salah..."></textarea>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <button  type="submit" class="btn form-button" style="align-items: center;">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
 <!--                        <form class="user" th:object="${soalAndJawaban}" th:action="@{/soal/tambah}" method="POST">-->
 <!--                            <div class="form-group">-->
 <!--                                <p class = "form-title">Pertanyaan</p>-->

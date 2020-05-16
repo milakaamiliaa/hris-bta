@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface JawabanService {
     List<JawabanModel> getAllJawabanBySoal(SoalModel soal);
+    JawabanModel addJawaban(JawabanModel jawaban);
 }

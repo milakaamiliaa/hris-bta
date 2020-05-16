@@ -28,6 +28,11 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <!-- Alert -->
+                <div class="alert alert-success " role="alert" th:if="${alert}" th:text="${alert}"></div>
+                <div class="alert alert-success " role="alert" th:if="${alertUbah}" th:text="${alertUbah}"></div>
+                <div class="alert alert-success " role="alert" th:if="${alertHapus}" th:text="${alertHapus}"></div>
+
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800"> Kelola Paket Soal</h1>
 
@@ -73,6 +78,12 @@
                         <br>
                         <br>
 
+                        <div class="row">
+                            <div class="col-auto ml-auto">
+                                <a class="btn btn-primary" th:href="@{/soal/tambah/}+${paketSoal.idPaket}">+ Tambah Soal</a>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table " id="dataTable" width="100%" cellspacing="0">
                                 <thead style="background-color: #FF5252 !important; color: white">
@@ -84,10 +95,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="presensi, iterationStatus: ${presensiByKodeGaji}">
+                                <tr th:each="s, iterationStatus: ${soal}">
                                     <td class="text-center" th:text="${iterationStatus.count}"></td>
-                                    <td class="text-center" th:text="pertanyaan"></td>
-                                    <td class="text-center" th:text="aksi"></td>
+                                    <td class="text-center" th:utext="${#strings.abbreviate(s.pertanyaan,70)}"></td>
+                                    <td><a th:href="@{/soal/detail/}+${s.idSoal}">Detail</a></td>
                                 </tr>
                                 </tbody>
                             </table>

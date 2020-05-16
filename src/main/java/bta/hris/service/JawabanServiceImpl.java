@@ -18,4 +18,10 @@ public class JawabanServiceImpl implements JawabanService{
     public List<JawabanModel> getAllJawabanBySoal(SoalModel soal) {
         return jawabanDB.findAllBySoal(soal);
     }
+
+    @Override
+    public JawabanModel addJawaban(JawabanModel jawaban) {
+        jawabanDB.save(jawaban);
+        return jawaban;
+    }
 }
