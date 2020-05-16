@@ -76,6 +76,7 @@ public class PresensiServiceImpl implements PresensiService {
         newPresensi.setStatus(presensi.getStatus());
         newPresensi.setKodeGaji(presensi.getKodeGaji());
         newPresensi.setUangKonsum(presensi.getUangKonsum());
+        newPresensi.setStatus("diterima");
         if (newPresensi.getUangKonsum() != null) {
             newPresensi.setNominal(gaji + presensi.getUangKonsum());
         }

@@ -1,6 +1,7 @@
 package bta.hris.service;
 
 import bta.hris.model.CabangModel;
+import bta.hris.model.PresensiModel;
 import bta.hris.model.UserModel;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface CabangService {
     void deleteCabang(CabangModel cabang);
     Optional<CabangModel> getCabangByStafCabang(UserModel stafCabang);
     void detailCabang(CabangModel cabang);
+    int countCabangPayroll(CabangModel cabang);
 
 }

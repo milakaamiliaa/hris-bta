@@ -1,7 +1,9 @@
 package bta.hris.controller;
 
+import bta.hris.model.CabangModel;
 import bta.hris.model.CalonPengajarModel;
 import bta.hris.model.UserModel;
+import bta.hris.service.CabangService;
 import bta.hris.service.CalonPengajarService;
 import bta.hris.service.RoleService;
 import bta.hris.service.UserService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Optional;
 
 @Controller
 public class PageController {
@@ -25,6 +28,9 @@ public class PageController {
 
     @Autowired
     CalonPengajarService calonPengajarService;
+
+    @Autowired
+    CabangService cabangService;
 
 
 
@@ -42,6 +48,17 @@ public class PageController {
                 model.addAttribute("calonPengajar", calonPengajar);
                 model.addAttribute("bulanDeadline", bulanDeadline);
                 return "beranda-calonPengajar";
+            }
+            else if(userService.getByNip(loggedIn.getUsername()).getRole().getNama().equals("STAF CABANG")){
+                UserModel userModel = userService.getByNip(loggedIn.getUsername());
+                Optional<CabangModel> cabangModelOpt = cabangService.getCabangByStafCabang(userModel);
+                CabangModel cabangModel = cabangModelOpt.get();
+                int payroll = cabangService.countCabangPayroll(cabangModel);
+
+                model.addAttribute(cabangModel);
+                model.addAttribute(userModel);
+                model.addAttribute(payroll);
+                return "beranda-stafCabang";
             }
             else{
                 return "home";
