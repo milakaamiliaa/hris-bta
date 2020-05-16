@@ -24,4 +24,9 @@ public class SoalServiceImpl implements SoalService {
         soalDB.save(soal);
         return soal;
     }
+
+    @Override
+    public SoalModel getSoalById(Long idSoal) {
+        return soalDB.findById(idSoal).get();
+    }
 }

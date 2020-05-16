@@ -8,4 +8,5 @@ import java.util.List;
 public interface SoalService {
     List<SoalModel> getSoalByPaketSoal(PaketSoalModel paketSoal);
     SoalModel addSoal(SoalModel soal);
+    SoalModel getSoalById(Long idSoal);
 }

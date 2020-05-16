@@ -110,6 +110,32 @@ public class SoalController {
         return "redirect:/rekrutmen/paketsoal/detail/" + soal.getPaketSoal().getIdPaket();
     }
 
+    @RequestMapping(value = "/soal/detail/{idSoal}", method = RequestMethod.GET)
+    public String detailSoal(@PathVariable Long idSoal, Model model) {
+        SoalModel soal = soalService.getSoalById(idSoal);
+        JawabanModel correctAnswer = new JawabanModel();
+
+        for (JawabanModel j : soal.getListJawaban()) {
+            if (j.isCorrect()) {
+                correctAnswer = j;
+            }
+        }
+
+        model.addAttribute("soal", soal);
+        model.addAttribute("correctAnswer", correctAnswer);
+
+        return "detail-soal";
+    }
+
+    @RequestMapping(value = "/soal/ubah/{idSoal}", method = RequestMethod.GET)
+    public String ubahSoal(@PathVariable Long idSoal, Model model) {
+        SoalModel existingSoal = soalService.getSoalById(idSoal);
+
+        model.addAttribute("soal", existingSoal);
+
+        return "form-ubah-soal";
+    }
+
 //    @RequestMapping(value = "/soal/tambah", method = RequestMethod.GET)
 //    public String tambahSoal(HttpServletRequest req, Model model) {
 //        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(req);
