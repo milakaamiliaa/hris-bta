@@ -506,4 +506,8 @@ input {
     border-radius: 0;
 
   }
+
+  .page-link{
+    color: #FF5252 !important;
+  }
 }

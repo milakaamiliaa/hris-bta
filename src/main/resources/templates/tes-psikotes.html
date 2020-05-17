@@ -6,6 +6,13 @@
 <head>
     <object th:include = "fragments/fragment :: head"></object>
     <title>Tes Psikotes</title>
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+<!--    <script th:src="@{/js/hris-bta-pagination-js.js}"></script>-->
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+
 </head>
 
 
@@ -35,24 +42,37 @@
                 <h1 class="h3 mb-2 text-danger card-header-text">TES 1 - PSIKOTES</h1>
 
                 <!-- Soal -->
-                    <tr th:each="soal, iterationStatus : *{listSoal}">
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
-                                <form th:object="${soal}" method="post">
-                                    <ul>
-                                        <li class="no-bullets" th:action="@{#}" th:each="jawaban : ${soal.listJawaban}">
-                                            <input class="radioButton" type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
-                                            <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
-                                        </li>
-                                    </ul>
-                                </form>
+                <div id="loop">
+                        <tr th:each="soal, iterationStatus : *{listSoal}">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
+                                    <form th:object="${soal}" method="post">
+                                        <ul>
+                                            <li class="no-bullets" th:action="@{#}" th:each="jawaban : ${soal.listJawaban}">
+                                                <input class="radioButton" type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
+                                                <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </tr>
+                        </tr>
+                </div>
+
+                <nav aria-label="Page navigation example">
+                    <p id="showing" style="margin-right: 0"></p>
+                    <ul class="pagination justify-content-end">
+                        <li id="prev-page">
+                            <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
 
                 <div class="row">
-                    <button class="btn btn-primary">Selesai</button>
+                    <button class="btn btn-primary" style="margin-right: 0">Selesai</button>
                 </div>
 
             </div>
@@ -80,5 +100,89 @@
 <!-- Logout Modal-->
 <div th:replace="fragments/fragment :: logout">
 </div>
+
+<script>
+    var numberOfItems = $("#loop .card").length;
+    var limitPerPage = 5;
+    // var pagei = $(this).index() + 2; //-1
+    var pageini = $(".pagination li.active").index() + 2;
+    // var totali = limitPerPage * pageini;
+    // var sebelum = (totali - limitPerPage) + 1;
+    //
+    // document.getElementById("showing").innerHTML = "showing " + sebelum + " - " + totali + " dari " + numberOfItems;
+
+    $('#loop .card:gt(' + (limitPerPage - 1) + ')').hide(); // Hide all items over page limits (e.g., 5th item, 6th item, etc.)
+    var totalPages = Math.ceil(numberOfItems / limitPerPage); // Get number of pages
+    document.getElementById("showing").innerHTML = "Halaman " + pageini + " dari " + totalPages;
+
+    $(".pagination").append("<li class='page-item active'><a class='page-link' href='javascript:void(0)'>" + 1 + "</a></li>");
+
+    for (var i = 2; i <= totalPages; i++) {
+        $(".pagination").append("<li class='page-item'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>"); // Insert page number into pagination tabs
+    }
+
+    // Add next button after all the page numbers
+    $(".pagination").append("<li id='next-page'><a class='page-link' href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
+
+    $(".pagination li.page-item").on("click", function () {
+        if ($(this).hasClass("active")){
+            return false;
+        }
+        else {
+            var currentPage = $(this).index();
+            $(".pagination li").removeClass("active");
+            $(this).addClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            var start = grandTotal - limitPerPage;
+            var i;
+            for (i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show();
+            }
+            // document.getElementById("showing").innerHTML = "showing " + start + " - " + i + " dari " + numberOfItems;
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+
+        }
+    });
+
+    $("#next-page").on("click", function() {
+        var currentPage = $(".pagination li.active").index();
+        if (currentPage === totalPages) {
+            return false;
+        } else {
+            currentPage++;
+            $(".pagination li").removeClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show();
+            }
+
+            $(".pagination li.page-item:eq(" + (currentPage - 1) + ")").addClass("active");
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+        }
+    });
+
+    $("#prev-page").on("click", function() {
+        var currentPage = $(".pagination li.active").index();
+        if (currentPage === 1) {
+            return false;
+        } else {
+            currentPage--;
+            $(".pagination li").removeClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show(); // Show items from the new page that was selected
+            }
+            $(".pagination li.page-item:eq(" + (currentPage - 1) + ")").addClass("active");
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+        }
+    });
+
+</script>
 </body>
 </html>

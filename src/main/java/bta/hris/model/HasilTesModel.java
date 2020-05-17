@@ -18,9 +18,9 @@ public class HasilTesModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idHasil;
 
-    @NotNull
-    @Column(name = "jawabanTerpilih", nullable = false)
-    private Map<Long, Long> jawabanTerpilih = new HashMap<Long, Long>();
+//    @NotNull
+//    @Column(name = "jawabanTerpilih", nullable = false)
+//    private Map<Long, Long> jawabanTerpilih = new HashMap<Long, Long>();
 
     @NotNull
     @Column(name = "startedAt", nullable = false)
@@ -49,13 +49,13 @@ public class HasilTesModel implements Serializable {
         this.idHasil = idHasil;
     }
 
-    public Map<Long,Long> getJawabanTerpilih() {
-        return jawabanTerpilih;
-    }
-
-    public void setJawabanTerpilih(Map<Long,Long> jawabanTerpilih) {
-        this.jawabanTerpilih = jawabanTerpilih;
-    }
+//    public Map<Long,Long> getJawabanTerpilih() {
+//        return jawabanTerpilih;
+//    }
+//
+//    public void setJawabanTerpilih(Map<Long,Long> jawabanTerpilih) {
+//        this.jawabanTerpilih = jawabanTerpilih;
+//    }
 
     public LocalDate getStartedAt() {
         return startedAt;
