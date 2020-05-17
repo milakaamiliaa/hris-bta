@@ -37,7 +37,10 @@ public class PageController {
                 CalonPengajarModel calonPengajar = calonPengajarService.getCalonByUsername(loggedIn.getUsername());
                 LocalDate deadline = calonPengajar.getTesDeadline();
                 Month bulanDeadline = deadline.getMonth();
+                LocalDate currentDate = LocalDate.now();
 
+                model.addAttribute("deadlineDate", deadline);
+                model.addAttribute("currentDate", currentDate);
                 model.addAttribute("calonPengajar", calonPengajar);
                 model.addAttribute("bulanDeadline", bulanDeadline);
                 return "beranda-calonPengajar";
