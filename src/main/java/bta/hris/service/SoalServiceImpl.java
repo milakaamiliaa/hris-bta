@@ -16,7 +16,9 @@ public class SoalServiceImpl implements SoalService {
 
     @Override
     public List<SoalModel> getSoalByPaketSoal(PaketSoalModel paketSoal) {
-        return soalDB.findAllByPaketSoalOrderByIdSoalDesc(paketSoal);
+        List<SoalModel> soal = soalDB.findAllByPaketSoalOrderByIdSoalDesc(paketSoal);
+        soal.removeIf(n -> !n.isActive());
+        return soal;
     }
 
     @Override
@@ -28,5 +30,35 @@ public class SoalServiceImpl implements SoalService {
     @Override
     public SoalModel getSoalById(Long idSoal) {
         return soalDB.findById(idSoal).get();
+    }
+
+    @Override
+    public SoalModel editSoal(SoalModel soal) {
+        SoalModel targetSoal = soalDB.findById(soal.getIdSoal()).get();
+
+        try {
+            targetSoal.setActive(soal.isActive());
+            targetSoal.setPaketSoal(soal.getPaketSoal());
+            targetSoal.setListJawaban(soal.getListJawaban());
+            targetSoal.setPertanyaan(soal.getPertanyaan());
+
+            soalDB.save(targetSoal);
+
+            return targetSoal;
+
+        } catch (NullPointerException nullExeption) {
+            return null;
+        }
+    }
+
+    @Override
+    public SoalModel deleteSoal(SoalModel soal) {
+        SoalModel targetSoal = soalDB.findById(soal.getIdSoal()).get();
+
+        if (targetSoal.isActive()) {
+            targetSoal.setActive(false);
+        }
+
+        return soalDB.save(targetSoal);
     }
 }

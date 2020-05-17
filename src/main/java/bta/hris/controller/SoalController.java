@@ -121,8 +121,12 @@ public class SoalController {
             }
         }
 
+        List<JawabanModel> wrongAnswers = soal.getListJawaban();
+        wrongAnswers.removeIf(n -> n.isCorrect());
+
         model.addAttribute("soal", soal);
         model.addAttribute("correctAnswer", correctAnswer);
+        model.addAttribute("jawaban", wrongAnswers);
 
         return "detail-soal";
     }
@@ -134,6 +138,25 @@ public class SoalController {
         model.addAttribute("soal", existingSoal);
 
         return "form-ubah-soal";
+    }
+
+    @RequestMapping(value = "/soal/ubah", method = RequestMethod.POST)
+    public String ubahSoalSubmit(@ModelAttribute SoalModel soal, Model model, RedirectAttributes redirect) {
+        soal.setActive(true);
+        SoalModel updatedSoal = soalService.editSoal(soal);
+
+        redirect.addFlashAttribute("alert", "Soal berhasil diubah.");
+
+        return "redirect:/soal/detail/" + updatedSoal.getIdSoal();
+    }
+
+    @RequestMapping(value = "/soal/hapus", method = RequestMethod.POST)
+    public String hapusSoal(@ModelAttribute SoalModel soal, Model model, RedirectAttributes redirect) {
+        SoalModel targetSoal = soalService.deleteSoal(soal);
+
+        redirect.addFlashAttribute("alertHapus", "Soal berhasil dihapus.");
+
+        return "redirect:/rekrutmen/paketsoal/detail/" + targetSoal.getPaketSoal().getIdPaket();
     }
 
 //    @RequestMapping(value = "/soal/tambah", method = RequestMethod.GET)

@@ -3,7 +3,7 @@
 
 <head>
     <object th:include = "fragments/fragment :: head"></object>
-    <title>Tambah Soal</title>
+    <title>Ubah Jawaban</title>
 </head>
 
 
@@ -34,22 +34,22 @@
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
                         <div class="form-header">
-                            <p class="form-header-text ">UBAH PERTANYAAN</p>
+                            <p class="form-header-text ">TAMBAH JAWABAN</p>
                         </div>
 
                         <!-- Input Area Container -->
                         <div class="container-fluid" style="width: 60%;">
-                            <form class="user" th:object="${soal}" th:action="@{/soal/ubah}" method="POST">
+                            <form class="user" th:object="${jawaban}" th:action="@{/jawaban/tambah/}" method="POST">
                                 <div class="form-group">
-                                    <p class = "form-title">Pertanyaan</p>
+                                    <p class = "form-title">Jawaban</p>
                                     <br>
                                     <!--                                <input hidden th:field="*{isActive}" th:value="1">-->
-                                    <input hidden th:field="*{idSoal}">
+                                    <input hidden th:field="*{idJawaban}">
                                     <input hidden th:field="*{isActive}">
-                                    <input hidden th:field="*{paketSoal}">
-                                    <input hidden th:field="*{listJawaban}">
+                                    <input hidden th:field="*{isCorrect}">
+                                    <input hidden th:field="*{soal}">
                                     <!--                                <input hidden th:field="*{listJawaban}">-->
-                                    <textarea type="text" name="pertanyaan" th:text="${soal.pertanyaan}" class="form-control form-control-user" placeholder="Masukkan pertanyaan...">
+                                    <textarea type="text" name="jawaban" class="form-control form-control-user" placeholder="Masukkan jawaban...">
                                     </textarea>
 
                                     <!--                                iterasi utk tiap jawaban-->
