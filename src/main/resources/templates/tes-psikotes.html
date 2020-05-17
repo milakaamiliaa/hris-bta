@@ -47,14 +47,15 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
-                                    <form th:object="${soal}" method="post">
+                                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}">
                                         <ul>
                                             <li class="no-bullets" th:action="@{#}" th:each="jawaban : ${soal.listJawaban}">
+                                                <!-- buat ngasih liat jawaban yang ada right -->
                                                 <input class="radioButton" type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
                                                 <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
+                                                <!-- nah how to check the picked radio button will get added to hasiltes object -->
                                             </li>
                                         </ul>
-                                    </form>
                                 </div>
                             </div>
                         </tr>
@@ -72,8 +73,9 @@
                 </nav>
 
                 <div class="row">
-                    <button class="btn btn-primary" style="margin-right: 0">Selesai</button>
+                    <button class="btn btn-primary" style="margin-right: 0" type="submit">Selesai</button>
                 </div>
+            </form>
 
             </div>
             <!-- /.container-fluid -->

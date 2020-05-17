@@ -55,7 +55,7 @@ public class SoalModel implements Serializable {
         this.pertanyaan = pertanyaan;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
