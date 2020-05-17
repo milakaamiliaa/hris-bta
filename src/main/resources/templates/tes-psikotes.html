@@ -40,6 +40,7 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-danger card-header-text">TES 1 - PSIKOTES</h1>
+                <div id="status"></div>
 
                 <!-- Soal -->
                 <div id="loop">
@@ -47,7 +48,7 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
-                                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}">
+                                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}" id="tes">
                                         <ul>
                                             <li class="no-bullets" th:action="@{#}" th:each="jawaban : ${soal.listJawaban}">
                                                 <!-- buat ngasih liat jawaban yang ada right -->
@@ -184,6 +185,17 @@
             document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
         }
     });
+
+    secs = 3600;
+    timer = setInterval(function () {
+        var element = document.getElementById("status");
+        element.innerHTML = "<h2>Waktu tersisa <b>"+(secs/60)+"</b> menit lagi..</h2>";
+        if(secs < 1){
+            clearInterval(timer);
+            document.getElementById('tes').submit();
+        }
+        secs--;
+    }, 1000)
 
 </script>
 </body>
