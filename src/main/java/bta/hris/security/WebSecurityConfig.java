@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/presensi/kelola").hasAnyAuthority(("STAF CABANG"))
 
                 .antMatchers("/presensi/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))
-                .antMatchers("/pegawai/**").hasAnyAuthority(("ADMIN"))
+                .antMatchers("/pegawai/**").permitAll()
                 .antMatchers("/gaji/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))
                 .antMatchers("/registrasi").anonymous()
                 .antMatchers("/").permitAll()
