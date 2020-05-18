@@ -23,17 +23,19 @@ public class HasilTesModel implements Serializable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startedAt;
 
-    @Column(name = "listJawaban", nullable = true)
-    private List<JawabanModel> listJawaban = new ArrayList<JawabanModel>();
-    // And this shouldnt have any relation to the jawaban model class shouldnt it?
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "submittedPaketSoalId", referencedColumnName = "idPaket")
+    private SubmittedPaketSoalModel submittedPaketSoal;
 
-    @NotNull
-    @Column(name = "finishedAt", nullable = false)
+//    @Column(name = "submittedPaketSoal", nullable = true)
+//    private List<JawabanModel> listJawaban = new ArrayList<JawabanModel>();
+//    // And this shouldnt have any relation to the jawaban model class shouldnt it?
+
+    @Column(name = "finishedAt", nullable = true)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate finishedAt;
 
-    @NotNull
-    @Column(name = "nilai", nullable = false)
+    @Column(name = "nilai", nullable = true)
     private Integer nilai;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -80,16 +82,25 @@ public class HasilTesModel implements Serializable {
     public void setCalonPengajar(CalonPengajarModel calonPengajar) {
         this.calonPengajar = calonPengajar;
     }
+//
+//    public List<JawabanModel> getListJawaban(){
+//        return listJawaban;
+//    }
+//
+//    public void setListJawaban(List<JawabanModel> listJawaban){
+//        this.listJawaban = listJawaban;
+//    }
+//
+//    public void addJawaban(JawabanModel jawaban){
+//        this.listJawaban.add(jawaban);
+//    }
 
-    public List<JawabanModel> getListJawaban(){
-        return listJawaban;
+
+    public SubmittedPaketSoalModel getSubmittedPaketSoal() {
+        return submittedPaketSoal;
     }
 
-    public void setListJawaban(List<JawabanModel> listJawaban){
-        this.listJawaban = listJawaban;
-    }
-
-    public void addJawaban(JawabanModel jawaban){
-        this.listJawaban.add(jawaban);
+    public void setSubmittedPaketSoal(SubmittedPaketSoalModel submittedPaketSoal) {
+        this.submittedPaketSoal = submittedPaketSoal;
     }
 }
