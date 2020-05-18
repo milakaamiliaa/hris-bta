@@ -49,7 +49,7 @@ public class PageController {
         }
 
         catch(Exception e){
-            return "home fix";
+            return "Home fix";
         }
     }
 
