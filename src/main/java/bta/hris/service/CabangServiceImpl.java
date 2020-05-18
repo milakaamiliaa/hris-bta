@@ -83,15 +83,4 @@ public class CabangServiceImpl implements CabangService{
         return cabangDb.findByStafCabang(stafCabang);
     }
 
-    @Override
-    public int countCabangPayroll(CabangModel cabang){
-        List<PresensiModel>presensiCabangAll = presensiService.getAllPresensiByCabang(cabang);
-        int payroll = 0;
-        for (PresensiModel presensi : presensiCabangAll){
-            if (presensi.getStatus().equalsIgnoreCase("diterima")){
-                payroll += presensi.getNominal();
-            }
-        }
-        return payroll;
-    }
 }

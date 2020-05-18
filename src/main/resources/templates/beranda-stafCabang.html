@@ -30,42 +30,75 @@
 
                 <!-- Card -->
                 <div class="row">
-                    <div class="col-sm">
+
+                    <div class="col-sm align-content-center">
                         <div class="card shadow mb-4 border-left-danger h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+
+                                    <div class="col">
+                                        <div class="font-weight-bold text-danger">
+                                            <p th:text="${gajiModel.periode.getMonth()}+' '+${gajiModel.periode.getYear()}"></p>
+                                        </div>
+                                        <div class="h3 font-weight-bold text-danger" th:text="'Total Payroll ' + ${cabangModel.cabang}"></div>
+                                        <div class="h4 font-weight-bold text-gray-800" th:text="'RP. '+ ${gajiModel.totalGaji}" ></div>
+                                        <a class="text-primary" th:href="@{/gaji/}"> Lihat Detail ></a>
                                     </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    <div class="col">
+                                        <img src="/img/Total%20Payroll.png" class="img-fluid" style="width:100px; height: auto; float: right">
                                     </div>
                                 </div>
-
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="col-sm align-content-center">
+                        <div class="card shadow mb-4 border-left-danger h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+
+                                    <div class="col">
+                                        <div class="font-weight-bold text-danger">
+                                            <p th:text="${gajiModel.periode.getMonth()}+' '+${gajiModel.periode.getYear()}"></p>
+                                        </div>
+                                        <div class="h3 font-weight-bold text-danger" th:text="'Jumlah Siswa ' + ${cabangModel.cabang}"></div>
+                                        <div class="h4 font-weight-bold text-gray-800" th:text="${cabangModel.jumlahSiswa}"></div>
+                                    </div>
+                                    <div class="col">
+                                        <img src="/img/Jumlah%20Siswa.png" class="img-fluid" style="width:100px; height: auto; float: right">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
                 </div>
+                <br>
+                <br>
 
-
-
+                <h1 class="h3 mb-2 text-gray-800 text-uppercase text-center font-weight-bold" th:text="'TOP 10 PENGAJAR '+${cabangModel.cabang}"></h1>
                 <div class="card shadow mb-4 border-bottom-danger">
-
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <img src="/img/Kerjakan-Psikotes.png" class="card-logo">
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table" width="80%" cellspacing="0">
+                                <thead style="background-color: #FF5252 !important; color: white">
+                                <tr>
+                                    <th style="text-align: center;">No</th>
+                                    <th style="text-align: center;">Nama Pengajar</th>
+                                    <th style="text-align: center;">Jumlah Sesi</th>
+                                    <th style="text-align: center;"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="gaji, iterationStatus: ${allGajiByPengajar}">
+                                    <td style="text-align: center;" th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${gaji.pegawai.nama}"></td>
+                                    <td style="text-align: center;" th:text="${gaji.totalSesi}"></td>
+                                    <td style="text-align: center;"><a th:href="@{/gaji/detail/}+${gaji.idGaji}">Detail</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <h1 class="h3 mb-2 text-danger card-header-text">Kerjakan Psikotes</h1>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>

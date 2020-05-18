@@ -1,12 +1,7 @@
 package bta.hris.controller;
 
-import bta.hris.model.CabangModel;
-import bta.hris.model.CalonPengajarModel;
-import bta.hris.model.UserModel;
-import bta.hris.service.CabangService;
-import bta.hris.service.CalonPengajarService;
-import bta.hris.service.RoleService;
-import bta.hris.service.UserService;
+import bta.hris.model.*;
+import bta.hris.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -32,6 +31,8 @@ public class PageController {
     @Autowired
     CabangService cabangService;
 
+    @Autowired
+    GajiService gajiService;
 
 
     @RequestMapping("/")
@@ -53,11 +54,16 @@ public class PageController {
                 UserModel userModel = userService.getByNip(loggedIn.getUsername());
                 Optional<CabangModel> cabangModelOpt = cabangService.getCabangByStafCabang(userModel);
                 CabangModel cabangModel = cabangModelOpt.get();
-                int payroll = cabangService.countCabangPayroll(cabangModel);
+                LocalDate periode = LocalDate.now().minusMonths(1);
+                GajiModel gajiCabang = gajiService.getGajiCabangMonthly(cabangModel,periode);
+                Optional<GajiModel> gajiCabangMonthOpt = gajiService.getGajiByIdGaji(gajiCabang.getIdGaji());
+                GajiModel gajiModel = gajiCabangMonthOpt.get();
+                List<GajiModel> allGajiByPengajar = gajiService.getAllGajiPengajarCabangMonthly(cabangModel, periode);
 
-                model.addAttribute(cabangModel);
-                model.addAttribute(userModel);
-                model.addAttribute(payroll);
+                model.addAttribute("allGajiByPengajar", allGajiByPengajar);
+                model.addAttribute("cabangModel", cabangModel);
+                model.addAttribute("gajiModel", gajiModel);
+                model.addAttribute("userModel", userModel);
                 return "beranda-stafCabang";
             }
             else{

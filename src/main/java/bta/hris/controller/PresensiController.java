@@ -23,6 +23,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PresensiController {
@@ -50,10 +51,10 @@ public class PresensiController {
     public String daftarPresensi(Model model){
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        model.addAttribute("allPresensi", presensiService.getAllPresensi());
-        model.addAttribute("daftarPresensi", presensiService.getAllPresensiByNip(user.getNip()));
+            model.addAttribute("allPresensi", presensiService.getAllPresensi());
+            model.addAttribute("daftarPresensi", presensiService.getAllPresensiByNip(user.getNip()));
 
-        return "daftar-presensi";
+            return "daftar-presensi";
     }
 
     @RequestMapping(value = "/presensi/tambah", method = RequestMethod.GET)

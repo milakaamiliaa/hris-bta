@@ -111,4 +111,15 @@ public class PresensiServiceImpl implements PresensiService {
         UserModel user =  userService.getByNip(nip);
         return presensiDB.findByKodeGajiAndPegawai(kodeGaji, user);
     }
+
+    @Override
+    public List<PresensiModel> getAllPresensiByCabangAndStatus(CabangModel cabang, String status){
+        return presensiDB.findByCabangAndStatus(cabang,status);
+    }
+
+    @Override
+    public List<PresensiModel> getAllPresensiByCabangAndPegawaiAndStatus(CabangModel cabang, UserModel userModel,
+                                                                  String status) {
+        return presensiDB.findByCabangAndPegawaiAndStatus(cabang, userModel, status);
+    }
 }

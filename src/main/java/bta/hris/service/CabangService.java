@@ -15,6 +15,5 @@ public interface CabangService {
     void deleteCabang(CabangModel cabang);
     Optional<CabangModel> getCabangByStafCabang(UserModel stafCabang);
     void detailCabang(CabangModel cabang);
-    int countCabangPayroll(CabangModel cabang);
 
 }
