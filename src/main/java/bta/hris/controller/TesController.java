@@ -49,6 +49,21 @@ public class TesController {
 
     @RequestMapping(value = "/calonpengajar/tes-psikotes", method = RequestMethod.GET)
     public String tesPsikotes(Model model) {
+        // Prevent duplicate insert of submitted models
+        if (hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
+                SecurityContextHolder.getContext().getAuthentication().getName())) != null) {
+            HasilTesModel hasilTes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
+                    SecurityContextHolder.getContext().getAuthentication().getName()));
+            SubmittedPaketSoalModel paketSoalToPost = hasilTes.getSubmittedPaketSoal();
+            List<SubmittedSoalModel> soalToPost = paketSoalToPost.getListSoal();
+
+            // POST
+            model.addAttribute("listSoal", soalToPost);
+            model.addAttribute("hasilTes", hasilTes);
+
+            return "tes-psikotes";
+        }
+
         // BIG PICTURE:
         // retrieve all data from master
         // duplicate data to submitted
@@ -65,8 +80,6 @@ public class TesController {
         hasilTes.setStartedAt(LocalDate.now());
         hasilTes.setCalonPengajar(calonPengajarService.getCalonByUsername(
                 SecurityContextHolder.getContext().getAuthentication().getName()));
-
-        hasilTesService.addHasilTes(hasilTes);
 
         SubmittedPaketSoalModel submittedPaketSoal = new SubmittedPaketSoalModel();
 
@@ -99,7 +112,11 @@ public class TesController {
         submittedPaketSoal.setNama(paketSoal.getNama());
         submittedPaketSoal.setListSoal(submittedSoal);
 
+        hasilTes.setSubmittedPaketSoal(submittedPaketSoal);
+
         // save to db + retrieve
+        hasilTesService.addHasilTes(hasilTes);
+
         SubmittedPaketSoalModel paketSoalToPost = submittedPaketSoalService.addSubmittedPaketSoal(submittedPaketSoal); // save+retrieve
         for (SubmittedSoalModel s : submittedPaketSoal.getListSoal()) {
             submittedSoalService.addSubmittedSoal(s); // save to db

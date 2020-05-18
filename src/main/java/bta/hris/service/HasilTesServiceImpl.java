@@ -1,5 +1,6 @@
 package bta.hris.service;
 
+import bta.hris.model.CalonPengajarModel;
 import bta.hris.model.HasilTesModel;
 import bta.hris.repository.HasilTesDB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,10 @@ public class HasilTesServiceImpl implements HasilTesService {
         hasilTesDB.save(hasilTes);
 
         return hasilTes;
+    }
+
+    @Override
+    public HasilTesModel getHasilTesByCalonPengajar(CalonPengajarModel calonPengajar) {
+        return hasilTesDB.findByCalonPengajar(calonPengajar);
     }
 }
