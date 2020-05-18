@@ -10,8 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "paketSoal")
-public class PaketSoalModel implements Serializable {
+@Table(name = "submittedPaketSoal")
+public class SubmittedPaketSoalModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPaket;
@@ -25,17 +25,11 @@ public class PaketSoalModel implements Serializable {
     @Column(name = "mataPelajaran", nullable = true)
     private String mataPelajaran;
 
-    @NotNull
-    @Column(name = "createdAt", nullable = false)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate createdAt;
-
-    @NotNull
-    @Column(name = "isActive", nullable = false)
-    private boolean isActive;
-
     @OneToMany(mappedBy = "paketSoal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<SoalModel> listSoal;
+    private List<SubmittedSoalModel> listSoal;
+
+    @OneToOne(mappedBy = "submittedPaketSoal")
+    private HasilTesModel hasilTes;
 
     public Long getIdPaket() {
         return idPaket;
@@ -53,34 +47,27 @@ public class PaketSoalModel implements Serializable {
         this.nama = nama;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public List<SoalModel> getListSoal() {
-        return listSoal;
-    }
-
-    public void setListSoal(List<SoalModel> listSoal) {
-        this.listSoal = listSoal;
-    }
     public String getMataPelajaran() {
         return mataPelajaran;
     }
 
     public void setMataPelajaran(String mataPelajaran) {
         this.mataPelajaran = mataPelajaran;
+    }
+
+    public List<SubmittedSoalModel> getListSoal() {
+        return listSoal;
+    }
+
+    public void setListSoal(List<SubmittedSoalModel> listSoal) {
+        this.listSoal = listSoal;
+    }
+
+    public HasilTesModel getHasilTes() {
+        return hasilTes;
+    }
+
+    public void setHasilTes(HasilTesModel hasilTes) {
+        this.hasilTes = hasilTes;
     }
 }

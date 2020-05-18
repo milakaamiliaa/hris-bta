@@ -8,8 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "hasilTes")
@@ -18,23 +18,25 @@ public class HasilTesModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idHasil;
 
-//    @NotNull
-//    @Column(name = "jawabanTerpilih", nullable = false)
-//    private Map<Long, Long> jawabanTerpilih = new HashMap<Long, Long>();
-
     @NotNull
     @Column(name = "startedAt", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startedAt;
 
-    @NotNull
-    @Column(name = "finishedAt", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "submittedPaketSoalId", referencedColumnName = "idPaket")
+    private SubmittedPaketSoalModel submittedPaketSoal;
+
+//    @Column(name = "submittedPaketSoal", nullable = true)
+//    private List<JawabanModel> listJawaban = new ArrayList<JawabanModel>();
+//    // And this shouldnt have any relation to the jawaban model class shouldnt it?
+
+    @Column(name = "finishedAt", nullable = true)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate finishedAt;
 
-    @NotNull
-    @Column(name = "nilai", nullable = false)
-    private Long nilai;
+    @Column(name = "nilai", nullable = true)
+    private Integer nilai;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "calonPengajar", referencedColumnName= "idCalon", nullable = false)
@@ -48,14 +50,6 @@ public class HasilTesModel implements Serializable {
     public void setIdHasil(Long idHasil) {
         this.idHasil = idHasil;
     }
-
-//    public Map<Long,Long> getJawabanTerpilih() {
-//        return jawabanTerpilih;
-//    }
-//
-//    public void setJawabanTerpilih(Map<Long,Long> jawabanTerpilih) {
-//        this.jawabanTerpilih = jawabanTerpilih;
-//    }
 
     public LocalDate getStartedAt() {
         return startedAt;
@@ -73,11 +67,11 @@ public class HasilTesModel implements Serializable {
         this.finishedAt = finishedAt;
     }
 
-    public Long getNilai() {
+    public Integer getNilai() {
         return nilai;
     }
 
-    public void setNilai(Long nilai) {
+    public void setNilai(Integer nilai) {
         this.nilai = nilai;
     }
 
@@ -87,5 +81,26 @@ public class HasilTesModel implements Serializable {
 
     public void setCalonPengajar(CalonPengajarModel calonPengajar) {
         this.calonPengajar = calonPengajar;
+    }
+//
+//    public List<JawabanModel> getListJawaban(){
+//        return listJawaban;
+//    }
+//
+//    public void setListJawaban(List<JawabanModel> listJawaban){
+//        this.listJawaban = listJawaban;
+//    }
+//
+//    public void addJawaban(JawabanModel jawaban){
+//        this.listJawaban.add(jawaban);
+//    }
+
+
+    public SubmittedPaketSoalModel getSubmittedPaketSoal() {
+        return submittedPaketSoal;
+    }
+
+    public void setSubmittedPaketSoal(SubmittedPaketSoalModel submittedPaketSoal) {
+        this.submittedPaketSoal = submittedPaketSoal;
     }
 }

@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "soal")
-public class SoalModel implements Serializable {
+@Table(name = "submittedSoal")
+public class SubmittedSoalModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSoal;
@@ -19,17 +19,13 @@ public class SoalModel implements Serializable {
     @Column(name = "pertanyaan", nullable = false)
     private String pertanyaan;
 
-    @NotNull
-    @Column(name = "isActive", nullable = false)
-    private boolean isActive;
-
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "paketSoal", referencedColumnName= "idPaket", nullable = false)
+    @JoinColumn(name = "submittedPaketSoal", referencedColumnName= "idPaket", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private PaketSoalModel paketSoal;
+    private SubmittedPaketSoalModel paketSoal;
 
     @OneToMany(mappedBy = "soal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<JawabanModel> listJawaban;
+    private List<SubmittedJawabanModel> listJawaban;
 
     public Long getIdSoal() {
         return idSoal;
@@ -37,14 +33,6 @@ public class SoalModel implements Serializable {
 
     public void setIdSoal(Long idSoal) {
         this.idSoal = idSoal;
-    }
-
-    public List<JawabanModel> getListJawaban(){
-        return listJawaban;
-    }
-
-    public void setListJawaban(List<JawabanModel> listJawaban){
-        this.listJawaban = listJawaban;
     }
 
     public String getPertanyaan() {
@@ -55,19 +43,19 @@ public class SoalModel implements Serializable {
         this.pertanyaan = pertanyaan;
     }
 
-    public boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public PaketSoalModel getPaketSoal() {
+    public SubmittedPaketSoalModel getPaketSoal() {
         return paketSoal;
     }
 
-    public void setPaketSoal(PaketSoalModel paketSoal) {
+    public void setPaketSoal(SubmittedPaketSoalModel paketSoal) {
         this.paketSoal = paketSoal;
+    }
+
+    public List<SubmittedJawabanModel> getListJawaban() {
+        return listJawaban;
+    }
+
+    public void setListJawaban(List<SubmittedJawabanModel> listJawaban) {
+        this.listJawaban = listJawaban;
     }
 }

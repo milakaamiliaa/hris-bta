@@ -43,18 +43,22 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-danger card-header-text">TES 1 - PSIKOTES</h1>
                 <h3 class="h5 mb-2 text-danger card-header-text" th:text="'(Jumlah soal: ' + ${jumlahSoal} + ')'"></h3><br>
+                <div id="status"></div>
+                <p th:text="${hasilTes.submittedPaketSoal.nama}"></p>
 
                 <!-- Soal -->
                 <div id="loop">
-                        <tr th:each="soal, iterationStatus : *{listSoal}">
+                        <tr th:each="soal, iterationStatus : ${hasilTes.submittedPaketSoal.listSoal}">
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
-                                    <form th:object="${soal}" method="post">
+                                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}" id="tes">
                                         <ul>
-                                            <li class="no-bullets" th:action="@{#}" th:each="jawaban : ${soal.listJawaban}">
-                                                <input class="radioButton" type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
+                                            <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
+                                                <!-- buat ngasih liat jawaban yang ada right -->
+                                                <input class="radioButton" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" th:value="${jawaban.idJawaban}"/>
                                                 <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
+                                                <!-- nah how to check the picked radio button will get added to hasiltes object -->
                                             </li>
                                         </ul>
                                     </form>
@@ -76,6 +80,8 @@
                     </ul>
                 </nav>
 
+<!--                <div class="row">-->
+<!--                    <button class="btn btn-primary" style="margin-right: 0" type="submit">Selesai</button>-->
                 <div class="text-center">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">Selesai</button>
                 </div>
@@ -116,7 +122,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                <form th:action="@{/calonpengajar/aturan-psikotes}">
+                <form th:action="@{/calonpengajar/tes-psikotes}">
                     <button type="submit" class="btn btn-danger">Ya</button>
                 </form>
             </div>
@@ -124,7 +130,7 @@
     </div>
 </div>
 
-<!-- Modal Konfirmasi Selsai-->
+<!-- Modal Konfirmasi Selesai-->
 <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -223,6 +229,18 @@
             document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
         }
     });
+
+    secs = 3600;
+    timer = setInterval(function () {
+        var element = document.getElementById("status");
+        element.innerHTML = "<h4>Waktu tersisa <b>"+Math.round((secs/60))+"</b> menit lagi..</h4>";
+        if(secs < 1){
+            clearInterval(timer);
+            document.getElementById('tes').submit();
+        }
+        secs--;
+    }, 1000)
+
 </script>
 </body>
 </html>

@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "jawaban")
-public class JawabanModel implements Serializable {
+@Table(name = "submittedJawaban")
+public class SubmittedJawabanModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJawaban;
@@ -23,13 +23,13 @@ public class JawabanModel implements Serializable {
     private boolean isCorrect;
 
     @NotNull
-    @Column(name = "is_active", nullable = false, columnDefinition = "tinyint(1) default 1")
-    private boolean isActive;
+    @Column(name = "is_chosen", nullable = false, columnDefinition = "tinyint(1) default 1")
+    private boolean isChosen;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "soal", referencedColumnName= "idSoal", nullable = false)
+    @JoinColumn(name = "submittedSoal", referencedColumnName= "idSoal", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private SoalModel soal;
+    private SubmittedSoalModel soal;
 
     public Long getIdJawaban() {
         return idJawaban;
@@ -59,23 +59,23 @@ public class JawabanModel implements Serializable {
         isCorrect = correct;
     }
 
-    public SoalModel getSoal() {
+    public boolean isChosen() {
+        return isChosen;
+    }
+
+    public boolean setIsChosen() {
+        return isChosen;
+    }
+
+    public void setChosen(boolean chosen) {
+        isChosen = chosen;
+    }
+
+    public SubmittedSoalModel getSoal() {
         return soal;
     }
 
-    public void setSoal(SoalModel soal) {
+    public void setSoal(SubmittedSoalModel soal) {
         this.soal = soal;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 }
