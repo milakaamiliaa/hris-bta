@@ -3,7 +3,6 @@ package bta.hris.service;
 import bta.hris.model.PaketSoalModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PaketSoalService {
     List<PaketSoalModel> getAllPaketsoal();
@@ -12,4 +11,5 @@ public interface PaketSoalService {
     PaketSoalModel updatePaketSoal(PaketSoalModel paketSoal);
     PaketSoalModel deletePaketSoal(PaketSoalModel paketSoal);
     PaketSoalModel getRandomPaketSoalByMataPelajaran(String mataPelajaran);
+    PaketSoalModel getPaketSoalByMataPelajaran(String mataPelajaran);
 }

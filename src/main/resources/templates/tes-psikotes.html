@@ -41,6 +41,7 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-danger card-header-text">TES 1 - PSIKOTES</h1>
                 <div id="status"></div>
+                <p th:text="${hasilTes.submittedPaketSoal.nama}"></p>
 
                 <!-- Soal -->
                 <div id="loop">
@@ -54,7 +55,7 @@
                                             <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
                                                 <!-- buat ngasih liat jawaban yang ada right -->
                                                 <input class="radioButton" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" th:value="${jawaban.idJawaban}" />
-                                                <label th:for="${jawaban.idJawaban}" th:utext="${jawaban.jawaban}"></label>
+                                                <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
                                                 <!-- nah how to check the picked radio button will get added to hasiltes object -->
                                             </li>
                                         </ul>
@@ -190,7 +191,7 @@
     secs = 3600;
     timer = setInterval(function () {
         var element = document.getElementById("status");
-        element.innerHTML = "<h2>Waktu tersisa <b>"+(secs/60)+"</b> menit lagi..</h2>";
+        element.innerHTML = "<h4>Waktu tersisa <b>"+Math.round((secs/60))+"</b> menit lagi..</h4>";
         if(secs < 1){
             clearInterval(timer);
             document.getElementById('tes').submit();

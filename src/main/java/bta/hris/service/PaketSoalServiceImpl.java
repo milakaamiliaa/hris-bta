@@ -67,4 +67,13 @@ public class PaketSoalServiceImpl implements PaketSoalService{
 
         return chosenPaketSoal;
     }
+
+    @Override
+    public PaketSoalModel getPaketSoalByMataPelajaran(String mataPelajaran){
+        for (PaketSoalModel paket : paketSoalDB.findByMataPelajaranContains(mataPelajaran)){
+            if (paket.isActive()){
+                return paket;
+            }
+        }return null;
+    }
 }

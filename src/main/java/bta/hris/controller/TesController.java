@@ -72,7 +72,7 @@ public class TesController {
 
         // IN ACTION:
         // retrieving master PaketSoal with mapel ("TPA")
-        PaketSoalModel paketSoal = paketSoalService.getRandomPaketSoalByMataPelajaran("TPA");
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByMataPelajaran("Psikotes");
 
         // duplicating master data to submitted data + save to db
         HasilTesModel hasilTes = new HasilTesModel();
@@ -155,7 +155,7 @@ public class TesController {
 //        }nilai = (nilai/(hasilTes.getListJawaban().size())) * 100;
 //        hasil.setNilai(nilai);
 
-        return "redirect:/rekrutmen/paketsoal/detail/";
+        return "redirect:/";
     }
 }
 
