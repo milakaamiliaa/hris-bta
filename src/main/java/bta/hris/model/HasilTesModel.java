@@ -27,10 +27,6 @@ public class HasilTesModel implements Serializable {
     @JoinColumn(name = "submittedPaketSoalId", referencedColumnName = "idPaket")
     private SubmittedPaketSoalModel submittedPaketSoal;
 
-//    @Column(name = "submittedPaketSoal", nullable = true)
-//    private List<JawabanModel> listJawaban = new ArrayList<JawabanModel>();
-//    // And this shouldnt have any relation to the jawaban model class shouldnt it?
-
     @Column(name = "finishedAt", nullable = true)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate finishedAt;

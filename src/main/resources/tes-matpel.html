@@ -5,7 +5,7 @@
 
 <head>
     <object th:include = "fragments/fragment :: head"></object>
-    <title>Tes Psikotes</title>
+    <title>Tes Mata Pelajaran Pilihan</title>
     <link href="bootstrap.min.css" rel="stylesheet"/>
 <!--    <script th:src="@{/js/hris-bta-pagination-js.js}"></script>-->
     <script
@@ -39,9 +39,8 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-danger card-header-text">TES 1 - PSIKOTES</h1>
+                <h1 class="h3 mb-2 text-danger card-header-text" th:text="TES 2 - ${hasilTes.submittedPaketSoal.nama}"></h1>
                 <div id="status"></div>
-                <p th:text="${hasilTes.submittedPaketSoal.nama}"></p>
 
                 <!-- Soal -->
                 <div id="loop">
@@ -50,12 +49,13 @@
                                 <div class="card-body">
                                     <b><p th:text="${iterationStatus.count} + '.'"></p></b>
                                     <p th:utext="${soal.pertanyaan}"></p>
-                                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}" id="tes">
+                                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-matapelajaran}" id="tes">
                                         <ul>
                                             <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
                                                 <!-- buat ngasih liat jawaban yang ada right -->
                                                 <input class="radioButton" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" th:value="${jawaban.idJawaban}" />
                                                 <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
+                                                <!-- nah how to check the picked radio button will get added to hasiltes object -->
                                             </li>
                                         </ul>
                                 </div>
@@ -182,7 +182,7 @@
         }
     });
 
-    secs = 3600;
+    secs = 5400;
     timer = setInterval(function () {
         var element = document.getElementById("status");
         element.innerHTML = "<h4>Waktu tersisa <b>"+Math.round((secs/60))+"</b> menit lagi..</h4>";
