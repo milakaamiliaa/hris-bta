@@ -32,11 +32,17 @@ public class TesController {
     @RequestMapping(value = "/calonpengajar/tes-psikotes", method = RequestMethod.GET)
     public String tesPsikotes(Model model) {
         List<SoalModel> listSoal = PaketSoalService.getPaketById(Long.valueOf(1)).getListSoal();
+        model.addAttribute("jumlahSoal", listSoal.size());
         model.addAttribute("listSoal", listSoal);
         model.addAttribute("soal", new SoalModel());
         model.addAttribute("jawaban", new JawabanModel());
 
         return "tes-psikotes";
+    }
+
+    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
+    public String aturanMataPelajaran(Model model) {
+        return "aturan-tes-matpel";
     }
 }
 
