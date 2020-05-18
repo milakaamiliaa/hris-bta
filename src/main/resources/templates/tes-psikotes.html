@@ -28,8 +28,10 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" style="height: 3rem;">
                 <!-- Topbar Navbar -->
+                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">< Kembali</a>
+
                 <ul class="navbar-nav ml-auto">
                         <!-- Buat waktunya nanti disini ya -->
                 </ul>
@@ -40,6 +42,7 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-danger card-header-text">TES 1 - PSIKOTES</h1>
+                <h3 class="h5 mb-2 text-danger card-header-text" th:text="'(Jumlah soal: ' + ${jumlahSoal} + ')'"></h3><br>
                 <div id="status"></div>
                 <p th:text="${hasilTes.submittedPaketSoal.nama}"></p>
 
@@ -48,23 +51,25 @@
                         <tr th:each="soal, iterationStatus : ${hasilTes.submittedPaketSoal.listSoal}">
                             <div class="card shadow mb-4">
                                 <div class="card-body">
-                                    <b><p th:text="${iterationStatus.count} + '.'"></p></b>
-                                    <p th:utext="${soal.pertanyaan}"></p>
+                                    <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
                                     <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}" id="tes">
                                         <ul>
                                             <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
                                                 <!-- buat ngasih liat jawaban yang ada right -->
-                                                <input class="radioButton" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" th:value="${jawaban.idJawaban}" />
+                                                <input class="radioButton" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" th:value="${jawaban.idJawaban}"/>
                                                 <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
                                             </li>
                                         </ul>
+                                    </form>
                                 </div>
                             </div>
                         </tr>
                 </div>
 
                 <nav aria-label="Page navigation example">
-                    <p id="showing" style="margin-right: 0"></p>
+                    <div style="text-align: right">
+                        <p id="showing"></p>
+                    </div>
                     <ul class="pagination justify-content-end">
                         <li id="prev-page">
                             <a class="page-link" href="javascript:void(0)" aria-label="Previous">
@@ -74,10 +79,11 @@
                     </ul>
                 </nav>
 
-                <div class="row">
-                    <button class="btn btn-primary" style="margin-right: 0" type="submit">Selesai</button>
+<!--                <div class="row">-->
+<!--                    <button class="btn btn-primary" style="margin-right: 0" type="submit">Selesai</button>-->
+                <div class="text-center">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">Selesai</button>
                 </div>
-            </form>
 
             </div>
             <!-- /.container-fluid -->
@@ -101,6 +107,50 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
+<!-- Modal Konfirmasi Kembali-->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PEMBATALAN TES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" th:text="'Anda yakin ingin meninggalkan halaman ini? Hasil tes belum tersimpan sampai anda menekan tombol Selesai.'">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <form th:action="@{/calonpengajar/tes-psikotes}">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Selesai-->
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PEMBATALAN TES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" th:text="'Apakah anda yakin telah selesai mengerjakan tes? Hasil tes akan tersimpan dan tidak dapat diubah.'">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <form th:action="@{/calonpengajar/aturan-mata-pelajaran}">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Logout Modal-->
 <div th:replace="fragments/fragment :: logout">
 </div>
@@ -109,18 +159,17 @@
     var numberOfItems = $("#loop .card").length;
     var limitPerPage = 5;
     var pageini = $(".pagination li.active").index() + 2;
-    
-    $('#loop .card:gt(' + (limitPerPage - 1) + ')').hide(); // Hide all items over page limits (e.g., 5th item, 6th item, etc.)
-    var totalPages = Math.ceil(numberOfItems / limitPerPage); // Get number of pages
+
+    $('#loop .card:gt(' + (limitPerPage - 1) + ')').hide();
+    var totalPages = Math.ceil(numberOfItems / limitPerPage);
     document.getElementById("showing").innerHTML = "Halaman " + pageini + " dari " + totalPages;
 
     $(".pagination").append("<li class='page-item active'><a class='page-link' href='javascript:void(0)'>" + 1 + "</a></li>");
 
     for (var i = 2; i <= totalPages; i++) {
-        $(".pagination").append("<li class='page-item'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>"); // Insert page number into pagination tabs
+        $(".pagination").append("<li class='page-item'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>");
     }
 
-    // Add next button after all the page numbers
     $(".pagination").append("<li id='next-page'><a class='page-link' href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
 
     $(".pagination li.page-item").on("click", function () {
@@ -134,12 +183,10 @@
             $("#loop .card").hide();
 
             var grandTotal = limitPerPage * currentPage;
-            var start = grandTotal - limitPerPage;
             var i;
             for (i = grandTotal - limitPerPage; i < grandTotal; i++) {
                 $("#loop .card:eq(" + i + ")").show();
             }
-            // document.getElementById("showing").innerHTML = "showing " + start + " - " + i + " dari " + numberOfItems;
             document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
 
         }
@@ -175,7 +222,7 @@
 
             var grandTotal = limitPerPage * currentPage;
             for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
-                $("#loop .card:eq(" + i + ")").show(); // Show items from the new page that was selected
+                $("#loop .card:eq(" + i + ")").show();
             }
             $(".pagination li.page-item:eq(" + (currentPage - 1) + ")").addClass("active");
             document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;

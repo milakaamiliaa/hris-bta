@@ -58,6 +58,7 @@ public class TesController {
             // POST
             model.addAttribute("paketSoal", paketSoalToPost);
             model.addAttribute("hasilTes", hasilTes);
+            model.addAttribute("jumlahSoal", hasilTes.getSubmittedPaketSoal().getListSoal().size());
 
             return "tes-psikotes";
         }
@@ -127,8 +128,7 @@ public class TesController {
         // POST
         model.addAttribute("paketSoal", paketSoalToPost);
         model.addAttribute("hasilTes", hasilTes);
-
-
+        model.addAttribute("jumlahSoal", hasilTes.getSubmittedPaketSoal().getListSoal().size());
 
 //        List<SoalModel> listSoal = PaketSoalService.getPaketSoalByIdPaket(Long.valueOf(1)).getListSoal();
 //        HasilTesModel hasilTes = new HasilTesModel();
@@ -250,7 +250,12 @@ public class TesController {
 //        }nilai = (nilai/(hasilTes.getListJawaban().size())) * 100;
 //        hasil.setNilai(nilai);
 
-        return "redirect:/";
+        return "aturan-tes-matpel";
+    }
+
+    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
+    public String aturanMataPelajaran(Model model) {
+        return "aturan-tes-matpel";
     }
 }
 
