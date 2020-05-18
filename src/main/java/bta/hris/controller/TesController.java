@@ -49,7 +49,6 @@ public class TesController {
 
     @RequestMapping(value = "/calonpengajar/tes-psikotes", method = RequestMethod.GET)
     public String tesPsikotes(Model model) {
-        // Prevent duplicate insert of submitted models
         if (hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
                 SecurityContextHolder.getContext().getAuthentication().getName())) != null) {
             HasilTesModel hasilTes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
@@ -140,11 +139,107 @@ public class TesController {
     }
 
     @RequestMapping(value = "/calonpengajar/tes-psikotes", method = RequestMethod.POST)
-    public String submitTes(@ModelAttribute HasilTesModel hasilTes, Model model, RedirectAttributes redirect) {
+    public String submitPsikotes(@ModelAttribute HasilTesModel hasilTes, Model model, RedirectAttributes redirect) {
         HasilTesModel hasil = new HasilTesModel();
         hasil.setFinishedAt(LocalDate.now());
         hasil.setCalonPengajar(hasilTes.getCalonPengajar());
-//        hasil.setListJawaban(hasilTes.getListJawaban());
+        hasil.setStartedAt(hasilTes.getStartedAt());
+
+       Integer nilai = 0;
+       List<SubmittedSoalModel> listSoal = hasilTes.getSubmittedPaketSoal().getListSoal();
+       for (SubmittedSoalModel soal : listSoal){
+           for(SubmittedJawabanModel jawaban : soal.getListJawaban()){
+               if(jawaban.isChosen() && jawaban.isCorrect()){
+                   nilai += 1;
+               }
+           }
+       }
+       
+       nilai = (nilai/listSoal.size()) * 100;
+       hasil.setNilai(nilai);
+        return "redirect:/calonpengajar/aturan-tes-matapelajaran";
+    }
+
+    @RequestMapping(value = "/calonpengajar/aturan-tes-matapelajaran", method = RequestMethod.GET)
+    public String aturanTesMatapelajaran(Model model) {
+        return "aturan-tes-matpel";
+    }
+
+    @RequestMapping(value = "/calonpengajar/tes-matapelajaran", method = RequestMethod.GET)
+    public String tesMataPelajaran(Model model) {
+        if (hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
+                SecurityContextHolder.getContext().getAuthentication().getName())) != null) {
+            HasilTesModel hasilTes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
+                    SecurityContextHolder.getContext().getAuthentication().getName()));
+            SubmittedPaketSoalModel paketSoalToPost = hasilTes.getSubmittedPaketSoal();
+
+            model.addAttribute("paketSoal", paketSoalToPost);
+            model.addAttribute("hasilTes", hasilTes);
+
+            return "tes-psikotes";
+        }
+        CalonPengajarModel calon = calonPengajarService.getCalonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByMataPelajaran(calon.getMataPelajaran());
+
+        // duplicating master data to submitted data + save to db
+        HasilTesModel hasilTes = new HasilTesModel();
+        hasilTes.setStartedAt(LocalDate.now());
+        hasilTes.setCalonPengajar(calonPengajarService.getCalonByUsername(
+                SecurityContextHolder.getContext().getAuthentication().getName()));
+
+        SubmittedPaketSoalModel submittedPaketSoal = new SubmittedPaketSoalModel();
+
+        List<SubmittedSoalModel> submittedSoal = new ArrayList<>();
+
+        for (SoalModel s : paketSoal.getListSoal()) {
+            List<SubmittedJawabanModel> submittedJawaban = new ArrayList<SubmittedJawabanModel>();
+
+            SubmittedSoalModel ss = new SubmittedSoalModel();
+
+            for (JawabanModel j : s.getListJawaban()) {
+                SubmittedJawabanModel jj = new SubmittedJawabanModel();
+                jj.setJawaban(j.getJawaban());
+                jj.setSoal(ss);
+                jj.setChosen(false);
+                jj.setCorrect(j.isCorrect());
+
+                submittedJawaban.add(jj);
+            }
+
+            ss.setPaketSoal(submittedPaketSoal);
+            ss.setPertanyaan(s.getPertanyaan());
+            ss.setListJawaban(submittedJawaban);
+
+            submittedSoal.add(ss);
+        }
+
+        submittedPaketSoal.setHasilTes(hasilTes);
+        submittedPaketSoal.setMataPelajaran(paketSoal.getMataPelajaran());
+        submittedPaketSoal.setNama(paketSoal.getNama());
+        submittedPaketSoal.setListSoal(submittedSoal);
+
+        hasilTes.setSubmittedPaketSoal(submittedPaketSoal);
+        hasilTesService.addHasilTes(hasilTes);
+
+        SubmittedPaketSoalModel paketSoalToPost = submittedPaketSoalService.addSubmittedPaketSoal(submittedPaketSoal); // save+retrieve
+        for (SubmittedSoalModel s : submittedPaketSoal.getListSoal()) {
+            submittedSoalService.addSubmittedSoal(s);
+
+            for (SubmittedJawabanModel j : s.getListJawaban()) {
+                submittedJawabanService.addSubmittedJawaban(j);
+            }
+        }
+
+        model.addAttribute("paketSoal", paketSoalToPost);
+        model.addAttribute("hasilTes", hasilTes);
+        return "tes-psikotes";
+    }
+
+    @RequestMapping(value = "/calonpengajar/tes-matapelajaran", method = RequestMethod.POST)
+    public String submitTesMataPelajaran(@ModelAttribute HasilTesModel hasilTes, Model model, RedirectAttributes redirect) {
+        HasilTesModel hasil = new HasilTesModel();
+        hasil.setFinishedAt(LocalDate.now());
+        hasil.setCalonPengajar(hasilTes.getCalonPengajar());
         hasil.setStartedAt(hasilTes.getStartedAt());
 
 //        Integer nilai = 0;

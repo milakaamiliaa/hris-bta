@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeLeaf.org">
+
+
+<head>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Tes Mata Pelajaran Pilihan</title>
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+<!--    <script th:src="@{/js/hris-bta-pagination-js.js}"></script>-->
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+
+</head>
+
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                        <!-- Buat waktunya nanti disini ya -->
+                </ul>
+            </nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-danger card-header-text" th:text="TES 2 - ${hasilTes.submittedPaketSoal.nama}"></h1>
+                <div id="status"></div>
+
+                <!-- Soal -->
+                <div id="loop">
+                        <tr th:each="soal, iterationStatus : ${hasilTes.submittedPaketSoal.listSoal}">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <b><p th:text="${iterationStatus.count} + '.'"></p></b>
+                                    <p th:utext="${soal.pertanyaan}"></p>
+                                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-matapelajaran}" id="tes">
+                                        <ul>
+                                            <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
+                                                <!-- buat ngasih liat jawaban yang ada right -->
+                                                <input class="radioButton" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" th:value="${jawaban.idJawaban}" />
+                                                <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
+                                                <!-- nah how to check the picked radio button will get added to hasiltes object -->
+                                            </li>
+                                        </ul>
+                                </div>
+                            </div>
+                        </tr>
+                </div>
+
+                <nav aria-label="Page navigation example">
+                    <p id="showing" style="margin-right: 0"></p>
+                    <ul class="pagination justify-content-end">
+                        <li id="prev-page">
+                            <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="row">
+                    <button class="btn btn-primary" style="margin-right: 0" type="submit">Selesai</button>
+                </div>
+            </form>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
+</div>
+
+<script>
+    var numberOfItems = $("#loop .card").length;
+    var limitPerPage = 5;
+    var pageini = $(".pagination li.active").index() + 2;
+    
+    $('#loop .card:gt(' + (limitPerPage - 1) + ')').hide(); // Hide all items over page limits (e.g., 5th item, 6th item, etc.)
+    var totalPages = Math.ceil(numberOfItems / limitPerPage); // Get number of pages
+    document.getElementById("showing").innerHTML = "Halaman " + pageini + " dari " + totalPages;
+
+    $(".pagination").append("<li class='page-item active'><a class='page-link' href='javascript:void(0)'>" + 1 + "</a></li>");
+
+    for (var i = 2; i <= totalPages; i++) {
+        $(".pagination").append("<li class='page-item'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>"); // Insert page number into pagination tabs
+    }
+
+    // Add next button after all the page numbers
+    $(".pagination").append("<li id='next-page'><a class='page-link' href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
+
+    $(".pagination li.page-item").on("click", function () {
+        if ($(this).hasClass("active")){
+            return false;
+        }
+        else {
+            var currentPage = $(this).index();
+            $(".pagination li").removeClass("active");
+            $(this).addClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            var start = grandTotal - limitPerPage;
+            var i;
+            for (i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show();
+            }
+            // document.getElementById("showing").innerHTML = "showing " + start + " - " + i + " dari " + numberOfItems;
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+
+        }
+    });
+
+    $("#next-page").on("click", function() {
+        var currentPage = $(".pagination li.active").index();
+        if (currentPage === totalPages) {
+            return false;
+        } else {
+            currentPage++;
+            $(".pagination li").removeClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show();
+            }
+
+            $(".pagination li.page-item:eq(" + (currentPage - 1) + ")").addClass("active");
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+        }
+    });
+
+    $("#prev-page").on("click", function() {
+        var currentPage = $(".pagination li.active").index();
+        if (currentPage === 1) {
+            return false;
+        } else {
+            currentPage--;
+            $(".pagination li").removeClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show(); // Show items from the new page that was selected
+            }
+            $(".pagination li.page-item:eq(" + (currentPage - 1) + ")").addClass("active");
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+        }
+    });
+
+    secs = 5400;
+    timer = setInterval(function () {
+        var element = document.getElementById("status");
+        element.innerHTML = "<h4>Waktu tersisa <b>"+Math.round((secs/60))+"</b> menit lagi..</h4>";
+        if(secs < 1){
+            clearInterval(timer);
+            document.getElementById('tes').submit();
+        }
+        secs--;
+    }, 1000)
+
+</script>
+</body>
+</html>

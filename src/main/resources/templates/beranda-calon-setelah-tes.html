@@ -3,7 +3,7 @@
 
 <head>
     <object th:include = "fragments/fragment :: head"></object>
-    <title>Aturan Tes Psikotes</title>
+    <title>Beranda</title>
 </head>
 
 
@@ -30,29 +30,24 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- Card -->
                 <div class="card shadow mb-4 border-bottom-danger">
-                    <!-- Button trigger modal -->
-                    <br> <h1 class="h3 mb-2 text-danger card-header-text">TES 1 - PSIKOTES</h1>
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <p class="text-justify">1. Psikotes merupakan tes yang bertujuan untuk melihat kondisi psikolog atau karakter peserta.</p>
-                                <p class="text-justify">2. Tipe soal adalah pilihan berganda, peserta dapat memilih salah satu jawaban dari pilihan jawaban yang telah disediakan.</p>
-                                <p class="text-justify">3. Tidak dianjurkan untuk melakukan tindak kecurangan dalam bentuk apapun, resiko atas terjadinya kecurangan ditanggung penuh oleh peserta.</p>
-                                <p class="text-justify">4. Apabila peserta <span class="details-title">MENINGGALKAN HALAMAN TES</span> sebelum menyelesaikan tes secara keseluruhan, maka peserta dianggap <span class="details-title">TELAH MENYELESAIKAN</span> seluruh tes.</p>
-                                <p class="text-justify">5. Setelah psikotes selesai akan dilanjutkan oleh tes mata pelajaran yang berlangsung selama 90 menit</p>
-
+                                <img src="/img/Kerjakan-Psikotes.png" class="card-logo">
                             </div>
                         </div>
-                        <div class="text-center">
-                            <a th:href="@{/calonpengajar/tes-psikotes/}">
-                                <button class="btn btn-primary">Mulai</button>
-                            </a>
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="h3 mb-2 text-danger card-header-text">Terima kasih!</h1>
+                                <p class="mb-2" style="text-align: center;">Representatif BTA akan segera menghubungimu jika profil dan hasil tes kamu memuaskan. Semoga berhasil!</p>
+                            </div>
                         </div>
                     </div>
 
                 </div>
+
             </div>
             <!-- /.container-fluid -->
 
@@ -78,5 +73,7 @@
 <!-- Logout Modal-->
 <div th:replace="fragments/fragment :: logout">
 </div>
+
 </body>
+
 </html>
