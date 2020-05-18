@@ -44,16 +44,17 @@
 
                 <!-- Soal -->
                 <div id="loop">
-                        <tr th:each="soal, iterationStatus : *{listSoal}">
+                        <tr th:each="soal, iterationStatus : ${hasilTes.submittedPaketSoal.listSoal}">
                             <div class="card shadow mb-4">
                                 <div class="card-body">
-                                    <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
+                                    <b><p th:text="${iterationStatus.count} + '.'"></p></b>
+                                    <p th:utext="${soal.pertanyaan}"></p>
                                     <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}" id="tes">
                                         <ul>
-                                            <li class="no-bullets" th:action="@{#}" th:each="jawaban : ${soal.listJawaban}">
+                                            <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
                                                 <!-- buat ngasih liat jawaban yang ada right -->
-                                                <input class="radioButton" type="radio" th:field="${jawaban.idJawaban}" th:value="${jawaban.idJawaban}" />
-                                                <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
+                                                <input class="radioButton" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" th:value="${jawaban.idJawaban}" />
+                                                <label th:for="${jawaban.idJawaban}" th:utext="${jawaban.jawaban}"></label>
                                                 <!-- nah how to check the picked radio button will get added to hasiltes object -->
                                             </li>
                                         </ul>

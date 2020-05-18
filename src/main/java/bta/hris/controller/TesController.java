@@ -55,10 +55,9 @@ public class TesController {
             HasilTesModel hasilTes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
                     SecurityContextHolder.getContext().getAuthentication().getName()));
             SubmittedPaketSoalModel paketSoalToPost = hasilTes.getSubmittedPaketSoal();
-            List<SubmittedSoalModel> soalToPost = paketSoalToPost.getListSoal();
 
             // POST
-            model.addAttribute("listSoal", soalToPost);
+            model.addAttribute("paketSoal", paketSoalToPost);
             model.addAttribute("hasilTes", hasilTes);
 
             return "tes-psikotes";
@@ -126,10 +125,8 @@ public class TesController {
             }
         }
 
-        List<SubmittedSoalModel> soalToPost = paketSoalToPost.getListSoal();
-
         // POST
-        model.addAttribute("listSoal", soalToPost);
+        model.addAttribute("paketSoal", paketSoalToPost);
         model.addAttribute("hasilTes", hasilTes);
 
 
