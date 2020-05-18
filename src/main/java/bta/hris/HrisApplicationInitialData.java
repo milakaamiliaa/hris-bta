@@ -41,6 +41,7 @@ public class HrisApplicationInitialData implements ApplicationRunner {
             u.setRole(roleService.getRoleById(Long.parseLong("1")));
 
             userService.addUser(u);
+            
         }
     }
 }
