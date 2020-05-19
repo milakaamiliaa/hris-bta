@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -101,6 +102,7 @@ public class TesController {
 
             ss.setPaketSoal(submittedPaketSoal);
             ss.setPertanyaan(s.getPertanyaan());
+            Collections.shuffle(submittedJawaban);
             ss.setListJawaban(submittedJawaban);
 
             submittedSoal.add(ss);
