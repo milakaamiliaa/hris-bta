@@ -46,6 +46,9 @@ public class PresensiController {
     @Autowired
     private PesanPenolakanService pesanPenolakanService;
 
+    @Autowired
+    private CabangDataService cabangDataService;
+
 
     @RequestMapping(value="/presensi", method = RequestMethod.GET)
     public String daftarPresensi(Model model){
@@ -164,6 +167,7 @@ public class PresensiController {
     @RequestMapping(value = "presensi/setujui/{idPresensi}", method = RequestMethod.POST)
     public String setujuiPresensi(@PathVariable Long idPresensi, @ModelAttribute PresensiModel presensi, Model model, RedirectAttributes redirect) {
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
+        PresensiModel newPresensi = new PresensiModel();
 
         String month = "";
         if (String.valueOf(presensi.getTanggalPresensi().getMonthValue()).length() == 1) {
@@ -177,7 +181,102 @@ public class PresensiController {
         presensi.setKodeGaji(month + year);
         presensi.setStatus("disetujui");
 
-        PresensiModel newPresensi = presensiService.approvePresensi(presensi);
+        // ==== CabangDataModel ====
+        // Cek dia di cabang mana.
+        CabangModel cabangOfPresensi = presensi.getCabang();
+
+        // Get periode.
+        // Periode, formatnya String "MMYY", mirip sama kodeGaji (yang merupakan periode dari gaji tsb).
+        LocalDate tanggal = LocalDate.now();
+        String mm = "";
+        if (String.valueOf(tanggal.getMonthValue()).length() == 1) {
+            mm = "0" + tanggal.getMonthValue();
+        }
+
+        else {
+            mm = String.valueOf(tanggal.getMonthValue());
+        }
+        String yy = String.valueOf(tanggal.getYear()).substring(2,4);
+
+        // Cek CabangData-nya ada atau nggak di periode itu.
+        if (cabangDataService.getCabangDataByCabangAndPeriode(cabangOfPresensi, mm+yy) == null) {
+            // Kalo gak ada, bikin baru.
+            CabangDataModel cabangData = new CabangDataModel();
+            presensi.setCabangData(cabangData);
+            cabangData.setCabang(cabangOfPresensi);
+
+            cabangData = cabangDataService.addCabangData(cabangData);
+
+            newPresensi = presensiService.approvePresensi(presensi);
+
+            List<PresensiModel> newList = cabangData.getListPresensi();
+            newList.add(newPresensi);
+            cabangData.setListPresensi(newList);
+
+            cabangData = cabangDataService.updateCabangData(cabangData);
+        }
+
+        else {
+            // Kalau ada, update.
+            CabangDataModel cabangData = cabangDataService.getCabangDataByCabangAndPeriode(cabangOfPresensi, mm+yy);
+
+            presensi.setCabangData(cabangData);
+
+            newPresensi = presensiService.approvePresensi(presensi);
+
+            List<PresensiModel> listOfPresensi = cabangData.getListPresensi();
+            listOfPresensi.add(newPresensi);
+
+            cabangData.setListPresensi(listOfPresensi);
+
+            cabangDataService.updateCabangData(cabangData);
+        }
+        // =========================
+
+        // ==== CabangDataModel ====
+//        // Cek dia di cabang mana.
+//        CabangModel cabangOfPresensi = newPresensi.getCabang();
+//
+//        // Get periode.
+//        // Periode, formatnya String "MMYY", mirip sama kodeGaji (yang merupakan periode dari gaji tsb).
+//        LocalDate tanggal = LocalDate.now();
+//        String mm = "";
+//        if (String.valueOf(tanggal.getMonthValue()).length() == 1) {
+//            mm = "0" + tanggal.getMonthValue();
+//        }
+//
+//        else {
+//            mm = String.valueOf(tanggal.getMonthValue());
+//        }
+//        String yy = String.valueOf(tanggal.getYear()).substring(2,4);
+//
+//        // Cek CabangData-nya ada atau nggak di periode itu.
+//        if (cabangDataService.getCabangDataByCabangAndPeriode(cabangOfPresensi, mm+yy) == null) {
+//            // Kalo gak ada, bikin baru.
+//            CabangDataModel cabangData = new CabangDataModel();
+//            presensi.setCabangData(cabangData);
+//            cabangData.setCabang(cabangOfPresensi);
+//
+//
+//            List<PresensiModel> newList = cabangData.getListPresensi();
+//            newList.add(presensi);
+//            cabangData.setListPresensi(newList);
+//
+//            cabangDataService.addCabangData(cabangData);
+//        }
+
+//        else {
+//            // Kalau ada, update.
+//            CabangDataModel cabangData = cabangDataService.getCabangDataByCabangAndPeriode(cabangOfPresensi, mm+yy);
+//            List<PresensiModel> listOfPresensi = cabangData.getListPresensi();
+//            listOfPresensi.add(presensi);
+//
+//            cabangData.setListPresensi(listOfPresensi);
+//
+//            cabangDataService.updateCabangData(cabangData);
+//        }
+        // ==========================
+
         Long sesiTambahan;
         if(newPresensi.getSesiTambahan() == null){
             sesiTambahan = (long)0;
@@ -231,6 +330,11 @@ public class PresensiController {
                 gajiService.addGaji(newPeriode);
             }
         }
+
+        // ==== CabangDataModel ====
+
+        // =========================
+
         model.addAttribute("presensi", newPresensi);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");

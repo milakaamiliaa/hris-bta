@@ -52,7 +52,7 @@ public class PresensiModel implements Serializable {
     @Column(name = "kodeGaji", nullable = true)
     private String kodeGaji;
 
-    @ ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "cabang", referencedColumnName= "idCabang", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CabangModel cabang;
@@ -61,6 +61,12 @@ public class PresensiModel implements Serializable {
     @JoinColumn(name = "pengaju", referencedColumnName= "idUser", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserModel pegawai;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "cabangData", referencedColumnName = "idCabangData")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private CabangDataModel cabangData;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "presensi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -152,5 +158,13 @@ public class PresensiModel implements Serializable {
 
     public void setListPesanPenolakan(List<PesanPenolakanModel> listPesanPenolakan) {
         this.listPesanPenolakan = listPesanPenolakan;
+    }
+
+    public CabangDataModel getCabangData() {
+        return cabangData;
+    }
+
+    public void setCabangData(CabangDataModel cabangData) {
+        this.cabangData = cabangData;
     }
 }

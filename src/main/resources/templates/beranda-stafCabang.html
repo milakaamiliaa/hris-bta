@@ -3,6 +3,7 @@
 
 <head>
     <object th:include = "fragments/fragment :: head"></object>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <title>Beranda</title>
 </head>
 <body id="page-top">
@@ -28,6 +29,22 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <!-- Chart Container -->
+                <div class="row">
+                    <div class="col-sm align-content-center">
+                        <div class="card shadow mb-4 border-left-danger h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col">
+
+                                        <canvas id="myChart" width="1" height="1"></canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Card -->
                 <div class="row">
 
@@ -117,6 +134,31 @@
     </div>
     <!-- End of Content Wrapper -->
 
+    <!-- ChartJS -->
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    lineTension: 0,
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
 </div>
 <!-- End of Page Wrapper -->
 
@@ -128,6 +170,8 @@
 <!-- Logout Modal-->
 <div th:replace="fragments/fragment :: logout">
 </div>
+
+
 
 </body>
 </html>

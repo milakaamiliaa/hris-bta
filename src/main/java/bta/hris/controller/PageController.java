@@ -39,8 +39,17 @@ public class PageController {
     public String home (Model model) {
         model.addAttribute("listRole", roleService.getAllRole());
 
+
         try{
             UserDetails loggedIn = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
+            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
+            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
+            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
+            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
+            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
+            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
+
             if(userService.getByNip(loggedIn.getUsername()).getRole().getNama().equals("CALON PENGAJAR")){
                 CalonPengajarModel calonPengajar = calonPengajarService.getCalonByUsername(loggedIn.getUsername());
                 LocalDate deadline = calonPengajar.getTesDeadline();

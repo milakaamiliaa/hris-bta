@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface CabangService {
     List<CabangModel> getCabangList();
     Optional<CabangModel> getCabangByIdCabang(Long idCabang);
-    void createCabang(CabangModel cabang);
+    CabangModel createCabang(CabangModel cabang);
     CabangModel updateCabang(CabangModel cabang);
     void deleteCabang(CabangModel cabang);
     Optional<CabangModel> getCabangByStafCabang(UserModel stafCabang);

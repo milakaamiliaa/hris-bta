@@ -82,7 +82,7 @@ public class GajiController{
             GajiModel gajiModel = gajiService.getGajiByIdGaji(idGaji).get();
             UserModel pegawai = gajiModel.getPegawai();
             List<PresensiModel> presensiList = presensiService.getAllPresensiByCabangAndPegawaiAndStatus
-                    (cabangModel, pegawai, "diterima");
+                    (cabangModel, pegawai, "disetujui");
 
             for (PresensiModel presensi : presensiList){
                 if (presensi.getSesiTambahan()==null){

@@ -44,9 +44,9 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
-    public void createCabang(CabangModel cabang){
+    public CabangModel createCabang(CabangModel cabang){
         cabang.setActive(true);
-        cabangDb.save(cabang);
+        return cabangDb.save(cabang);
     }
 
     @Override

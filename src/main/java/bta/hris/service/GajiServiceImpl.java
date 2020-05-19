@@ -107,7 +107,7 @@ public class GajiServiceImpl implements GajiService{
 
         } else {
             for (PresensiModel presensi : presensiCabang) {
-                if (presensi.getStatus().equalsIgnoreCase("diterima")){
+                if (presensi.getStatus().equalsIgnoreCase("disetujui")){
                     if (presensi.getTanggalPresensi().getMonthValue()==periode.getMonthValue() &&
                             presensi.getTanggalPresensi().getYear()==periode.getYear()) {
                         if (presensi.getSesiTambahan() != null) {
@@ -138,7 +138,7 @@ public class GajiServiceImpl implements GajiService{
 
     @Override
     public List<GajiModel> getAllGajiPengajarCabangMonthly(CabangModel cabang, LocalDate periode) {
-        List<PresensiModel> presensiCabang = presensiService.getAllPresensiByCabangAndStatus(cabang, "diterima");
+        List<PresensiModel> presensiCabang = presensiService.getAllPresensiByCabangAndStatus(cabang, "disetujui");
         ArrayList<GajiModel> gajiPengajarList= new ArrayList<>();
         ArrayList<GajiModel> gajiPengajarListSorted= new ArrayList<>();
         if (presensiCabang.size() !=0 ){
