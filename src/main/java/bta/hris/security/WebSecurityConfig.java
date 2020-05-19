@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/presensi/kelola").hasAnyAuthority(("STAF CABANG"))
 
                 .antMatchers("/presensi/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))
-                .antMatchers("/pegawai/**").permitAll()
+                .antMatchers("/pegawai/**").hasAnyAuthority(("ADMIN"))
                 .antMatchers("/gaji/**").hasAnyAuthority(("ADMIN"), ("DIREKTUR"), ("PENGAJAR"), ("STAF CABANG"))
                 .antMatchers("/registrasi").anonymous()
                 .antMatchers("/").permitAll()
@@ -49,13 +49,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Autowired
-    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(encoder())
-                .withUser("root").password(encoder().encode("toor"))
-                .roles("ADMIN");
-    }
+//    @Autowired
+//    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(encoder())
+//                .withUser("admin").password(encoder().encode("admin"))
+//                .roles("USER");
+//    }
 
 
     @Autowired

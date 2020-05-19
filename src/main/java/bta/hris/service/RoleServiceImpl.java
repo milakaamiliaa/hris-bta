@@ -5,7 +5,6 @@ import bta.hris.repository.RoleDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -25,8 +24,4 @@ public class RoleServiceImpl implements RoleService {
         return RoleDB.findAll();
     }
 
-    @Override
-    public RoleModel addRole(RoleModel role) {
-        return RoleDB.save(role);
-    }
 }
