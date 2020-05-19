@@ -55,11 +55,12 @@ public class TesController {
             HasilTesModel hasilTes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
                     SecurityContextHolder.getContext().getAuthentication().getName()));
             SubmittedPaketSoalModel paketSoalToPost = hasilTes.getSubmittedPaketSoal();
+            Integer jumlahSoal = hasilTes.getSubmittedPaketSoal().getListSoal().size();
 
             // POST
             model.addAttribute("paketSoal", paketSoalToPost);
             model.addAttribute("hasilTes", hasilTes);
-            model.addAttribute("jumlahSoal", hasilTes.getSubmittedPaketSoal().getListSoal().size());
+            model.addAttribute("jumlahSoal", jumlahSoal);
 
             return "tes-psikotes";
         }
@@ -244,15 +245,19 @@ public class TesController {
         hasil.setCalonPengajar(hasilTes.getCalonPengajar());
         hasil.setStartedAt(hasilTes.getStartedAt());
 
-//        Integer nilai = 0;
-//        for (JawabanModel jawaban : hasilTes.getListJawaban()){
-//            if (jawaban.getIsCorrect()){
-//                nilai += 1;
-//            }
-//        }nilai = (nilai/(hasilTes.getListJawaban().size())) * 100;
-//        hasil.setNilai(nilai);
-
-        return "aturan-tes-matpel";
+       Integer nilai = 0;
+       List<SubmittedSoalModel> listSoal = hasilTes.getSubmittedPaketSoal().getListSoal();
+       for (SubmittedSoalModel soal : listSoal){
+           for(SubmittedJawabanModel jawaban : soal.getListJawaban()){
+               if(jawaban.isChosen() && jawaban.isCorrect()){
+                   nilai += 1;
+               }
+           }
+       }
+       
+       nilai = (nilai/listSoal.size()) * 100;
+       hasil.setNilai(nilai);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
