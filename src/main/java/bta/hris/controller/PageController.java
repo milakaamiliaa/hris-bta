@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.time.format.TextStyle;
+import java.util.*;
 
 @Controller
 public class PageController {
@@ -33,6 +31,9 @@ public class PageController {
 
     @Autowired
     GajiService gajiService;
+
+    @Autowired
+    CabangDataService cabangDataService;
 
 
     @RequestMapping("/")
@@ -73,6 +74,29 @@ public class PageController {
                 model.addAttribute("cabangModel", cabangModel);
                 model.addAttribute("gajiModel", gajiModel);
                 model.addAttribute("userModel", userModel);
+
+                // ==== Keperluan Models Attribute untuk grafik ====
+                    // List CabangData yang akan dipakai (5 bulan ke belakang dari bulan sekarang).
+                List<CabangDataModel> listCabangData = cabangDataService.getCabangDatasForXPeriodBeforeNow(5, cabangModel);
+
+                    // Periode dan Rasio (utk label dan data grafik): attempt for "aaa,bbb" format to be later parsed in front-end
+                String periodeString = "";
+                String rasioString = "";
+
+                for (CabangDataModel c : listCabangData) {
+                    periodeString += periodParser(c.getCreatedAt());
+                    periodeString += ",";
+
+                    rasioString += Float.toString(c.getRasio());
+                    rasioString += ",";
+                }
+
+                periodeString = periodeString.substring(0, periodeString.length()-1);
+                rasioString = rasioString.substring(0, rasioString.length()-1);
+
+                model.addAttribute("periodeString", periodeString);
+                model.addAttribute("rasioString", rasioString);
+
                 return "beranda-stafCabang";
             }
             else{
@@ -94,5 +118,12 @@ public class PageController {
     @RequestMapping("/tabel")
     public String table() {
         return "tables";
+    }
+
+    public String periodParser(LocalDate date) {
+        String month = date.getMonth().getDisplayName(TextStyle.SHORT, Locale.US);
+        String year = Integer.toString(date.getYear());
+
+        return month + " " + year;
     }
 }

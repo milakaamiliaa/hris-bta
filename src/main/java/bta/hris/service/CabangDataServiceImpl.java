@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
+
 @Service
 public class CabangDataServiceImpl implements CabangDataService {
 
@@ -49,6 +52,8 @@ public class CabangDataServiceImpl implements CabangDataService {
         String year = String.valueOf(tanggal.getYear()).substring(2,4);
         cabangData.setPeriode(month + year);
 
+        cabangData.setCreatedAt(LocalDate.now());
+
         return cabangDataDB.save(cabangData);
     }
 
@@ -70,8 +75,26 @@ public class CabangDataServiceImpl implements CabangDataService {
     }
 
     @Override
+    public List<CabangDataModel> getCabangDatasForXPeriodBeforeNow(int x, CabangModel cabang) {
+        LocalDate nowTime = LocalDate.now();
+        LocalDate nowMinusOne = nowTime.withMonth(nowTime.getMonthValue()-1);
+
+        LocalDate end = nowMinusOne.with(lastDayOfMonth()); // 'end' utk masuk ke query
+
+        LocalDate minusOneMinusX = end.minusMonths(x);
+
+        LocalDate start = minusOneMinusX.with(firstDayOfMonth()); // 'start' utk masuk ke query
+
+        return cabangDataDB.findAllByCabangAndCreatedAtBetweenOrderByCreatedAtAsc(cabang, start, end);
+    }
+
+    @Override
     public Float calculateRasio(Float gaji, Long jumlahSiswa) {
-        Float rasio = gaji/jumlahSiswa;
+        if (gaji.equals(Float.parseFloat("0"))) {
+            return Float.parseFloat("0");
+        }
+
+        Float rasio = jumlahSiswa/gaji;
         return rasio;
     }
 }

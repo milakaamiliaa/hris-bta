@@ -35,7 +35,7 @@
                         <div class="card shadow mb-4 border-left-danger h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col">
+                                    <div class="col-6">
 
                                         <canvas id="myChart" width="1" height="1"></canvas>
 
@@ -134,17 +134,25 @@
     </div>
     <!-- End of Content Wrapper -->
 
+    <!-- Data for chart -->
+    <p id="periode-string" style="display: none;" th:text="${periodeString}"></p>
+    <p id="rasio-string" style="display: none;" th:text="${rasioString}"></p>
+
     <!-- ChartJS -->
     <script>
+        var labels = document.getElementById("periode-string").innerHTML.split(',');
+        var data = JSON.parse("[" + document.getElementById("rasio-string").innerHTML + "]");
+
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: labels,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'Rasio Efisiensi',
+                    data: data,
                     lineTension: 0,
+                    responsive: true,
                 }]
             },
             options: {
