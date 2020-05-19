@@ -30,21 +30,23 @@
             <div class="container-fluid">
 
                 <!-- Chart Container -->
-                <div class="row">
-                    <div class="col-sm align-content-center">
-                        <div class="card shadow mb-4 border-left-danger h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-6">
+                <div class="card shadow mb-4 border-bottom-danger">
+                    <div class="card-body">
+                        <div class="row align-content-center" style="width: 40%; height: 40%; margin-left: 30%; margin-right: auto;">
+                            <div class="col align-content-lg-center" style="width: 40%; height: 40%;">
+                                <canvas id="myChart" width="1" height="1"></canvas>
+                            </div>
+                        </div>
 
-                                        <canvas id="myChart" width="1" height="1"></canvas>
-
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="h5 mb-2 text-danger card-header-text" th:text="'Rasio Efisiensi Cabang ' + ${cabangModel.cabang}"></h1>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 <!-- Card -->
                 <div class="row">
 
