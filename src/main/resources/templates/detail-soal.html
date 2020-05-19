@@ -119,18 +119,59 @@
                                 <tr th:each="j, iterationStatus: ${jawaban}">
                                     <td class="text-center" th:text="${iterationStatus.count}"></td>
                                     <td class="text-center" th:utext="${#strings.abbreviate(j.jawaban,70)}"></td>
-                                    <td>
-                                        <div class="col-md-1">
-                                            <form th:action="@{/jawaban/ubah/}+${j.idJawaban}">
-                                                <button class="btn btn-ubah">Ubah</button>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <button type="button" class="btn btn-hapus" data-toggle="modal" th:data-target="'#exampleModalCenter' + ${iterationStatus.index}">
-                                                Hapus
-                                            </button>
+                                    <td class = "text-center">
+                                        <div class="contaier" style="width: 50%; margin: auto;">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <form th:action="@{/jawaban/ubah/}+${j.idJawaban}">
+                                                        <button class="btn btn-ubah">Ubah</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-hapus" data-toggle="modal" th:attr= "data-target='#exampleModalCenter' + ${j.idJawaban}">
+                                                        Hapus
+                                                    </button>
+
+                                                    <!-- Modal Konfirmasi Hapus jawaban -->
+
+                                                    <div class="modal fade" th:id="'exampleModalCenter' + ${j.idJawaban}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PENGHAPUSAN JAWABAN</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body" th:text="'Apakah Anda ingin menghapus jawaban?'">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+
+
+                                                                    <form  th:action="@{/jawaban/hapus/}+${j.idJawaban}" th:object="${j}" method="POST">
+<!--                                                                        <input hidden th:field="*{idJawaban}">-->
+
+                                                                        <button type="submit" class="btn btn-danger">Ya</button>
+
+                                                                    </form>
+
+                                                                    <!--                    <input hidden th:field="*{jawaban}">-->
+                                                                    <!--                    <input hidden th:field="*{isActive}">-->
+                                                                    <!--                    <input hidden th:field="*{isCorrect}">-->
+                                                                    <!--                    <input hidden th:field="*{soal}">-->
+                                                                    <!--                        <input hidden th:field="${j.idJawaban}">-->
+                                                                    <!--                        <button type="submit" class="btn btn-danger">Ya</button>-->
+                                                                    <!--                    </form>-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -204,37 +245,7 @@
     </div>
 </div>
 
-<!-- Modal Konfirmasi Jawaban Salah -->
-<th:block th:each="j, iterationStatus: ${jawaban}">
-    <div class="modal fade" th:id="'exampleModalCenter' + ${iterationStatus.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PENGHAPUSAN JAWABAN</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" th:text="'Apakah Anda ingin menghapus jawaban?'">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                    <form th:action="@{/jawaban/hapus/}" th:object="${j}" method="POST">
-                        <input hidden th:field="*{idJawaban}">
-                        <button type="submit" class="btn btn-danger">Ya</button>
-                    </form>
-                        <!--                    <input hidden th:field="*{jawaban}">-->
-                        <!--                    <input hidden th:field="*{isActive}">-->
-                        <!--                    <input hidden th:field="*{isCorrect}">-->
-                        <!--                    <input hidden th:field="*{soal}">-->
-<!--                        <input hidden th:field="${j.idJawaban}">-->
-<!--                        <button type="submit" class="btn btn-danger">Ya</button>-->
-<!--                    </form>-->
-                </div>
-            </div>
-        </div>
-    </div>
-</th:block>
+
 
 <!-- Logout Modal-->
 <div th:replace="fragments/fragment :: logout"></div>

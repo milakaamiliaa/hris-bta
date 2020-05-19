@@ -24,6 +24,7 @@ public class JawabanServiceImpl implements JawabanService {
 
     @Override
     public JawabanModel addJawaban(JawabanModel jawaban) {
+        jawaban.setActive(true);
         jawabanDB.save(jawaban);
         return jawaban;
     }
@@ -61,4 +62,5 @@ public class JawabanServiceImpl implements JawabanService {
 
         return jawabanDB.save(targetJawaban);
     }
+
 }

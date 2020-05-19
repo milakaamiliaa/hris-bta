@@ -70,8 +70,16 @@ public class JawabanController {
         return "redirect:/soal/detail/" + updatedJawaban.getSoal().getIdSoal();
     }
 
-    @RequestMapping(value = "/jawaban/hapus", method = RequestMethod.POST)
-    public String hapusJawaban(@ModelAttribute("j") JawabanModel jawaban, Model model, RedirectAttributes redirect) {
+//    @RequestMapping(value = "/jawaban/hapus", method = RequestMethod.POST)
+//    public String hapusJawaban(@ModelAttribute("j") JawabanModel jawaban, Model model, RedirectAttributes redirect) {
+//        JawabanModel targetJawaban = jawabanService.deleteJawaban(jawaban);
+//
+//        redirect.addFlashAttribute("alertHapus", "Jawaban berhasil dihapus.");
+//
+//        return "redirect:/soal/detail/" + targetJawaban.getSoal().getIdSoal();
+//    }
+    @RequestMapping(value = "/jawaban/hapus/{idJawaban}", method = RequestMethod.POST)
+    public String hapusGolongan(@PathVariable Long idJawaban, @ModelAttribute("j") JawabanModel jawaban, Model model, RedirectAttributes redirect) {
         JawabanModel targetJawaban = jawabanService.deleteJawaban(jawaban);
 
         redirect.addFlashAttribute("alertHapus", "Jawaban berhasil dihapus.");
