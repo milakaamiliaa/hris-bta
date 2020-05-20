@@ -1,13 +1,23 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeLeaf.org">
+
 
 <head>
     <object th:include = "fragments/fragment :: head"></object>
     <title>Tes Psikotes</title>
     <link href="bootstrap.min.css" rel="stylesheet"/>
 <!--    <script th:src="@{/js/hris-bta-pagination-js.js}"></script>-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <script src="https//code.jquery.com/jquery.min.js"></script>
+    <script src="/js/savy.js"></script>
+                    
+
 </head>
+
 
 <body id="page-top">
 
@@ -47,12 +57,8 @@
                                     <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
                                         <ul>
                                             <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
-                                                <!-- buat ngasih liat jawaban yang ada right -->
-<!--                                                <input class="radioButton" type="radio"-->
-<!--                                                th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}"-->
-<!--                                                       th:value="${jawaban.idJawaban}"/>-->
 
-                                                <input class="radioButton" type="radio" th:id="${jawaban.idJawaban}" th:name="${soal.idSoal}" th:value="${jawaban.idJawaban}"/>
+                                                <input class="radioButton auto-save" type="radio" th:id="${jawaban.idJawaban}" th:name="${soal.idSoal}" th:value="${jawaban.idJawaban}" onclick="save_sisyphus('#tes')"/>
 
                                                 <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
                                             </li>
@@ -225,17 +231,6 @@
         }
     });
 
-    // secs = 3600;
-    // timer = setInterval(function () {
-    //     var element = document.getElementById("status");
-    //     element.innerHTML = "<h5>Sisa waktu: <b>"+ Math.round((secs/60)) + "</b> menit lagi. </h5>";
-    //     if(secs < 1){
-    //         clearInterval(timer);
-    //         document.getElementById('tes').submit();
-    //     }
-    //     secs--;
-    // }, 1000)
-
     //timer
     var sec = parseInt(getCookie("timer")) ||  3599;
     var element = document.getElementById("status");
@@ -273,6 +268,10 @@
         }
         return false;
     }
+
+    $(function() {
+        $('.auto-save').savy('load');
+    })
 
 </script>
 </body>
