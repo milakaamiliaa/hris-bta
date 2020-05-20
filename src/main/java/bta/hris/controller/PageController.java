@@ -48,7 +48,7 @@ public class PageController {
         model.addAttribute("listRole", roleService.getAllRole());
 
 
-        try{
+        //try{
             UserDetails loggedIn = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             if(userService.getByNip(loggedIn.getUsername()).getRole().getNama().equals("CALON PENGAJAR")){
@@ -124,13 +124,6 @@ public class PageController {
                 UserModel pegawaiAtIndex = pegawaiList.get(index);
                 pegawaiListSorted.add(pegawaiAtIndex);
 
-                model.addAttribute("pegawaiList", pegawaiListSorted);
-                model.addAttribute("totalSesiPegawai", totalsesiPegawaiSorted);
-                model.addAttribute("cabangData", cabangData);
-                model.addAttribute("totalPayroll", totalPayroll);
-                model.addAttribute("gajiModel", gajiModel);
-                model.addAttribute("userModel", userModel);
-
                 // ==== Keperluan Models Attribute untuk grafik ====
                     // List CabangData yang akan dipakai (5 bulan ke belakang dari bulan sekarang).
                 List<CabangDataModel> listCabangData = cabangDataService.getCabangDatasForXPeriodBeforeNow(5, cabangModel);
@@ -150,15 +143,16 @@ public class PageController {
                 periodeString = periodeString.substring(0, periodeString.length()-1);
                 rasioString = rasioString.substring(0, rasioString.length()-1);
 
-                if (listCabangData.size()<5){
+               /* if (listCabangData.size()<5){
                     model.addAttribute("dataNotEnough", "Data belum mencukupi untuk memunculkan grafik " +
                             "rasio efisiensi cabang");
-                }
-                else {
-                    model.addAttribute("dataEnough", "Data mencukupi untuk memunculkan grafik " +
-                            "rasio efisiensi cabang");
-                }
-
+                }*/
+                model.addAttribute("pegawaiList", pegawaiListSorted);
+                model.addAttribute("totalSesiPegawai", totalsesiPegawaiSorted);
+                model.addAttribute("cabangData", cabangData);
+                model.addAttribute("totalPayroll", totalPayroll);
+                model.addAttribute("gajiModel", gajiModel);
+                model.addAttribute("userModel", userModel);
                 model.addAttribute("periodeString", periodeString);
                 model.addAttribute("rasioString", rasioString);
 
@@ -167,11 +161,11 @@ public class PageController {
             else{
                 return "home";
             }
-        }
+        //}
 
-        catch(Exception e){
+/*        catch(Exception e){
             return "Home fix";
-        }
+        }*/
     }
 
     @RequestMapping("/login")
