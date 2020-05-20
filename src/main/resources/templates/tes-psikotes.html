@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeLeaf.org">
-
-
 <head>
     <object th:include = "fragments/fragment :: head"></object>
     <title>Tes Psikotes</title>
@@ -14,8 +12,6 @@
             crossorigin="anonymous"></script>
     <script src="https//code.jquery.com/jquery.min.js"></script>
     <script src="/js/savy.js"></script>
-                    
-
 </head>
 
 
@@ -164,10 +160,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+<<<<<<< HEAD
                 <input type="submit" form="tesForm" />
 <!--                <form th:action="@{/calonpengajar/aturan-mata-pelajaran}">-->
 <!--                    <button type="submit" class="btn btn-danger">Ya</button>-->
 <!--                </form>-->
+=======
+                <form th:action="@{/calonpengajar/aturan-tes-matapelajaran}">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </form>
+>>>>>>> cb59592d2fd9b2c3d570af5704d5f3667019b9ac
             </div>
         </div>
     </div>
@@ -177,7 +179,15 @@
 <div th:replace="fragments/fragment :: logout">
 </div>
 
-<script>
+<script type="text/javascript">
+    
+    //Back button
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+        alert("Maaf anda tidak bisa kembali ke halaman sebelumnya jika belum menyelesaikan tes.");
+    }
+
     // pagination
     var numberOfItems = $("#loop .card").length;
     var limitPerPage = 5;
