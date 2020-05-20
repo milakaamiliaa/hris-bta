@@ -19,14 +19,6 @@ public class SoalModel implements Serializable {
     @Column(name = "pertanyaan", nullable = false)
     private String pertanyaan;
 
-//    @NotNull
-//    @Column(name = "correctAnswer", nullable = false)
-//    private String correctAnswer;
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idSoal", referencedColumnName = "idJawaban")
-//    private JawabanModel correctAnswer;
-
     @NotNull
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
@@ -47,32 +39,20 @@ public class SoalModel implements Serializable {
         this.idSoal = idSoal;
     }
 
+    public List<JawabanModel> getListJawaban(){
+        return listJawaban;
+    }
+
+    public void setListJawaban(List<JawabanModel> listJawaban){
+        this.listJawaban = listJawaban;
+    }
+
     public String getPertanyaan() {
         return pertanyaan;
     }
 
     public void setPertanyaan(String pertanyaan) {
         this.pertanyaan = pertanyaan;
-    }
-
-//    public String getCorrectAnswer() {
-//        return correctAnswer;
-//    }
-//
-//    public void setCorrectAnswer(String correctAnswer) {
-//        this.correctAnswer = correctAnswer;
-//    }
-
-//    public JawabanModel getCorrectAnswer() {
-//        return correctAnswer;
-//    }
-//
-//    public void setCorrectAnswer(JawabanModel correctAnswer) {
-//        this.correctAnswer = correctAnswer;
-//    }
-
-    public boolean isActive() {
-        return isActive;
     }
 
     public boolean getIsActive() {
@@ -89,13 +69,5 @@ public class SoalModel implements Serializable {
 
     public void setPaketSoal(PaketSoalModel paketSoal) {
         this.paketSoal = paketSoal;
-    }
-
-    public List<JawabanModel> getListJawaban() {
-        return listJawaban;
-    }
-
-    public void setListJawaban(List<JawabanModel> listJawaban) {
-        this.listJawaban = listJawaban;
     }
 }

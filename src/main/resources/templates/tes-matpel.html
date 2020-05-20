@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeLeaf.org">
+
+
+<head>
+    <object th:include = "fragments/fragment :: head"></object>
+    <title>Tes Mata Pelajaran</title>
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+<!--    <script th:src="@{/js/hris-bta-pagination-js.js}"></script>-->
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+            <script src="https//code.jquery.com/jquery.min.js"></script>
+            <script src="/js/savy.js"></script>
+            
+</head>
+
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" style="height: 3rem;">
+                <!-- Topbar Navbar -->
+                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">< Kembali</a>
+
+                <ul class="navbar-nav ml-auto">
+                        <!-- Timer -->
+                    <div class="text-center" id="status"></div>
+                </ul>
+            </nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-danger card-header-text" th:text="'TES 1 - ' + ${hasilTes.submittedPaketSoal.nama}"></h1>
+                <h3 class="h5 mb-2 text-danger card-header-text" th:text="'(Jumlah soal: ' + ${jumlahSoal} + ')'"></h3><br>
+
+                <!-- Soal -->
+                <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-matapelajaran}" id="tesForm">
+
+                    <input hidden th:field="${hasilTes.idHasil}" />
+                    <input hidden th:field="${hasilTes.startedAt}" />
+                    <input hidden th:field="${hasilTes.submittedPaketSoal}" />
+                    <input hidden th:field="${hasilTes.calonPengajar}" />
+
+                    <tr th:each="soal, iterationStatus : ${hasilTes.submittedPaketSoal.listSoal}">
+
+                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].idSoal}" />
+                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].pertanyaan}" />
+                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].paketSoal}" />
+
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <b><p th:utext="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
+                                <ul>
+                                    <li class="no-bullets" th:each="jawaban, iterStat : ${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban}">
+
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" />
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].jawaban}" />
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].isCorrect}" />
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].soal}" />
+
+                                        <!--                                                <input class="radioButton auto-save" type="radio" th:name="'buttonGroupName' + ${iterationStatus.count}" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].isChosen}" th:value="1" />-->
+                                        <!--                                                <input class="radioButton auto-save" type="radio" th:id="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].submittedJawaban}" th:name="${soal.idSoal}" th:value="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__]}" />-->
+
+                                        <input class="radioButton auto-save" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].submittedJawaban}" th:id="${iterStat.index + 'radioGroup'}" th:value="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" />
+                                        <label th:for="${jawaban.idJawaban}" th:utext="${jawaban.jawaban}"></label>
+
+                                        <!--                                                <label th:for="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].isChosen}" th:utext="${jawaban.jawaban}"></label>-->
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </tr>
+                </form>
+
+                <nav aria-label="Page navigation example">
+                    <div style="text-align: right">
+                        <p id="showing"></p>
+                    </div>
+                    <ul class="pagination justify-content-end">
+                        <li id="prev-page">
+                            <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="text-center">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">Selesai</button>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Modal Konfirmasi Kembali-->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PEMBATALAN TES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" th:text="'Anda yakin ingin meninggalkan halaman ini? Hasil tes belum tersimpan sampai anda menekan tombol Selesai.'">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <form th:action="@{/}">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Selesai-->
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PENGERJAAN TES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" th:text="'Apakah anda yakin telah selesai mengerjakan tes? Hasil tes akan tersimpan dan tidak dapat diubah lagi.'">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <input type="submit" form="tesForm" />
+<!--                <form th:action="@{/}">-->
+<!--                    <button type="submit" class="btn btn-danger">Ya</button>-->
+<!--                </form>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
+</div>
+
+<script>
+    // pagination
+    var numberOfItems = $("#loop .card").length;
+    var limitPerPage = 5;
+    var pageini = $(".pagination li.active").index() + 2;
+
+    $('#loop .card:gt(' + (limitPerPage - 1) + ')').hide();
+    var totalPages = Math.ceil(numberOfItems / limitPerPage);
+    document.getElementById("showing").innerHTML = "Halaman " + pageini + " dari " + totalPages;
+
+    $(".pagination").append("<li class='page-item active'><a class='page-link' href='javascript:void(0)'>" + 1 + "</a></li>");
+
+    for (var i = 2; i <= totalPages; i++) {
+        $(".pagination").append("<li class='page-item'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>");
+    }
+
+    $(".pagination").append("<li id='next-page'><a class='page-link' href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
+
+    $(".pagination li.page-item").on("click", function () {
+        if ($(this).hasClass("active")){
+            return false;
+        }
+        else {
+            var currentPage = $(this).index();
+            $(".pagination li").removeClass("active");
+            $(this).addClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            var i;
+            for (i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show();
+            }
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+
+        }
+    });
+
+    $("#next-page").on("click", function() {
+        var currentPage = $(".pagination li.active").index();
+        if (currentPage === totalPages) {
+            return false;
+        } else {
+            currentPage++;
+            $(".pagination li").removeClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show();
+            }
+
+            $(".pagination li.page-item:eq(" + (currentPage - 1) + ")").addClass("active");
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+        }
+    });
+
+    $("#prev-page").on("click", function() {
+        var currentPage = $(".pagination li.active").index();
+        if (currentPage === 1) {
+            return false;
+        } else {
+            currentPage--;
+            $(".pagination li").removeClass("active");
+            $("#loop .card").hide();
+
+            var grandTotal = limitPerPage * currentPage;
+            for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+                $("#loop .card:eq(" + i + ")").show();
+            }
+            $(".pagination li.page-item:eq(" + (currentPage - 1) + ")").addClass("active");
+            document.getElementById("showing").innerHTML = "Halaman " + currentPage + " dari " + totalPages;
+        }
+    });
+
+    //timer
+    var sec = parseInt(getCookie("timer")) ||  3599;
+    var element = document.getElementById("status");
+    var timerFunction = setInterval(function(){
+        setTimer()
+    },1000);
+    function setTimer(){
+        if(sec > 0){
+            setCookie("timer",sec,sec);
+            element.innerHTML = "<h5>Sisa waktu: <b>"+ parseInt(sec/60) + "</b> : <b>"+ parseInt(sec%60) + "</b></h5>";
+            sec --;
+        }else{
+            clearInterval(timerFunction);
+            element.innerHTML = "<h5>Sisa waktu: <b>"+ parseInt(sec/60) + "</b> : <b>"+ parseInt(sec%60) + "</b></h5>";
+            document.getElementById('tes').submit();
+        }
+    }
+    function setCookie(name,value,sec){
+        var d = new Date();
+        d.setTime(d.getTime() + (sec*1000));
+        document.cookie = name+"="+value+"; expires="+d.toUTCString()+"; path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length,c.length);
+            }
+        }
+        return false;
+    }
+
+    $(function() {
+        $('.auto-save').savy('load');
+    })
+
+</script>
+</body>
+</html>

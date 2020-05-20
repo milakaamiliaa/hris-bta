@@ -11218,6 +11218,17 @@ body.sidebar-toggled footer.sticky-footer {
   width: 25%;
 }
 
+.radioButton{
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 4% !important;
+
+}
+
+.no-bullets {
+  list-style-type: none;
+}
+
 
 /* line 1, ../../Arafath/CL/january 2020/240. Animal/HTML/scss/_slider.scss */
 .slider_bg_1 {

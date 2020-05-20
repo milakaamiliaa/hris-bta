@@ -1,7 +1,6 @@
 package bta.hris.controller;
 
 import bta.hris.model.CalonPengajarModel;
-import bta.hris.model.UserModel;
 import bta.hris.service.CalonPengajarService;
 import bta.hris.service.RoleService;
 import bta.hris.service.UserService;
@@ -38,10 +37,15 @@ public class PageController {
                 CalonPengajarModel calonPengajar = calonPengajarService.getCalonByUsername(loggedIn.getUsername());
                 LocalDate deadline = calonPengajar.getTesDeadline();
                 Month bulanDeadline = deadline.getMonth();
+                LocalDate currentDate = LocalDate.now();
 
+                model.addAttribute("deadlineDate", deadline);
+                model.addAttribute("currentDate", currentDate);
                 model.addAttribute("calonPengajar", calonPengajar);
                 model.addAttribute("bulanDeadline", bulanDeadline);
-                return "beranda-calonPengajar";
+                if(calonPengajar.getNilaiPsikotes() != null && calonPengajar.getNilaiMataPelajaran() != null){
+                    return "beranda-calon-setelah-tes";
+                }return "beranda-calonPengajar"; 
             }
             else{
                 return "home";

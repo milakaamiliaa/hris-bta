@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface JawabanDB extends JpaRepository<JawabanModel, Long> {
+    List<JawabanModel> findAllBySoalIdSoal(Long idSoal);
+    JawabanModel findByIdJawaban(Long idJawaban);
     List<JawabanModel> findAllBySoal(SoalModel soal);
 }

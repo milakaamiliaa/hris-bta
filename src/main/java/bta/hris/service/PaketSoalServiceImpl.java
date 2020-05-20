@@ -2,12 +2,14 @@ package bta.hris.service;
 
 import bta.hris.model.PaketSoalModel;
 import bta.hris.repository.PaketSoalDB;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+import java.util.Random;
+import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -28,13 +30,13 @@ public class PaketSoalServiceImpl implements PaketSoalService{
     }
 
     @Override
-    public Optional<PaketSoalModel> getPaketSoalByIdPaket(Long idPaket) {
+    public PaketSoalModel getPaketSoalByIdPaket(Long idPaket) {
         return paketSoalDB.findByIdPaket(idPaket);
     }
 
     @Override
     public PaketSoalModel updatePaketSoal(PaketSoalModel paketSoal) {
-        PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket()).get();
+        PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
 
         try{
             newPaket.setNama(paketSoal.getNama());
@@ -50,10 +52,33 @@ public class PaketSoalServiceImpl implements PaketSoalService{
 
     @Override
     public PaketSoalModel deletePaketSoal(PaketSoalModel paketSoal) {
-        PaketSoalModel target = paketSoalDB.findByIdPaket(paketSoal.getIdPaket()).get();
+        PaketSoalModel target = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
         target.setActive(false);
         paketSoalDB.save(target);
 
         return target;
+    }
+
+    @Override
+    public PaketSoalModel getRandomPaketSoalByMataPelajaran(String mataPelajaran) {
+        List<PaketSoalModel> paketSoal = paketSoalDB.findByMataPelajaranContains(mataPelajaran);
+        List<PaketSoalModel> activePaket = new ArrayList<PaketSoalModel>();
+        Random rand = new Random();
+        for(PaketSoalModel p : paketSoal){
+            if(p.isActive()){
+                activePaket.add(p);
+            }
+        }
+        PaketSoalModel chosenPaketSoal = activePaket.get(rand.nextInt(activePaket.size()));
+        return chosenPaketSoal;
+    }
+
+    @Override
+    public PaketSoalModel getPaketSoalByMataPelajaran(String mataPelajaran){
+        for (PaketSoalModel paket : paketSoalDB.findByMataPelajaranContains(mataPelajaran)){
+            if (paket.isActive()){
+                return paket;
+            }
+        }return null;
     }
 }

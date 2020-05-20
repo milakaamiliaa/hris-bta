@@ -75,7 +75,7 @@ public class PaketSoalController {
 
     @RequestMapping(value = "/rekrutmen/paketsoal/detail/{idPaket}", method = RequestMethod.GET)
     public String detailPaketSoal(@PathVariable Long idPaket, Model model) {
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket).get();
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket);
         model.addAttribute("paketSoal", paketSoal);
 
         List<SoalModel> listSoal = soalService.getSoalByPaketSoal(paketSoal);
@@ -85,7 +85,7 @@ public class PaketSoalController {
     }
     @RequestMapping(value = "/rekrutmen/paketsoal/ubah/{idPaket}", method = RequestMethod.GET)
     public String ubahPaketSoalForm(@PathVariable Long idPaket, Model model) {
-        PaketSoalModel existingPaket = paketSoalService.getPaketSoalByIdPaket(idPaket).get();
+        PaketSoalModel existingPaket = paketSoalService.getPaketSoalByIdPaket(idPaket);
 
         List<String> mataPelajaran = new ArrayList<String>();
         mataPelajaran.add("Biologi");
@@ -118,7 +118,8 @@ public class PaketSoalController {
     }
     @RequestMapping(value="/rekrutmen/paketsoal/hapus/{idPaket}", method = RequestMethod.POST)
     public String hapusPaketSoal(@PathVariable Long idPaket, Model model, RedirectAttributes redirect){
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket).get();
+
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket); // !!! get was here
         List<PaketSoalModel> listPaketSoal = paketSoalService.getAllPaketsoal();
         for(PaketSoalModel pakets : listPaketSoal){
             if(paketSoal.equals(pakets)){
@@ -131,6 +132,7 @@ public class PaketSoalController {
                 redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " tidak dapat dihapus.");
             }
         }
+
         return "redirect:/rekrutmen/paketsoal";
     }
 
