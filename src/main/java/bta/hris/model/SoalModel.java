@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "soal")
@@ -19,10 +20,6 @@ public class SoalModel implements Serializable {
     private String pertanyaan;
 
     @NotNull
-    @Column(name = "correctAnswer", nullable = false)
-    private String correctAnswer;
-
-    @NotNull
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
 
@@ -31,12 +28,23 @@ public class SoalModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PaketSoalModel paketSoal;
 
+    @OneToMany(mappedBy = "soal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JawabanModel> listJawaban;
+
     public Long getIdSoal() {
         return idSoal;
     }
 
     public void setIdSoal(Long idSoal) {
         this.idSoal = idSoal;
+    }
+
+    public List<JawabanModel> getListJawaban(){
+        return listJawaban;
+    }
+
+    public void setListJawaban(List<JawabanModel> listJawaban){
+        this.listJawaban = listJawaban;
     }
 
     public String getPertanyaan() {
@@ -47,15 +55,7 @@ public class SoalModel implements Serializable {
         this.pertanyaan = pertanyaan;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 

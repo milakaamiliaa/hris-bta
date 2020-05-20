@@ -33,7 +33,7 @@
                 <!-- Card -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <!-- Button trigger modal -->
-                    <h1 class="h3 mb-2 text-danger card-header-text">Pemberitahuan</h1>
+                    <br><h1 class="h3 mb-2 text-danger card-header-text">PEMBERITAHUAN</h1>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -62,19 +62,28 @@
                 </div>
 
                 <div class="card shadow mb-4 border-bottom-danger">
-
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <img src="/img/Kerjakan-Psikotes.png" class="card-logo">
+                        <div th:if = "${deadlineDate < currentDate}">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="text-center details-title">Maaf, anda tidak dapat mengerjakan tes karena anda telah melewati tanggal batas pengerjaan tes.
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <h1 class="h3 mb-2 text-danger card-header-text">Kerjakan Psikotes</h1>
+                        <div th:if = "${deadlineDate != currentDate || deadlineDate == currentDate}">
+                            <a th:href="@{/calonpengajar/aturan-psikotes/}">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="/img/Kerjakan-Psikotes.png" class="card-logo" th:href="@{/calonpengajar/aturan-psikotes/}">
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="h3 mb-2 text-danger card-header-text">Kerjakan Psikotes</h1>
+                                </div>
+                            </div>
+                            </a>
                         </div>
-
                     </div>
 
                 </div>

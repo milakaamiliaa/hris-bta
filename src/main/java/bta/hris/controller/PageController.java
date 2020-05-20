@@ -1,7 +1,14 @@
 package bta.hris.controller;
 
+
 import bta.hris.model.*;
 import bta.hris.service.*;
+
+import bta.hris.model.CalonPengajarModel;
+import bta.hris.service.CalonPengajarService;
+import bta.hris.service.RoleService;
+import bta.hris.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,10 +55,15 @@ public class PageController {
                 CalonPengajarModel calonPengajar = calonPengajarService.getCalonByUsername(loggedIn.getUsername());
                 LocalDate deadline = calonPengajar.getTesDeadline();
                 Month bulanDeadline = deadline.getMonth();
+                LocalDate currentDate = LocalDate.now();
 
+                model.addAttribute("deadlineDate", deadline);
+                model.addAttribute("currentDate", currentDate);
                 model.addAttribute("calonPengajar", calonPengajar);
                 model.addAttribute("bulanDeadline", bulanDeadline);
-                return "beranda-calonPengajar";
+                if(calonPengajar.getNilaiPsikotes() != null && calonPengajar.getNilaiMataPelajaran() != null){
+                    return "beranda-calon-setelah-tes";
+                }return "beranda-calonPengajar"; 
             }
             else if(userService.getByNip(loggedIn.getUsername()).getRole().getNama().equals("STAF CABANG")){
                 UserModel userModel = userService.getByNip(loggedIn.getUsername());
@@ -152,7 +164,7 @@ public class PageController {
         }
 
         catch(Exception e){
-            return "home fix";
+            return "Home fix";
         }
     }
 

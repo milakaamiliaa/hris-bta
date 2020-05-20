@@ -113,6 +113,7 @@ public class PresensiServiceImpl implements PresensiService {
         return presensiDB.findByKodeGajiAndPegawai(kodeGaji, user);
     }
 
+
     @Override
     public List<PresensiModel> getAllPresensiByCabangAndStatus(CabangModel cabang, String status){
         return presensiDB.findByCabangAndStatus(cabang,status);

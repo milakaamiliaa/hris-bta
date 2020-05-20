@@ -70,10 +70,10 @@ public class CalonPengajarModel implements Serializable {
     private String universitas;
 
     @Column(name = "nilaiPsikotes",nullable = true)
-    private Long nilaiPsikotes;
+    private Float nilaiPsikotes;
 
     @Column(name = "nilaiMataPelajaran",nullable = true)
-    private Long nilaiMataPelajaran;
+    private Float nilaiMataPelajaran;
 
     @NotNull
     @Column(name = "updatedAt",nullable = true)
@@ -175,19 +175,19 @@ public class CalonPengajarModel implements Serializable {
         this.status = status;
     }
 
-    public Long getNilaiPsikotes() {
+    public Float getNilaiPsikotes() {
         return nilaiPsikotes;
     }
 
-    public void setNilaiPsikotes(Long nilaiPsikotes) {
+    public void setNilaiPsikotes(Float nilaiPsikotes) {
         this.nilaiPsikotes = nilaiPsikotes;
     }
 
-    public Long getNilaiMataPelajaran() {
+    public Float getNilaiMataPelajaran() {
         return nilaiMataPelajaran;
     }
 
-    public void setNilaiMataPelajaran(Long nilaiMataPelajaran) {
+    public void setNilaiMataPelajaran(Float nilaiMataPelajaran) {
         this.nilaiMataPelajaran = nilaiMataPelajaran;
     }
 
