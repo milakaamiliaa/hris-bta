@@ -78,7 +78,10 @@
                         <br>
 
                         <!-- Tabel -->
-                        <div class="table-responsive">
+                        <div th:if="${presensiPengajarList.size() == 0}" th:align="center">
+                            <h5 th:text="'Tidak ada data presensi pegawai'"></h5>
+                        </div>
+                        <div th:unless="${presensiPengajarList.size() == 0}" class="table-responsive">
                             <table class="table" width="100%" cellspacing="0">
                                 <thead style="background-color: #FF5252 !important; color: white">
                                 <tr>

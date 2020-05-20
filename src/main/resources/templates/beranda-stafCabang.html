@@ -43,7 +43,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <h1 class="h5 mb-2 text-danger card-header-text" th:text="'Rasio Efisiensi Cabang ' + ${cabangData.cabang.cabang}"></h1>
+                                <h1 class="h5 mb-2 text-danger card-header-text" th:text="'Rasio Efisiensi Cabang ' + ${cabangModel.cabang}"></h1>
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,10 @@
                 <h1 class="h3 mb-2 text-gray-800 text-uppercase text-center font-weight-bold" th:text="'TOP 10 PENGAJAR '+${cabangData.cabang.cabang}"></h1>
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div th:if="${pegawaiList.size() == 0}" th:align="center">
+                            <h5 th:text="'Tidak ada data presensi pegawai'"></h5>
+                        </div>
+                        <div th:unless="${pegawaiList.size() == 0}" class="table-responsive">
                             <table class="table" width="80%" cellspacing="0">
                                 <thead style="background-color: #FF5252 !important; color: white">
                                 <tr>
