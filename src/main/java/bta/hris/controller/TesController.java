@@ -50,43 +50,39 @@ public class TesController {
 
     @RequestMapping(value = "/calonpengajar/tes-psikotes", method = RequestMethod.GET)
     public String tesPsikotes(Model model) {
-        if (hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
-                SecurityContextHolder.getContext().getAuthentication().getName())) != null) {
-            HasilTesModel hasilTes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
-                    SecurityContextHolder.getContext().getAuthentication().getName()));
-            SubmittedPaketSoalModel paketSoalToPost = hasilTes.getSubmittedPaketSoal();
-            Integer jumlahSoal = hasilTes.getSubmittedPaketSoal().getListSoal().size();
+        HasilTesModel tes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
+            SecurityContextHolder.getContext().getAuthentication().getName()));
+        PaketSoalModel paketPsikotes = paketSoalService.getPaketSoalByMataPelajaran("Psikotes");
 
-            // POST
+
+        //if PAKET DIDNT exists
+        if (paketPsikotes.equals(null)){
+            return "soal-tes-belum-terbuat";
+        }
+        // if HASIL psikotes ALREADY exists
+        if (tes != null && hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
+            SecurityContextHolder.getContext().getAuthentication().getName())).getSubmittedPaketSoal().getMataPelajaran() == "Psikotes") {
+            
+            SubmittedPaketSoalModel paketSoalToPost = tes.getSubmittedPaketSoal();
+            Integer jumlahSoal = tes.getSubmittedPaketSoal().getListSoal().size();
+
             model.addAttribute("paketSoal", paketSoalToPost);
-            model.addAttribute("hasilTes", hasilTes);
+            model.addAttribute("hasilTes", tes);
             model.addAttribute("jumlahSoal", jumlahSoal);
 
             return "tes-psikotes";
         }
-
-        // BIG PICTURE:
-        // retrieve all data from master
-        // duplicate data to submitted
-        // pas data udah siap semua, save ke db (ini biar gak ilang datanya kalo close tab atau gmn? need opinion on this)
-        // retrieve dulu dr db yg submitted
-        // post
-
-        // IN ACTION:
-        // retrieving master PaketSoal with mapel ("TPA")
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByMataPelajaran("Psikotes");
-
+        // if HASIL psikotes DIDNT exists yet
         // duplicating master data to submitted data + save to db
         HasilTesModel hasilTes = new HasilTesModel();
+        SubmittedPaketSoalModel submittedPaketSoal = new SubmittedPaketSoalModel();
+        List<SubmittedSoalModel> submittedSoal = new ArrayList<>();
+
         hasilTes.setStartedAt(LocalDate.now());
         hasilTes.setCalonPengajar(calonPengajarService.getCalonByUsername(
                 SecurityContextHolder.getContext().getAuthentication().getName()));
 
-        SubmittedPaketSoalModel submittedPaketSoal = new SubmittedPaketSoalModel();
-
-        List<SubmittedSoalModel> submittedSoal = new ArrayList<>();
-
-        for (SoalModel s : paketSoal.getListSoal()) {
+        for (SoalModel s : paketPsikotes.getListSoal()) {
             List<SubmittedJawabanModel> submittedJawaban = new ArrayList<SubmittedJawabanModel>();
 
             SubmittedSoalModel ss = new SubmittedSoalModel();
@@ -110,8 +106,8 @@ public class TesController {
         }
 
         submittedPaketSoal.setHasilTes(hasilTes);
-        submittedPaketSoal.setMataPelajaran(paketSoal.getMataPelajaran());
-        submittedPaketSoal.setNama(paketSoal.getNama());
+        submittedPaketSoal.setMataPelajaran(paketPsikotes.getMataPelajaran());
+        submittedPaketSoal.setNama(paketPsikotes.getNama());
         submittedPaketSoal.setListSoal(submittedSoal);
 
         hasilTes.setSubmittedPaketSoal(submittedPaketSoal);
@@ -128,16 +124,10 @@ public class TesController {
             }
         }
 
-        // POST
         model.addAttribute("paketSoal", paketSoalToPost);
         model.addAttribute("hasilTes", hasilTes);
         model.addAttribute("jumlahSoal", hasilTes.getSubmittedPaketSoal().getListSoal().size());
 
-//        List<SoalModel> listSoal = PaketSoalService.getPaketSoalByIdPaket(Long.valueOf(1)).getListSoal();
-//        HasilTesModel hasilTes = new HasilTesModel();
-//        hasilTes.setStartedAt(LocalDate.now());
-//        model.addAttribute("listSoal", listSoal);
-//        model.addAttribute("hasilTes", hasilTes);
         return "tes-psikotes";
     }
 
@@ -160,6 +150,8 @@ public class TesController {
        
        nilai = (nilai/listSoal.size()) * 100;
        hasil.setNilai(nilai);
+       CalonPengajarModel calon = hasilTes.getCalonPengajar();
+       calon.setNilaiPsikotes(Long.valueOf(nilai));
         return "redirect:/calonpengajar/aturan-tes-matapelajaran";
     }
 
@@ -170,31 +162,23 @@ public class TesController {
 
     @RequestMapping(value = "/calonpengajar/tes-matapelajaran", method = RequestMethod.GET)
     public String tesMataPelajaran(Model model) {
-        if (hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
-                SecurityContextHolder.getContext().getAuthentication().getName())) != null) {
-            HasilTesModel hasilTes = hasilTesService.getHasilTesByCalonPengajar(calonPengajarService.getCalonByUsername(
-                    SecurityContextHolder.getContext().getAuthentication().getName()));
-            SubmittedPaketSoalModel paketSoalToPost = hasilTes.getSubmittedPaketSoal();
+        String matpel = calonPengajarService.getCalonByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getMataPelajaran();
+        PaketSoalModel paketMatpel = paketSoalService.getPaketSoalByMataPelajaran(matpel);
 
-            model.addAttribute("paketSoal", paketSoalToPost);
-            model.addAttribute("hasilTes", hasilTes);
-
-            return "tes-psikotes";
+        //if PAKET DIDNT exists
+        if (paketMatpel.equals(null)){
+            return "soal-tes-belum-terbuat";
         }
-        CalonPengajarModel calon = calonPengajarService.getCalonByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByMataPelajaran(calon.getMataPelajaran());
-
         // duplicating master data to submitted data + save to db
         HasilTesModel hasilTes = new HasilTesModel();
+        SubmittedPaketSoalModel submittedPaketSoal = new SubmittedPaketSoalModel();
+        List<SubmittedSoalModel> submittedSoal = new ArrayList<>();
+
         hasilTes.setStartedAt(LocalDate.now());
         hasilTes.setCalonPengajar(calonPengajarService.getCalonByUsername(
                 SecurityContextHolder.getContext().getAuthentication().getName()));
 
-        SubmittedPaketSoalModel submittedPaketSoal = new SubmittedPaketSoalModel();
-
-        List<SubmittedSoalModel> submittedSoal = new ArrayList<>();
-
-        for (SoalModel s : paketSoal.getListSoal()) {
+        for (SoalModel s : paketMatpel.getListSoal()) {
             List<SubmittedJawabanModel> submittedJawaban = new ArrayList<SubmittedJawabanModel>();
 
             SubmittedSoalModel ss = new SubmittedSoalModel();
@@ -211,31 +195,36 @@ public class TesController {
 
             ss.setPaketSoal(submittedPaketSoal);
             ss.setPertanyaan(s.getPertanyaan());
+            Collections.shuffle(submittedJawaban);
             ss.setListJawaban(submittedJawaban);
 
             submittedSoal.add(ss);
         }
 
         submittedPaketSoal.setHasilTes(hasilTes);
-        submittedPaketSoal.setMataPelajaran(paketSoal.getMataPelajaran());
-        submittedPaketSoal.setNama(paketSoal.getNama());
+        submittedPaketSoal.setMataPelajaran(paketMatpel.getMataPelajaran());
+        submittedPaketSoal.setNama(paketMatpel.getNama());
         submittedPaketSoal.setListSoal(submittedSoal);
 
         hasilTes.setSubmittedPaketSoal(submittedPaketSoal);
+
+        // save to db + retrieve
         hasilTesService.addHasilTes(hasilTes);
 
         SubmittedPaketSoalModel paketSoalToPost = submittedPaketSoalService.addSubmittedPaketSoal(submittedPaketSoal); // save+retrieve
         for (SubmittedSoalModel s : submittedPaketSoal.getListSoal()) {
-            submittedSoalService.addSubmittedSoal(s);
+            submittedSoalService.addSubmittedSoal(s); // save to db
 
             for (SubmittedJawabanModel j : s.getListJawaban()) {
-                submittedJawabanService.addSubmittedJawaban(j);
+                submittedJawabanService.addSubmittedJawaban(j); // save to db
             }
         }
 
         model.addAttribute("paketSoal", paketSoalToPost);
         model.addAttribute("hasilTes", hasilTes);
-        return "tes-psikotes";
+        model.addAttribute("jumlahSoal", hasilTes.getSubmittedPaketSoal().getListSoal().size());
+
+        return "tes-matpel";
     }
 
     @RequestMapping(value = "/calonpengajar/tes-matapelajaran", method = RequestMethod.POST)
@@ -257,6 +246,9 @@ public class TesController {
        
        nilai = (nilai/listSoal.size()) * 100;
        hasil.setNilai(nilai);
+       CalonPengajarModel calon = hasilTes.getCalonPengajar();
+       calon.setStatus("Sudah Mengerjakan Tes");
+       calon.setNilaiMataPelajaran(Long.valueOf(nilai));
         return "redirect:/";
     }
 

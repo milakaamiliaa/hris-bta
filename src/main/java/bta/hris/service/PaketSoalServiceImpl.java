@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
+import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -62,9 +62,14 @@ public class PaketSoalServiceImpl implements PaketSoalService{
     @Override
     public PaketSoalModel getRandomPaketSoalByMataPelajaran(String mataPelajaran) {
         List<PaketSoalModel> paketSoal = paketSoalDB.findByMataPelajaranContains(mataPelajaran);
+        List<PaketSoalModel> activePaket = new ArrayList<PaketSoalModel>();
         Random rand = new Random();
-        PaketSoalModel chosenPaketSoal = paketSoal.get(rand.nextInt(paketSoal.size()));
-
+        for(PaketSoalModel p : paketSoal){
+            if(p.isActive()){
+                activePaket.add(p);
+            }
+        }
+        PaketSoalModel chosenPaketSoal = activePaket.get(rand.nextInt(activePaket.size()));
         return chosenPaketSoal;
     }
 
