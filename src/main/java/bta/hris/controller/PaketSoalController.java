@@ -45,6 +45,7 @@ public class PaketSoalController {
         PaketSoalModel newPaketSoal = new PaketSoalModel();
 
         List<String> mataPelajaran = new ArrayList<String>();
+        mataPelajaran.add("Psikotes");
         mataPelajaran.add("Biologi");
         mataPelajaran.add("Ekonomi");
         mataPelajaran.add("Matematika");
@@ -74,7 +75,7 @@ public class PaketSoalController {
 
     @RequestMapping(value = "/rekrutmen/paketsoal/detail/{idPaket}", method = RequestMethod.GET)
     public String detailPaketSoal(@PathVariable Long idPaket, Model model) {
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket);
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket).get();
         model.addAttribute("paketSoal", paketSoal);
 
         List<SoalModel> listSoal = soalService.getSoalByPaketSoal(paketSoal);
@@ -84,7 +85,7 @@ public class PaketSoalController {
     }
     @RequestMapping(value = "/rekrutmen/paketsoal/ubah/{idPaket}", method = RequestMethod.GET)
     public String ubahPaketSoalForm(@PathVariable Long idPaket, Model model) {
-        PaketSoalModel existingPaket = paketSoalService.getPaketSoalByIdPaket(idPaket);
+        PaketSoalModel existingPaket = paketSoalService.getPaketSoalByIdPaket(idPaket).get();
 
         List<String> mataPelajaran = new ArrayList<String>();
         mataPelajaran.add("Biologi");
@@ -97,6 +98,7 @@ public class PaketSoalController {
         mataPelajaran.add("TPA");
         mataPelajaran.add("Bahasa Inggris");
         mataPelajaran.add("Bahasa Indonesia");
+        mataPelajaran.add("Psikotes");
 
 
         model.addAttribute("paketSoal", existingPaket);
@@ -116,12 +118,22 @@ public class PaketSoalController {
     }
     @RequestMapping(value="/rekrutmen/paketsoal/hapus/{idPaket}", method = RequestMethod.POST)
     public String hapusPaketSoal(@PathVariable Long idPaket, Model model, RedirectAttributes redirect){
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket);
-        model.addAttribute("paketSoal", paketSoal);
-        paketSoalService.deletePaketSoal(paketSoal);
-        redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " berhasil dihapus.");
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket).get();
+        List<PaketSoalModel> listPaketSoal = paketSoalService.getAllPaketsoal();
+        for(PaketSoalModel pakets : listPaketSoal){
+            if(paketSoal.equals(pakets)){
+                if(pakets.getListSoal().isEmpty()){
+                    model.addAttribute("paketSoal", paketSoal);
+                    paketSoalService.deletePaketSoal(paketSoal);
+                    redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " berhasil dihapus.");
+                }
+                model.addAttribute("paketSoal", paketSoal);
+                redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " tidak dapat dihapus.");
+            }
+        }
         return "redirect:/rekrutmen/paketsoal";
     }
+
 
 
 }

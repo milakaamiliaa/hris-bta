@@ -86,8 +86,8 @@
                                             <td th:text="${presensi.status}" style="color: #1CC88A"></td>
                                         </div>
 
-                                        <div th:if="${presensi.status == 'pending'}"></div>
-                                        <div th:id="">
+                                        <div th:if="${presensi.status == 'pending'}">
+
                                             <div class="button-detail">
                                                 <td>
                                                 <div class="row">
@@ -104,6 +104,7 @@
                                                 </td>
                                             </div>
                                         </div>
+
 <!--                                            &lt;!&ndash; Modal Konfirmasi &ndash;&gt;-->
 <!--                                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:id=" 'exampleModalCenter' + ${iterationStatus.count}">-->
 <!--                                                <div class="modal-dialog modal-dialog-centered" role="document">-->
