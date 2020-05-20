@@ -117,7 +117,6 @@
                                         <th class="text-center">Periode</th>
                                         <th class="text-center">Nominal</th>
                                         <th class="text-center"></th>
-                                        <th class="text-center">Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -129,45 +128,45 @@
                                         <td class="text-center">
                                             <a th:href="@{/gaji/detail/}+${gaji.idGaji}"><b>Detail</b></a>
                                         </td>
-                                        <div th:if="${gaji.status == 'pending'}">
-                                            <div class="button-detail">
-                                                <td class="text-center">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
-                                                                <button type="submit" class="btn btn-setujui">Setujui</button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <form th:action="@{/gaji/tolak/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
-                                                                <button type="submit" class="btn btn-hapus">Tolak</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </div>
-                                        </div>
-                                        <div th:if="${gaji.status == 'disetujui'}">
-                                            <td class="text-center">
-                                                <form th:action="@{/gaji/paid/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
-                                                    <button type="submit" class="btn btn-ubah">Bayar</button>
-                                                </form>
-                                            </td>
-                                        </div>
+<!--                                        <div th:if="${gaji.status == 'pending'}">-->
+<!--                                            <div class="button-detail">-->
+<!--                                                <td class="text-center">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">-->
+<!--                                                                <button type="submit" class="btn btn-setujui">Setujui</button>-->
+<!--                                                            </form>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-3">-->
+<!--                                                            <form th:action="@{/gaji/tolak/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">-->
+<!--                                                                <button type="submit" class="btn btn-hapus">Tolak</button>-->
+<!--                                                            </form>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div th:if="${gaji.status == 'disetujui'}">-->
+<!--                                            <td class="text-center">-->
+<!--                                                <form th:action="@{/gaji/paid/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">-->
+<!--                                                    <button type="submit" class="btn btn-ubah">Bayar</button>-->
+<!--                                                </form>-->
+<!--                                            </td>-->
+<!--                                        </div>-->
 
-                                        <div th:if="${gaji.status == 'ditolak'}">
-                                                <td class="text-center">
-                                                    <h6 style="color: #858796" th:text="${gaji.status}"></h6>
-                                                    <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">
-                                                    <button type="submit" class="btn btn-setujui">Setujui</button>
-                                                    </form>
-                                                </td>
+<!--                                        <div th:if="${gaji.status == 'ditolak'}">-->
+<!--                                                <td class="text-center">-->
+<!--                                                    <h6 style="color: #858796" th:text="${gaji.status}"></h6>-->
+<!--                                                    <form th:action="@{/gaji/setujui/{idGaji}(idGaji=${gaji.idGaji})}" th:object="${gaji}" method="POST">-->
+<!--                                                    <button type="submit" class="btn btn-setujui">Setujui</button>-->
+<!--                                                    </form>-->
+<!--                                                </td>-->
 
-                                        </div>
+<!--                                        </div>-->
 
-                                        <div th:if="${gaji.status == 'sudah dibayar'}">
-                                            <td style="color: #1CC88A" class="text-center" th:text="${gaji.status}"></td>
-                                        </div>
+<!--                                        <div th:if="${gaji.status == 'sudah dibayar'}">-->
+<!--                                            <td style="color: #1CC88A" class="text-center" th:text="${gaji.status}"></td>-->
+<!--                                        </div>-->
                                     </tr>
                                     </tbody>
                                 </table>
