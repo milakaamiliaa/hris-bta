@@ -19,11 +19,11 @@ public class SubmittedJawabanModel implements Serializable {
     private String jawaban;
 
     @NotNull
-    @Column(name = "is_correct", nullable = false, columnDefinition = "tinyint(1) default 1")
+    @Column(name = "is_correct", nullable = false, columnDefinition = "boolean default true")
     private boolean isCorrect;
 
     @NotNull
-    @Column(name = "is_chosen", nullable = false, columnDefinition = "tinyint(1) default 1")
+    @Column(name = "is_chosen", nullable = false, columnDefinition = "boolean default true")
     private boolean isChosen;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

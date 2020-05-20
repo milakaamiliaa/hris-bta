@@ -76,6 +76,8 @@ public class PresensiServiceImpl implements PresensiService {
         newPresensi.setStatus(presensi.getStatus());
         newPresensi.setKodeGaji(presensi.getKodeGaji());
         newPresensi.setUangKonsum(presensi.getUangKonsum());
+        newPresensi.setCabangData(presensi.getCabangData());
+        newPresensi.setStatus("disetujui");
         if (newPresensi.getUangKonsum() != null) {
             newPresensi.setNominal(gaji + presensi.getUangKonsum());
         }
@@ -110,4 +112,17 @@ public class PresensiServiceImpl implements PresensiService {
         UserModel user =  userService.getByNip(nip);
         return presensiDB.findByKodeGajiAndPegawai(kodeGaji, user);
     }
+
+
+    @Override
+    public List<PresensiModel> getAllPresensiByCabangAndStatus(CabangModel cabang, String status){
+        return presensiDB.findByCabangAndStatus(cabang,status);
+    }
+
+    @Override
+    public List<PresensiModel> getAllPresensiByCabangAndPegawaiAndStatus(CabangModel cabang, UserModel userModel,
+                                                                  String status) {
+        return presensiDB.findByCabangAndPegawaiAndStatus(cabang, userModel, status);
+    }
+
 }

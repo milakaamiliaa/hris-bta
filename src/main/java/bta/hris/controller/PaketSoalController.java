@@ -118,7 +118,8 @@ public class PaketSoalController {
     }
     @RequestMapping(value="/rekrutmen/paketsoal/hapus/{idPaket}", method = RequestMethod.POST)
     public String hapusPaketSoal(@PathVariable Long idPaket, Model model, RedirectAttributes redirect){
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket);
+
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket); // !!! get was here
         List<PaketSoalModel> listPaketSoal = paketSoalService.getAllPaketsoal();
         for(PaketSoalModel pakets : listPaketSoal){
             if(paketSoal.equals(pakets)){

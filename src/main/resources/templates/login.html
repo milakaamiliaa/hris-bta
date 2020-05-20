@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeLeaf.org">
 
 <head>
 
@@ -42,12 +42,17 @@
                                         <div style="text-align: center;">
                                             <button type="submit" class="btn form-button">Log In</button>
                                         </div>
+                                        <div class="row" style="text-align: center; margin-top: 2rem;">
+                                            <div class="col-auto mr-auto"></div>
+                                            <div class="col-auto">
+                                                <a th:href="@{/}">< Kembali ke Beranda</a>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-<!--                    <h1 class="home-title">Sistem Informasi</h1>-->
-<!--                    <h1 class="home-title">Sumber Daya Manusia</h1>-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,38 +66,5 @@
 <!-- End of Footer -->
 
 </body>
-
-<!--<body>-->
-<!--<div class="container-fluid">-->
-<!--    <h2>Hello!</h2>-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-4">-->
-<!--            <div class="card">-->
-<!--                <div class="card-header">-->
-<!--                    Log In-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <div th:if="${param.error}">-->
-<!--                        <span style="color: red">Invalid username or password</span>-->
-<!--                    </div>-->
-<!--                    <form th:action="@{/login}" method="POST">-->
-<!--                        <div class="row form-group">-->
-<!--                            <label class="col-sm-4">Username:</label>-->
-<!--                            <input type="text" class="col-sm-8 form-control input-sm" name="nip">-->
-<!--                        </div>-->
-<!--                        <div class="row form-group">-->
-<!--                            <label class="col-sm-4">Password:</label>-->
-<!--                            <input type="password" class="col-sm-8 form-control input-sm" name="password">-->
-<!--                        </div>-->
-<!--                        <div class="row form-group">-->
-<!--                            <button type="submit" class="btn btn-primary">Log In</button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</body>-->
 
 </html>
