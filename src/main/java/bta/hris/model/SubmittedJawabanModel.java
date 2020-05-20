@@ -63,12 +63,12 @@ public class SubmittedJawabanModel implements Serializable {
         return isChosen;
     }
 
-    public boolean setIsChosen() {
-        return isChosen;
+    public void setIsChosen(boolean chosen) {
+        isChosen = chosen;
     }
 
-    public void setChosen(boolean chosen) {
-        isChosen = chosen;
+    public boolean getIsChosen() {
+        return isChosen;
     }
 
     public SubmittedSoalModel getSoal() {
@@ -78,4 +78,6 @@ public class SubmittedJawabanModel implements Serializable {
     public void setSoal(SubmittedSoalModel soal) {
         this.soal = soal;
     }
+
+    
 }
