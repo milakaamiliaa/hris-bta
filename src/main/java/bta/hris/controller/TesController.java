@@ -251,11 +251,11 @@ public class TesController {
        calon.setNilaiMataPelajaran(Long.valueOf(nilai));
         return "redirect:/";
     }
-
-    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
-    public String aturanMataPelajaran(Model model) {
-        return "aturan-tes-matpel";
-    }
+//
+//    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
+//    public String aturanMataPelajaran(Model model) {
+//        return "aturan-tes-matpel";
+//    }
 }
 
 

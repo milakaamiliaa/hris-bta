@@ -55,7 +55,7 @@ public class SoalController {
         int jumlahJawaban = Integer.parseInt((String) inputFlashMap.get("jumlahJawaban"));
         Long idPaketSoal = (Long) inputFlashMap.get("idPaketSoal");
 
-        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaketSoal);
+        PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaketSoal).get();
 
         SoalModel soal = new SoalModel();
         soal.setPaketSoal(paketSoal);

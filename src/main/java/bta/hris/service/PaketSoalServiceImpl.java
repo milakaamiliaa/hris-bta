@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class PaketSoalServiceImpl implements PaketSoalService{
     }
 
     @Override
-    public PaketSoalModel getPaketSoalByIdPaket(Long idPaket) {
+    public Optional<PaketSoalModel> getPaketSoalByIdPaket(Long idPaket) {
         return paketSoalDB.findByIdPaket(idPaket);
     }
 
