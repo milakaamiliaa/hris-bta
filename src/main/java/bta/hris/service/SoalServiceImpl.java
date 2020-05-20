@@ -26,7 +26,7 @@ public class SoalServiceImpl implements SoalService{
 
     @Override
     public List<SoalModel> getAllSoalByIdPaketSoal(Long idPaket){
-        PaketSoalModel paket = paketSoalDB.findByIdPaket(idPaket);
+        PaketSoalModel paket = paketSoalDB.findByIdPaket(idPaket).get();
         return soalDB.findByPaketSoal(paket);
     }
 

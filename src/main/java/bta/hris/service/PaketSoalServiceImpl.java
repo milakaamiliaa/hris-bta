@@ -37,7 +37,7 @@ public class PaketSoalServiceImpl implements PaketSoalService{
 
     @Override
     public PaketSoalModel updatePaketSoal(PaketSoalModel paketSoal) {
-        PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
+        PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket()).get();
 
         try{
             newPaket.setNama(paketSoal.getNama());
@@ -53,7 +53,7 @@ public class PaketSoalServiceImpl implements PaketSoalService{
 
     @Override
     public PaketSoalModel deletePaketSoal(PaketSoalModel paketSoal) {
-        PaketSoalModel target = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
+        PaketSoalModel target = paketSoalDB.findByIdPaket(paketSoal.getIdPaket()).get();
         target.setActive(false);
         paketSoalDB.save(target);
 
