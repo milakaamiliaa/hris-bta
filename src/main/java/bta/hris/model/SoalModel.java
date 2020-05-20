@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "soal")
@@ -18,9 +19,13 @@ public class SoalModel implements Serializable {
     @Column(name = "pertanyaan", nullable = false)
     private String pertanyaan;
 
-    @NotNull
-    @Column(name = "correctAnswer", nullable = false)
-    private String correctAnswer;
+//    @NotNull
+//    @Column(name = "correctAnswer", nullable = false)
+//    private String correctAnswer;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "idSoal", referencedColumnName = "idJawaban")
+//    private JawabanModel correctAnswer;
 
     @NotNull
     @Column(name = "isActive", nullable = false)
@@ -30,6 +35,9 @@ public class SoalModel implements Serializable {
     @JoinColumn(name = "paketSoal", referencedColumnName= "idPaket", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PaketSoalModel paketSoal;
+
+    @OneToMany(mappedBy = "soal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JawabanModel> listJawaban;
 
     public Long getIdSoal() {
         return idSoal;
@@ -47,15 +55,27 @@ public class SoalModel implements Serializable {
         this.pertanyaan = pertanyaan;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
+//    public String getCorrectAnswer() {
+//        return correctAnswer;
+//    }
+//
+//    public void setCorrectAnswer(String correctAnswer) {
+//        this.correctAnswer = correctAnswer;
+//    }
 
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
+//    public JawabanModel getCorrectAnswer() {
+//        return correctAnswer;
+//    }
+//
+//    public void setCorrectAnswer(JawabanModel correctAnswer) {
+//        this.correctAnswer = correctAnswer;
+//    }
 
     public boolean isActive() {
+        return isActive;
+    }
+
+    public boolean getIsActive() {
         return isActive;
     }
 
@@ -69,5 +89,13 @@ public class SoalModel implements Serializable {
 
     public void setPaketSoal(PaketSoalModel paketSoal) {
         this.paketSoal = paketSoal;
+    }
+
+    public List<JawabanModel> getListJawaban() {
+        return listJawaban;
+    }
+
+    public void setListJawaban(List<JawabanModel> listJawaban) {
+        this.listJawaban = listJawaban;
     }
 }
