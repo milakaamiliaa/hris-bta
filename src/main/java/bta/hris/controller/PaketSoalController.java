@@ -45,6 +45,7 @@ public class PaketSoalController {
         PaketSoalModel newPaketSoal = new PaketSoalModel();
 
         List<String> mataPelajaran = new ArrayList<String>();
+        mataPelajaran.add("Psikotes");
         mataPelajaran.add("Biologi");
         mataPelajaran.add("Ekonomi");
         mataPelajaran.add("Matematika");
