@@ -1,12 +1,8 @@
 package bta.hris.controller;
 
-import bta.hris.model.CalonPengajarModel;
-import bta.hris.model.RoleModel;
-import bta.hris.model.UserModel;
-import bta.hris.service.CalonPengajarService;
-import bta.hris.service.GolonganService;
-import bta.hris.service.RoleService;
-import bta.hris.service.UserService;
+import bta.hris.model.*;
+import bta.hris.repository.JawabanDB;
+import bta.hris.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,60 +14,66 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class CalonPengajarController {
     @Autowired
     CalonPengajarService calonPengajarService;
-    
+
     @Autowired
     GolonganService golonganService;
-  
+
     @Autowired
     RoleService roleService;
-  
+
     @Autowired
     UserService userService;
 
- 
+    @Autowired
+    SoalService soalService;
+
+    @Autowired
+    JawabanService jawabanService;
+
     @RequestMapping(value = "/calonpengajar", method = RequestMethod.GET)
-    public String daftarCalonPengajar(Model model){
+    public String daftarCalonPengajar(Model model) {
         List<CalonPengajarModel> listCalon = calonPengajarService.getAllCalon();
         model.addAttribute("listCalon", listCalon);
         return "daftar-calonpengajar";
     }
 
     @RequestMapping(value = "/calonpengajar/detail/{idCalon}", method = RequestMethod.GET)
-    public String detailCalonPengajar(@PathVariable String idCalon, Model model){
+    public String detailCalonPengajar(@PathVariable String idCalon, Model model) {
         CalonPengajarModel calon = calonPengajarService.getCalonById(idCalon);
         model.addAttribute("calon", calon);
         return "detail-calonpengajar";
     }
 
     @RequestMapping(value = "calonpengajar/rekrut/{idCalon}", method = RequestMethod.POST)
-    public String terimaPelamar(@ModelAttribute CalonPengajarModel calon, Model model){
+    public String terimaPelamar(@ModelAttribute CalonPengajarModel calon, Model model) {
         CalonPengajarModel newPengajar = calonPengajarService.rekrutCalon(calonPengajarService.getCalonById(calon.getIdCalon()));
         model.addAttribute("newPengajar", newPengajar);
         return detailCalonPengajar(calon.getIdCalon(), model);
     }
 
     @RequestMapping(value = "calonpengajar/tolak/{idCalon}", method = RequestMethod.POST)
-    public String tolakPelamar(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String tolakPelamar(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model) {
         CalonPengajarModel targetCalon = calonPengajarService.tolakCalon(calon);
         model.addAttribute("calon", targetCalon);
         return detailCalonPengajar(idCalon, model);
     }
 
     @RequestMapping(value = "calonpengajar/undang/{idCalon}", method = RequestMethod.POST)
-    public String undangCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model){
+    public String undangCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model) {
         CalonPengajarModel targetCalon = calonPengajarService.undangCalon(calon);
         model.addAttribute("calon", targetCalon);
         return detailCalonPengajar(idCalon, model);
     }
 
     @RequestMapping(value = "calonpengajar/hapus/{idCalon}", method = RequestMethod.POST)
-    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model, RedirectAttributes redirect){
+    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model, RedirectAttributes redirect) {
         CalonPengajarModel targetCalon = calonPengajarService.getCalonById(calon.getIdCalon());
         calonPengajarService.hapusCalon(targetCalon);
         redirect.addFlashAttribute("alertHapus", "Calon pengajar bernama " + targetCalon.getNama() + " berhasil dihapus.");
@@ -79,17 +81,17 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "/registrasi", method = RequestMethod.GET)
-    public String tambahCalonPengajarForm (Model model) {
+    public String tambahCalonPengajarForm(Model model) {
         CalonPengajarModel newCalonPengajar = new CalonPengajarModel();
         model.addAttribute("newCalonPengajar", newCalonPengajar);
         return "form-registrasi-pengajar";
     }
 
     @RequestMapping(value = "/registrasi", method = RequestMethod.POST)
-    public String tambahCalonPengajarSubmit (CalonPengajarModel calonPengajar, Model model, RedirectAttributes redirect) {
+    public String tambahCalonPengajarSubmit(CalonPengajarModel calonPengajar, Model model, RedirectAttributes redirect) {
 
-        if (usernameisValid(calonPengajar)){
-            if (calonPengajar.getTglLahir().compareTo(LocalDate.now().minusYears(15))<=0){
+        if (usernameisValid(calonPengajar)) {
+            if (calonPengajar.getTglLahir().compareTo(LocalDate.now().minusYears(15)) <= 0) {
                 RoleModel role = roleService.getRoleById(Long.valueOf(5));
 
                 calonPengajar.setStatus("Belum Mengerjakan Tes");
@@ -111,18 +113,16 @@ public class CalonPengajarController {
                 user.setCreatedAt(LocalDate.now());
                 user.setRole(role);
                 user.setActive(true);
-                
+
                 userService.addUser(user);
 
                 return "redirect:/beranda/" + calonPengajar.getIdCalon();
-            }
-            else {
+            } else {
                 redirect.addFlashAttribute("tglLahirTidakValid", "Tanggal lahir tidak valid, silahkan isi sesuai tanggal lahir Anda");
                 return "redirect:/registrasi";
             }
 
-        }
-        else {
+        } else {
             redirect.addFlashAttribute("usernameTidakValid", "Username tidak tersedia, silahkan isi dengan username yang lain");
             return "redirect:/registrasi";
         }
@@ -130,28 +130,17 @@ public class CalonPengajarController {
     }
 
 
-    public boolean usernameisValid(CalonPengajarModel calonPengajarCheck){
+    public boolean usernameisValid(CalonPengajarModel calonPengajarCheck) {
         List<CalonPengajarModel> calonPengajarList = calonPengajarService.getAllCalon();
         boolean status = true;
         for (CalonPengajarModel calonPengajar : calonPengajarList) {
-            if ((calonPengajar.getUsername()).equalsIgnoreCase(calonPengajarCheck.getUsername())){
+            if ((calonPengajar.getUsername()).equalsIgnoreCase(calonPengajarCheck.getUsername())) {
                 status = false;
                 break;
             }
         }
         return status;
     }
-
-//
-//    @RequestMapping(value = "/beranda/{idCalon}", method = RequestMethod.GET)
-//    public String berandaCalonPengajar (@PathVariable String idCalon, Model model) {
-//        CalonPengajarModel calonPengajar = calonPengajarService.getCalonById(idCalon);
-//        LocalDate deadline = calonPengajar.getTesDeadline();
-//        Month bulanDeadline = deadline.getMonth();
-//
-//        model.addAttribute("calonPengajar", calonPengajar);
-//        model.addAttribute("bulanDeadline", bulanDeadline);
-//        return "beranda-calonPengajar";
-//    }
-
 }
+
+

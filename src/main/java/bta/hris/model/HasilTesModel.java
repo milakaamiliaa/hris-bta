@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "hasilTes")
@@ -17,22 +19,20 @@ public class HasilTesModel implements Serializable {
     private Long idHasil;
 
     @NotNull
-    @Column(name = "answerResult", nullable = false)
-    private boolean answerResult;
-
-    @NotNull
     @Column(name = "startedAt", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startedAt;
 
-    @NotNull
-    @Column(name = "finishedAt", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "submittedPaketSoalId", referencedColumnName = "idPaket")
+    private SubmittedPaketSoalModel submittedPaketSoal;
+
+    @Column(name = "finishedAt", nullable = true)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate finishedAt;
 
-    @NotNull
-    @Column(name = "chosenAnswer", nullable = false)
-    private JawabanModel chosenAnswer;
+    @Column(name = "nilai", nullable = true)
+    private Float nilai;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "calonPengajar", referencedColumnName= "idCalon", nullable = false)
@@ -45,14 +45,6 @@ public class HasilTesModel implements Serializable {
 
     public void setIdHasil(Long idHasil) {
         this.idHasil = idHasil;
-    }
-
-    public boolean isAnswerResult() {
-        return answerResult;
-    }
-
-    public void setAnswerResult(boolean answerResult) {
-        this.answerResult = answerResult;
     }
 
     public LocalDate getStartedAt() {
@@ -71,12 +63,12 @@ public class HasilTesModel implements Serializable {
         this.finishedAt = finishedAt;
     }
 
-    public JawabanModel getChosenAnswer() {
-        return chosenAnswer;
+    public Float getNilai() {
+        return nilai;
     }
 
-    public void setChosenAnswer(JawabanModel chosenAnswer) {
-        this.chosenAnswer = chosenAnswer;
+    public void setNilai(Float nilai) {
+        this.nilai = nilai;
     }
 
     public CalonPengajarModel getCalonPengajar() {
@@ -85,5 +77,26 @@ public class HasilTesModel implements Serializable {
 
     public void setCalonPengajar(CalonPengajarModel calonPengajar) {
         this.calonPengajar = calonPengajar;
+    }
+//
+//    public List<JawabanModel> getListJawaban(){
+//        return listJawaban;
+//    }
+//
+//    public void setListJawaban(List<JawabanModel> listJawaban){
+//        this.listJawaban = listJawaban;
+//    }
+//
+//    public void addJawaban(JawabanModel jawaban){
+//        this.listJawaban.add(jawaban);
+//    }
+
+
+    public SubmittedPaketSoalModel getSubmittedPaketSoal() {
+        return submittedPaketSoal;
+    }
+
+    public void setSubmittedPaketSoal(SubmittedPaketSoalModel submittedPaketSoal) {
+        this.submittedPaketSoal = submittedPaketSoal;
     }
 }

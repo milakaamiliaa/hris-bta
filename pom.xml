@@ -73,6 +73,18 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 			<version>3.0.4.RELEASE</version>
 		</dependency>
+		<dependency>
+<<<<<<< HEAD
+			<groupId>com.github.houbb</groupId>
+			<artifactId>sisyphus-spring</artifactId>
+			<version>0.0.8</version>
+		 </dependency>
+=======
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		  
+>>>>>>> staging
 		
 	</dependencies>
 

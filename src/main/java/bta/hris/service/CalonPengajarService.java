@@ -15,6 +15,9 @@ public interface CalonPengajarService {
     CalonPengajarModel tolakCalon(CalonPengajarModel calon);
     CalonPengajarModel undangCalon(CalonPengajarModel calon);
     CalonPengajarModel createCalonPengajar(CalonPengajarModel calonPengajar);
+    CalonPengajarModel updateNilaiPsikotesCalonPengajar(CalonPengajarModel calonPengajar);
+    CalonPengajarModel updateNilaiMapelCalonPengajar(CalonPengajarModel calonPengajar);
+    CalonPengajarModel updateStatusCalonPengajar(CalonPengajarModel calonPengajar);
 
 }
 

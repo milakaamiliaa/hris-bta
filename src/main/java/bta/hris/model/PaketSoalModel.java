@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +19,11 @@ public class PaketSoalModel implements Serializable {
     @NotNull
     @Column(name = "nama", nullable = false)
     private String nama;
+
+    @NotNull
+    @Size(max = 255)
+    @Column(name = "mataPelajaran", nullable = true)
+    private String mataPelajaran;
 
     @NotNull
     @Column(name = "createdAt", nullable = false)
@@ -69,5 +75,13 @@ public class PaketSoalModel implements Serializable {
 
     public void setListSoal(List<SoalModel> listSoal) {
         this.listSoal = listSoal;
+    }
+
+    public String getMataPelajaran() {
+        return mataPelajaran;
+    }
+
+    public void setMataPelajaran(String mataPelajaran) {
+        this.mataPelajaran = mataPelajaran;
     }
 }
