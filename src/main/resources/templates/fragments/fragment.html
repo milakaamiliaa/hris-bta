@@ -138,11 +138,24 @@
         </li>
 
         <!-- Nav Item - Rekrutmen -->
+<!--        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">-->
+<!--            <a class="nav-link" href="/calonpengajar">-->
+<!--                <i class="fas fa-fw fa-id-card"></i>-->
+<!--                <span>Rekrutmen</span>-->
+<!--            </a>-->
+<!--        </li>-->
+        <!-- Nav Item - Rekrutmen -->
         <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
-            <a class="nav-link" href="/calonpengajar">
-                <i class="fas fa-fw fa-id-card"></i>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-coins"></i>
                 <span>Rekrutmen</span>
             </a>
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/calonpengajar">Mengelola Hasil Tes</a>
+                    <a class="collapse-item" href="/rekrutmen/paketsoal">Mengelola Paket Soal</a>
+                </div>
+            </div>
         </li>
 
 <!--        &lt;!&ndash; Sidebar Toggler (Sidebar) &ndash;&gt;-->

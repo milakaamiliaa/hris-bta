@@ -98,7 +98,7 @@
                                 <tr th:each="s, iterationStatus: ${soal}">
                                     <td class="text-center" th:text="${iterationStatus.count}"></td>
                                     <td class="text-center" th:utext="${#strings.abbreviate(s.pertanyaan,70)}"></td>
-                                    <td><a th:href="@{/soal/detail/}+${s.idSoal}">Detail</a></td>
+                                    <td class ="text-center"><a th:href="@{/soal/detail/}+${s.idSoal}">Detail</a></td>
                                 </tr>
                                 </tbody>
                             </table>
