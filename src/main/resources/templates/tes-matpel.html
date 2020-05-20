@@ -48,25 +48,43 @@
                 <h3 class="h5 mb-2 text-danger card-header-text" th:text="'(Jumlah soal: ' + ${jumlahSoal} + ')'"></h3><br>
 
                 <!-- Soal -->
-                <div id="loop">
-                    <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-matapelajaran}" id="tes">
-                        <tr th:each="soal, iterationStatus : ${hasilTes.submittedPaketSoal.listSoal}">
-                            <div class="card shadow mb-4">
-                                <div class="card-body">
-                                    <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
-                                        <ul>
-                                            <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
+                <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-matapelajaran}" id="tesForm">
 
-                                                <input class="radioButton auto-save" type="radio" th:id="${jawaban.idJawaban}" th:name="${soal.idSoal}" th:value="${jawaban.idJawaban}"/>
+                    <input hidden th:field="${hasilTes.idHasil}" />
+                    <input hidden th:field="${hasilTes.startedAt}" />
+                    <input hidden th:field="${hasilTes.submittedPaketSoal}" />
+                    <input hidden th:field="${hasilTes.calonPengajar}" />
 
-                                                <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
-                                            </li>
-                                        </ul>
-                                </div>
+                    <tr th:each="soal, iterationStatus : ${hasilTes.submittedPaketSoal.listSoal}">
+
+                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].idSoal}" />
+                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].pertanyaan}" />
+                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].paketSoal}" />
+
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <b><p th:utext="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
+                                <ul>
+                                    <li class="no-bullets" th:each="jawaban, iterStat : ${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban}">
+
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" />
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].jawaban}" />
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].isCorrect}" />
+                                        <input hidden th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].soal}" />
+
+                                        <!--                                                <input class="radioButton auto-save" type="radio" th:name="'buttonGroupName' + ${iterationStatus.count}" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].isChosen}" th:value="1" />-->
+                                        <!--                                                <input class="radioButton auto-save" type="radio" th:id="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].submittedJawaban}" th:name="${soal.idSoal}" th:value="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__]}" />-->
+
+                                        <input class="radioButton auto-save" type="radio" th:field="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].submittedJawaban}" th:id="${iterStat.index + 'radioGroup'}" th:value="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].idJawaban}" />
+                                        <label th:for="${jawaban.idJawaban}" th:utext="${jawaban.jawaban}"></label>
+
+                                        <!--                                                <label th:for="${hasilTes.submittedPaketSoal.listSoal[__${iterationStatus.index}__].listJawaban[__${iterStat.index}__].isChosen}" th:utext="${jawaban.jawaban}"></label>-->
+                                    </li>
+                                </ul>
                             </div>
-                        </tr>
-                    </form>
-                </div>
+                        </div>
+                    </tr>
+                </form>
 
                 <nav aria-label="Page navigation example">
                     <div style="text-align: right">
@@ -143,9 +161,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                <form th:action="@{/}">
-                    <button type="submit" class="btn btn-danger">Ya</button>
-                </form>
+                <input type="submit" form="tesForm" />
+<!--                <form th:action="@{/}">-->
+<!--                    <button type="submit" class="btn btn-danger">Ya</button>-->
+<!--                </form>-->
             </div>
         </div>
     </div>

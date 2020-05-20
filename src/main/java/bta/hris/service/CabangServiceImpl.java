@@ -1,12 +1,14 @@
 package bta.hris.service;
 
 import bta.hris.model.CabangModel;
+import bta.hris.model.PresensiModel;
 import bta.hris.model.UserModel;
 import bta.hris.repository.CabangDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,12 @@ import java.util.Optional;
 public class CabangServiceImpl implements CabangService{
     @Autowired
     private CabangDB cabangDb;
+
+    @Autowired
+    private CabangService cabangService;
+
+    @Autowired
+    private PresensiService presensiService;
 
     @Override
     public List<CabangModel> getCabangList(){
@@ -36,9 +44,9 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
-    public void createCabang(CabangModel cabang){
+    public CabangModel createCabang(CabangModel cabang){
         cabang.setActive(true);
-        cabangDb.save(cabang);
+        return cabangDb.save(cabang);
     }
 
     @Override
@@ -74,4 +82,5 @@ public class CabangServiceImpl implements CabangService{
     public Optional<CabangModel> getCabangByStafCabang(UserModel stafCabang) {
         return cabangDb.findByStafCabang(stafCabang);
     }
+
 }

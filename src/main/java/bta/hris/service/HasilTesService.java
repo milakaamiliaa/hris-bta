@@ -6,4 +6,5 @@ import bta.hris.model.HasilTesModel;
 public interface HasilTesService {
     HasilTesModel addHasilTes(HasilTesModel hasilTes);
     HasilTesModel getHasilTesByCalonPengajar(CalonPengajarModel calonPengajar);
+    HasilTesModel updateHasilTes(HasilTesModel hasilTes);
 }
