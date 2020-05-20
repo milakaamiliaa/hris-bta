@@ -48,7 +48,7 @@ public class PageController {
         model.addAttribute("listRole", roleService.getAllRole());
 
 
-        try{
+        //try{
             UserDetails loggedIn = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             if(userService.getByNip(loggedIn.getUsername()).getRole().getNama().equals("CALON PENGAJAR")){
@@ -161,11 +161,11 @@ public class PageController {
             else{
                 return "home";
             }
-        }
+        //}
 
-        catch(Exception e){
+/*        catch(Exception e){
             return "Home fix";
-        }
+        }*/
     }
 
     @RequestMapping("/login")
