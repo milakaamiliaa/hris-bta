@@ -38,7 +38,10 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div th:if="${pegawaiList.size() == 0}" th:align="center">
+                            <h5 th:text="'Tidak ada data presensi pegawai'"></h5>
+                        </div>
+                        <div th:unless="${pegawaiList.size() == 0}" class="table-responsive">
                             <div class="table-responsive">
                                 <table class="table " id="dataTable" width="100%" cellspacing="0">
                                     <thead style="background-color: #FF5252 !important; color: white">
