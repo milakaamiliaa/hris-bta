@@ -1,9 +1,11 @@
 package bta.hris.service;
 
 import bta.hris.model.CabangModel;
+import bta.hris.model.GajiModel;
 import bta.hris.model.PresensiModel;
 import bta.hris.model.UserModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface PresensiService {

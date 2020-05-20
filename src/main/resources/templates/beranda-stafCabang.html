@@ -32,7 +32,10 @@
                 <!-- Chart Container -->
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
-                        <div class="row align-content-center" style="width: 40%; height: 40%; margin-left: 30%; margin-right: auto;">
+                        <div  th:if="${dataNotEnough}" th:text="${dataNotEnough}" class="-align-center" style="text-align: center;">
+                        </div>
+
+                        <div th:if="${dataEnough}" class="row align-content-center" style="width: 40%; height: 40%; margin-left: 30%; margin-right: auto;">
                             <div class="col align-content-lg-center" style="width: 40%; height: 40%;">
                                 <canvas id="myChart" width="1" height="1"></canvas>
                             </div>
@@ -40,7 +43,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <h1 class="h5 mb-2 text-danger card-header-text" th:text="'Rasio Efisiensi Cabang ' + ${cabangModel.cabang}"></h1>
+                                <h1 class="h5 mb-2 text-danger card-header-text" th:text="'Rasio Efisiensi Cabang ' + ${cabangData.cabang.cabang}"></h1>
                             </div>
                         </div>
                     </div>
@@ -57,10 +60,10 @@
 
                                     <div class="col">
                                         <div class="font-weight-bold text-danger">
-                                            <p th:text="${gajiModel.periode.getMonth()}+' '+${gajiModel.periode.getYear()}"></p>
+                                            <p th:text="${cabangData.createdAt.getMonth()}+' '+${cabangData.createdAt.getYear()}"></p>
                                         </div>
-                                        <div class="h3 font-weight-bold text-danger" th:text="'Total Payroll ' + ${cabangModel.cabang}"></div>
-                                        <div class="h4 font-weight-bold text-gray-800" th:text="'RP. '+ ${gajiModel.totalGaji}" ></div>
+                                        <div class="h3 font-weight-bold text-danger" th:text="'Total Payroll ' + ${cabangData.cabang.cabang}"></div>
+                                        <div class="h4 font-weight-bold text-gray-800" th:text="'RP. '+ ${totalPayroll}" ></div>
                                         <a class="text-primary" th:href="@{/gaji/}"> Lihat Detail ></a>
                                     </div>
                                     <div class="col">
@@ -78,10 +81,10 @@
 
                                     <div class="col">
                                         <div class="font-weight-bold text-danger">
-                                            <p th:text="${gajiModel.periode.getMonth()}+' '+${gajiModel.periode.getYear()}"></p>
+                                            <p th:text="${cabangData.createdAt.getMonth()}+' '+${cabangData.createdAt.getYear()}"></p>
                                         </div>
-                                        <div class="h3 font-weight-bold text-danger" th:text="'Jumlah Siswa ' + ${cabangModel.cabang}"></div>
-                                        <div class="h4 font-weight-bold text-gray-800" th:text="${cabangModel.jumlahSiswa}"></div>
+                                        <div class="h3 font-weight-bold text-danger" th:text="'Jumlah Siswa ' + ${cabangData.cabang.cabang}"></div>
+                                        <div class="h4 font-weight-bold text-gray-800" th:text="${cabangData.jumlahSiswa}"></div>
                                     </div>
                                     <div class="col">
                                         <img src="/img/Jumlah%20Siswa.png" class="img-fluid" style="width:100px; height: auto; float: right">
@@ -95,7 +98,7 @@
                 <br>
                 <br>
 
-                <h1 class="h3 mb-2 text-gray-800 text-uppercase text-center font-weight-bold" th:text="'TOP 10 PENGAJAR '+${cabangModel.cabang}"></h1>
+                <h1 class="h3 mb-2 text-gray-800 text-uppercase text-center font-weight-bold" th:text="'TOP 10 PENGAJAR '+${cabangData.cabang.cabang}"></h1>
                 <div class="card shadow mb-4 border-bottom-danger">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -109,11 +112,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="gaji, iterationStatus: ${allGajiByPengajar}">
+                                <tr th:each="pegawai, iterationStatus: ${pegawaiList}">
                                     <td style="text-align: center;" th:text="${iterationStatus.count}"></td>
-                                    <td th:text="${gaji.pegawai.nama}"></td>
-                                    <td style="text-align: center;" th:text="${gaji.totalSesi}"></td>
-                                    <td style="text-align: center;"><a th:href="@{/gaji/detail/}+${gaji.idGaji}">Detail</a></td>
+                                    <td th:text="${pegawai.nama}"></td>
+                                    <td style="text-align: center;" th:text="${totalSesiPegawai[__${iterationStatus.index}__]}"></td>
+                                    <td style="text-align: center;"><a th:href="@{/gaji/}+${pegawai.nip}">Detail</a></td>
                                 </tr>
                                 </tbody>
                             </table>

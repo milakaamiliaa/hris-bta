@@ -13,4 +13,5 @@ import java.util.List;
 public interface CabangDataDB extends JpaRepository<CabangDataModel, Long> {
     CabangDataModel findByCabangAndPeriode(CabangModel cabang, String periode);
     List<CabangDataModel> findAllByCabangAndCreatedAtBetweenOrderByCreatedAtAsc(CabangModel cabang, LocalDate start, LocalDate end);
+    List<CabangDataModel> findByCabang(CabangModel cabang);
 }

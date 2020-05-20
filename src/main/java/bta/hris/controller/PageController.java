@@ -43,13 +43,6 @@ public class PageController {
 
         try{
             UserDetails loggedIn = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
-            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
-            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
-            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
-            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
-            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
-            System.out.println(userService.getByNip(loggedIn.getUsername()).getRole().getNama());
 
             if(userService.getByNip(loggedIn.getUsername()).getRole().getNama().equals("CALON PENGAJAR")){
                 CalonPengajarModel calonPengajar = calonPengajarService.getCalonByUsername(loggedIn.getUsername());
@@ -65,13 +58,64 @@ public class PageController {
                 Optional<CabangModel> cabangModelOpt = cabangService.getCabangByStafCabang(userModel);
                 CabangModel cabangModel = cabangModelOpt.get();
                 LocalDate periode = LocalDate.now().minusMonths(1);
+                CabangDataModel cabangData = cabangDataService.getCabangDataByCabangAndCreatedAt(cabangModel, periode);
+                int totalPayroll = cabangDataService.calculateTotalPayroll(cabangData);
                 GajiModel gajiCabang = gajiService.getGajiCabangMonthly(cabangModel,periode);
                 Optional<GajiModel> gajiCabangMonthOpt = gajiService.getGajiByIdGaji(gajiCabang.getIdGaji());
                 GajiModel gajiModel = gajiCabangMonthOpt.get();
-                List<GajiModel> allGajiByPengajar = gajiService.getAllGajiPengajarCabangMonthly(cabangModel, periode);
 
-                model.addAttribute("allGajiByPengajar", allGajiByPengajar);
-                model.addAttribute("cabangModel", cabangModel);
+                /* Mengambil daftar pengajar beserta Total Sesi Mengajar */
+                List<PresensiModel> presensiByCabangData = cabangData.getListPresensi();
+                ArrayList<UserModel> pegawaiList = new ArrayList<>();
+                ArrayList<Long> totalsesiPegawai = new ArrayList<>();
+                ArrayList<UserModel> pegawaiListSorted = new ArrayList<>();
+                ArrayList<Long> totalsesiPegawaiSorted = new ArrayList<>();
+
+                for (PresensiModel presensi : presensiByCabangData){
+                    if (pegawaiList.contains(presensi.getPegawai()) == false){
+                        pegawaiList.add(presensi.getPegawai());
+                        if (presensi.getSesiTambahan() != null){
+                            totalsesiPegawai.add(presensi.getSesiMengajar()+presensi.getSesiTambahan());
+                        } else {
+                            totalsesiPegawai.add(presensi.getSesiMengajar());
+                        }
+
+                    } else {
+                        int index = pegawaiList.indexOf(presensi.getPegawai());
+                        Long sesi = totalsesiPegawai.get(index);
+                        if (presensi.getSesiTambahan() != null){
+                            sesi += presensi.getSesiMengajar()+presensi.getSesiTambahan();
+                        }
+                        else {
+                            sesi += presensi.getSesiMengajar();
+                        }
+                        totalsesiPegawai.set(index, sesi);
+                    }
+                }
+
+                Long pertama = totalsesiPegawai.get(0);
+                for (int i=1; i<totalsesiPegawai.size();i++){
+                    if (totalsesiPegawai.get(i)>pertama){
+                        totalsesiPegawaiSorted.add(totalsesiPegawai.get(i));
+                        pegawaiListSorted.add(pegawaiList.get(i));
+                    }
+                    else {
+                        int index = totalsesiPegawai.indexOf(pertama);
+                        UserModel pegawaiAtIndex = pegawaiList.get(index);
+                        totalsesiPegawaiSorted.add(pertama);
+                        pegawaiListSorted.add(pegawaiAtIndex);
+                        pertama = totalsesiPegawai.get(i);
+                    }
+                }
+                totalsesiPegawaiSorted.add(pertama);
+                int index = totalsesiPegawai.indexOf(pertama);
+                UserModel pegawaiAtIndex = pegawaiList.get(index);
+                pegawaiListSorted.add(pegawaiAtIndex);
+
+                model.addAttribute("pegawaiList", pegawaiListSorted);
+                model.addAttribute("totalSesiPegawai", totalsesiPegawaiSorted);
+                model.addAttribute("cabangData", cabangData);
+                model.addAttribute("totalPayroll", totalPayroll);
                 model.addAttribute("gajiModel", gajiModel);
                 model.addAttribute("userModel", userModel);
 
@@ -93,6 +137,15 @@ public class PageController {
 
                 periodeString = periodeString.substring(0, periodeString.length()-1);
                 rasioString = rasioString.substring(0, rasioString.length()-1);
+
+                if (listCabangData.size()<5){
+                    model.addAttribute("dataNotEnough", "Data belum mencukupi untuk memunculkan grafik " +
+                            "rasio efisiensi cabang");
+                }
+                else {
+                    model.addAttribute("dataEnough", "Data mencukupi untuk memunculkan grafik " +
+                            "rasio efisiensi cabang");
+                }
 
                 model.addAttribute("periodeString", periodeString);
                 model.addAttribute("rasioString", rasioString);

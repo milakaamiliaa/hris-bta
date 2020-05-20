@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -94,7 +95,36 @@ public class CabangDataServiceImpl implements CabangDataService {
             return Float.parseFloat("0");
         }
 
-        Float rasio = jumlahSiswa/gaji;
+        Float rasio = jumlahSiswa/gaji*1000;
         return rasio;
     }
+
+    @Override
+    public List<CabangDataModel> getCabangDataByCabang(CabangModel cabang){
+        return cabangDataDB.findByCabang(cabang);
+    }
+
+    @Override
+    public CabangDataModel getCabangDataByCabangAndCreatedAt(CabangModel cabang, LocalDate createdAt){
+        CabangDataModel cabangData = new CabangDataModel();
+        List<CabangDataModel> cabangDataList = getCabangDataByCabang(cabang);
+        for (CabangDataModel cabangDataModel : cabangDataList){
+            if (cabangDataModel.getCreatedAt().getMonthValue()==createdAt.getMonthValue() &&
+                    cabangDataModel.getCreatedAt().getYear()==createdAt.getYear()){
+                cabangData = cabangDataModel;
+            }
+        }
+        return cabangData;
+    }
+
+    public int calculateTotalPayroll(CabangDataModel cabangDataModel){
+        Float totalPayroll = (float) 0;
+        List<PresensiModel> presensiModelList = cabangDataModel.getListPresensi();
+        for (PresensiModel presensi : presensiModelList){
+            totalPayroll += presensi.getNominal();
+        }
+        int total = Math.round(totalPayroll);
+        return total;
+    }
+
 }

@@ -67,14 +67,14 @@
                                 <p class="details-title">Total Sesi</p>
                             </div>
                             <div class="col">
-                                <p th:text="': ' + ${gajiModel.totalSesi}"></p>
+                                <p th:text="': ' + ${jumlahSesi}"></p>
                             </div>
                         </div>
 
                         <br>
                         <br>
                         <h1 class="h3 mb-2 text-gray-800 details-title" th:text="'Riwayat Presensi ' +
-                        ${gajiModel.periode.getMonth()} + ' ' + ${gajiModel.periode.getYear()} "></h1>
+                        ${cabangData.createdAt.getMonth()} + ' ' + ${cabangData.createdAt.getYear()} "></h1>
                         <br>
 
                         <!-- Tabel -->
@@ -91,7 +91,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="presensi, iterationStatus: ${presensiList}">
+                                <tr th:each="presensi, iterationStatus: ${presensiPengajarList}">
                                     <td class="text-center" th:text="${iterationStatus.count}"></td>
                                     <td class="text-center" th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
                                     <td class="text-center" th:text="${presensi.sesiMengajar}"></td>

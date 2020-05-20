@@ -31,9 +31,6 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <div th:if="${alertUbah}" th:text="${alertUbah}" class="alert alert-success" role="alert"></div>
-                <div th:if="${alertTambah}" th:text="${alertTambah}" class="alert alert-success" role="alert"></div>
-
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800" th:text="'Daftar Presensi '
                 +${cabangModel.cabang}+' '+${periode.getMonth()}+' '+${periode.getYear()}"></h1>
@@ -55,13 +52,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="gaji, iterationStatus: ${allGajiByPengajar}">
+                                    <tr th:each="pegawai, iterationStatus: ${pegawaiList}">
                                         <td class="text-center" th:text="${iterationStatus.count}"></td>
-                                        <td class="text-center" th:text="${gaji.pegawai.nama}"></td>
-                                        <td class="text-center" th:text="${gaji.totalSesi}"></td>
-                                        <td class="text-center" th:text="${gaji.pegawai.mataPelajaran}"></td>
-                                        <td class="text-center" th:text="'Rp ' + ${gaji.totalGaji}"></td>
-                                        <td style="text-align: center;"><a th:href="@{/gaji/detail/}+${gaji.idGaji}">Detail</a></td>
+                                        <td class="text-center" th:text="${pegawai.nama}"></td>
+                                        <td class="text-center" th:text="${totalSesiPegawai[__${iterationStatus.index}__]}"></td>
+                                        <td class="text-center" th:text="${pegawai.mataPelajaran}"></td>
+                                        <td class="text-center" th:text="${totalGajiList[__${iterationStatus.index}__]}"></td>
+                                        <td style="text-align: center;"><a th:href="@{/gaji/}+${pegawai.nip}">Detail</a></td>
                                     </tr>
                                     </tbody>
                                 </table>

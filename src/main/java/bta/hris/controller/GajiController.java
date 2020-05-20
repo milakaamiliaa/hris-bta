@@ -1,15 +1,10 @@
 package bta.hris.controller;
 
-import bta.hris.model.CabangModel;
-import bta.hris.model.GajiModel;
-import bta.hris.model.PresensiModel;
-import bta.hris.model.UserModel;
-import bta.hris.service.CabangService;
-import bta.hris.service.GajiService;
-import bta.hris.service.PresensiService;
-import bta.hris.service.UserService;
+import bta.hris.model.*;
+import bta.hris.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -41,6 +37,9 @@ public class GajiController{
     @Autowired
     private CabangService cabangService;
 
+    @Autowired
+    private CabangDataService cabangDataService;
+
 
 
 
@@ -52,8 +51,49 @@ public class GajiController{
             Optional<CabangModel> cabangModelOpt = cabangService.getCabangByStafCabang(user);
             CabangModel cabangModel = cabangModelOpt.get();
             LocalDate periode = LocalDate.now().minusMonths(1);
-            List<GajiModel> allGajiByPengajar = gajiService.getAllGajiPengajarCabangMonthly(cabangModel, periode);
-            model.addAttribute("allGajiByPengajar", allGajiByPengajar);
+            CabangDataModel cabangData = cabangDataService.getCabangDataByCabangAndCreatedAt(cabangModel, periode);
+
+            /* Mengambil daftar pengajar beserta Total Sesi Mengajar */
+            List<PresensiModel> presensiByCabangData = cabangData.getListPresensi();
+            ArrayList<UserModel> pegawaiList = new ArrayList<>();
+            ArrayList<Long> totalsesiPegawai = new ArrayList<>();
+            ArrayList<Integer> totalGajiList = new ArrayList<>();
+
+            for (PresensiModel presensi : presensiByCabangData){
+                if (pegawaiList.contains(presensi.getPegawai()) == false){
+                    Float nominal = presensi.getNominal();
+                    Integer nominalInt = Math.round(nominal);
+                    pegawaiList.add(presensi.getPegawai());
+                    totalGajiList.add(nominalInt);
+                    if (presensi.getSesiTambahan() != null){
+                        totalsesiPegawai.add(presensi.getSesiMengajar()+presensi.getSesiTambahan());
+                    } else {
+                        totalsesiPegawai.add(presensi.getSesiMengajar());
+                    }
+
+                } else {
+                    int index = pegawaiList.indexOf(presensi.getPegawai());
+
+                    Float nominal = presensi.getNominal();
+                    Integer nominalInt = Math.round(nominal);
+                    Integer gaji = totalGajiList.get(index);
+                    gaji += nominalInt;
+                    totalGajiList.set(index, gaji);
+
+                    Long sesi = totalsesiPegawai.get(index);
+                    if (presensi.getSesiTambahan() != null){
+                        sesi += presensi.getSesiMengajar()+presensi.getSesiTambahan();
+                    }
+                    else {
+                        sesi += presensi.getSesiMengajar();
+                    }
+                    totalsesiPegawai.set(index, sesi);
+                }
+            }
+
+            model.addAttribute("pegawaiList", pegawaiList);
+            model.addAttribute("totalSesiPegawai", totalsesiPegawai);
+            model.addAttribute("totalGajiList", totalGajiList);
             model.addAttribute("cabangModel", cabangModel);
             model.addAttribute("periode", periode);
 
@@ -76,30 +116,6 @@ public class GajiController{
     public String detailGaji(@PathVariable Long idGaji, Model model){
         UserModel user = userService.getByNip(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        if (user.getRole().getNama().equalsIgnoreCase("STAF CABANG")) {
-            Optional<CabangModel> cabangModelOpt = cabangService.getCabangByStafCabang(user);
-            CabangModel cabangModel = cabangModelOpt.get();
-            GajiModel gajiModel = gajiService.getGajiByIdGaji(idGaji).get();
-            UserModel pegawai = gajiModel.getPegawai();
-            List<PresensiModel> presensiList = presensiService.getAllPresensiByCabangAndPegawaiAndStatus
-                    (cabangModel, pegawai, "disetujui");
-
-            for (PresensiModel presensi : presensiList){
-                if (presensi.getSesiTambahan()==null){
-                    presensi.setSesiTambahan(Long.valueOf(0));
-                }
-            }
-
-
-            model.addAttribute("gajiModel", gajiModel);
-            model.addAttribute("pegawai", pegawai);
-            model.addAttribute("presensiList", presensiList);
-            return "detail-gaji-pengajar-cabang";
-
-
-        }
-
-        else {
             GajiModel gaji = gajiService.getGajiByIdGaji(idGaji).get();
             String month = "";
             if (String.valueOf(gaji.getPeriode().getMonthValue()).length() == 1) {
@@ -122,7 +138,44 @@ public class GajiController{
             model.addAttribute("gaji", gaji);
             return "detail-gaji-pengajar";
 
+    }
+
+    @RequestMapping(value = "/gaji/{nip}", method = RequestMethod.GET)
+    public String detailGajiCabang(@PathVariable String nip, Model model) {
+        UserDetails loggedIn = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserModel user = userService.getByNip(loggedIn.getUsername());
+        UserModel pegawai = userService.getByNip(nip);
+        Optional<CabangModel> cabangModelOpt = cabangService.getCabangByStafCabang(user);
+        CabangModel cabangModel = cabangModelOpt.get();
+        LocalDate periode = LocalDate.now().minusMonths(1);
+        CabangDataModel cabangData = cabangDataService.getCabangDataByCabangAndCreatedAt(cabangModel, periode);
+
+        /* Mengambil data pengajar beserta Presensi */
+        List<PresensiModel> presensiByCabangData = cabangData.getListPresensi();
+        List<PresensiModel> presensiPengajarList = new ArrayList<>();
+        Long jumlahSesi = Long.valueOf(0);
+
+        for (PresensiModel presensi : presensiByCabangData){
+            if (presensi.getPegawai().getNip().equalsIgnoreCase(nip)){
+                presensiPengajarList.add(presensi);
+            }
         }
+
+        for (PresensiModel presensi : presensiPengajarList){
+            if (presensi.getSesiTambahan()==null){
+                jumlahSesi += presensi.getSesiMengajar();
+                presensi.setSesiTambahan(Long.valueOf(0));
+            }
+            else {
+                jumlahSesi += presensi.getSesiMengajar()+presensi.getSesiTambahan();
+            }
+        }
+
+        model.addAttribute("cabangData", cabangData);
+        model.addAttribute("jumlahSesi", jumlahSesi);
+        model.addAttribute("pegawai", pegawai);
+        model.addAttribute("presensiPengajarList", presensiPengajarList);
+        return "detail-gaji-pengajar-cabang";
 
     }
 

@@ -123,4 +123,5 @@ public class PresensiServiceImpl implements PresensiService {
                                                                   String status) {
         return presensiDB.findByCabangAndPegawaiAndStatus(cabang, userModel, status);
     }
+
 }
