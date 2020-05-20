@@ -114,6 +114,7 @@ public class SoalController {
     public String detailSoal(@PathVariable Long idSoal, Model model) {
         SoalModel soal = soalService.getSoalById(idSoal);
         JawabanModel correctAnswer = new JawabanModel();
+        List<JawabanModel> listActiveJawaban = new ArrayList<JawabanModel>();
 
         for (JawabanModel j : soal.getListJawaban()) {
             if (j.isCorrect()) {
@@ -123,10 +124,15 @@ public class SoalController {
 
         List<JawabanModel> wrongAnswers = soal.getListJawaban();
         wrongAnswers.removeIf(n -> n.isCorrect());
+        for(JawabanModel jwbn :wrongAnswers){
+            if(jwbn.isActive()){
+                listActiveJawaban.add(jwbn);
+            }
+        }
 
         model.addAttribute("soal", soal);
         model.addAttribute("correctAnswer", correctAnswer);
-        model.addAttribute("jawaban", wrongAnswers);
+        model.addAttribute("jawaban", listActiveJawaban);
 
         return "detail-soal";
     }
