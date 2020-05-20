@@ -13,5 +13,6 @@ public interface UserService {
     UserModel changeUser(UserModel pegawai);
     boolean deleteUser(UserModel user);
     UserModel getByNip(String nip);
+    UserModel createDummyUser();
 
 }
