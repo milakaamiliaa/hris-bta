@@ -27,6 +27,10 @@ public class SubmittedSoalModel implements Serializable {
     @OneToMany(mappedBy = "soal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SubmittedJawabanModel> listJawaban;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "submittedJawabanId", referencedColumnName = "idJawaban")
+    private SubmittedJawabanModel submittedJawaban;
+
     public Long getIdSoal() {
         return idSoal;
     }
@@ -57,5 +61,13 @@ public class SubmittedSoalModel implements Serializable {
 
     public void setListJawaban(List<SubmittedJawabanModel> listJawaban) {
         this.listJawaban = listJawaban;
+    }
+
+    public SubmittedJawabanModel getSubmittedJawaban() {
+        return submittedJawaban;
+    }
+
+    public void setSubmittedJawaban(SubmittedJawabanModel submittedJawaban) {
+        this.submittedJawaban = submittedJawaban;
     }
 }

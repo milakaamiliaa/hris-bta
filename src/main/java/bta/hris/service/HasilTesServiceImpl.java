@@ -23,4 +23,23 @@ public class HasilTesServiceImpl implements HasilTesService {
     public HasilTesModel getHasilTesByCalonPengajar(CalonPengajarModel calonPengajar) {
         return hasilTesDB.findByCalonPengajar(calonPengajar);
     }
+
+    @Override
+    public HasilTesModel updateHasilTes(HasilTesModel hasilTes) {
+        HasilTesModel target = hasilTesDB.findById(hasilTes.getIdHasil()).get();
+
+        try{
+            target.setNilai(hasilTes.getNilai());
+            target.setSubmittedPaketSoal(hasilTes.getSubmittedPaketSoal());
+            target.setStartedAt(hasilTes.getStartedAt());
+            target.setFinishedAt(hasilTes.getFinishedAt());
+            target.setCalonPengajar(hasilTes.getCalonPengajar());
+            hasilTesDB.save(target);
+
+            return target;
+        }
+        catch (NullPointerException nullException){
+            return null;
+        }
+    }
 }

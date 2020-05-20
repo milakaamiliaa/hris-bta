@@ -164,4 +164,43 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
         return calonPengajarDB.save(calonPengajar);
     }
 
+    @Override
+    public CalonPengajarModel updateNilaiPsikotesCalonPengajar(CalonPengajarModel calonPengajar) {
+        CalonPengajarModel target = calonPengajarDB.findById(calonPengajar.getIdCalon()).get();
+
+        try{
+            target.setNilaiPsikotes(calonPengajar.getNilaiPsikotes());
+            calonPengajarDB.save(target);
+            return target;
+        }catch(NullPointerException e){
+            return null;
+        }
+    }
+
+    @Override
+    public CalonPengajarModel updateNilaiMapelCalonPengajar(CalonPengajarModel calonPengajar) {
+        CalonPengajarModel target = calonPengajarDB.findById(calonPengajar.getIdCalon()).get();
+
+        try{
+            target.setNilaiMataPelajaran(calonPengajar.getNilaiMataPelajaran());
+            calonPengajarDB.save(target);
+            return target;
+        }catch(NullPointerException e){
+            return null;
+        }
+    }
+
+    @Override
+    public CalonPengajarModel updateStatusCalonPengajar(CalonPengajarModel calonPengajar) {
+        CalonPengajarModel target = calonPengajarDB.findById(calonPengajar.getIdCalon()).get();
+
+        try{
+            target.setStatus(calonPengajar.getStatus());
+            calonPengajarDB.save(target);
+            return target;
+        }catch(NullPointerException e){
+            return null;
+        }
+    }
+
 }

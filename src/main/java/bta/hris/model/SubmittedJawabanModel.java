@@ -31,6 +31,9 @@ public class SubmittedJawabanModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SubmittedSoalModel soal;
 
+    @OneToOne(mappedBy = "submittedJawaban")
+    private SubmittedSoalModel submittedSoal;
+
     public Long getIdJawaban() {
         return idJawaban;
     }

@@ -32,7 +32,7 @@ public class HasilTesModel implements Serializable {
     private LocalDate finishedAt;
 
     @Column(name = "nilai", nullable = true)
-    private Integer nilai;
+    private Float nilai;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "calonPengajar", referencedColumnName= "idCalon", nullable = false)
@@ -63,11 +63,11 @@ public class HasilTesModel implements Serializable {
         this.finishedAt = finishedAt;
     }
 
-    public Integer getNilai() {
+    public Float getNilai() {
         return nilai;
     }
 
-    public void setNilai(Integer nilai) {
+    public void setNilai(Float nilai) {
         this.nilai = nilai;
     }
 

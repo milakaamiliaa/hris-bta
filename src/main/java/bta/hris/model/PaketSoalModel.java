@@ -76,6 +76,7 @@ public class PaketSoalModel implements Serializable {
     public void setListSoal(List<SoalModel> listSoal) {
         this.listSoal = listSoal;
     }
+
     public String getMataPelajaran() {
         return mataPelajaran;
     }
