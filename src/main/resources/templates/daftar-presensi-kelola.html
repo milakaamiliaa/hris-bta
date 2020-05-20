@@ -90,20 +90,21 @@
 
                                             <div class="button-detail">
                                                 <td>
-                                                <div class="row">
-                                                    <div class="col-md-7">
-                                                        <a th:href="'/presensi/setujui/' + ${presensi.idPresensi}" class="btn btn-setujui">Setujui</a>
+                                                    <div class="row">
+                                                        <div class="col-md-7">
+                                                            <a th:href="'/presensi/setujui/' + ${presensi.idPresensi}" class="btn btn-setujui">Setujui</a>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <a th:href="'/presensi/tolak/' + ${presensi.idPresensi}" class="btn btn-hapus">Tolak</a>
+                                                            <!--                                                        <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">-->
+                                                            <!--                                                            <button type="submit" class="btn btn-hapus">Tolak</button>-->
+                                                            <!--                                                        </form>-->
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <a th:href="'/presensi/tolak/' + ${presensi.idPresensi}" class="btn btn-hapus">Tolak</a>
-<!--                                                        <form th:action="@{/presensi/tolak/{idPresensi}(idPresensi=${presensi.idPresensi})}" th:object="${presensi}" method="POST">-->
-<!--                                                            <button type="submit" class="btn btn-hapus">Tolak</button>-->
-<!--                                                        </form>-->
-                                                    </div>
-                                                </div>
                                                 </td>
                                             </div>
                                         </div>
+
 
 <!--                                            &lt;!&ndash; Modal Konfirmasi &ndash;&gt;-->
 <!--                                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:id=" 'exampleModalCenter' + ${iterationStatus.count}">-->

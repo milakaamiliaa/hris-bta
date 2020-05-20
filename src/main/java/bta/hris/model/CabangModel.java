@@ -46,6 +46,9 @@ public class CabangModel implements Serializable {
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
 
+    @OneToMany(mappedBy = "cabang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CabangDataModel> listCabangData;
+
     public Long getIdCabang() {
         return idCabang;
     }

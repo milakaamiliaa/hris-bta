@@ -1,15 +1,20 @@
 package bta.hris.controller;
 
+import bta.hris.model.CabangDataModel;
 import bta.hris.model.CabangModel;
+import bta.hris.model.PresensiModel;
 import bta.hris.model.UserModel;
+import bta.hris.service.CabangDataService;
 import bta.hris.service.CabangService;
 import bta.hris.service.UserService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +25,9 @@ public class CabangController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CabangDataService cabangDataService;
 
     @RequestMapping(value = "/cabang")
     public String daftarCabang(Model model){
@@ -55,7 +63,15 @@ public class CabangController {
 
     @RequestMapping(value = "/cabang/tambah", method = RequestMethod.POST)
     public String tambahCabangSubmit(@ModelAttribute CabangModel cabang, Model model, RedirectAttributes redirect){
-        cabangService.createCabang(cabang);
+        CabangModel cabangSaved = cabangService.createCabang(cabang);
+
+        // ==== CabangDataModel ====
+        CabangDataModel cabangData = new CabangDataModel();
+        cabangData.setCabang(cabangSaved);
+
+        cabangDataService.addCabangData(cabangData);
+        // =========================
+
         redirect.addFlashAttribute("alert", "Cabang " + cabang.getNama() + " Berhasil Ditambahkan. ");
 
         return "redirect:/cabang";
@@ -102,8 +118,41 @@ public class CabangController {
     @RequestMapping(value = "cabang/ubah/{idCabang}", method = RequestMethod.POST)
     public String ubahCabangSubmit(@PathVariable Long idCabang, @ModelAttribute CabangModel cabang, Model model, RedirectAttributes redirect) {
         CabangModel newCabang = cabangService.updateCabang(cabang);
+
+        // ==== CabangDataModel ====
+            // Periode, formatnya String "MMYY", mirip sama kodeGaji (yang merupakan periode dari gaji tsb).
+        LocalDate tanggal = LocalDate.now();
+        String month = "";
+        if (String.valueOf(tanggal.getMonthValue()).length() == 1) {
+            month = "0" + tanggal.getMonthValue();
+        }
+
+        else {
+            month = String.valueOf(tanggal.getMonthValue());
+        }
+        String year = String.valueOf(tanggal.getYear()).substring(2,4);
+
+            // Cek udah ada objek CabangDataModel-nya atau belum untuk periode ini.
+        if (cabangDataService.getCabangDataByCabangAndPeriode(newCabang, month+year) == null) {
+            // Objek-nya belum ada.
+            CabangDataModel cabangData = new CabangDataModel();
+            cabangData.setCabang(newCabang);
+
+            cabangDataService.addCabangData(cabangData);
+        }
+
+        else {
+            // Objek-nya udah ada.
+            CabangDataModel cabangData = cabangDataService.getCabangDataByCabangAndPeriode(newCabang, month+year);
+            cabangData.setJumlahSiswa(newCabang.getJumlahSiswa());
+
+            cabangDataService.updateCabangData(cabangData);
+        }
+        // =========================
+
         model.addAttribute("cabang", newCabang);
         redirect.addFlashAttribute("alertUbah", "Cabang " + cabang.getNama() + " berhasil diubah.");
+
         return "redirect:/cabang";
     }
 
@@ -116,5 +165,3 @@ public class CabangController {
          return "redirect:/cabang";
     }
 }
-
-

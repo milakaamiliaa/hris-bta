@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDB userDB;
 
+    @Autowired
+    private RoleService roleService;
+
 
     @Override
     public UserModel getUserById(String id){
@@ -134,5 +137,24 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public UserModel createDummyUser() {
+        UserModel newUser = new UserModel();
+        newUser.setNip("012345");
+        newUser.setNama("Dummy");
+        newUser.setEmail("email@email.com");
+        newUser.setAlamat("alamat");
+        newUser.setNoTelp("01234567");
+        newUser.setTglLahir(LocalDate.now());
+        newUser.setPassword("password");
+        newUser.setCreatedAt(LocalDate.now());
+        newUser.setActive(false);
+        newUser.setRole(roleService.getRoleById(Long.valueOf(3)));
+        userDB.save(newUser);
+
+        return newUser;
+    }
+
 }
 
