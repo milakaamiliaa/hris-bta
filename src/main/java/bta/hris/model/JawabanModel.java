@@ -19,11 +19,11 @@ public class JawabanModel implements Serializable {
     private String jawaban;
 
     @NotNull
-    @Column(name = "is_correct", nullable = false, columnDefinition = "tinyint(1) default 1")
+    @Column(name = "is_correct", nullable = false, columnDefinition = "boolean default true")
     private boolean isCorrect;
 
     @NotNull
-    @Column(name = "is_active", nullable = false, columnDefinition = "tinyint(1) default 1")
+    @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
     private boolean isActive;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
