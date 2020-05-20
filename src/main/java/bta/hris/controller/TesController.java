@@ -91,7 +91,7 @@ public class TesController {
                     SubmittedJawabanModel jj = new SubmittedJawabanModel();
                     jj.setJawaban(j.getJawaban());
                     jj.setSoal(ss);
-                    jj.setChosen(false);
+                    jj.setIsChosen(false);
                     jj.setCorrect(j.isCorrect());
 
                     submittedJawaban.add(jj);
@@ -191,7 +191,7 @@ public class TesController {
                     SubmittedJawabanModel jj = new SubmittedJawabanModel();
                     jj.setJawaban(j.getJawaban());
                     jj.setSoal(ss);
-                    jj.setChosen(false);
+                    jj.setIsChosen(false);
                     jj.setCorrect(j.isCorrect());
 
                     submittedJawaban.add(jj);

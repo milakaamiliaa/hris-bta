@@ -53,9 +53,7 @@
                                     <b><p th:text="${iterationStatus.count} + '. ' + ${soal.pertanyaan}"></p></b>
                                         <ul>
                                             <li class="no-bullets" th:action="@{#}" th:each="jawaban, iterStat : ${soal.listJawaban}">
-
-                                                <input class="radioButton auto-save" type="radio" th:id="${jawaban.idJawaban}" th:name="${soal.idSoal}" th:value="${jawaban.idJawaban}" onclick="save_sisyphus('#tes')"/>
-
+                                                <input class="radioButton auto-save" type="radio" th:field="${jawaban.isChosen}"/>
                                                 <label th:for="${jawaban.idJawaban}" th:text="${jawaban.jawaban}"></label>
                                             </li>
                                         </ul>
