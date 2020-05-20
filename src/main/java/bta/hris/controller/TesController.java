@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -151,19 +148,22 @@ public class TesController {
        List<SubmittedSoalModel> listSoal = hasilTes.getSubmittedPaketSoal().getListSoal();
        for (SubmittedSoalModel soal : listSoal){
            for(SubmittedJawabanModel jawaban : soal.getListJawaban()){
-               if(jawaban.isChosen() && jawaban.isCorrect()){
-                   nilai += 1;
-               }
+//               if(jawaban.getSoal().getIdSoal().equals(nama)){
+//                jawaban.setChosen(true);
+                   if(jawaban.isChosen() && jawaban.isCorrect()){
+                       nilai += 1;
+                   }
+//               }
            }
        }
        
        nilai = (nilai/listSoal.size()) * 100;
        hasil.setNilai(nilai);
-        return "redirect:/calonpengajar/aturan-tes-matapelajaran";
+        return "redirect:/calonpengajar/aturan-matapelajaran";
     }
 
-    @RequestMapping(value = "/calonpengajar/aturan-tes-matapelajaran", method = RequestMethod.GET)
-    public String aturanTesMatapelajaran(Model model) {
+    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
+    public String aturanMataPelajaran(Model model) {
         return "aturan-tes-matpel";
     }
 
@@ -255,10 +255,8 @@ public class TesController {
         return "aturan-tes-matpel";
     }
 
-    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
-    public String aturanMataPelajaran(Model model) {
-        return "aturan-tes-matpel";
-    }
+
+
 }
 
 

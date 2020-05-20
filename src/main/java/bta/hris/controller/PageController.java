@@ -43,9 +43,10 @@ public class PageController {
                 model.addAttribute("currentDate", currentDate);
                 model.addAttribute("calonPengajar", calonPengajar);
                 model.addAttribute("bulanDeadline", bulanDeadline);
-                if(calonPengajar.getListHasilTes() != null){
-                    return "beranda-calon-setelah-tes";
-                }return "beranda-calonPengajar";
+//                if(calonPengajar.getListHasilTes() != null){
+//                    return "beranda-calon-setelah-tes";
+//                }
+                return "beranda-calonPengajar";
             }
             else{
                 return "home";
