@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group">
                                 <p class = "form-title">Mata Pelajaran</p>
-                                <select selected=# name="mataPelajaran" class="input-field col col-lg-3" style="margin-top: 10px;" id="dropdown-form" onchange="dropdownChange()">
+                                <select selected=# name="mataPelajaran" class="input-field col col-lg-3" required = "true" style="margin-top: 10px;" id="dropdown-form" onchange="dropdownChange()">
                                     <option value="" selected disabled hidden th:text="${mapel == null} ? 'Masukkan Mata Pelajaran' : ${mataPelajaran}"></option>
                                     <option th:each="mapel : ${mataPelajaran}"
                                             th:value="${mapel}"

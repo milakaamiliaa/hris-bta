@@ -88,6 +88,7 @@ public class PaketSoalController {
         PaketSoalModel existingPaket = paketSoalService.getPaketSoalByIdPaket(idPaket);
 
         List<String> mataPelajaran = new ArrayList<String>();
+        mataPelajaran.add("Psikotes");
         mataPelajaran.add("Biologi");
         mataPelajaran.add("Ekonomi");
         mataPelajaran.add("Matematika");
@@ -99,6 +100,7 @@ public class PaketSoalController {
         mataPelajaran.add("Bahasa Inggris");
         mataPelajaran.add("Bahasa Indonesia");
         mataPelajaran.add("Psikotes");
+
 
 
         model.addAttribute("paketSoal", existingPaket);

@@ -120,8 +120,10 @@ public class CabangDataServiceImpl implements CabangDataService {
     public int calculateTotalPayroll(CabangDataModel cabangDataModel){
         Float totalPayroll = (float) 0;
         List<PresensiModel> presensiModelList = cabangDataModel.getListPresensi();
-        for (PresensiModel presensi : presensiModelList){
-            totalPayroll += presensi.getNominal();
+        if (presensiModelList!=null) {
+            for (PresensiModel presensi : presensiModelList){
+                totalPayroll += presensi.getNominal();
+            }
         }
         int total = Math.round(totalPayroll);
         return total;

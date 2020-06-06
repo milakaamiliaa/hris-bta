@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeLeaf.org">
+
+
 <head>
     <object th:include = "fragments/fragment :: head"></object>
     <title>Tes Psikotes</title>
@@ -12,6 +14,8 @@
             crossorigin="anonymous"></script>
     <script src="https//code.jquery.com/jquery.min.js"></script>
     <script src="/js/savy.js"></script>
+                    
+
 </head>
 
 
@@ -45,7 +49,7 @@
                 <h3 class="h5 mb-2 text-danger card-header-text" th:text="'(Jumlah soal: ' + ${jumlahSoal} + ')'"></h3><br>
 
                 <!-- Soal -->
-<!--                <div id="loop">-->
+                <div id="loop">
                     <form th:object="${hasilTes}" method="POST" th:action="@{/calonpengajar/tes-psikotes}" id="tesForm">
 
                         <input hidden th:field="${hasilTes.idHasil}" />
@@ -83,7 +87,7 @@
                             </div>
                         </tr>
                     </form>
-<!--                </div>-->
+                </div>
 
                 <nav aria-label="Page navigation example">
                     <div style="text-align: right">
@@ -160,16 +164,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-<<<<<<< HEAD
-                <input type="submit" form="tesForm" />
+                <button type="submit" form="tesForm" class="btn btn-danger" onclick="clearInterval(timerFunction)">Ya</button>
 <!--                <form th:action="@{/calonpengajar/aturan-mata-pelajaran}">-->
 <!--                    <button type="submit" class="btn btn-danger">Ya</button>-->
 <!--                </form>-->
-=======
-                <form th:action="@{/calonpengajar/aturan-tes-matapelajaran}">
-                    <button type="submit" class="btn btn-danger">Ya</button>
-                </form>
->>>>>>> cb59592d2fd9b2c3d570af5704d5f3667019b9ac
             </div>
         </div>
     </div>
@@ -180,7 +178,7 @@
 </div>
 
 <script type="text/javascript">
-    
+
     //Back button
     window.history.forward();
     function noBack() {
