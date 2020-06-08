@@ -142,8 +142,9 @@
                     >
                       <option
                         th:each="mapel : ${mataPelajaran}"
-                        th:value="${pegawai.mataPelajaran}"
-                        th:text="${pegawai.mataPelajaran}"
+                        th:value="${mapel}"
+                        th:text="${mapel}"
+                        th:selected="${mapel==pegawai.mataPelajaran}"
                       ></option>
                     </select>
                   </div>
