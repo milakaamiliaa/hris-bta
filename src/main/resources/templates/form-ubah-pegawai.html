@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <p class = "form-title">Mata Pelajaran</p>
                                 <select name="mataPelajaran" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px; color: black;">
-                                    <option th:each="mapel : ${mataPelajaran}" th:value="${mapel}" th:text="${mapel}"></option>
+                                    <option th:each="mapel : ${mataPelajaran}" th:value="${pegawai.mataPelajaran}" th:text="${mapel}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
