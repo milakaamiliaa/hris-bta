@@ -20,7 +20,7 @@ public class SubmittedSoalModel implements Serializable {
     private String pertanyaan;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "submittedPaketSoal", referencedColumnName= "idPaket", nullable = false)
+    @JoinColumn(name = "submittedPaketSoal", referencedColumnName = "idPaket", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SubmittedPaketSoalModel paketSoal;
 

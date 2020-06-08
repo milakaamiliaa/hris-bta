@@ -1,259 +1,336 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
-
-<head>
-    <meta charset="UTF-8">
-    <object th:include = "fragments/fragment :: head"></object>
+<html
+  lang="en"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+  xmlns:th="http://www.thymelaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <object th:include="fragments/fragment :: head"></object>
     <title>Detail Calon Pengajar</title>
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}" />
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-</head>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<body id="page-top">
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul th:replace="fragments/fragment :: sidebar"></ul>
+      <!-- End of Sidebar -->
 
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul th:replace="fragments/fragment :: sidebar">
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
+          <!-- Topbar -->
+          <nav th:replace="fragments/fragment :: topbar"></nav>
 
-            <!-- Topbar -->
-            <nav th:replace="fragments/fragment :: topbar"></nav>
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Detail Calon Pengajar</h1>
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Detail Calon Pengajar</h1>
-
-                <!-- Card -->
-                <div class="card shadow mb-4 border-bottom-danger">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Nama Lengkap</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.nama}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">No. Telp</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.noTelp}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Email</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.email}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">CV</p>
-                            </div>
-                            <div class="col">
-                                <a th:text="': ' + ${calon.cv}"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Alamat</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.alamat}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Tanggal Lahir</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.tglLahir}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Nilai Psikotes</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.nilaiPsikotes}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Nilai Mata Pelajaran Pilihan</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.nilaiMataPelajaran}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Benar</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.nilaiPsikotes}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Salah</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.nilaiPsikotes}"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-lg-3">
-                                <p class="details-title">Status</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${calon.status}"></p>
-                            </div>
-                        </div>
-
-                        <div class="button-detail">
-                            <div class="row col-md-6">
-                                <div th:if = "${calon.status == 'Belum Mengerjakan Tes'}">
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form th:action="@{/calonpengajar/undang/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                            <button class="btn btn-ubah" style="margin: 5px;">Undang</button>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form th:action="@{/calonpengajar/rekrut/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                            <button class="btn btn-ubah" style="margin: 5px;">Rekrut</button>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form th:action="@{/calonpengajar/tolak/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                            <button class="btn btn-hapus" style="margin: 5px;">Tolak</button>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form>
-                                            <button type="button" class="btn btn-hapus" data-toggle="modal" data-target="#exampleModalCenter" style="margin: 5px;">
-                                                Hapus
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div th:if = "${calon.status == 'Ditolak'}">
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form>
-                                            <button type="button" class="btn btn-hapus" data-toggle="modal" data-target="#exampleModalCenter" style="margin: 5px;">
-                                                Hapus
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div th:if = "${calon.status == 'Telah direkrut'}">
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form>
-                                            <button type="button" class="btn btn-hapus" data-toggle="modal" data-target="#exampleModalCenter" style="margin: 5px;">
-                                                Hapus
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div th:if = "${calon.status == 'Diundang'}">
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form th:action="@{/calonpengajar/rekrut/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                            <button class="btn btn-ubah" style="margin: 5px;">Rekrut</button>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form th:action="@{/calonpengajar/tolak/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                                            <button class="btn btn-hapus" style="margin: 5px;">Tolak</button>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-2" style="margin: 5px;">
-                                        <form>
-                                            <button type="button" class="btn btn-hapus" data-toggle="modal" data-target="#exampleModalCenter" style="margin: 5px;">
-                                                Hapus
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6"></div>
-                        </div>
-
-                        <div class="row back-detail">
-                            <div class="col-auto mr-auto"></div>
-                            <div class="col-auto">
-                                <a th:href="@{/calonpengajar}">< Kembali ke Daftar Calon Pengajar</a>
-                            </div>
-                        </div>
-
-                    </div>
-
+            <!-- Card -->
+            <div class="card shadow mb-4 border-bottom-danger">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Nama Lengkap</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.nama}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">No. Telp</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.noTelp}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Email</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.email}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">CV</p>
+                  </div>
+                  <div class="col">
+                    <a th:text="': ' + ${calon.cv}"></a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Alamat</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.alamat}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Tanggal Lahir</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.tglLahir}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Nilai Psikotes</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.nilaiPsikotes}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Nilai Mata Pelajaran Pilihan</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.nilaiMataPelajaran}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Benar</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.nilaiPsikotes}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Salah</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.nilaiPsikotes}"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-lg-3">
+                    <p class="details-title">Status</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${calon.status}"></p>
+                  </div>
                 </div>
 
-            </div>
-            <!-- /.container-fluid -->
+                <div class="button-detail">
+                  <div class="row col-md-6">
+                    <div th:if="${calon.status == 'Belum Mengerjakan Tes'}">
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form
+                          th:action="@{/calonpengajar/undang/}+${calon.idCalon}"
+                          th:object="${calon}"
+                          method="POST"
+                        >
+                          <button class="btn btn-ubah" style="margin: 5px;">
+                            Undang
+                          </button>
+                        </form>
+                      </div>
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form
+                          th:action="@{/calonpengajar/rekrut/}+${calon.idCalon}"
+                          th:object="${calon}"
+                          method="POST"
+                        >
+                          <button class="btn btn-ubah" style="margin: 5px;">
+                            Rekrut
+                          </button>
+                        </form>
+                      </div>
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form
+                          th:action="@{/calonpengajar/tolak/}+${calon.idCalon}"
+                          th:object="${calon}"
+                          method="POST"
+                        >
+                          <button class="btn btn-hapus" style="margin: 5px;">
+                            Tolak
+                          </button>
+                        </form>
+                      </div>
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form>
+                          <button
+                            type="button"
+                            class="btn btn-hapus"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                            style="margin: 5px;"
+                          >
+                            Hapus
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                    <div th:if="${calon.status == 'Ditolak'}">
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form>
+                          <button
+                            type="button"
+                            class="btn btn-hapus"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                            style="margin: 5px;"
+                          >
+                            Hapus
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                    <div th:if="${calon.status == 'Telah direkrut'}">
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form>
+                          <button
+                            type="button"
+                            class="btn btn-hapus"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                            style="margin: 5px;"
+                          >
+                            Hapus
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                    <div th:if="${calon.status == 'Diundang'}">
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form
+                          th:action="@{/calonpengajar/rekrut/}+${calon.idCalon}"
+                          th:object="${calon}"
+                          method="POST"
+                        >
+                          <button class="btn btn-ubah" style="margin: 5px;">
+                            Rekrut
+                          </button>
+                        </form>
+                      </div>
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form
+                          th:action="@{/calonpengajar/tolak/}+${calon.idCalon}"
+                          th:object="${calon}"
+                          method="POST"
+                        >
+                          <button class="btn btn-hapus" style="margin: 5px;">
+                            Tolak
+                          </button>
+                        </form>
+                      </div>
+                      <div class="col-md-2" style="margin: 5px;">
+                        <form>
+                          <button
+                            type="button"
+                            class="btn btn-hapus"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                            style="margin: 5px;"
+                          >
+                            Hapus
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6"></div>
+                </div>
 
+                <div class="row back-detail">
+                  <div class="col-auto mr-auto"></div>
+                  <div class="col-auto">
+                    <a th:href="@{/calonpengajar}"
+                      >< Kembali ke Daftar Calon Pengajar</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer th:replace="fragments/fragment :: footer">
-        </footer>
+        <footer th:replace="fragments/fragment :: footer"></footer>
         <!-- End of Footer -->
-
+      </div>
+      <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Modal Konfirmasi -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <!-- Modal Konfirmasi -->
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title details-title" id="exampleModalLongTitle">KONFIRMASI PENGHAPUSAN CALON PEGAWAI</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" th:text="'Apakah Anda ingin menghapus ' + ${calon.nama} + ' ?'">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                <form th:action="@{/calonpengajar/hapus/}+${calon.idCalon}" th:object="${calon}" method="POST">
-                    <button type="submit" class="btn btn-danger">Ya</button>
-                </form>
-            </div>
+          <div class="modal-header">
+            <h5 class="modal-title details-title" id="exampleModalLongTitle">
+              KONFIRMASI PENGHAPUSAN CALON PEGAWAI
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div
+            class="modal-body"
+            th:text="'Apakah Anda ingin menghapus ' + ${calon.nama} + ' ?'"
+          ></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Tidak
+            </button>
+            <form
+              th:action="@{/calonpengajar/hapus/}+${calon.idCalon}"
+              th:object="${calon}"
+              method="POST"
+            >
+              <button type="submit" class="btn btn-danger">Ya</button>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Logout Modal-->
-<div th:replace="fragments/fragment :: logout"></div>
-</body>
+    <!-- Logout Modal-->
+    <div th:replace="fragments/fragment :: logout"></div>
+  </body>
 </html>

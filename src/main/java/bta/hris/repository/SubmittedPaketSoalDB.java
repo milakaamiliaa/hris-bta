@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubmittedPaketSoalDB extends JpaRepository<SubmittedPaketSoalModel, Long> {
-    
+
 }

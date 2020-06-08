@@ -8,8 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.ArrayList;
+
 
 @Entity
 @Table(name = "hasilTes")
@@ -78,19 +77,6 @@ public class HasilTesModel implements Serializable {
     public void setCalonPengajar(CalonPengajarModel calonPengajar) {
         this.calonPengajar = calonPengajar;
     }
-//
-//    public List<JawabanModel> getListJawaban(){
-//        return listJawaban;
-//    }
-//
-//    public void setListJawaban(List<JawabanModel> listJawaban){
-//        this.listJawaban = listJawaban;
-//    }
-//
-//    public void addJawaban(JawabanModel jawaban){
-//        this.listJawaban.add(jawaban);
-//    }
-
 
     public SubmittedPaketSoalModel getSubmittedPaketSoal() {
         return submittedPaketSoal;

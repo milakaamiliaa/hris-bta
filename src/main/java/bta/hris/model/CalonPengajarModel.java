@@ -15,7 +15,7 @@ import java.util.List;
 public class CalonPengajarModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy="uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String idCalon;
 
     @NotNull
@@ -35,7 +35,7 @@ public class CalonPengajarModel implements Serializable {
     private String noTelp;
 
     @NotNull
-    @Column(name = "tglLahir",nullable = false)
+    @Column(name = "tglLahir", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate tglLahir;
 
@@ -69,14 +69,14 @@ public class CalonPengajarModel implements Serializable {
     @Column(name = "universitas", nullable = false)
     private String universitas;
 
-    @Column(name = "nilaiPsikotes",nullable = true)
+    @Column(name = "nilaiPsikotes", nullable = true)
     private Float nilaiPsikotes;
 
-    @Column(name = "nilaiMataPelajaran",nullable = true)
+    @Column(name = "nilaiMataPelajaran", nullable = true)
     private Float nilaiMataPelajaran;
 
     @NotNull
-    @Column(name = "updatedAt",nullable = true)
+    @Column(name = "updatedAt", nullable = true)
     private LocalDate updatedAt;
 
     @NotNull
@@ -207,14 +207,14 @@ public class CalonPengajarModel implements Serializable {
         this.listHasilTes = listHasilTes;
     }
 
-    public LocalDate getUpdatedAt(){
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt){
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
-  
+
     public String getUsername() {
         return username;
     }

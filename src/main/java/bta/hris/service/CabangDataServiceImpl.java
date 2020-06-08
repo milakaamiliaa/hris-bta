@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -39,8 +38,6 @@ public class CabangDataServiceImpl implements CabangDataService {
 
         List<PresensiModel> listPresensi = new ArrayList<PresensiModel>();
         cabangData.setListPresensi(listPresensi);
-
-        // Periode, formatnya String "MMYY", mirip sama kodeGaji (yang merupakan periode dari gaji tsb).
         LocalDate tanggal = LocalDate.now();
         String month = "";
         if (String.valueOf(tanggal.getMonthValue()).length() == 1) {
@@ -50,7 +47,7 @@ public class CabangDataServiceImpl implements CabangDataService {
         else {
             month = String.valueOf(tanggal.getMonthValue());
         }
-        String year = String.valueOf(tanggal.getYear()).substring(2,4);
+        String year = String.valueOf(tanggal.getYear()).substring(2, 4);
         cabangData.setPeriode(month + year);
 
         cabangData.setCreatedAt(LocalDate.now());
@@ -78,13 +75,13 @@ public class CabangDataServiceImpl implements CabangDataService {
     @Override
     public List<CabangDataModel> getCabangDatasForXPeriodBeforeNow(int x, CabangModel cabang) {
         LocalDate nowTime = LocalDate.now();
-        LocalDate nowMinusOne = nowTime.withMonth(nowTime.getMonthValue()-1);
+        LocalDate nowMinusOne = nowTime.withMonth(nowTime.getMonthValue() - 1);
 
-        LocalDate end = nowMinusOne.with(lastDayOfMonth()); // 'end' utk masuk ke query
+        LocalDate end = nowMinusOne.with(lastDayOfMonth()); // 'end' untuk query
 
         LocalDate minusOneMinusX = end.minusMonths(x);
 
-        LocalDate start = minusOneMinusX.with(firstDayOfMonth()); // 'start' utk masuk ke query
+        LocalDate start = minusOneMinusX.with(firstDayOfMonth()); // 'start' untuk query
 
         return cabangDataDB.findAllByCabangAndCreatedAtBetweenOrderByCreatedAtAsc(cabang, start, end);
     }
@@ -95,32 +92,32 @@ public class CabangDataServiceImpl implements CabangDataService {
             return Float.parseFloat("0");
         }
 
-        Float rasio = jumlahSiswa/gaji*1000;
+        Float rasio = jumlahSiswa / gaji * 1000;
         return rasio;
     }
 
     @Override
-    public List<CabangDataModel> getCabangDataByCabang(CabangModel cabang){
+    public List<CabangDataModel> getCabangDataByCabang(CabangModel cabang) {
         return cabangDataDB.findByCabang(cabang);
     }
 
     @Override
-    public CabangDataModel getCabangDataByCabangAndCreatedAt(CabangModel cabang, LocalDate createdAt){
+    public CabangDataModel getCabangDataByCabangAndCreatedAt(CabangModel cabang, LocalDate createdAt) {
         CabangDataModel cabangData = new CabangDataModel();
         List<CabangDataModel> cabangDataList = getCabangDataByCabang(cabang);
-        for (CabangDataModel cabangDataModel : cabangDataList){
-            if (cabangDataModel.getCreatedAt().getMonthValue()==createdAt.getMonthValue() &&
-                    cabangDataModel.getCreatedAt().getYear()==createdAt.getYear()){
+        for (CabangDataModel cabangDataModel : cabangDataList) {
+            if (cabangDataModel.getCreatedAt().getMonthValue() == createdAt.getMonthValue()
+                    && cabangDataModel.getCreatedAt().getYear() == createdAt.getYear()) {
                 cabangData = cabangDataModel;
             }
         }
         return cabangData;
     }
 
-    public int calculateTotalPayroll(CabangDataModel cabangDataModel){
+    public int calculateTotalPayroll(CabangDataModel cabangDataModel) {
         Float totalPayroll = (float) 0;
         List<PresensiModel> presensiModelList = cabangDataModel.getListPresensi();
-        for (PresensiModel presensi : presensiModelList){
+        for (PresensiModel presensi : presensiModelList) {
             totalPayroll += presensi.getNominal();
         }
         int total = Math.round(totalPayroll);

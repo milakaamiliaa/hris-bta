@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -38,14 +37,6 @@ public class PresensiModel implements Serializable {
     @Column(name = "uangKonsum", nullable = true)
     private Long uangKonsum;
 
-    public Float getNominal() {
-        return nominal;
-    }
-
-    public void setNominal(Float nominal) {
-        this.nominal = nominal;
-    }
-
     @Column(name = "nominal", nullable = true)
     private Float nominal;
 
@@ -53,12 +44,12 @@ public class PresensiModel implements Serializable {
     private String kodeGaji;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "cabang", referencedColumnName= "idCabang", nullable = false)
+    @JoinColumn(name = "cabang", referencedColumnName = "idCabang", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CabangModel cabang;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "pengaju", referencedColumnName= "idUser", nullable = false)
+    @JoinColumn(name = "pengaju", referencedColumnName = "idUser", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserModel pegawai;
 
@@ -66,7 +57,6 @@ public class PresensiModel implements Serializable {
     @JoinColumn(name = "cabangData", referencedColumnName = "idCabangData")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CabangDataModel cabangData;
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "presensi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -104,13 +94,13 @@ public class PresensiModel implements Serializable {
         this.tanggalPresensi = tanggalPresensi;
     }
 
-//    public Long getJumlahSesi() {
-//        return sesiMengajar + sesiTambahan;
-//    }
-//
-//    public void setJumlahSesi(Long jumlahSesi) {
-//        this.jumlahSesi = jumlahSesi;
-//    }
+    public Float getNominal() {
+        return nominal;
+    }
+
+    public void setNominal(Float nominal) {
+        this.nominal = nominal;
+    }
 
     public String getStatus() {
         return status;

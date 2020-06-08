@@ -15,18 +15,18 @@ public class JawabanServiceImpl implements JawabanService {
     private JawabanDB jawabanDB;
 
     @Override
-    public List<JawabanModel> getAllJawabanByIdSoal(Long idSoal){
+    public List<JawabanModel> getAllJawabanByIdSoal(Long idSoal) {
         return jawabanDB.findAllBySoalIdSoal(idSoal);
     }
 
     @Override
-    public JawabanModel getJawabanById(Long idJawaban){
+    public JawabanModel getJawabanById(Long idJawaban) {
         return jawabanDB.findByIdJawaban(idJawaban);
 
     }
-    
+
     public List<JawabanModel> getAllJawabanBySoal(SoalModel soal) {
-        List<JawabanModel> jawaban =  jawabanDB.findAllBySoal(soal);
+        List<JawabanModel> jawaban = jawabanDB.findAllBySoal(soal);
         jawaban.removeIf(n -> !n.isActive());
 
         return jawaban;

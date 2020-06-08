@@ -9,7 +9,10 @@ import java.util.List;
 @Repository
 public interface PaketSoalDB extends JpaRepository<PaketSoalModel, Long> {
     PaketSoalModel findByIdPaket(Long idPaket);
+
     PaketSoalModel findByNama(String nama);
+
     List<PaketSoalModel> findAll();
+
     List<PaketSoalModel> findByMataPelajaranContains(String mataPelajaran);
 }

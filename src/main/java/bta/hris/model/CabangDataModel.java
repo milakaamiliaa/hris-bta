@@ -6,17 +6,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "cabangData")
 public class CabangDataModel {
-    // jumlahSiswa, rasio, periode
-    // CabangData 1-N PresensiModel
-    // Cabang 1-N CabangData
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

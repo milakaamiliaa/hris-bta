@@ -1,97 +1,125 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
-
-<head>
-    <object th:include = "fragments/fragment :: head"></object>
+<html
+  lang="en"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+  xmlns:th="http://www.thymelaf.org"
+>
+  <head>
+    <object th:include="fragments/fragment :: head"></object>
     <title>Daftar Cabang</title>
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
-</head>
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}" />
+  </head>
 
-<body id="page-top">
+  <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
+      <!-- Sidebar -->
+      <ul th:replace="fragments/fragment :: sidebar"></ul>
+      <!-- End of Sidebar -->
 
-        <!-- Sidebar -->
-        <ul th:replace="fragments/fragment :: sidebar">
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav th:replace="fragments/fragment :: topbar"></nav>
 
-        </ul>
-        <!-- End of Sidebar -->
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Alert -->
+            <div
+              class="alert alert-success"
+              role="alert"
+              th:if="${alert}"
+              th:text="${alert}"
+            ></div>
+            <div
+              class="alert alert-success"
+              role="alert"
+              th:if="${alertUbah}"
+              th:text="${alertUbah}"
+            ></div>
+            <div
+              class="alert alert-success"
+              role="alert"
+              th:if="${alertHapus}"
+              th:text="${alertHapus}"
+            ></div>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Daftar Cabang</h1>
 
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav th:replace="fragments/fragment :: topbar"></nav>
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Alert -->
-                    <div class="alert alert-success " role="alert" th:if="${alert}" th:text="${alert}"></div>
-                    <div class="alert alert-success " role="alert" th:if="${alertUbah}" th:text="${alertUbah}"></div>
-                    <div class="alert alert-success " role="alert" th:if="${alertHapus}" th:text="${alertHapus}"></div>
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Daftar Cabang</h1>
-
-                    <!-- DataTales -->
-                    <div class="card shadow mb-4 border-bottom-danger">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-auto ml-auto">
-                                    <a class="btn btn-primary" th:href="@{/cabang/tambah}">+ Tambah Cabang</a>
-                                </div>
-                            </div>
-
-                            <div class="table-responsive">
-                                <table class="table " id="dataTable" width="100%" cellspacing="0">
-                                    <thead style="background-color: #FF5252 !important; color: white">
-                                    <tr>
-                                        <th style="text-align: center;">No</th>
-                                        <th style="text-align: center;">Nama Cabang</th>
-                                        <th style="text-align: center;">No. Telp</th>
-                                        <th style="text-align: center;">Alamat</th>
-                                        <th style="text-align: center;">Aksi</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="cabang, iterationStatus : *{listCabang}" style="text-align: center;">
-                                        <td th:text="${iterationStatus.count}"></td>
-                                        <td th:text="${cabang.cabang}"></td>
-                                        <td th:text="${cabang.noTelp}"></td>
-                                        <td th:text="${cabang.alamat}"></td>
-                                        <td><a th:href="@{/cabang/detail/}+${cabang.idCabang}">Detail</a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+            <!-- DataTales -->
+            <div class="card shadow mb-4 border-bottom-danger">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-auto ml-auto">
+                    <a class="btn btn-primary" th:href="@{/cabang/tambah}"
+                      >+ Tambah Cabang</a
+                    >
+                  </div>
                 </div>
-                <!-- /.container-fluid -->
+
+                <div class="table-responsive">
+                  <table
+                    class="table"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead
+                      style="
+                        background-color: #ff5252 !important;
+                        color: white;
+                      "
+                    >
+                      <tr>
+                        <th style="text-align: center;">No</th>
+                        <th style="text-align: center;">Nama Cabang</th>
+                        <th style="text-align: center;">No. Telp</th>
+                        <th style="text-align: center;">Alamat</th>
+                        <th style="text-align: center;">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        th:each="cabang, iterationStatus : *{listCabang}"
+                        style="text-align: center;"
+                      >
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${cabang.cabang}"></td>
+                        <td th:text="${cabang.noTelp}"></td>
+                        <td th:text="${cabang.alamat}"></td>
+                        <td>
+                          <a th:href="@{/cabang/detail/}+${cabang.idCabang}"
+                            >Detail</a
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer th:replace="fragments/fragment :: footer">
-            </footer>
-            <!-- End of Footer -->
-
+          </div>
+          <!-- /.container-fluid -->
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
 
+        <!-- Footer -->
+        <footer th:replace="fragments/fragment :: footer"></footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
+      <i class="fas fa-angle-up"></i>
     </a>
 
     <!-- Logout Modal-->
     <div th:replace="fragments/fragment :: logout"></div>
-</body>
+  </body>
 </html>

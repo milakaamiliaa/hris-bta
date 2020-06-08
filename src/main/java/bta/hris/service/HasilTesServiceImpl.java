@@ -28,7 +28,7 @@ public class HasilTesServiceImpl implements HasilTesService {
     public HasilTesModel updateHasilTes(HasilTesModel hasilTes) {
         HasilTesModel target = hasilTesDB.findById(hasilTes.getIdHasil()).get();
 
-        try{
+        try {
             target.setNilai(hasilTes.getNilai());
             target.setSubmittedPaketSoal(hasilTes.getSubmittedPaketSoal());
             target.setStartedAt(hasilTes.getStartedAt());
@@ -37,8 +37,7 @@ public class HasilTesServiceImpl implements HasilTesService {
             hasilTesDB.save(target);
 
             return target;
-        }
-        catch (NullPointerException nullException){
+        } catch (NullPointerException nullException) {
             return null;
         }
     }
