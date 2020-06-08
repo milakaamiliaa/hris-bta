@@ -2,6 +2,7 @@ package bta.hris.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class GolonganModel implements Serializable {
     private Long idGolongan;
 
     @NotNull
-    @Column(name = "nama",nullable = false)
+    @Column(name = "nama", nullable = false)
     private String nama;
 
     @NotNull
@@ -21,7 +22,7 @@ public class GolonganModel implements Serializable {
     private Long rate;
 
     @NotNull
-    @Column(name = "pajak",nullable = false)
+    @Column(name = "pajak", nullable = false)
     private Float pajak;
 
     @NotNull

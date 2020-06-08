@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ArrayList;
 
 @Service
 @Transactional
-public class PaketSoalServiceImpl implements PaketSoalService{
+public class PaketSoalServiceImpl implements PaketSoalService {
     @Autowired
     private PaketSoalDB paketSoalDB;
 
@@ -38,14 +39,13 @@ public class PaketSoalServiceImpl implements PaketSoalService{
     public PaketSoalModel updatePaketSoal(PaketSoalModel paketSoal) {
         PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
 
-        try{
+        try {
             newPaket.setNama(paketSoal.getNama());
             newPaket.setMataPelajaran(paketSoal.getMataPelajaran());
 
             paketSoalDB.save(newPaket);
             return newPaket;
-        }
-        catch (NullPointerException nullException){
+        } catch (NullPointerException nullException) {
             return null;
         }
     }
@@ -64,8 +64,8 @@ public class PaketSoalServiceImpl implements PaketSoalService{
         List<PaketSoalModel> paketSoal = paketSoalDB.findByMataPelajaranContains(mataPelajaran);
         List<PaketSoalModel> activePaket = new ArrayList<PaketSoalModel>();
         Random rand = new Random();
-        for(PaketSoalModel p : paketSoal){
-            if(p.isActive()){
+        for (PaketSoalModel p : paketSoal) {
+            if (p.isActive()) {
                 activePaket.add(p);
             }
         }
@@ -74,11 +74,12 @@ public class PaketSoalServiceImpl implements PaketSoalService{
     }
 
     @Override
-    public PaketSoalModel getPaketSoalByMataPelajaran(String mataPelajaran){
-        for (PaketSoalModel paket : paketSoalDB.findByMataPelajaranContains(mataPelajaran)){
-            if (paket.isActive()){
+    public PaketSoalModel getPaketSoalByMataPelajaran(String mataPelajaran) {
+        for (PaketSoalModel paket : paketSoalDB.findByMataPelajaranContains(mataPelajaran)) {
+            if (paket.isActive()) {
                 return paket;
             }
-        }return null;
+        }
+        return null;
     }
 }

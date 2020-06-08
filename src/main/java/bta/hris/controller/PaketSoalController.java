@@ -99,6 +99,7 @@ public class PaketSoalController {
         mataPelajaran.add("TPA");
         mataPelajaran.add("Bahasa Inggris");
         mataPelajaran.add("Bahasa Indonesia");
+        mataPelajaran.add("Psikotes");
 
 
 
@@ -121,10 +122,18 @@ public class PaketSoalController {
     public String hapusPaketSoal(@PathVariable Long idPaket, Model model, RedirectAttributes redirect){
 
         PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket); // !!! get was here
-        model.addAttribute("paketSoal", paketSoal);
-        paketSoalService.deletePaketSoal(paketSoal);
-        redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " berhasil dihapus.");
-
+        List<PaketSoalModel> listPaketSoal = paketSoalService.getAllPaketsoal();
+        for(PaketSoalModel pakets : listPaketSoal){
+            if(paketSoal.equals(pakets)){
+                if(pakets.getListSoal().isEmpty()){
+                    model.addAttribute("paketSoal", paketSoal);
+                    paketSoalService.deletePaketSoal(paketSoal);
+                    redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " berhasil dihapus.");
+                }
+                model.addAttribute("paketSoal", paketSoal);
+                redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " tidak dapat dihapus.");
+            }
+        }
         return "redirect:/rekrutmen/paketsoal";
     }
 

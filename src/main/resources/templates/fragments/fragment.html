@@ -1,33 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
-
-<head th:fragment="head">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<html
+  lang="en"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+  xmlns:th="http://www.thymelaf.org"
+>
+  <head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
     <!-- Daftar Font -->
-    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="/https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link
+      href="/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+    <link
+      href="/vendor/mdi-font/css/material-design-iconic-font.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link
+      href="/vendor/font-awesome-4.7/css/font-awesome.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link
+      href="/https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+      rel="stylesheet"
+    />
 
     <!-- Custom table style -->
-    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link
+      href="/vendor/datatables/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Custom vendor style -->
-    <link href="/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet" media="all" />
+    <link
+      href="/vendor/datepicker/daterangepicker.css"
+      rel="stylesheet"
+      media="all"
+    />
 
     <!-- Custom style-->
-    <link href="/css/sb-admin-2.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet" media="all">
-    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="/css/sb-admin-2.css" rel="stylesheet" />
+    <link href="/css/main.css" rel="stylesheet" media="all" />
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet" />
 
     <!-- Bootstrap JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -48,178 +77,248 @@
     <script type="text/javascript" src="/js/hris-bta-js.js"></script>
 
     <!-- TinyMCE -->
-    <script src="https://cdn.tiny.cloud/1/gigwq6dnjsh86928lp7sxifkuf614wr7zoyz46iwfir9vv79/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script
+      src="https://cdn.tiny.cloud/1/gigwq6dnjsh86928lp7sxifkuf614wr7zoyz46iwfir9vv79/tinymce/5/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+  </head>
 
-</head>
-
-<body id="page-top">
-
+  <body id="page-top">
     <!-- Sidebar -->
-    <ul th:fragment="sidebar" class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"
-        style="background-color: #D5142B !important;">
+    <ul
+      th:fragment="sidebar"
+      class="navbar-nav sidebar sidebar-dark accordion"
+      id="accordionSidebar"
+      style="background-color: #d5142b !important;"
+    >
+      <!-- Sidebar - Brand -->
+      <a
+        class="sidebar-brand d-flex align-items-center justify-content-center"
+        href="#"
+      >
+        <div class="sidebar-brand-icon">
+          <img src="/img/logo bta.png" style="width: 45%;" />
+        </div>
+      </a>
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-            <div class="sidebar-brand-icon">
-                <img src="/img/logo bta.png" style="width: 45%;">
-            </div>
+      <!-- Nav Item - Beranda -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          <i class="fas fa-fw fa-home"></i>
+          <span>Beranda</span></a
+        >
+        <hr class="sidebar-divider" />
+      </li>
+
+      <!-- Nav Item - Cabang -->
+      <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
+        <a class="nav-link" href="/cabang">
+          <i class="fas fa-fw fa-building"></i>
+          <span>Cabang</span>
         </a>
+      </li>
 
+      <!-- Nav Item - Golongan -->
+      <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
+        <a class="nav-link" href="/golongan">
+          <i class="fas fa-fw fa-bars"></i>
+          <span>Golongan</span>
+        </a>
+      </li>
 
-        <!-- Nav Item - Beranda -->
-        <li class="nav-item active">
-            <a class="nav-link" href="/">
-                <i class="fas fa-fw fa-home"></i>
-                <span>Beranda</span></a>
-            <hr class="sidebar-divider">
-        </li>
+      <!-- Nav Item - Presensi Staf Cabang-->
+      <li sec:authorize="hasAnyAuthority('STAF CABANG')" class="nav-item">
+        <a class="nav-link" href="/presensi/kelola">
+          <i class="fas fa-fw fa-clipboard-list"></i>
+          <span>Pengajuan Presensi</span>
+        </a>
+      </li>
 
+      <!-- Nav Item - Presensi Pengajar-->
+      <li sec:authorize="hasAnyAuthority('PENGAJAR')" class="nav-item">
+        <a class="nav-link" href="/presensi">
+          <i class="fas fa-fw fa-clipboard-list"></i>
+          <span>Presensi</span>
+        </a>
+      </li>
 
-        <!-- Nav Item - Cabang -->
-        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
-            <a class="nav-link" href="/cabang">
-                <i class="fas fa-fw fa-building"></i>
-                <span>Cabang</span>
-            </a>
-        </li>
+      <!-- Nav Item - Gaji Direktur -->
+      <!--        <li sec:authorize="hasAnyAuthority('DIREKTUR')" class="nav-item">-->
+      <!--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">-->
+      <!--                <i class="fas fa-fw fa-coins"></i>-->
+      <!--                <span>Gaji</span>-->
+      <!--            </a>-->
+      <!--            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">-->
+      <!--                <div class="bg-white py-2 collapse-inner rounded">-->
+      <!--                    <a class="collapse-item" href="utilities-color.html">Daftar Gaji Pengajar</a>-->
+      <!--                    <a class="collapse-item" href="utilities-border.html">Total Pengeluaran Gaji</a>-->
+      <!--                </div>-->
+      <!--            </div>-->
+      <!--        </li>-->
 
-        <!-- Nav Item - Golongan -->
-        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
-            <a class="nav-link" href="/golongan">
-                <i class="fas fa-fw fa-bars"></i>
-                <span>Golongan</span>
-            </a>
-        </li>
+      <!-- Nav Item - Gaji Pengajar & Direktur-->
+      <li
+        sec:authorize="hasAnyAuthority('PENGAJAR', 'DIREKTUR')"
+        class="nav-item"
+      >
+        <a class="nav-link" href="/gaji">
+          <i class="fas fa-fw fa-coins"></i>
+          <span>Gaji</span>
+        </a>
+      </li>
 
-        <!-- Nav Item - Presensi Staf Cabang-->
-        <li sec:authorize="hasAnyAuthority('STAF CABANG')" class="nav-item">
-            <a class="nav-link" href="/presensi/kelola">
-                <i class="fas fa-fw fa-clipboard-list"></i>
-                <span>Pengajuan Presensi</span>
-            </a>
-        </li>
+      <!-- Nav Item - Pegawai -->
+      <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
+        <a class="nav-link" href="/pegawai">
+          <i class="fas fa-fw fa-user-tie"></i>
+          <span>Pegawai</span>
+        </a>
+      </li>
 
-        <!-- Nav Item - Presensi Pengajar-->
-        <li sec:authorize="hasAnyAuthority('PENGAJAR')" class="nav-item">
-            <a class="nav-link" href="/presensi">
-                <i class="fas fa-fw fa-clipboard-list"></i>
-                <span>Presensi</span>
-            </a>
-        </li>
+      <!-- Nav Item - Rekrutmen -->
+      <!--        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">-->
+      <!--            <a class="nav-link" href="/calonpengajar">-->
+      <!--                <i class="fas fa-fw fa-id-card"></i>-->
+      <!--                <span>Rekrutmen</span>-->
+      <!--            </a>-->
+      <!--        </li>-->
+      <!-- Nav Item - Rekrutmen -->
+      <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
+        <a
+          class="nav-link collapsed"
+          href="#"
+          data-toggle="collapse"
+          data-target="#collapseUtilities"
+          aria-expanded="true"
+          aria-controls="collapseUtilities"
+        >
+          <i class="fas fa-fw fa-coins"></i>
+          <span>Rekrutmen</span>
+        </a>
+        <div
+          id="collapseUtilities"
+          class="collapse"
+          aria-labelledby="headingUtilities"
+          data-parent="#accordionSidebar"
+        >
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/calonpengajar"
+              >Mengelola Hasil Tes</a
+            >
+            <a class="collapse-item" href="/rekrutmen/paketsoal"
+              >Mengelola Paket Soal</a
+            >
+          </div>
+        </div>
+      </li>
 
-        <!-- Nav Item - Gaji Direktur -->
-<!--        <li sec:authorize="hasAnyAuthority('DIREKTUR')" class="nav-item">-->
-<!--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">-->
-<!--                <i class="fas fa-fw fa-coins"></i>-->
-<!--                <span>Gaji</span>-->
-<!--            </a>-->
-<!--            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">-->
-<!--                <div class="bg-white py-2 collapse-inner rounded">-->
-<!--                    <a class="collapse-item" href="utilities-color.html">Daftar Gaji Pengajar</a>-->
-<!--                    <a class="collapse-item" href="utilities-border.html">Total Pengeluaran Gaji</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </li>-->
-
-        <!-- Nav Item - Gaji Pengajar & Direktur-->
-        <li sec:authorize="hasAnyAuthority('PENGAJAR', 'DIREKTUR')" class="nav-item">
-            <a class="nav-link" href="/gaji">
-                <i class="fas fa-fw fa-coins"></i>
-                <span>Gaji</span>
-            </a>
-        </li>
-
-        <!-- Nav Item - Pegawai -->
-        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
-            <a class="nav-link" href="/pegawai">
-                <i class="fas fa-fw fa-user-tie"></i>
-                <span>Pegawai</span>
-            </a>
-        </li>
-
-        <!-- Nav Item - Rekrutmen -->
-<!--        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">-->
-<!--            <a class="nav-link" href="/calonpengajar">-->
-<!--                <i class="fas fa-fw fa-id-card"></i>-->
-<!--                <span>Rekrutmen</span>-->
-<!--            </a>-->
-<!--        </li>-->
-        <!-- Nav Item - Rekrutmen -->
-        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-coins"></i>
-                <span>Rekrutmen</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/calonpengajar">Mengelola Hasil Tes</a>
-                    <a class="collapse-item" href="/rekrutmen/paketsoal">Mengelola Paket Soal</a>
-                </div>
-            </div>
-        </li>
-
-<!--        &lt;!&ndash; Sidebar Toggler (Sidebar) &ndash;&gt;-->
-<!--        <div class="text-center d-none d-md-inline">-->
-<!--            <button class="rounded-circle border-0" id="sidebarToggle"></button>-->
-<!--        </div>-->
-
+      <!--        &lt;!&ndash; Sidebar Toggler (Sidebar) &ndash;&gt;-->
+      <!--        <div class="text-center d-none d-md-inline">-->
+      <!--            <button class="rounded-circle border-0" id="sidebarToggle"></button>-->
+      <!--        </div>-->
     </ul>
     <!-- End of Sidebar -->
 
     <!-- Topbar -->
-    <nav th:fragment="topbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-        <!-- Topbar Navbar -->
-        <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div sec:authorize="isAuthenticated()">
-                        <span th:text="${#authentication.getPrincipal().getNama()}" class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                        <img class="img-profile rounded-circle" src="/img/profile.jpg">
-                    </div>
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                </div>
-            </li>
-
-        </ul>
-
+    <nav
+      th:fragment="topbar"
+      class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+    >
+      <!-- Topbar Navbar -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="userDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <div sec:authorize="isAuthenticated()">
+              <span
+                th:text="${#authentication.getPrincipal().getNama()}"
+                class="mr-2 d-none d-lg-inline text-gray-600 small"
+              ></span>
+              <img class="img-profile rounded-circle" src="/img/profile.jpg" />
+            </div>
+          </a>
+          <!-- Dropdown - User Information -->
+          <div
+            class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+            aria-labelledby="userDropdown"
+          >
+            <a class="dropdown-item" href="#">
+              <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              Profile
+            </a>
+            <div class="dropdown-divider"></div>
+            <a
+              class="dropdown-item"
+              href="/logout"
+              data-toggle="modal"
+              data-target="#logoutModal"
+            >
+              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+              Logout
+            </a>
+          </div>
+        </li>
+      </ul>
     </nav>
     <!-- End of Topbar -->
 
-
     <!-- Footer -->
     <footer th:fragment="footer" class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; BTA Group</span>
-            </div>
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; BTA Group</span>
         </div>
+      </div>
     </footer>
 
     <!-- Logout Modal-->
-    <div th:fragment="logout" class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Apakah Anda yakin ingin Logout?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Klik "Logout" jika Anda yakin untuk mengakhiri sesi ini.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/logout">Logout</a>
-                </div>
-            </div>
+    <div
+      th:fragment="logout"
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Apakah Anda yakin ingin Logout?
+            </h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Klik "Logout" jika Anda yakin untuk mengakhiri sesi ini.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a class="btn btn-primary" href="/logout">Logout</a>
+          </div>
         </div>
+      </div>
     </div>
+  </body>
+</html>

@@ -1,7 +1,6 @@
 package bta.hris.service;
 
 import bta.hris.model.GolonganModel;
-import bta.hris.model.UserModel;
 import bta.hris.repository.GolonganDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,6 @@ public class GolonganServiceImpl implements GolonganService {
     @Autowired
     private GolonganDB golonganDb;
 
-    @Autowired
-    private UserService userService;
-
     @Override
     public GolonganModel addGolongan(GolonganModel golongan) {
         golonganDb.save(golongan);
@@ -25,7 +21,6 @@ public class GolonganServiceImpl implements GolonganService {
 
     @Override
     public GolonganModel editGolongan(GolonganModel newGolongan) {
-        // Mengambil objek golongan yang ingin diubah.
         GolonganModel targetGolongan = golonganDb.findById(newGolongan.getIdGolongan()).get();
 
         try {

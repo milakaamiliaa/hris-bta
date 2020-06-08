@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
-public class UserModel implements Serializable{
+public class UserModel implements Serializable {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -44,14 +44,13 @@ public class UserModel implements Serializable{
     @Column(name = "alamat", nullable = false)
     private String alamat;
 
-
     @NotNull
     @Size(max = 255)
     @Column(name = "noTelp", nullable = false)
     private String noTelp;
 
     @NotNull
-    @Column(name = "tglLahir",nullable = false)
+    @Column(name = "tglLahir", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate tglLahir;
 
@@ -80,13 +79,13 @@ public class UserModel implements Serializable{
     private String namaBank;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "role",referencedColumnName = "idRole", nullable = false)
+    @JoinColumn(name = "role", referencedColumnName = "idRole", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private RoleModel role;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "golonganPegawai", referencedColumnName= "idGolongan", nullable = true)
+    @JoinColumn(name = "golonganPegawai", referencedColumnName = "idGolongan", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private GolonganModel golongan;
 
@@ -143,7 +142,6 @@ public class UserModel implements Serializable{
     public void setNoTelp(String noTelp) {
         this.noTelp = noTelp;
     }
-
 
     public LocalDate getTglLahir() {
         return tglLahir;

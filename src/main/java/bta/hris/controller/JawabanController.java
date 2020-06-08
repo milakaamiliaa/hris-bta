@@ -2,11 +2,9 @@ package bta.hris.controller;
 
 import bta.hris.model.JawabanModel;
 import bta.hris.model.SoalModel;
-import bta.hris.service.GolonganService;
 import bta.hris.service.JawabanService;
 import bta.hris.service.SoalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +30,6 @@ public class JawabanController {
         jawaban.setSoal(soal);
 
         model.addAttribute("jawaban", jawaban);
-
         return "form-tambah-jawaban";
     }
 
@@ -47,7 +44,6 @@ public class JawabanController {
         jawabanService.addJawaban(target);
 
         redirect.addFlashAttribute("alertHapus", "Jawaban berhasil ditambahkan.");
-
         return "redirect:/soal/detail/" + target.getSoal().getIdSoal();
     }
 
@@ -56,7 +52,6 @@ public class JawabanController {
         JawabanModel targetJawaban = jawabanService.getJawabanById(idJawaban);
 
         model.addAttribute("jawaban", targetJawaban);
-
         return "form-ubah-jawaban";
     }
 
@@ -66,24 +61,15 @@ public class JawabanController {
         JawabanModel updatedJawaban = jawabanService.editJawaban(jawaban);
 
         redirect.addFlashAttribute("alert", "Jawaban berhasil diubah.");
-
         return "redirect:/soal/detail/" + updatedJawaban.getSoal().getIdSoal();
     }
 
-//    @RequestMapping(value = "/jawaban/hapus", method = RequestMethod.POST)
-//    public String hapusJawaban(@ModelAttribute("j") JawabanModel jawaban, Model model, RedirectAttributes redirect) {
-//        JawabanModel targetJawaban = jawabanService.deleteJawaban(jawaban);
-//
-//        redirect.addFlashAttribute("alertHapus", "Jawaban berhasil dihapus.");
-//
-//        return "redirect:/soal/detail/" + targetJawaban.getSoal().getIdSoal();
-//    }
     @RequestMapping(value = "/jawaban/hapus/{idJawaban}", method = RequestMethod.POST)
-    public String hapusGolongan(@PathVariable Long idJawaban, @ModelAttribute("j") JawabanModel jawaban, Model model, RedirectAttributes redirect) {
+    public String hapusGolongan(@PathVariable Long idJawaban, @ModelAttribute("j") JawabanModel jawaban, Model model,
+            RedirectAttributes redirect) {
         JawabanModel targetJawaban = jawabanService.deleteJawaban(jawaban);
 
         redirect.addFlashAttribute("alertHapus", "Jawaban berhasil dihapus.");
-
         return "redirect:/soal/detail/" + targetJawaban.getSoal().getIdSoal();
     }
 }

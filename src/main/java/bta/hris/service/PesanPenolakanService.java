@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface PesanPenolakanService {
     PesanPenolakanModel addPesanPenolakan(PesanPenolakanModel pesan);
+
     List<PesanPenolakanModel> getAllPesanPenolakanByPresensi(PresensiModel presensi);
 }

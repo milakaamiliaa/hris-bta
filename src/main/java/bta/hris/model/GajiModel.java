@@ -57,7 +57,7 @@ public class GajiModel implements Serializable {
     private Float pajakGaji;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "pegawai", referencedColumnName= "idUser", nullable = true)
+    @JoinColumn(name = "pegawai", referencedColumnName = "idUser", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserModel pegawai;
 
@@ -84,7 +84,6 @@ public class GajiModel implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
 
     public Long getRateGaji() {
         return rateGaji;

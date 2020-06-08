@@ -1,148 +1,153 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
-
-<head>
-    <object th:include = "fragments/fragment :: head"></object>
+  <head>
+    <object th:include="fragments/fragment :: head"></object>
     <title>Detail Gaji</title>
-</head>
+  </head>
 
-<body id="page-top">
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul th:replace="fragments/fragment :: sidebar"></ul>
+      <!-- End of Sidebar -->
 
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul th:replace="fragments/fragment :: sidebar"> </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
+          <!-- Topbar -->
+          <nav th:replace="fragments/fragment :: topbar"></nav>
 
-            <!-- Topbar -->
-            <nav th:replace="fragments/fragment :: topbar"></nav>
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Detail Pengajar</h1>
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800"> Detail Pengajar</h1>
-
-
-                <!-- Card -->
-                <div class="card shadow mb-4 border-bottom-danger">
-                    <div class="card-body">
-
-                        <div class="row detail-gaji">
-                            <div class="col col-lg-2">
-                                <p class="details-title">Nama Pengajar</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${pegawai.nama}"></p>
-                            </div>
-                        </div>
-
-                        <div class="row detail-gaji">
-                            <div class="col col-lg-2">
-                                <p class="details-title">Mata Pelajaran</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${pegawai.mataPelajaran}"></p>
-                            </div>
-                        </div>
-
-                        <div class="row detail-gaji">
-                            <div class="col col-lg-2">
-                                <p class="details-title">Golongan</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${pegawai.golongan.nama}"></p>
-                            </div>
-                        </div>
-
-                        <div class="row detail-gaji">
-                            <div class="col col-lg-2">
-                                <p class="details-title">Total Sesi</p>
-                            </div>
-                            <div class="col">
-                                <p th:text="': ' + ${jumlahSesi}"></p>
-                            </div>
-                        </div>
-
-                        <br>
-                        <br>
-                        <h1 class="h3 mb-2 text-gray-800 details-title" th:text="'Riwayat Presensi ' +
-                        ${cabangData.createdAt.getMonth()} + ' ' + ${cabangData.createdAt.getYear()} "></h1>
-                        <br>
-
-                        <!-- Tabel -->
-                        <div th:if="${presensiPengajarList.size() == 0}" th:align="center">
-                            <h5 th:text="'Tidak ada data presensi pegawai'"></h5>
-                        </div>
-                        <div th:unless="${presensiPengajarList.size() == 0}" class="table-responsive">
-                            <table class="table" width="100%" cellspacing="0">
-                                <thead style="background-color: #FF5252 !important; color: white">
-                                <tr>
-                                    <th class="text-center" scope="col">No</th>
-                                    <th class="text-center" scope="col">Tanggal</th>
-                                    <th class="text-center" scope="col">Sesi Mengajar</th>
-                                    <th class="text-center" scope="col">Sesi Tambahan</th>
-                                    <th class="text-center" scope="col">Uang Konsumsi</th>
-                                    <th class="text-center" scope="col">Nominal</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="presensi, iterationStatus: ${presensiPengajarList}">
-                                    <td class="text-center" th:text="${iterationStatus.count}"></td>
-                                    <td class="text-center" th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"></td>
-                                    <td class="text-center" th:text="${presensi.sesiMengajar}"></td>
-                                    <td class="text-center" th:text="${presensi.sesiTambahan}"></td>
-                                    <td class="text-center" th:text="'Rp ' + ${presensi.uangKonsum}"></td>
-                                    <td class="text-center"th:text="'Rp ' + ${presensi.nominal}" style="color: #1cc88a"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row back-detail">
-                            <div class="col-auto mr-auto"></div>
-                            <div class="col-auto">
-                                <a th:href="@{/}">< Kembali ke Beranda</a>
-                            </div>
-                        </div>
-
-                    </div>
-
+            <!-- Card -->
+            <div class="card shadow mb-4 border-bottom-danger">
+              <div class="card-body">
+                <div class="row detail-gaji">
+                  <div class="col col-lg-2">
+                    <p class="details-title">Nama Pengajar</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${pegawai.nama}"></p>
+                  </div>
                 </div>
 
+                <div class="row detail-gaji">
+                  <div class="col col-lg-2">
+                    <p class="details-title">Mata Pelajaran</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${pegawai.mataPelajaran}"></p>
+                  </div>
+                </div>
+
+                <div class="row detail-gaji">
+                  <div class="col col-lg-2">
+                    <p class="details-title">Golongan</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${pegawai.golongan.nama}"></p>
+                  </div>
+                </div>
+
+                <div class="row detail-gaji">
+                  <div class="col col-lg-2">
+                    <p class="details-title">Total Sesi</p>
+                  </div>
+                  <div class="col">
+                    <p th:text="': ' + ${jumlahSesi}"></p>
+                  </div>
+                </div>
+
+                <br />
+                <br />
+                <h1
+                  class="h3 mb-2 text-gray-800 details-title"
+                  th:text="'Riwayat Presensi ' +
+                        ${cabangData.createdAt.getMonth()} + ' ' + ${cabangData.createdAt.getYear()} "
+                ></h1>
+                <br />
+
+                <!-- Tabel -->
+                <div class="table-responsive">
+                  <table class="table" width="100%" cellspacing="0">
+                    <thead
+                      style="
+                        background-color: #ff5252 !important;
+                        color: white;
+                      "
+                    >
+                      <tr>
+                        <th class="text-center" scope="col">No</th>
+                        <th class="text-center" scope="col">Tanggal</th>
+                        <th class="text-center" scope="col">Sesi Mengajar</th>
+                        <th class="text-center" scope="col">Sesi Tambahan</th>
+                        <th class="text-center" scope="col">Uang Konsumsi</th>
+                        <th class="text-center" scope="col">Nominal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        th:each="presensi, iterationStatus: ${presensiPengajarList}"
+                      >
+                        <td
+                          class="text-center"
+                          th:text="${iterationStatus.count}"
+                        ></td>
+                        <td
+                          class="text-center"
+                          th:text="${#temporals.format(presensi.tanggalPresensi, 'dd LLLL yyyy')}"
+                        ></td>
+                        <td
+                          class="text-center"
+                          th:text="${presensi.sesiMengajar}"
+                        ></td>
+                        <td
+                          class="text-center"
+                          th:text="${presensi.sesiTambahan}"
+                        ></td>
+                        <td
+                          class="text-center"
+                          th:text="'Rp ' + ${presensi.uangKonsum}"
+                        ></td>
+                        <td
+                          class="text-center"
+                          th:text="'Rp ' + ${presensi.nominal}"
+                          style="color: #1cc88a;"
+                        ></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row back-detail">
+                  <div class="col-auto mr-auto"></div>
+                  <div class="col-auto">
+                    <a th:href="@{/}">< Kembali ke Beranda</a>
+                  </div>
+                </div>
+              </div>
             </div>
-
-
-
-
+          </div>
         </div>
+      </div>
     </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
+    <!-- Logout Modal-->
+    <div th:replace="fragments/fragment :: logout"></div>
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div th:replace="fragments/fragment :: logout">
-</div>
-<!-- End of Page Wrapper -->
-
-
-<!--    <h3 th:text="'Jumlah Siswa: ' + ${cabang.jumlahSiswa}"></h3>-->
-<!--    &lt;!&ndash;    <h3 th:text="'Staf Cabang: ' + ${stafCabang}"></h3>&ndash;&gt;-->
-<!--    <h3 th:text="'Staf Cabang: '"></h3>-->
-<!--    <h3 th:if="${cabang.stafCabang == null}">-</h3>-->
-<!--    <h3 th:unless="${cabang.stafCabang == null}" th:text="${cabang.getStafCabang().getNama()}"></h3>-->
-
-</body>
-
+    <!--    <h3 th:text="'Jumlah Siswa: ' + ${cabang.jumlahSiswa}"></h3>-->
+    <!--    &lt;!&ndash;    <h3 th:text="'Staf Cabang: ' + ${stafCabang}"></h3>&ndash;&gt;-->
+    <!--    <h3 th:text="'Staf Cabang: '"></h3>-->
+    <!--    <h3 th:if="${cabang.stafCabang == null}">-</h3>-->
+    <!--    <h3 th:unless="${cabang.stafCabang == null}" th:text="${cabang.getStafCabang().getNama()}"></h3>-->
+  </body>
 </html>

@@ -105,7 +105,7 @@ public class CabangModel implements Serializable {
         this.stafCabang = stafCabang;
     }
 
-      public List<PresensiModel> getListPresensi() {
+    public List<PresensiModel> getListPresensi() {
         return listPresensi;
     }
 

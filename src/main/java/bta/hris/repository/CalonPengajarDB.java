@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CalonPengajarDB extends JpaRepository<CalonPengajarModel, String>{
+public interface CalonPengajarDB extends JpaRepository<CalonPengajarModel, String> {
     Optional<CalonPengajarModel> findByIdCalon(String id);
+
     List<CalonPengajarModel> findAll();
+
     Optional<CalonPengajarModel> findByUsername(String username);
 
 }

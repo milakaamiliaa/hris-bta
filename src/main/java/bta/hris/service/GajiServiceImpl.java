@@ -2,7 +2,6 @@ package bta.hris.service;
 
 import bta.hris.model.*;
 import bta.hris.repository.GajiDB;
-import bta.hris.repository.GolonganDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GajiServiceImpl implements GajiService{
+public class GajiServiceImpl implements GajiService {
 
     @Autowired
     private GajiDB gajiDB;
@@ -22,7 +21,6 @@ public class GajiServiceImpl implements GajiService{
 
     @Autowired
     private PresensiService presensiService;
-
 
     @Override
     public GajiModel addGaji(GajiModel gaji) {
@@ -36,7 +34,7 @@ public class GajiServiceImpl implements GajiService{
 
     @Override
     public List<GajiModel> getAllGajiByNip(String nip) {
-        UserModel user =  userService.getByNip(nip);
+        UserModel user = userService.getByNip(nip);
         return gajiDB.findAllByPegawai(user);
     }
 
@@ -95,7 +93,7 @@ public class GajiServiceImpl implements GajiService{
         Long totalSesi = Long.valueOf(0);
         Float totalGaji = (float) 0;
         List<PresensiModel> presensiCabang = presensiService.getAllPresensiByCabang(cabang);
-        if (presensiCabang.size()==0) {
+        if (presensiCabang.size() == 0) {
             gajiCabang.setStatus("sudah dibayar");
             gajiCabang.setPeriode(periode);
             gajiCabang.setTotalGaji(totalGaji);
@@ -107,13 +105,12 @@ public class GajiServiceImpl implements GajiService{
 
         } else {
             for (PresensiModel presensi : presensiCabang) {
-                if (presensi.getStatus().equalsIgnoreCase("disetujui")){
-                    if (presensi.getTanggalPresensi().getMonthValue()==periode.getMonthValue() &&
-                            presensi.getTanggalPresensi().getYear()==periode.getYear()) {
+                if (presensi.getStatus().equalsIgnoreCase("disetujui")) {
+                    if (presensi.getTanggalPresensi().getMonthValue() == periode.getMonthValue()
+                            && presensi.getTanggalPresensi().getYear() == periode.getYear()) {
                         if (presensi.getSesiTambahan() != null) {
-                            totalSesi = totalSesi + presensi.getSesiMengajar()+ presensi.getSesiTambahan();
-                        }
-                        else {
+                            totalSesi = totalSesi + presensi.getSesiMengajar() + presensi.getSesiTambahan();
+                        } else {
                             totalSesi = totalSesi + presensi.getSesiMengajar();
                         }
                         totalGaji = totalGaji + presensi.getNominal();
@@ -139,12 +136,12 @@ public class GajiServiceImpl implements GajiService{
     @Override
     public List<GajiModel> getAllGajiPengajarCabangMonthly(CabangModel cabang, LocalDate periode) {
         List<PresensiModel> presensiCabang = presensiService.getAllPresensiByCabangAndStatus(cabang, "disetujui");
-        ArrayList<GajiModel> gajiPengajarList= new ArrayList<>();
-        ArrayList<GajiModel> gajiPengajarListSorted= new ArrayList<>();
-        if (presensiCabang.size() !=0 ){
+        ArrayList<GajiModel> gajiPengajarList = new ArrayList<>();
+        ArrayList<GajiModel> gajiPengajarListSorted = new ArrayList<>();
+        if (presensiCabang.size() != 0) {
             UserModel pengajarPertama = new UserModel();
             for (int i = 0; i < presensiCabang.size(); i++) {
-                if (presensiCabang.get(i).getPegawai().getNip() != pengajarPertama.getNip()){
+                if (presensiCabang.get(i).getPegawai().getNip() != pengajarPertama.getNip()) {
                     GajiModel gaji = new GajiModel();
                     pengajarPertama = presensiCabang.get(i).getPegawai();
                     gaji.setPegawai(userService.getUserById(pengajarPertama.getIdUser()));
@@ -155,12 +152,11 @@ public class GajiServiceImpl implements GajiService{
                     gaji.setPajakGaji((float) 0);
                     gaji.setTotalSesi(Long.valueOf(0));
 
-                    if (presensiCabang.get(i).getSesiTambahan()==null){
+                    if (presensiCabang.get(i).getSesiTambahan() == null) {
                         gaji.setTotalSesi(gaji.getTotalSesi() + presensiCabang.get(i).getSesiMengajar());
-                    }
-                    else {
-                        gaji.setTotalSesi(gaji.getTotalSesi() + presensiCabang.get(i).getSesiMengajar() +
-                                presensiCabang.get(i).getSesiTambahan());
+                    } else {
+                        gaji.setTotalSesi(gaji.getTotalSesi() + presensiCabang.get(i).getSesiMengajar()
+                                + presensiCabang.get(i).getSesiTambahan());
                     }
 
                     gajiDB.save(gaji);
@@ -169,15 +165,14 @@ public class GajiServiceImpl implements GajiService{
 
                 }
 
-                else if (presensiCabang.get(i).getPegawai().getNip()==pengajarPertama.getNip()){
-                    GajiModel gaji = gajiPengajarList.get(gajiPengajarList.size()-1);
+                else if (presensiCabang.get(i).getPegawai().getNip() == pengajarPertama.getNip()) {
+                    GajiModel gaji = gajiPengajarList.get(gajiPengajarList.size() - 1);
                     gaji.setTotalGaji(gaji.getTotalGaji() + presensiCabang.get(i).getNominal());
-                    if (presensiCabang.get(i).getSesiTambahan()==null){
+                    if (presensiCabang.get(i).getSesiTambahan() == null) {
                         gaji.setTotalSesi(gaji.getTotalSesi() + presensiCabang.get(i).getSesiMengajar());
-                    }
-                    else {
-                        gaji.setTotalSesi(gaji.getTotalSesi() + presensiCabang.get(i).getSesiMengajar() +
-                                presensiCabang.get(i).getSesiTambahan());
+                    } else {
+                        gaji.setTotalSesi(gaji.getTotalSesi() + presensiCabang.get(i).getSesiMengajar()
+                                + presensiCabang.get(i).getSesiTambahan());
                     }
 
                 }
@@ -192,22 +187,20 @@ public class GajiServiceImpl implements GajiService{
 
     @Override
     public ArrayList<GajiModel> listSortedByTotalGaji(ArrayList<GajiModel> gajiModelList) {
-        ArrayList<GajiModel> sortedList= new ArrayList<>();
+        ArrayList<GajiModel> sortedList = new ArrayList<>();
         GajiModel first = gajiModelList.get(0);
-        for (int i=1; i<gajiModelList.size();i++){
-                if (gajiModelList.get(i).getTotalGaji()>first.getTotalGaji()) {
-                    sortedList.add(gajiModelList.get(i));
-                }
-                else {
-                    sortedList.add(first);
-                    first = gajiModelList.get(i);
-                }
+        for (int i = 1; i < gajiModelList.size(); i++) {
+            if (gajiModelList.get(i).getTotalGaji() > first.getTotalGaji()) {
+                sortedList.add(gajiModelList.get(i));
+            } else {
+                sortedList.add(first);
+                first = gajiModelList.get(i);
+            }
 
         }
         sortedList.add(first);
         return sortedList;
 
     }
-
 
 }

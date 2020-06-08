@@ -17,10 +17,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
-
 @Service
 @Transactional
-public class CalonPengajarServiceImpl implements CalonPengajarService{
+public class CalonPengajarServiceImpl implements CalonPengajarService {
     @Autowired
     private CalonPengajarDB calonPengajarDB;
 
@@ -44,7 +43,7 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     }
 
     @Override
-    public CalonPengajarModel addCalon(CalonPengajarModel calon){
+    public CalonPengajarModel addCalon(CalonPengajarModel calon) {
         String pass = encrypt(calon.getPassword());
         calon.setPassword(pass);
         return calonPengajarDB.save(calon);
@@ -58,35 +57,35 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     }
 
     @Override
-    public List<CalonPengajarModel> getAllCalon(){
+    public List<CalonPengajarModel> getAllCalon() {
         return calonPengajarDB.findAll();
     }
 
     @Override
-    public CalonPengajarModel rekrutCalon(CalonPengajarModel calon){
-        try{
-            UserModel newPegawai = userDB.findByNip(calon.getUsername());            
+    public CalonPengajarModel rekrutCalon(CalonPengajarModel calon) {
+        try {
+            UserModel newPegawai = userDB.findByNip(calon.getUsername());
             String newNIP = "";
             if (calon.getMataPelajaran() != null) {
-                if (calon.getMataPelajaran().equals("Biologi")){
+                if (calon.getMataPelajaran().equals("Biologi")) {
                     newNIP += "BIO";
-                }else if(calon.getMataPelajaran().equals("Ekonomi")){
+                } else if (calon.getMataPelajaran().equals("Ekonomi")) {
                     newNIP += "EKO";
-                }else if(calon.getMataPelajaran().equals("Matematika")){
+                } else if (calon.getMataPelajaran().equals("Matematika")) {
                     newNIP += "MTK";
-                }else if(calon.getMataPelajaran().equals("Kimia")){
+                } else if (calon.getMataPelajaran().equals("Kimia")) {
                     newNIP += "KIM";
-                }else if(calon.getMataPelajaran().equals("Fisika")){
+                } else if (calon.getMataPelajaran().equals("Fisika")) {
                     newNIP += "FIS";
-                }else if(calon.getMataPelajaran().equals("Sosiologi")){
+                } else if (calon.getMataPelajaran().equals("Sosiologi")) {
                     newNIP += "SOS";
-                }else if(calon.getMataPelajaran().equals("Geografi")){
+                } else if (calon.getMataPelajaran().equals("Geografi")) {
                     newNIP += "GEO";
-                }else if(calon.getMataPelajaran().equals("TPA")){
+                } else if (calon.getMataPelajaran().equals("TPA")) {
                     newNIP += "TPA";
-                }else if(calon.getMataPelajaran().equals("Bahasa Inggris")){
+                } else if (calon.getMataPelajaran().equals("Bahasa Inggris")) {
                     newNIP += "ING";
-                }else if(calon.getMataPelajaran().equals("Bahasa Indonesia")){
+                } else if (calon.getMataPelajaran().equals("Bahasa Indonesia")) {
                     newNIP += "IND";
                 }
             }
@@ -97,15 +96,15 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
 
             List<UserModel> allUser = userDB.findAll();
             List<UserModel> userInAYear = new ArrayList<UserModel>();
-            for (UserModel user : allUser){
-                if (user.getCreatedAt().getYear() == LocalDate.now().getYear()){
+            for (UserModel user : allUser) {
+                if (user.getCreatedAt().getYear() == LocalDate.now().getYear()) {
                     userInAYear.add(user);
                 }
             }
 
-            if (userInAYear.size()<10){
-                newNIP += "0"+String.valueOf(userInAYear.size());
-            }else{
+            if (userInAYear.size() < 10) {
+                newNIP += "0" + String.valueOf(userInAYear.size());
+            } else {
                 newNIP += String.valueOf(userInAYear.size());
             }
             newPegawai.setActive(true);
@@ -118,13 +117,13 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
             targetCalon.setUpdatedAt(LocalDate.now());
             calonPengajarDB.save(targetCalon);
             return targetCalon;
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }
 
     @Override
-    public boolean hapusCalon(CalonPengajarModel calon){
+    public boolean hapusCalon(CalonPengajarModel calon) {
         CalonPengajarModel target = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
         if (target != null) {
             calonPengajarDB.delete(target);
@@ -134,33 +133,33 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     }
 
     @Override
-    public CalonPengajarModel tolakCalon(CalonPengajarModel calon){
+    public CalonPengajarModel tolakCalon(CalonPengajarModel calon) {
         CalonPengajarModel targetCalon = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
-        try{
+        try {
             targetCalon.setStatus("Ditolak");
             targetCalon.setUpdatedAt(LocalDate.now());
             calonPengajarDB.save(targetCalon);
             return targetCalon;
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }
 
     @Override
-    public CalonPengajarModel undangCalon(CalonPengajarModel calon){
+    public CalonPengajarModel undangCalon(CalonPengajarModel calon) {
         CalonPengajarModel targetCalon = calonPengajarDB.findByIdCalon(calon.getIdCalon()).get();
-        try{
+        try {
             targetCalon.setStatus("Diundang");
             targetCalon.setUpdatedAt(LocalDate.now());
             calonPengajarDB.save(targetCalon);
             return targetCalon;
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }
-  
+
     @Override
-    public CalonPengajarModel createCalonPengajar(CalonPengajarModel calonPengajar){
+    public CalonPengajarModel createCalonPengajar(CalonPengajarModel calonPengajar) {
         return calonPengajarDB.save(calonPengajar);
     }
 
@@ -168,11 +167,11 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     public CalonPengajarModel updateNilaiPsikotesCalonPengajar(CalonPengajarModel calonPengajar) {
         CalonPengajarModel target = calonPengajarDB.findById(calonPengajar.getIdCalon()).get();
 
-        try{
+        try {
             target.setNilaiPsikotes(calonPengajar.getNilaiPsikotes());
             calonPengajarDB.save(target);
             return target;
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }
@@ -181,11 +180,11 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     public CalonPengajarModel updateNilaiMapelCalonPengajar(CalonPengajarModel calonPengajar) {
         CalonPengajarModel target = calonPengajarDB.findById(calonPengajar.getIdCalon()).get();
 
-        try{
+        try {
             target.setNilaiMataPelajaran(calonPengajar.getNilaiMataPelajaran());
             calonPengajarDB.save(target);
             return target;
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }
@@ -194,11 +193,11 @@ public class CalonPengajarServiceImpl implements CalonPengajarService{
     public CalonPengajarModel updateStatusCalonPengajar(CalonPengajarModel calonPengajar) {
         CalonPengajarModel target = calonPengajarDB.findById(calonPengajar.getIdCalon()).get();
 
-        try{
+        try {
             target.setStatus(calonPengajar.getStatus());
             calonPengajarDB.save(target);
             return target;
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }
