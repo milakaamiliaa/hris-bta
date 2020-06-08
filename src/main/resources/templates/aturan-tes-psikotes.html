@@ -86,7 +86,23 @@
       <i class="fas fa-angle-up"></i>
     </a>
 
+<<<<<<< HEAD
     <!-- Logout Modal-->
     <div th:replace="fragments/fragment :: logout"></div>
   </body>
 </html>
+=======
+<!-- Logout Modal-->
+<div th:replace="fragments/fragment :: logout">
+</div>
+
+<script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+        alert("Maaf anda tidak bisa kembali ke halaman sebelumnya jika belum menyelesaikan tes.");
+    }
+</script>
+</body>
+</html>
+>>>>>>> 41f99d4cc22671000ed78ffad76f0cfd6cfd6aa7

@@ -94,6 +94,7 @@
                     </div>
                   </div>
                 </div>
+<<<<<<< HEAD
               </div>
 
               <div class="col-sm align-content-center">
@@ -105,6 +106,36 @@
                           <p
                             th:text="${cabangData.createdAt.getMonth()}+' '+${cabangData.createdAt.getYear()}"
                           ></p>
+=======
+                <br>
+                <br>
+
+                <h1 class="h3 mb-2 text-gray-800 text-uppercase text-center font-weight-bold" th:text="'TOP 10 PENGAJAR '+${cabangData.cabang.cabang}"></h1>
+                <div class="card shadow mb-4 border-bottom-danger">
+                    <div class="card-body">
+                        <div th:if="${pegawaiList.size() == 0}" th:align="center">
+                            <h5 th:text="'Tidak ada data presensi pegawai'"></h5>
+                        </div>
+                        <div th:unless="${pegawaiList.size() == 0}" class="table-responsive">
+                            <table class="table" width="80%" cellspacing="0">
+                                <thead style="background-color: #FF5252 !important; color: white">
+                                <tr>
+                                    <th style="text-align: center;">No</th>
+                                    <th style="text-align: center;">Nama Pengajar</th>
+                                    <th style="text-align: center;">Jumlah Sesi</th>
+                                    <th style="text-align: center;"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="pegawai, iterationStatus: ${pegawaiList}">
+                                    <td style="text-align: center;" th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${pegawai.nama}"></td>
+                                    <td style="text-align: center;" th:text="${totalSesiPegawai[__${iterationStatus.index}__]}"></td>
+                                    <td style="text-align: center;"><a th:href="@{/gaji/}+${pegawai.nip}">Detail</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+>>>>>>> 41f99d4cc22671000ed78ffad76f0cfd6cfd6aa7
                         </div>
                         <div
                           class="h3 font-weight-bold text-danger"

@@ -92,21 +92,25 @@ public class TesController {
             SubmittedSoalModel ss = new SubmittedSoalModel();
 
             for (JawabanModel j : s.getListJawaban()) {
-                SubmittedJawabanModel jj = new SubmittedJawabanModel();
-                jj.setJawaban(j.getJawaban());
-                jj.setSoal(ss);
-                jj.setIsChosen(false);
-                jj.setCorrect(j.isCorrect());
+                if (j.isActive() == true) {
+                    SubmittedJawabanModel jj = new SubmittedJawabanModel();
+                    jj.setJawaban(j.getJawaban());
+                    jj.setSoal(ss);
+                    jj.setIsChosen(false);
+                    jj.setCorrect(j.isCorrect());
 
-                submittedJawaban.add(jj);
+                    submittedJawaban.add(jj);
+                }
             }
 
-            ss.setPaketSoal(submittedPaketSoal);
-            ss.setPertanyaan(s.getPertanyaan());
-            Collections.shuffle(submittedJawaban);
-            ss.setListJawaban(submittedJawaban);
+            if (s.getIsActive() == true) {
+                ss.setPaketSoal(submittedPaketSoal);
+                ss.setPertanyaan(s.getPertanyaan());
+                Collections.shuffle(submittedJawaban);
+                ss.setListJawaban(submittedJawaban);
 
-            submittedSoal.add(ss);
+                submittedSoal.add(ss);
+            }
         }
 
         submittedPaketSoal.setHasilTes(hasilTes);
@@ -217,21 +221,25 @@ public class TesController {
             SubmittedSoalModel ss = new SubmittedSoalModel();
 
             for (JawabanModel j : s.getListJawaban()) {
-                SubmittedJawabanModel jj = new SubmittedJawabanModel();
-                jj.setJawaban(j.getJawaban());
-                jj.setSoal(ss);
-                jj.setIsChosen(false);
-                jj.setCorrect(j.isCorrect());
+                if (j.isActive() == true) {
+                    SubmittedJawabanModel jj = new SubmittedJawabanModel();
+                    jj.setJawaban(j.getJawaban());
+                    jj.setSoal(ss);
+                    jj.setIsChosen(false);
+                    jj.setCorrect(j.isCorrect());
 
-                submittedJawaban.add(jj);
+                    submittedJawaban.add(jj);
+                }
             }
 
-            ss.setPaketSoal(submittedPaketSoal);
-            ss.setPertanyaan(s.getPertanyaan());
-            Collections.shuffle(submittedJawaban);
-            ss.setListJawaban(submittedJawaban);
+            if (s.getIsActive() == true) {
+                ss.setPaketSoal(submittedPaketSoal);
+                ss.setPertanyaan(s.getPertanyaan());
+                Collections.shuffle(submittedJawaban);
+                ss.setListJawaban(submittedJawaban);
 
-            submittedSoal.add(ss);
+                submittedSoal.add(ss);
+            }
         }
 
         submittedPaketSoal.setHasilTes(hasilTes);
@@ -287,9 +295,9 @@ public class TesController {
 
         return "redirect:/";
     }
-
-    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
-    public String aturanMataPelajaran(Model model) {
-        return "aturan-tes-matpel";
-    }
+//
+//    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
+//    public String aturanMataPelajaran(Model model) {
+//        return "aturan-tes-matpel";
+//    }
 }
