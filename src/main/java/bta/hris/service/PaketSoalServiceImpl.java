@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -31,12 +32,12 @@ public class PaketSoalServiceImpl implements PaketSoalService{
 
     @Override
     public PaketSoalModel getPaketSoalByIdPaket(Long idPaket) {
-        return paketSoalDB.findByIdPaket(idPaket);
+        return paketSoalDB.findByIdPaket(idPaket).get();
     }
 
     @Override
     public PaketSoalModel updatePaketSoal(PaketSoalModel paketSoal) {
-        PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
+        PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket()).get();
 
         try{
             newPaket.setNama(paketSoal.getNama());
@@ -52,7 +53,7 @@ public class PaketSoalServiceImpl implements PaketSoalService{
 
     @Override
     public PaketSoalModel deletePaketSoal(PaketSoalModel paketSoal) {
-        PaketSoalModel target = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
+        PaketSoalModel target = paketSoalDB.findByIdPaket(paketSoal.getIdPaket()).get();
         target.setActive(false);
         paketSoalDB.save(target);
 

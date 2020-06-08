@@ -111,14 +111,14 @@
 
                     <div class="form-group">
                       <p class = "form-title"> Asal Perguruan Tinggi Negeri </p>
-                      <input class="form-control form-control-user" type="text" name="universitas"  title="Masukkan Perguruan Tinggi"
-                             placeholder="Masukkan perguruan tinggi..." required>
+                      <input class="form-control form-control-user" type="text" name="universitas"  pattern="[A-Za-z ]+" title="Masukkan Perguruan Tinggi (huruf)"
+                             placeholder="Masukkan perguruan tinggi (huruf)" required>
                     </div>
 
                     <div class="form-group">
                       <p class = "form-title"> Username </p>
-                      <input class="form-control form-control-user" type="text" name="username"  title="Masukkan username"
-                             placeholder="Masukkan username..." required>
+                      <input class="form-control form-control-user" type="text" name="username" pattern="[A-Za-z0-9.]+" title="Masukkan username dengan huruf/angka/."
+                             placeholder="Masukkan username dengan huruf atau angka..." required>
                     </div>
 
                     <div class="form-group">
