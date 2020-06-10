@@ -15,12 +15,12 @@ public class RoleServiceImpl implements RoleService {
     private RoleDB RoleDB;
 
     @Override
-    public RoleModel getRoleById(Long id){
+    public RoleModel getRoleById(Long id) {
         return RoleDB.findById(id).get();
     }
 
     @Override
-    public List<RoleModel> getAllRole(){
+    public List<RoleModel> getAllRole() {
         return RoleDB.findAll();
     }
 

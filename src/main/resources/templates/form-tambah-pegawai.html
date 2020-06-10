@@ -1,163 +1,259 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
-
-<head>
-    <object th:include = "fragments/fragment :: head"></object>
+<html
+  lang="en"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+  xmlns:th="http://www.thymelaf.org"
+>
+  <head>
+    <object th:include="fragments/fragment :: head"></object>
     <title>Tambah Pegawai</title>
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}" />
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt
-  TE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4s
-  F86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt
+  TE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4s
+  F86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul th:replace="fragments/fragment :: sidebar"></ul>
+      <!-- End of Sidebar -->
 
-<body id="page-top">
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul th:replace="fragments/fragment :: sidebar">
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
+          <!-- Topbar -->
+          <nav th:replace="fragments/fragment :: topbar"></nav>
 
-            <!-- Topbar -->
-            <nav th:replace="fragments/fragment :: topbar"></nav>
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <!--                <h1 class="h3 mb-2 text-gray-800" align="center">TAMBAH PEGAWAI</h1>-->
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-<!--                <h1 class="h3 mb-2 text-gray-800" align="center">TAMBAH PEGAWAI</h1>-->
-
-                <!-- Card -->
-                <div class="card shadow mb-4 border-bottom-danger">
-                    <div class="card-body">
-                        <div class="form-header">
-                            <p class="form-header-text ">TAMBAH PEGAWAI</p>
-                        </div>
-                        <form class="user" th:action="@{/pegawai/tambah}" method="POST">
-                            <div class="form-group">
-                                <p class = "form-title">Nama</p>
-                                <input name="nama" type="text" required = "true" class="form-control form-control-user" placeholder="Masukkan Nama Pegawai"
-                                       pattern="[A-Za-z ]+" title="Hanya boleh huruf">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Tanggal Lahir</p>
-                                <input name="tglLahir" type="date" required = "true" class="form-control form-control-user" >
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Email</p>
-                                <input name="email" type="email" required = "true" class="form-control form-control-user" placeholder="Masukkan Email">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Role</p>
-                                <select selected=# name="role" class="input-field col col-lg-3" style="margin-top: 10px;" id="dropdown-form" onchange="dropdownChange()">
-                                        <option value="" selected disabled hidden th:text="${role == null} ? 'Masukkan Role' : ${role.nama}"></option>
-                                        <option th:each="role : ${listRole}"
-                                                th:value="${role.idRole}"
-                                                th:text="${role.nama}"/>
-                                    </select>
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Mata Pelajaran</p>
-                                <select selected=# name="mataPelajaran" class="input-field col col-lg-3" style="margin-top: 10px;" id="dropdown-form" onchange="dropdownChange()">
-                                    <option value="" selected disabled hidden th:text="${mapel == null} ? 'Masukkan Mata Pelajaran' : ${mataPelajaran}"></option>
-                                        <option th:each="mapel : ${mataPelajaran}"
-                                                th:value="${mapel}"
-                                                th:text="${mapel}"/>
-                                        <option value="null">Tidak Ada</option>
-                                    </select>
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Golongan</p>
-                                <select selected=# name="golongan" class="input-field col col-lg-3" style="margin-top: 10px;" id="dropdown-form" onchange="dropdownChange()">
-                                    <option value="" selected disabled hidden th:text="${golongan == null} ? 'Masukkan Golongan' : ${golongan.nama}"></option>
-                                        <option th:each="golongan : ${listGolongan}"
-                                                th:value="${golongan.idGolongan}"
-                                                th:text="${golongan.nama}"/>
-                                    </select>
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Alamat</p>
-                                <input name="alamat" type="text" required="true" class="form-control form-control-user" placeholder="Masukkan Alamat"
-                                       pattern="[A-Za-z0-9. ]+" title="Hanya boleh angka atau huruf atau .">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Nomor Telepon</p>
-                                <input name="noTelp" type="text" required="true" pattern="[0-9]{7,12}" title="Nomor telepon yang valid 7-12 angka" class="form-control form-control-user" placeholder="Masukkan Nomor Telepon">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Password</p>
-                                <input name="password" type="password" class="form-control form-control-user" id="userPassword" required="true" placeholder="Masukkan Kata Sandi">
-                                <div class="form-group">
-                                    <label style="font-size: small;" class="col-5"> <input type="checkbox" class="align-items-end col-1" onclick="myFunction()" style="margin-top: 15px; padding-left: 15px;" for="passCheckbox">Tunjukkan Sandi</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Nomor Rekening</p>
-                                <input name="noRekening" type="number" class="form-control form-control-user" required="true" placeholder="Masukkan Nomor Rekening">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Nama Bank</p>
-                                <input name="namaBank" type="text" class="form-control form-control-user" required="true" placeholder="Masukkan Nama Bank"
-                                       pattern="[A-Za-z ]+" title="Hanya boleh huruf">
-                            </div>
-                            <button class="btn btn-primary" type="submit">Simpan</button>
-
-                        </form>
-
-                    </div>
-
+            <!-- Card -->
+            <div class="card shadow mb-4 border-bottom-danger">
+              <div class="card-body">
+                <div class="form-header">
+                  <p class="form-header-text">TAMBAH PEGAWAI</p>
                 </div>
-
+                <form class="user" th:action="@{/pegawai/tambah}" method="POST">
+                  <div class="form-group">
+                    <p class="form-title">Nama</p>
+                    <input
+                      name="nama"
+                      type="text"
+                      required="true"
+                      class="form-control form-control-user"
+                      placeholder="Masukkan Nama Pegawai"
+                      pattern="[A-Za-z ]+"
+                      title="Hanya boleh huruf"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Tanggal Lahir</p>
+                    <input
+                      name="tglLahir"
+                      type="date"
+                      required="true"
+                      class="form-control form-control-user"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Email</p>
+                    <input
+                      name="email"
+                      type="email"
+                      required="true"
+                      class="form-control form-control-user"
+                      placeholder="Masukkan Email"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Role</p>
+                    <select
+                      selected="#"
+                      name="role"
+                      class="input-field col col-lg-3"
+                      style="margin-top: 10px;"
+                      id="dropdown-form"
+                      onchange="dropdownChange()"
+                    >
+                      <option
+                        value=""
+                        selected
+                        disabled
+                        hidden
+                        th:text="${role == null} ? 'Masukkan Role' : ${role.nama}"
+                      ></option>
+                      <option
+                        th:each="role : ${listRole}"
+                        th:value="${role.idRole}"
+                        th:text="${role.nama}"
+                      />
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Mata Pelajaran</p>
+                    <select
+                      selected="#"
+                      name="mataPelajaran"
+                      class="input-field col col-lg-3"
+                      style="margin-top: 10px;"
+                      id="dropdown-form"
+                      onchange="dropdownChange()"
+                    >
+                      <option
+                        value=""
+                        selected
+                        disabled
+                        hidden
+                        th:text="${mapel == null} ? 'Masukkan Mata Pelajaran' : ${mataPelajaran}"
+                      ></option>
+                      <option
+                        th:each="mapel : ${mataPelajaran}"
+                        th:value="${mapel}"
+                        th:text="${mapel}"
+                      />
+                      <option value="null">Tidak Ada</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Golongan</p>
+                    <select
+                      selected="#"
+                      name="golongan"
+                      class="input-field col col-lg-3"
+                      style="margin-top: 10px;"
+                      id="dropdown-form"
+                      onchange="dropdownChange()"
+                    >
+                      <option
+                        value=""
+                        selected
+                        disabled
+                        hidden
+                        th:text="${golongan == null} ? 'Masukkan Golongan' : ${golongan.nama}"
+                      ></option>
+                      <option
+                        th:each="golongan : ${listGolongan}"
+                        th:value="${golongan.idGolongan}"
+                        th:text="${golongan.nama}"
+                      />
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Alamat</p>
+                    <input
+                      name="alamat"
+                      type="text"
+                      required="true"
+                      class="form-control form-control-user"
+                      placeholder="Masukkan Alamat"
+                      pattern="[A-Za-z0-9. ]+"
+                      title="Hanya boleh angka atau huruf atau ."
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Nomor Telepon</p>
+                    <input
+                      name="noTelp"
+                      type="text"
+                      required="true"
+                      pattern="[0-9]{7,12}"
+                      title="Nomor telepon yang valid 7-12 angka"
+                      class="form-control form-control-user"
+                      placeholder="Masukkan Nomor Telepon"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Password</p>
+                    <input
+                      name="password"
+                      type="password"
+                      class="form-control form-control-user"
+                      id="userPassword"
+                      required="true"
+                      placeholder="Masukkan Kata Sandi"
+                    />
+                    <div class="form-group">
+                      <label style="font-size: small;" class="col-5">
+                        <input
+                          type="checkbox"
+                          class="align-items-end col-1"
+                          onclick="myFunction()"
+                          style="margin-top: 15px; padding-left: 15px;"
+                          for="passCheckbox"
+                        />Tunjukkan Sandi</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Nomor Rekening</p>
+                    <input
+                      name="noRekening"
+                      type="number"
+                      class="form-control form-control-user"
+                      required="true"
+                      placeholder="Masukkan Nomor Rekening"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Nama Bank</p>
+                    <input
+                      name="namaBank"
+                      type="text"
+                      class="form-control form-control-user"
+                      required="true"
+                      placeholder="Masukkan Nama Bank"
+                      pattern="[A-Za-z ]+"
+                      title="Hanya boleh huruf"
+                    />
+                  </div>
+                  <button class="btn btn-primary" type="submit">Simpan</button>
+                </form>
+              </div>
             </div>
-            <!-- /.container-fluid -->
-
+          </div>
+          <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer th:replace="fragments/fragment :: footer">
-        </footer>
+        <footer th:replace="fragments/fragment :: footer"></footer>
         <!-- End of Footer -->
-
+      </div>
+      <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div th:replace="fragments/fragment :: logout">
-</div>
-
-</body>
-<script>
+    <!-- Logout Modal-->
+    <div th:replace="fragments/fragment :: logout"></div>
+  </body>
+  <script>
     function myFunction() {
-  var x = document.getElementById("userPassword");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
+      var x = document.getElementById("userPassword");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
     }
-</script>
-
+  </script>
 </html>

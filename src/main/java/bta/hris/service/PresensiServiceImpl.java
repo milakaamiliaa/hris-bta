@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.Null;
 import java.util.List;
 
 @Service
@@ -22,7 +21,7 @@ public class PresensiServiceImpl implements PresensiService {
     private PresensiDB presensiDB;
 
     @Override
-    public PresensiModel getPresensiById(Long id){
+    public PresensiModel getPresensiById(Long id) {
         return presensiDB.findById(id).get();
     }
 
@@ -40,7 +39,7 @@ public class PresensiServiceImpl implements PresensiService {
     }
 
     public List<PresensiModel> getAllPresensiByNip(String nip) {
-        UserModel user =  userService.getByNip(nip);
+        UserModel user = userService.getByNip(nip);
         return presensiDB.findAllByPegawaiOrderByIdPresensiDesc(user);
     }
 
@@ -58,13 +57,12 @@ public class PresensiServiceImpl implements PresensiService {
     @Override
     public PresensiModel approvePresensi(PresensiModel presensi) {
         PresensiModel newPresensi = presensiDB.findById(presensi.getIdPresensi()).get();
-        float pajak = presensi.getPegawai().getGolongan().getPajak() /100;
+        float pajak = presensi.getPegawai().getGolongan().getPajak() / 100;
         float golongan = presensi.getPegawai().getGolongan().getRate();
         Long sesiTambahan;
-        if(presensi.getSesiTambahan() == null){
-            sesiTambahan = (long)0;
-        }
-        else{
+        if (presensi.getSesiTambahan() == null) {
+            sesiTambahan = (long) 0;
+        } else {
             sesiTambahan = presensi.getSesiTambahan();
 
         }
@@ -80,8 +78,7 @@ public class PresensiServiceImpl implements PresensiService {
         newPresensi.setStatus("disetujui");
         if (newPresensi.getUangKonsum() != null) {
             newPresensi.setNominal(gaji + presensi.getUangKonsum());
-        }
-        else {
+        } else {
             newPresensi.setNominal(gaji);
             System.out.println(gaji);
         }
@@ -109,19 +106,18 @@ public class PresensiServiceImpl implements PresensiService {
 
     @Override
     public List<PresensiModel> getAllPresensiByKodeGaji(String kodeGaji, String nip) {
-        UserModel user =  userService.getByNip(nip);
+        UserModel user = userService.getByNip(nip);
         return presensiDB.findByKodeGajiAndPegawai(kodeGaji, user);
     }
 
-
     @Override
-    public List<PresensiModel> getAllPresensiByCabangAndStatus(CabangModel cabang, String status){
-        return presensiDB.findByCabangAndStatus(cabang,status);
+    public List<PresensiModel> getAllPresensiByCabangAndStatus(CabangModel cabang, String status) {
+        return presensiDB.findByCabangAndStatus(cabang, status);
     }
 
     @Override
     public List<PresensiModel> getAllPresensiByCabangAndPegawaiAndStatus(CabangModel cabang, UserModel userModel,
-                                                                  String status) {
+            String status) {
         return presensiDB.findByCabangAndPegawaiAndStatus(cabang, userModel, status);
     }
 

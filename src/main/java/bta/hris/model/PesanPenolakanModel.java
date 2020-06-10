@@ -3,14 +3,10 @@ package bta.hris.model;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,11 +15,6 @@ public class PesanPenolakanModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPesanPenolakan;
-
-//    @NotNull
-//    @Column(name = "createdAt", nullable = false)
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-//    private LocalDateTime createdAt;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -35,7 +26,7 @@ public class PesanPenolakanModel implements Serializable {
     private String pesan;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "presensi", referencedColumnName= "idPresensi", nullable = false)
+    @JoinColumn(name = "presensi", referencedColumnName = "idPresensi", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PresensiModel presensi;
 

@@ -24,7 +24,7 @@ public class SoalModel implements Serializable {
     private boolean isActive;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "paketSoal", referencedColumnName= "idPaket", nullable = false)
+    @JoinColumn(name = "paketSoal", referencedColumnName = "idPaket", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PaketSoalModel paketSoal;
 
@@ -39,11 +39,11 @@ public class SoalModel implements Serializable {
         this.idSoal = idSoal;
     }
 
-    public List<JawabanModel> getListJawaban(){
+    public List<JawabanModel> getListJawaban() {
         return listJawaban;
     }
 
-    public void setListJawaban(List<JawabanModel> listJawaban){
+    public void setListJawaban(List<JawabanModel> listJawaban) {
         this.listJawaban = listJawaban;
     }
 

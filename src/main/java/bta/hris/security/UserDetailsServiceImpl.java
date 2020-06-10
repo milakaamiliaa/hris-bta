@@ -2,6 +2,7 @@ package bta.hris.security;
 
 import bta.hris.model.UserModel;
 import bta.hris.repository.UserDB;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service("userDetailsService")
@@ -33,11 +33,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getNama()));
 
-//        return new User(user.getNip(), user.getPassword(), grantedAuthorities);
         return buildUserForAuthentication(user, grantedAuthorities);
     }
 
-    private User buildUserForAuthentication(UserModel user,  Set<GrantedAuthority> authorities) {
+    private User buildUserForAuthentication(UserModel user, Set<GrantedAuthority> authorities) {
         String username = user.getNip();
         String password = user.getPassword();
         boolean enabled = true;
@@ -45,7 +44,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
 
-        CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, authorities);
 
         currentUser.setNama(user.getNama());
 

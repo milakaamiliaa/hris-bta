@@ -1,7 +1,6 @@
 package bta.hris.controller;
 
 import bta.hris.model.*;
-import bta.hris.repository.JawabanDB;
 import bta.hris.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,7 +50,8 @@ public class CalonPengajarController {
 
     @RequestMapping(value = "calonpengajar/rekrut/{idCalon}", method = RequestMethod.POST)
     public String terimaPelamar(@ModelAttribute CalonPengajarModel calon, Model model) {
-        CalonPengajarModel newPengajar = calonPengajarService.rekrutCalon(calonPengajarService.getCalonById(calon.getIdCalon()));
+        CalonPengajarModel newPengajar = calonPengajarService
+                .rekrutCalon(calonPengajarService.getCalonById(calon.getIdCalon()));
         model.addAttribute("newPengajar", newPengajar);
         return detailCalonPengajar(calon.getIdCalon(), model);
     }
@@ -73,10 +71,12 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "calonpengajar/hapus/{idCalon}", method = RequestMethod.POST)
-    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model, RedirectAttributes redirect) {
+    public String hapusCalon(@PathVariable String idCalon, @ModelAttribute CalonPengajarModel calon, Model model,
+            RedirectAttributes redirect) {
         CalonPengajarModel targetCalon = calonPengajarService.getCalonById(calon.getIdCalon());
         calonPengajarService.hapusCalon(targetCalon);
-        redirect.addFlashAttribute("alertHapus", "Calon pengajar bernama " + targetCalon.getNama() + " berhasil dihapus.");
+        redirect.addFlashAttribute("alertHapus",
+                "Calon pengajar bernama " + targetCalon.getNama() + " berhasil dihapus.");
         return daftarCalonPengajar(model);
     }
 
@@ -88,7 +88,8 @@ public class CalonPengajarController {
     }
 
     @RequestMapping(value = "/registrasi", method = RequestMethod.POST)
-    public String tambahCalonPengajarSubmit(CalonPengajarModel calonPengajar, Model model, RedirectAttributes redirect) {
+    public String tambahCalonPengajarSubmit(CalonPengajarModel calonPengajar, Model model,
+            RedirectAttributes redirect) {
 
         if (usernameisValid(calonPengajar)) {
             if (calonPengajar.getTglLahir().compareTo(LocalDate.now().minusYears(15)) <= 0) {
@@ -118,17 +119,19 @@ public class CalonPengajarController {
 
                 return "redirect:/beranda/" + calonPengajar.getIdCalon();
             } else {
-                redirect.addFlashAttribute("tglLahirTidakValid", "Tanggal lahir tidak valid, silahkan isi sesuai tanggal lahir Anda");
+                redirect.addFlashAttribute("tglLahirTidakValid",
+                        "Tanggal lahir tidak valid, silahkan isi sesuai tanggal lahir Anda");
                 return "redirect:/registrasi";
             }
 
         } else {
-            redirect.addFlashAttribute("usernameTidakValid", "Username tidak tersedia, silahkan isi dengan username yang lain");
+            redirect.addFlashAttribute("usernameTidakValid",
+                    "Username tidak tersedia, silahkan isi dengan username yang lain");
+            redirect.addAttribute("calonPengajar", calonPengajar);
             return "redirect:/registrasi";
         }
 
     }
-
 
     public boolean usernameisValid(CalonPengajarModel calonPengajarCheck) {
         List<CalonPengajarModel> calonPengajarList = calonPengajarService.getAllCalon();
@@ -142,5 +145,3 @@ public class CalonPengajarController {
         return status;
     }
 }
-
-

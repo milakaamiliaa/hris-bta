@@ -1,115 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
-
-<head>
-    <object th:include = "fragments/fragment :: head"></object>
+<html
+  lang="en"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+  xmlns:th="http://www.thymelaf.org"
+>
+  <head>
+    <object th:include="fragments/fragment :: head"></object>
     <title>Ubah Jawaban</title>
-</head>
+  </head>
 
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul th:replace="fragments/fragment :: sidebar"></ul>
+      <!-- End of Sidebar -->
 
-<body id="page-top">
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul th:replace="fragments/fragment :: sidebar">
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
+          <!-- Topbar -->
+          <nav th:replace="fragments/fragment :: topbar"></nav>
 
-            <!-- Topbar -->
-            <nav th:replace="fragments/fragment :: topbar"></nav>
-
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Card -->
-                <div class="card shadow mb-4 border-bottom-danger">
-                    <div class="card-body">
-                        <div class="form-header">
-                            <p class="form-header-text ">TAMBAH JAWABAN</p>
-                        </div>
-
-                        <!-- Input Area Container -->
-                        <div class="container-fluid" style="width: 60%;">
-                            <form class="user" th:object="${jawaban}" th:action="@{/jawaban/tambah/}" method="POST">
-                                <div class="form-group">
-                                    <p class = "form-title">Jawaban</p>
-                                    <br>
-                                    <!--                                <input hidden th:field="*{isActive}" th:value="1">-->
-                                    <input hidden th:field="*{idJawaban}">
-                                    <input hidden th:field="*{isActive}">
-                                    <input hidden th:field="*{isCorrect}">
-                                    <input hidden th:field="*{soal}">
-                                    <!--                                <input hidden th:field="*{listJawaban}">-->
-                                    <textarea type="text" name="jawaban" class="form-control form-control-user" placeholder="Masukkan jawaban..." required>
-                                    </textarea>
-
-                                    <!--                                iterasi utk tiap jawaban-->
-                                    <!--                                munculin textarea utk tiap jawaban dengan target field *{listJawaban[__X__]}-->
-                                </div>
-                                <div style="text-align: center;">
-                                    <button  type="submit" class="btn form-button" style="align-items: center;">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
-                        <!--                        <form class="user" th:object="${soalAndJawaban}" th:action="@{/soal/tambah}" method="POST">-->
-                        <!--                            <div class="form-group">-->
-                        <!--                                <p class = "form-title">Pertanyaan</p>-->
-                        <!--                                <input hidden th:field="*{soal.isActive}" th:value="1">-->
-                        <!--                                <input hidden th:field="*{soal.paketSoal}" th:value="${idPaketSoal}">-->
-                        <!--                                <textarea type="text" th:field="*{soal.pertanyaan}" class="form-control form-control-user">-->
-                        <!--                                </textarea>-->
-                        <!--                            </div>-->
-
-                        <!--                            <button class="btn form-button">Submit</button>-->
-                        <!--                        </form>-->
-                    </div>
-
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Card -->
+            <div class="card shadow mb-4 border-bottom-danger">
+              <div class="card-body">
+                <div class="form-header">
+                  <p class="form-header-text">TAMBAH JAWABAN</p>
                 </div>
 
-            </div>
-            <!-- /.container-fluid -->
+                <!-- Input Area Container -->
+                <div class="container-fluid" style="width: 60%;">
+                  <form
+                    class="user"
+                    th:object="${jawaban}"
+                    th:action="@{/jawaban/tambah/}"
+                    method="POST"
+                  >
+                    <div class="form-group">
+                      <p class="form-title">Jawaban</p>
+                      <br />
+                      <!--                                <input hidden th:field="*{isActive}" th:value="1">-->
+                      <input hidden th:field="*{idJawaban}" />
+                      <input hidden th:field="*{isActive}" />
+                      <input hidden th:field="*{isCorrect}" />
+                      <input hidden th:field="*{soal}" />
+                      <!--                                <input hidden th:field="*{listJawaban}">-->
+                      <textarea
+                        type="text"
+                        name="jawaban"
+                        class="form-control form-control-user"
+                        placeholder="Masukkan jawaban..."
+                      >
+                      </textarea>
 
+                      <!--                                iterasi utk tiap jawaban-->
+                      <!--                                munculin textarea utk tiap jawaban dengan target field *{listJawaban[__X__]}-->
+                    </div>
+                    <div style="text-align: center;">
+                      <button
+                        type="submit"
+                        class="btn form-button"
+                        style="align-items: center;"
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <!--                        <form class="user" th:object="${soalAndJawaban}" th:action="@{/soal/tambah}" method="POST">-->
+                <!--                            <div class="form-group">-->
+                <!--                                <p class = "form-title">Pertanyaan</p>-->
+                <!--                                <input hidden th:field="*{soal.isActive}" th:value="1">-->
+                <!--                                <input hidden th:field="*{soal.paketSoal}" th:value="${idPaketSoal}">-->
+                <!--                                <textarea type="text" th:field="*{soal.pertanyaan}" class="form-control form-control-user">-->
+                <!--                                </textarea>-->
+                <!--                            </div>-->
+
+                <!--                            <button class="btn form-button">Submit</button>-->
+                <!--                        </form>-->
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer th:replace="fragments/fragment :: footer">
-        </footer>
+        <footer th:replace="fragments/fragment :: footer"></footer>
         <!-- End of Footer -->
-
+      </div>
+      <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+    <!-- Logout Modal-->
+    <div th:replace="fragments/fragment :: logout"></div>
 
-<!-- Logout Modal-->
-<div th:replace="fragments/fragment :: logout">
-</div>
-
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'image advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image checklist table',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-    });
-</script>
-
-</body>
+    <script>
+      tinymce.init({
+        selector: "textarea",
+        plugins:
+          "image advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker",
+        toolbar:
+          "undo redo | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image checklist table",
+        toolbar_mode: "floating",
+        tinycomments_mode: "embedded",
+        tinycomments_author: "Author name",
+      });
+    </script>
+  </body>
+</html>

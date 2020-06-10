@@ -27,7 +27,7 @@ public class SubmittedJawabanModel implements Serializable {
     private boolean isChosen;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "submittedSoal", referencedColumnName= "idSoal", nullable = false)
+    @JoinColumn(name = "submittedSoal", referencedColumnName = "idSoal", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SubmittedSoalModel soal;
 
@@ -82,5 +82,4 @@ public class SubmittedJawabanModel implements Serializable {
         this.soal = soal;
     }
 
-    
 }

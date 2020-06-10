@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SoalServiceImpl implements SoalService{
+public class SoalServiceImpl implements SoalService {
     @Autowired
     private SoalDB soalDB;
 
@@ -20,12 +20,12 @@ public class SoalServiceImpl implements SoalService{
     private PaketSoalDB paketSoalDB;
 
     @Override
-    public List<SoalModel> getAllSoalByNamaPaketSoal(String nama){
+    public List<SoalModel> getAllSoalByNamaPaketSoal(String nama) {
         return soalDB.findAllByPaketSoal_Nama(nama);
     }
 
     @Override
-    public List<SoalModel> getAllSoalByIdPaketSoal(Long idPaket){
+    public List<SoalModel> getAllSoalByIdPaketSoal(Long idPaket) {
         PaketSoalModel paket = paketSoalDB.findByIdPaket(idPaket);
         return soalDB.findByPaketSoal(paket);
     }

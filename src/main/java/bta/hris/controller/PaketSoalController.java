@@ -99,6 +99,7 @@ public class PaketSoalController {
         mataPelajaran.add("TPA");
         mataPelajaran.add("Bahasa Inggris");
         mataPelajaran.add("Bahasa Indonesia");
+        mataPelajaran.add("Psikotes");
 
 
 
@@ -122,9 +123,11 @@ public class PaketSoalController {
     public String hapusPaketSoal(@PathVariable Long idPaket, Model model, RedirectAttributes redirect){
 
         PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket); // !!! get was here
+        List<PaketSoalModel> listPaketSoal = paketSoalService.getAllPaketsoal();
         model.addAttribute("paketSoal", paketSoal);
         paketSoalService.deletePaketSoal(paketSoal);
         redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " berhasil dihapus.");
+
 
         return "redirect:/rekrutmen/paketsoal";
     }

@@ -1,151 +1,223 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymelaf.org" >
-
-<head>
-    <object th:include = "fragments/fragment :: head"></object>
+<html
+  lang="en"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+  xmlns:th="http://www.thymelaf.org"
+>
+  <head>
+    <object th:include="fragments/fragment :: head"></object>
     <title>Ubah Pegawai</title>
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}" />
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt
-  TE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4s
-  F86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abt
+  TE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4s
+  F86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul th:replace="fragments/fragment :: sidebar"></ul>
+      <!-- End of Sidebar -->
 
-<body id="page-top">
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul th:replace="fragments/fragment :: sidebar">
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
+          <!-- Topbar -->
+          <nav th:replace="fragments/fragment :: topbar"></nav>
 
-            <!-- Topbar -->
-            <nav th:replace="fragments/fragment :: topbar"></nav>
-
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-<!--                <h1 class="h3 mb-2 text-gray-800" align="center">UBAH DATA PEGAWAI</h1>-->
-
-                <!-- Card -->
-                <div class="card shadow mb-4 border-bottom-danger">
-                    <div class="card-body">
-                        <div class="form-header">
-                            <p class="form-header-text ">UBAH DATA PEGAWAI</p>
-                        </div>
-                        <form class="user" th:action="@{/pegawai/ubah/{idUser}(idUser=${pegawai.idUser})}" th:object="${newPegawai}" method="POST">
-                            <div class="form-group">
-                                <p class = "form-title">Nama</p>
-                                <input name="nama" type="text" class="form-control form-control-user-ubah" id="exampleInputEmail" th:value="${pegawai.nama}"
-                                       pattern="[A-Za-z ]+" title="Hanya boleh huruf" required="true">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Email</p>
-                                <input name="email" type="email" class="form-control form-control-user-ubah" th:value="${pegawai.email}" required="true">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Alamat</p>
-                                <input name="alamat" type="text" class="form-control form-control-user-ubah" th:value="${pegawai.alamat}"
-                                       pattern="[A-Za-z0-9. ]+" title="Hanya boleh angka atau huruf atau ." required="true">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Nomor Telepon</p>
-                                <input name="noTelp" type="text" class="form-control form-control-user-ubah" th:value="${pegawai.noTelp}" required="true"
-                                       pattern="[0-9]{7,12}" title="Nomor telepon yang valid 7-12 angka">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Tanggal Lahir</p>
-                                <input name="tglLahir" type="date" required = "true" class="form-control form-control-user-ubah" th:value="${pegawai.tglLahir}">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Password</p>
-                                <input name="password" type="password" class="form-control form-control-user-ubah" th:value="${pegawai.password}" id="userPassword">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Role</p>
-                                <select name="role" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px; color: black;">
-                                    <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Mata Pelajaran</p>
-                                <select name="mataPelajaran" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px; color: black;">
-                                    <option th:each="mapel : ${mataPelajaran}" th:value="${mapel}" th:text="${mapel}"></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Golongan</p>
-                                <select name="golongan" class="input-field col col-lg-3" id="dropdown-form" style="margin-top: 10px; color: black;">
-                                    <option th:each="golongan : ${listGolongan}" th:value="${golongan.idGolongan}" th:text="${golongan.nama}"></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Nomor Rekening</p>
-                                <input name="noRekening" type="number" class="form-control form-control-user-ubah" th:value="${pegawai.noRekening}" required="true">
-                            </div>
-                            <div class="form-group">
-                                <p class = "form-title">Nama Bank</p>
-                                <input name="namaBank" type="text" class="form-control form-control-user-ubah" th:value="${pegawai.namaBank}"
-                                       pattern="[A-Za-z ]+" title="Hanya boleh huruf" required="true">
-                            </div>
-                            <button class="btn btn-primary" type="submit">Simpan</button>
-
-                        </form>
-
-                    </div>
-
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <div class="card shadow mb-4 border-bottom-danger">
+              <div class="card-body">
+                <div class="form-header">
+                  <p class="form-header-text">UBAH DATA PEGAWAI</p>
                 </div>
-
+                <form
+                  class="user"
+                  th:action="@{/pegawai/ubah/{idUser}(idUser=${pegawai.idUser})}"
+                  th:object="${newPegawai}"
+                  method="POST"
+                >
+                  <div class="form-group">
+                    <p class="form-title">Nama</p>
+                    <input
+                      name="nama"
+                      type="text"
+                      class="form-control form-control-user-ubah"
+                      id="exampleInputEmail"
+                      th:value="${pegawai.nama}"
+                      pattern="[A-Za-z ]+"
+                      title="Hanya boleh huruf"
+                      required="true"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Email</p>
+                    <input
+                      name="email"
+                      type="email"
+                      class="form-control form-control-user-ubah"
+                      th:value="${pegawai.email}"
+                      required="true"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Alamat</p>
+                    <input
+                      name="alamat"
+                      type="text"
+                      class="form-control form-control-user-ubah"
+                      th:value="${pegawai.alamat}"
+                      pattern="[A-Za-z0-9. ]+"
+                      title="Hanya boleh angka atau huruf atau ."
+                      required="true"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Nomor Telepon</p>
+                    <input
+                      name="noTelp"
+                      type="text"
+                      class="form-control form-control-user-ubah"
+                      th:value="${pegawai.noTelp}"
+                      required="true"
+                      pattern="[0-9]{7,12}"
+                      title="Nomor telepon yang valid 7-12 angka"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Tanggal Lahir</p>
+                    <input
+                      name="tglLahir"
+                      type="date"
+                      required="true"
+                      class="form-control form-control-user-ubah"
+                      th:value="${pegawai.tglLahir}"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Password</p>
+                    <input
+                      name="password"
+                      type="password"
+                      class="form-control form-control-user-ubah"
+                      th:value="${pegawai.password}"
+                      id="userPassword"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Role</p>
+                    <select
+                      name="role"
+                      class="input-field col col-lg-3"
+                      id="dropdown-form"
+                      style="margin-top: 10px; color: black;"
+                    >
+                      <option
+                        th:each="role : ${listRole}"
+                        th:value="${role.idRole}"
+                        th:text="${role.nama}"
+                        th:selected="${role.nama==pegawai.role.nama}"
+                      ></option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Mata Pelajaran</p>
+                    <select
+                      name="mataPelajaran"
+                      class="input-field col col-lg-3"
+                      id="dropdown-form"
+                      style="margin-top: 10px; color: black;"
+                    >
+                      <option
+                        th:each="mapel : ${mataPelajaran}"
+                        th:value="${mapel}"
+                        th:text="${mapel}"
+                        th:selected="${mapel==pegawai.mataPelajaran}"
+                      ></option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Golongan</p>
+                    <select
+                      name="golongan"
+                      class="input-field col col-lg-3"
+                      id="dropdown-form"
+                      style="margin-top: 10px; color: black;"
+                    >
+                      <option
+                        th:each="golongan : ${listGolongan}"
+                        th:value="${golongan.idGolongan}"
+                        th:text="${golongan.nama}"
+                        th:selected="${golongan==pegawai.golongan}"
+                      ></option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Nomor Rekening</p>
+                    <input
+                      name="noRekening"
+                      type="number"
+                      class="form-control form-control-user-ubah"
+                      th:value="${pegawai.noRekening}"
+                      required="true"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <p class="form-title">Nama Bank</p>
+                    <input
+                      name="namaBank"
+                      type="text"
+                      class="form-control form-control-user-ubah"
+                      th:value="${pegawai.namaBank}"
+                      pattern="[A-Za-z ]+"
+                      title="Hanya boleh huruf"
+                      required="true"
+                    />
+                  </div>
+                  <button class="btn btn-primary" type="submit">Simpan</button>
+                </form>
+              </div>
             </div>
-            <!-- /.container-fluid -->
-
+          </div>
         </div>
-        <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer th:replace="fragments/fragment :: footer">
-        </footer>
+        <footer th:replace="fragments/fragment :: footer"></footer>
         <!-- End of Footer -->
-
+      </div>
+      <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div th:replace="fragments/fragment :: logout">
-</div>
-
-</body>
-<script>
+    <!-- Logout Modal-->
+    <div th:replace="fragments/fragment :: logout"></div>
+  </body>
+  <script>
     function myFunction() {
-  var x = document.getElementById("userPassword");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
+      var x = document.getElementById("userPassword");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
     }
-</script>
-
+  </script>
 </html>

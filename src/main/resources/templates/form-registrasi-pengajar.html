@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeLeaf.org">
-
-
   <head>
-    <object th:include = "fragments/fragment :: head"></object>
+    <object th:include="fragments/fragment :: head"></object>
     <title>Registrasi Pengajar</title>
 
     <script>
-      function checkform(){
-        var form1 = document.getElementById('idForm');
+      function checkform() {
+        var form1 = document.getElementById("idForm");
         var button = document.getElementById("buttonSubmit");
         button.disabled = true;
 
-        if(form1.password.value != form1.konfirmasi.value) {
+        if (form1.password.value != form1.konfirmasi.value) {
           button.disabled = true;
-        }
-        else {
+        } else {
           button.disabled = false;
         }
-
       }
 
       function viewPassword() {
@@ -29,155 +25,260 @@
           x.type = "password";
         }
       }
-
     </script>
-
   </head>
 
+  <body class="bg-gradient-danger" onmouseover="checkform();">
+    <div class="container">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-6 d-none d-lg-block registrasi-img"></div>
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4 registrasi-title">
+                    Daftar Menjadi Pengajar BTA !
+                  </h1>
+                </div>
 
-<body class="bg-gradient-danger" onmouseover="checkform();">
-  <div class="container">
-        <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <div class="row">
-              <div class="col-lg-6 d-none d-lg-block registrasi-img"></div>
-              <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4 registrasi-title">Daftar Menjadi Pengajar BTA !</h1>
+                <!-- Alert -->
+                <div
+                  th:if="${usernameTidakValid}"
+                  th:text="${usernameTidakValid}"
+                  class="alert alert-danger"
+                  role="alert"
+                ></div>
+                <div
+                  th:if="${tglLahirTidakValid}"
+                  th:text="${tglLahirTidakValid}"
+                  class="alert alert-danger"
+                  role="alert"
+                ></div>
+
+                <!-- Form -->
+                <form
+                  class="user"
+                  th:action="@{/registrasi}"
+                  th:object="${newCalonPengajar}"
+                  method="POST"
+                  id="idForm"
+                  name="formName"
+                >
+                  <div class="form-group">
+                    <p class="form-title">Nama Lengkap</p>
+                    <input th:if="${calonPengajar}"
+                           th:value="${calonPengajar.nama}"
+                           class="form-control form-control-user"
+                           type="text"
+                           name="nama"
+                           title="Masukkan nama hanya dengan menggunakan huruf"
+                           placeholder="Masukkan nama..."
+                           required
+                    />
+                    <input th:unless="${calonPengajar}"
+                      class="form-control form-control-user"
+                      type="text"
+                      name="nama"
+                      title="Masukkan nama hanya dengan menggunakan huruf"
+                      placeholder="Masukkan nama..."
+                      required
+                    />
                   </div>
 
-                  <!-- Alert -->
-                  <div th:if="${usernameTidakValid}" th:text="${usernameTidakValid}" class="alert alert-danger" role="alert">
+                  <div class="form-group">
+                    <p class="form-title">Email</p>
+                    <input
+                      class="form-control form-control-user"
+                      type="email"
+                      name="email"
+                      title="Masukkan email"
+                      placeholder="Masukkan email..."
+                      required
+                    />
                   </div>
-                  <div th:if="${tglLahirTidakValid}" th:text="${tglLahirTidakValid}" class="alert alert-danger" role="alert">
+
+                  <div class="form-group">
+                    <p class="form-title">Alamat</p>
+                    <input
+                      class="form-control form-control-user"
+                      type="text"
+                      name="alamat"
+                      title="Masukkan alamat"
+                      placeholder="Masukkan alamat..."
+                      required
+                    />
                   </div>
 
-                  <!-- Form -->
-                  <form class="user" th:action="@{/registrasi}" th:object="${newCalonPengajar}" method="POST" id="idForm" name="formName">
-                    <div class="form-group" >
-                      <p class = "form-title"> Nama Lengkap </p>
-                      <input class="form-control form-control-user" type="text" name="nama"  title="Masukkan nama hanya dengan menggunakan huruf"
-                             placeholder="Masukkan nama..." required>
-                    </div>
+                  <div class="form-group">
+                    <p class="form-title">Nomor Telepon</p>
+                    <input
+                      type="text"
+                      required
+                      pattern="[0-9]{7,12}"
+                      name="noTelp"
+                      title="Masukkan nomor telepon dengan 7 sampai 12 karakter"
+                      class="form-control form-control-user"
+                      placeholder="Masukkan Nomor Telepon..."
+                    />
+                  </div>
 
+                  <div class="form-group">
+                    <p class="form-title">Tanggal Lahir</p>
+                    <input
+                      class="form-control form-control-user"
+                      type="date"
+                      name="tglLahir"
+                      title="Masukkan tanggal lahir"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <p class="form-title">Mata Pelajaran</p>
+                    <select
+                      class="form-control form-dropdown"
+                      name="mataPelajaran"
+                      required
+                    >
+                      <option selected value=""
+                        >-- Pilih Mata Pelajaran --</option
+                      >
+                      <option value="TPA">TPA</option>
+                      <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                      <option value="Bahasa Inggris">Bahasa Inggris</option>
+                      <option value="Matematika">Matematika</option>
+                      <option value="Biologi">Biologi</option>
+                      <option value="Fisika">Fisika</option>
+                      <option value="Kimia">Kimia</option>
+                      <option value="Ekonomi">Ekonomi</option>
+                      <option value="Geografi">Geografi</option>
+                      <option value="Sejarah">Sejarah</option>
+                      <option value="Sosiologi">Sosiologi</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <p class="form-title">Link CV (Google Drive, etc.)</p>
+                    <input
+                      class="form-control form-control-user"
+                      type="text"
+                      name="cv"
+                      title="Masukkan Link CV"
+                      placeholder="Masukkan link CV..."
+                      pattern="([a-zA-Z0-9]|/|\\|@|#|\$|%|&|:|;|_|=|?|+|-|>|<|,|^|(|)|`|~|'|!|[|]|{|})+\.
+                      ([a-zA-Z0-9]|/|\\|@|#|\$|%|&|\.|:|;|_|=|?|+|-|>|<|,|^|(|)|`|~|'|!|[|]|{|})+"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <p class="form-title">Asal Perguruan Tinggi Negeri</p>
+                    <input
+                      class="form-control form-control-user"
+                      type="text"
+                      name="universitas"
+                      title="Masukkan Perguruan Tinggi"
+                      placeholder="Masukkan perguruan tinggi..."
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <p class="form-title">Username</p>
+                    <input
+                      class="form-control form-control-user"
+                      type="text"
+                      name="username"
+                      title="Masukkan username"
+                      placeholder="Masukkan username..."
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <p class="form-title">Password</p>
+                    <input
+                      class="form-control form-control-user"
+                      id="password"
+                      type="password"
+                      name="password"
+                      placeholder="Masukkan Password..."
+                      minlength="8"
+                      title="Password minimal terdiri dari 8 karakter"
+                      required
+                    />
                     <div class="form-group">
-                      <p class = "form-title"> Email </p>
-                      <input class="form-control form-control-user" type="email" name="email" title="Masukkan email"
-                             placeholder="Masukkan email..." required>
+                      <label style="font-size: small;" class="col-5">
+                        <input
+                          type="checkbox"
+                          class="align-items-end col-1"
+                          onclick="viewPassword()"
+                          for="passCheckbox"
+                        />Tunjukkan Sandi</label
+                      >
                     </div>
+                  </div>
 
-                    <div class="form-group">
-                      <p class = "form-title"> Alamat </p>
-                      <input class="form-control form-control-user" type="text" name="alamat"  title="Masukkan alamat"
-                             placeholder="Masukkan alamat..." required>
-                    </div>
+                  <div class="form-group">
+                    <p class="form-title">Konfirmasi Password</p>
+                    <input
+                      type="password"
+                      id="konfirmasi"
+                      class="form-control form-control-user"
+                      title="Konfirmasi password"
+                      placeholder="Konfirmasi Password..."
+                      name="konfirmasi"
+                      required
+                    />
+                  </div>
 
-                    <div class="form-group">
-                      <p class = "form-title"> Nomor Telepon </p>
-                      <input type="text" required pattern="[0-9]{7,12}" name="noTelp" title="Masukkan nomor telepon dengan 7 sampai 12 karakter"
-                             class="form-control form-control-user" placeholder="Masukkan Nomor Telepon...">
-                    </div>
+                  <div class="form-group">
+                    <input
+                      id="tesDeadline"
+                      type="hidden"
+                      class="form-control form-control-user"
+                      name="tesDeadline"
+                    />
+                  </div>
 
-                    <div class="form-group">
-                      <p class = "form-title"> Tanggal Lahir </p>
-                      <input class="form-control form-control-user" type="date" name="tglLahir"
-                             title="Masukkan tanggal lahir" required>
-                    </div>
-
-                    <div class="form-group">
-                      <p class = "form-title"> Mata Pelajaran </p>
-                      <select class="form-control form-dropdown" name="mataPelajaran" required>
-                        <option selected value="">-- Pilih Mata Pelajaran --</option>
-                        <option value="TPA">TPA</option>
-                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                        <option value="Bahasa Inggris">Bahasa Inggris</option>
-                        <option value="Matematika">Matematika</option>
-                        <option value="Biologi">Biologi</option>
-                        <option value="Fisika">Fisika</option>
-                        <option value="Kimia">Kimia</option>
-                        <option value="Ekonomi">Ekonomi</option>
-                        <option value="Geografi">Geografi</option>
-                        <option value="Sejarah">Sejarah</option>
-                        <option value="Sosiologi">Sosiologi</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group">
-                      <p class = "form-title"> Link CV (Google Drive, etc.) </p>
-                      <input class="form-control form-control-user" type="text" name="cv"  title="Masukkan Link CV"
-                             placeholder="Masukkan link CV..." pattern="([a-zA-Z0-9]|/|\\|@|#|\$|%|&|:|;|)+\.([a-zA-Z0-9]|/|\\|@|#|\$|%|&|\.|:|;)+" required>
-                    </div>
-
-                    <div class="form-group">
-                      <p class = "form-title"> Asal Perguruan Tinggi Negeri </p>
-                      <input class="form-control form-control-user" type="text" name="universitas"  title="Masukkan Perguruan Tinggi"
-                             placeholder="Masukkan perguruan tinggi..." required>
-                    </div>
-
-                    <div class="form-group">
-                      <p class = "form-title"> Username </p>
-                      <input class="form-control form-control-user" type="text" name="username"  title="Masukkan username"
-                             placeholder="Masukkan username..." required>
-                    </div>
-
-                    <div class="form-group">
-                      <p class = "form-title" >Password</p>
-                      <input class="form-control form-control-user" id="password" type="password" name="password"
-                             placeholder="Masukkan Password..." minlength="8" title="Password minimal terdiri dari 8 karakter" required>
-                      <div class="form-group">
-                        <label style="font-size: small;" class="col-5"> <input type="checkbox" class="align-items-end col-1" onclick="viewPassword()" for="passCheckbox">Tunjukkan Sandi</label>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <p class = "form-title">Konfirmasi Password</p>
-                      <input type="password" id="konfirmasi" class="form-control form-control-user" title="Konfirmasi password"
-                             placeholder="Konfirmasi Password..." name="konfirmasi" required >
-                    </div>
-
-                    <div class="form-group">
-                      <input id="tesDeadline" type="hidden" class="form-control form-control-user" name="tesDeadline">
-                    </div>
-
-                    <button id="buttonSubmit" type="submit" class="btn form-button" >Daftar</button>
-
-                  </form>
-                  <hr>
-                  <div class="row" style="text-align: center; margin-top: 2rem;">
-                    <div>
-                      <a th:href="@{/}">< Kembali ke Menu Utama</a>
-                    </div>
+                  <button
+                    id="buttonSubmit"
+                    type="submit"
+                    class="btn form-button"
+                  >
+                    Daftar
+                  </button>
+                </form>
+                <hr />
+                <div class="row" style="text-align: center; margin-top: 2rem;">
+                  <div>
+                    <a th:href="@{/}">< Kembali ke Menu Utama</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-  </div>
+      </div>
+    </div>
 
-  <!-- Footer -->
-  <footer th:replace="fragments/fragment :: footer">
-  </footer>
-  <!-- End of Footer -->
+    <!-- Footer -->
+    <footer th:replace="fragments/fragment :: footer"></footer>
+    <!-- End of Footer -->
 
-  <script type="text/javascript">
-    function checkform(){
-      var form1 = document.getElementById('idForm');
-      var button = document.getElementById("buttonSubmit");
-      button.disabled = true;
-
-      if(form1.password.value != form1.konfirmasi.value) {
+    <script type="text/javascript">
+      function checkform() {
+        var form1 = document.getElementById("idForm");
+        var button = document.getElementById("buttonSubmit");
         button.disabled = true;
+
+        if (form1.password.value != form1.konfirmasi.value) {
+          button.disabled = true;
+        } else {
+          button.disabled = false;
+        }
       }
-      else {
-        button.disabled = false;
-      }
-
-    }
-
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>
