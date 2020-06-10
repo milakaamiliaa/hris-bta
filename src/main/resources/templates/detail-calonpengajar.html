@@ -135,7 +135,7 @@
 
                 <div class="button-detail">
                   <div class="row col-md-6">
-                    <div th:if="${calon.status == 'Belum Mengerjakan Tes'}">
+                    <div th:if="${calon.status == 'Sudah Mengerjakan Tes'}">
                       <div class="col-md-2" style="margin: 5px;">
                         <form
                           th:action="@{/calonpengajar/undang/}+${calon.idCalon}"
@@ -144,17 +144,6 @@
                         >
                           <button class="btn btn-ubah" style="margin: 5px;">
                             Undang
-                          </button>
-                        </form>
-                      </div>
-                      <div class="col-md-2" style="margin: 5px;">
-                        <form
-                          th:action="@{/calonpengajar/rekrut/}+${calon.idCalon}"
-                          th:object="${calon}"
-                          method="POST"
-                        >
-                          <button class="btn btn-ubah" style="margin: 5px;">
-                            Rekrut
                           </button>
                         </form>
                       </div>
