@@ -295,9 +295,5 @@ public class TesController {
 
         return "redirect:/";
     }
-//
-//    @RequestMapping(value = "/calonpengajar/aturan-mata-pelajaran", method = RequestMethod.GET)
-//    public String aturanMataPelajaran(Model model) {
-//        return "aturan-tes-matpel";
-//    }
+
 }
