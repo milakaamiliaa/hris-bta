@@ -71,16 +71,30 @@ public class PageController {
                 CabangModel cabangModel = cabangModelOpt.get();
                 LocalDate periode = LocalDate.now().minusMonths(1);
                 CabangDataModel cabangData = cabangDataService.getCabangDataByCabangAndCreatedAt(cabangModel, periode);
-                int totalPayroll = cabangDataService.calculateTotalPayroll(cabangData);
+
+                if (cabangData!=null){
+                    int totalPayroll = cabangDataService.calculateTotalPayroll(cabangData);
+                    model.addAttribute("totalPayroll", totalPayroll);
+                }
+
 
                 /* Mengambil daftar pengajar beserta Total Sesi Mengajar */
-                List<PresensiModel> presensiByCabangData = cabangData.getListPresensi();
                 ArrayList<UserModel> pegawaiList = new ArrayList<>();
                 ArrayList<Long> totalsesiPegawai = new ArrayList<>();
                 ArrayList<UserModel> pegawaiListSorted = new ArrayList<>();
                 ArrayList<Long> totalsesiPegawaiSorted = new ArrayList<>();
+                List<PresensiModel> presensiByCabangData = new ArrayList<>();
 
-                if (presensiByCabangData!=null){
+                if (cabangData!=null){
+                    if (cabangData.getListPresensi()!=null){
+                        for (PresensiModel presensi : cabangData.getListPresensi()){
+                            presensiByCabangData.add(presensi);
+                        }
+                    }
+                    model.addAttribute("cabangData", cabangData);
+                }
+
+                if (presensiByCabangData.size()!=0){
                     for (PresensiModel presensi : presensiByCabangData){
                         if (pegawaiList.contains(presensi.getPegawai()) == false){
                             pegawaiList.add(presensi.getPegawai());
@@ -134,14 +148,19 @@ public class PageController {
                 String periodeString = "";
                 String rasioString = "";
 
-                for (CabangDataModel c : listCabangData) {
-                    periodeString += periodParser(c.getCreatedAt());
-                    periodeString += ",";
+                if (listCabangData.size()!=0){
+                    for (CabangDataModel c : listCabangData) {
+                        periodeString += periodParser(c.getCreatedAt());
+                        periodeString += ",";
 
-                    rasioString += Float.toString(c.getRasio());
-                    rasioString += ",";
+                        rasioString += Float.toString(c.getRasio());
+                        rasioString += ",";
+                    }
+                } else {
+                    model.addAttribute("dataNotEnough", "Belum terdapat data untuk memunculkan grafik " +
+                            "rasio efisiensi cabang");
+
                 }
-
                 if (periodeString.length()!=0){
                     periodeString = periodeString.substring(0, periodeString.length()-1);
                 }
@@ -150,17 +169,11 @@ public class PageController {
                     rasioString = rasioString.substring(0, rasioString.length()-1);
                 }
 
-
-               /* if (listCabangData.size()<5){
-                    model.addAttribute("dataNotEnough", "Data belum mencukupi untuk memunculkan grafik " +
-                            "rasio efisiensi cabang");
-                }*/
                 model.addAttribute("pegawaiList", pegawaiListSorted);
                 model.addAttribute("cabangModel", cabangModel);
                 model.addAttribute("totalSesiPegawai", totalsesiPegawaiSorted);
-                model.addAttribute("cabangData", cabangData);
-                model.addAttribute("totalPayroll", totalPayroll);
                 model.addAttribute("userModel", userModel);
+                model.addAttribute("periode", periode);
                 model.addAttribute("periodeString", periodeString);
                 model.addAttribute("rasioString", rasioString);
 
