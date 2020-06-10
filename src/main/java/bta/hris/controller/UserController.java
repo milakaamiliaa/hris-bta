@@ -151,6 +151,8 @@ public class UserController {
         mataPelajaran.add("TPA");
         mataPelajaran.add("Bahasa Inggris");
         mataPelajaran.add("Bahasa Indonesia");
+        mataPelajaran.add("Tidak Ada");
+
 
         model.addAttribute("listGolongan", listGolongan);
         model.addAttribute("listRole", listRole);

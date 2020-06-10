@@ -182,6 +182,16 @@ public class GajiController {
         return "redirect:/gaji";
     }
 
+    @RequestMapping(value = "/gaji/tolak/{idGaji}", method = RequestMethod.POST)
+    public String tolakGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+        gaji = gajiService.getGajiByIdGaji(idGaji).get();
+        gaji.setStatus("ditolak");
+
+        GajiModel rejectedGaji = gajiService.rejectGaji(gaji);
+
+        return "redirect:/gaji";
+    }
+
     @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.POST)
     public String eksekusiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         gaji = gajiService.getGajiByIdGaji(idGaji).get();
@@ -192,14 +202,6 @@ public class GajiController {
         return "redirect:/gaji";
     }
 
-    @RequestMapping(value = "/gaji/tolak/{idGaji}", method = RequestMethod.POST)
-    public String tolakGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
-        gaji = gajiService.getGajiByIdGaji(idGaji).get();
-        gaji.setStatus("ditolak");
 
-        GajiModel rejectedGaji = gajiService.rejectGaji(gaji);
-
-        return "redirect:/gaji";
-    }
 
 }

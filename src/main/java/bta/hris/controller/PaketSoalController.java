@@ -106,6 +106,7 @@ public class PaketSoalController {
         model.addAttribute("paketSoal", existingPaket);
         model.addAttribute("mataPelajaran", mataPelajaran);
 
+
         return "form-ubah-paket-soal";
     }
 
@@ -123,17 +124,11 @@ public class PaketSoalController {
 
         PaketSoalModel paketSoal = paketSoalService.getPaketSoalByIdPaket(idPaket); // !!! get was here
         List<PaketSoalModel> listPaketSoal = paketSoalService.getAllPaketsoal();
-        for(PaketSoalModel pakets : listPaketSoal){
-            if(paketSoal.equals(pakets)){
-                if(pakets.getListSoal().isEmpty()){
-                    model.addAttribute("paketSoal", paketSoal);
-                    paketSoalService.deletePaketSoal(paketSoal);
-                    redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " berhasil dihapus.");
-                }
-                model.addAttribute("paketSoal", paketSoal);
-                redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " tidak dapat dihapus.");
-            }
-        }
+        model.addAttribute("paketSoal", paketSoal);
+        paketSoalService.deletePaketSoal(paketSoal);
+        redirect.addFlashAttribute("alertHapus", "Paket Soal " + paketSoal.getNama() + " berhasil dihapus.");
+
+
         return "redirect:/rekrutmen/paketsoal";
     }
 
