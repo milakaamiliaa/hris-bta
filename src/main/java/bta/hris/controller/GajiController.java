@@ -179,7 +179,6 @@ public class GajiController{
 
     }
 
-
     @RequestMapping(value = "/gaji/setujui/{idGaji}", method = RequestMethod.POST)
     public String setujuiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
         gaji = gajiService.getGajiByIdGaji(idGaji).get();
@@ -187,17 +186,6 @@ public class GajiController{
         GajiModel newGaji = gajiService.approveGaji(gaji);
 
         model.addAttribute("gaji", newGaji);
-
-        return "redirect:/gaji";
-    }
-
-
-    @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.POST)
-    public String eksekusiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
-        gaji = gajiService.getGajiByIdGaji(idGaji).get();
-        gaji.setStatus("sudah dibayar");
-
-        GajiModel paidGaji = gajiService.paidGaji(gaji);
 
         return "redirect:/gaji";
     }
@@ -211,6 +199,18 @@ public class GajiController{
 
         return "redirect:/gaji";
     }
+
+    @RequestMapping(value = "/gaji/paid/{idGaji}", method = RequestMethod.POST)
+    public String eksekusiGaji(@PathVariable Long idGaji, @ModelAttribute GajiModel gaji, Model model) {
+        gaji = gajiService.getGajiByIdGaji(idGaji).get();
+        gaji.setStatus("sudah dibayar");
+
+        GajiModel paidGaji = gajiService.paidGaji(gaji);
+
+        return "redirect:/gaji";
+    }
+
+
 
 
 }

@@ -49,16 +49,33 @@
                                        pattern="[A-Za-z0-9 ]+" title="Hanya boleh angka atau huruf">
                             </div>
 
-                            <div class="form-group">
-                                <p class = "form-title">Mata Pelajaran</p>
-                                <br>
-                                <select selected=# name="mataPelajaran" class="input-field col col-lg-3" style="margin-bottom: 10px; color: black;" id="dropdown-form" onchange="dropdownChange()">
-                                    <option value="" selected disabled hidden th:text="${paketSoal.mataPelajaran}"></option>
-                                    <option th:each="mapel : ${mataPelajaran}"
-                                            th:value="${mapel}"
-                                            th:text="${mapel}"></option>
-                                </select>
+<!--                            <div class="form-group">-->
+<!--                                <p class = "form-title">Mata Pelajaran</p>-->
+<!--                                <br>-->
+<!--                                <select selected=# name="mataPelajaran" class="input-field col col-lg-3" style="margin-bottom: 10px; color: black;" id="dropdown-form" onchange="dropdownChange()">-->
+<!--                                    <option value="" selected disabled hidden th:text="${paketSoal.mataPelajaran}"></option>-->
+<!--                                    <option th:each="mapel : ${mataPelajaran}"-->
+<!--                                            th:value="${mapel}"-->
+<!--                                            th:text="${mapel}"></option>-->
+<!--                                </select>-->
+<!--                                -->
 
+<!--                            </div>-->
+                            <div class="form-group">
+                                <p class="form-title">Mata Pelajaran</p>
+                                <select
+                                        name="mataPelajaran"
+                                        class="input-field col col-lg-3"
+                                        id="dropdown-form"
+                                        style="margin-top: 10px; color: black;"
+                                >
+                                    <option
+                                            th:each="mapel : ${mataPelajaran}"
+                                            th:value="${mapel}"
+                                            th:text="${mapel}"
+                                            th:selected="${mapel==paketSoal.mataPelajaran}"
+                                    ></option>
+                                </select>
                             </div>
 
                             <button class="btn btn-primary">Simpan</button>

@@ -59,7 +59,7 @@
                                             <br>
                                             <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].isCorrect}">
                                             <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].soal}">
-                                            <textarea type="text" required = "true" th:field="*{listJawaban[__${iterStat.index}__].jawaban}" placeholder="Masukkan kunci jawaban..."></textarea>
+                                            <textarea type="text" th:field="*{listJawaban[__${iterStat.index}__].jawaban}" placeholder="Masukkan kunci jawaban..."></textarea>
                                         </div>
 
                                         <div th:if="${iterStat.index != 0}">
@@ -70,7 +70,7 @@
                                             </div>
                                             <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].isCorrect}">
                                             <input type="hidden" th:field="*{listJawaban[__${iterStat.index}__].soal}">
-                                            <textarea type="text" required = "true" th:field="*{listJawaban[__${iterStat.index}__].jawaban}" placeholder="Masukkan opsi jawaban salah..."></textarea>
+                                            <textarea type="text"  th:field="*{listJawaban[__${iterStat.index}__].jawaban}" placeholder="Masukkan opsi jawaban salah..."></textarea>
                                             <br>
                                         </div>
                                     </div>

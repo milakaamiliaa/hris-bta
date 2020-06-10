@@ -37,17 +37,12 @@ public class PaketSoalServiceImpl implements PaketSoalService{
     @Override
     public PaketSoalModel updatePaketSoal(PaketSoalModel paketSoal) {
         PaketSoalModel newPaket = paketSoalDB.findByIdPaket(paketSoal.getIdPaket());
-
-        try{
             newPaket.setNama(paketSoal.getNama());
             newPaket.setMataPelajaran(paketSoal.getMataPelajaran());
 
             paketSoalDB.save(newPaket);
             return newPaket;
-        }
-        catch (NullPointerException nullException){
-            return null;
-        }
+
     }
 
     @Override
