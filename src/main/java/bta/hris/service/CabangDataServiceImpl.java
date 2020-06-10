@@ -64,8 +64,10 @@ public class CabangDataServiceImpl implements CabangDataService {
     public CabangDataModel updateCabangData(CabangDataModel cabangData) {
         Float gaji = Float.parseFloat("0");
 
-        for (PresensiModel p : cabangData.getListPresensi()) {
-            gaji += p.getNominal();
+        if (cabangData.getListPresensi() != null) {
+            for (PresensiModel p : cabangData.getListPresensi()) {
+                gaji += p.getNominal();
+            }
         }
 
         cabangData.setRasio(calculateRasio(gaji, cabangData.getJumlahSiswa()));
@@ -105,10 +107,13 @@ public class CabangDataServiceImpl implements CabangDataService {
     public CabangDataModel getCabangDataByCabangAndCreatedAt(CabangModel cabang, LocalDate createdAt) {
         CabangDataModel cabangData = new CabangDataModel();
         List<CabangDataModel> cabangDataList = getCabangDataByCabang(cabang);
-        for (CabangDataModel cabangDataModel : cabangDataList) {
-            if (cabangDataModel.getCreatedAt().getMonthValue() == createdAt.getMonthValue()
-                    && cabangDataModel.getCreatedAt().getYear() == createdAt.getYear()) {
-                cabangData = cabangDataModel;
+
+        if (cabangDataList.size()!=0){
+            for (CabangDataModel cabangDataModel : cabangDataList) {
+                if (cabangDataModel.getCreatedAt().getMonthValue() == createdAt.getMonthValue()
+                        && cabangDataModel.getCreatedAt().getYear() == createdAt.getYear()) {
+                    cabangData = cabangDataModel;
+                }
             }
         }
         return cabangData;
@@ -117,8 +122,10 @@ public class CabangDataServiceImpl implements CabangDataService {
     public int calculateTotalPayroll(CabangDataModel cabangDataModel) {
         Float totalPayroll = (float) 0;
         List<PresensiModel> presensiModelList = cabangDataModel.getListPresensi();
-        for (PresensiModel presensi : presensiModelList) {
-            totalPayroll += presensi.getNominal();
+        if (presensiModelList.size()!=0){
+            for (PresensiModel presensi : presensiModelList) {
+                totalPayroll += presensi.getNominal();
+            }
         }
         int total = Math.round(totalPayroll);
         return total;

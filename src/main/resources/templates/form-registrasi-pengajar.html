@@ -67,7 +67,16 @@
                 >
                   <div class="form-group">
                     <p class="form-title">Nama Lengkap</p>
-                    <input
+                    <input th:if="${calonPengajar}"
+                           th:value="${calonPengajar.nama}"
+                           class="form-control form-control-user"
+                           type="text"
+                           name="nama"
+                           title="Masukkan nama hanya dengan menggunakan huruf"
+                           placeholder="Masukkan nama..."
+                           required
+                    />
+                    <input th:unless="${calonPengajar}"
                       class="form-control form-control-user"
                       type="text"
                       name="nama"
