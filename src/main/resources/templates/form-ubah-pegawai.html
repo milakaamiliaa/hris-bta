@@ -129,6 +129,7 @@
                         th:each="role : ${listRole}"
                         th:value="${role.idRole}"
                         th:text="${role.nama}"
+                        th:selected="${role.nama==pegawai.role.nama}"
                       ></option>
                     </select>
                   </div>
@@ -160,6 +161,7 @@
                         th:each="golongan : ${listGolongan}"
                         th:value="${golongan.idGolongan}"
                         th:text="${golongan.nama}"
+                        th:selected="${golongan.nama==pegawai.golongan.nama}"
                       ></option>
                     </select>
                   </div>

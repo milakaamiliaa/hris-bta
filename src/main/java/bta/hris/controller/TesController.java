@@ -57,7 +57,7 @@ public class TesController {
         if (paketPsikotes == null) {
             return "soal-tes-belum-terbuat";
         }
-        // if HASIL psikotes ALREADY exists
+        // if HASIL psikotes ALREADY exist
         if (tes != null && hasilTesService
                 .getHasilTesByCalonPengajar(calonPengajarService
                         .getCalonByUsername(SecurityContextHolder.getContext().getAuthentication().getName()))
