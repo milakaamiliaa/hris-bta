@@ -127,6 +127,7 @@ public class CalonPengajarController {
         } else {
             redirect.addFlashAttribute("usernameTidakValid",
                     "Username tidak tersedia, silahkan isi dengan username yang lain");
+            redirect.addAttribute("calonPengajar", calonPengajar);
             return "redirect:/registrasi";
         }
 
