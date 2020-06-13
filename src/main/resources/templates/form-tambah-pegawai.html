@@ -39,8 +39,13 @@
 
           <!-- Begin Page Content -->
           <div class="container-fluid">
-            <!-- Page Heading -->
-            <!--                <h1 class="h3 mb-2 text-gray-800" align="center">TAMBAH PEGAWAI</h1>-->
+            <!-- Tanggal Lahir Alert Check -->
+            <div
+              th:if="${tglLahirTidakValid}"
+              th:text="${tglLahirTidakValid}"
+              class="alert alert-danger"
+              role="alert"
+            ></div>
 
             <!-- Card -->
             <div class="card shadow mb-4 border-bottom-danger">
